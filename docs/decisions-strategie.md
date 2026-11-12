@@ -146,3 +146,8 @@ Format : date · décision · raison · remplace · statut · source.
 - **Raison** : le document « projet restaurant » reçu le 12.11 fournit photos pro et texte de Laetitia ; un gérant veut voir le lieu et ce qui a été fait.
 - **Statut** : livré pour validation par Diego ; accord du restaurant, ville et mission à obtenir de Laetitia avant publication.
 - **Source** : demande de Diego « Rubrique 07 · Espaces professionnels ».
+
+## 2026-11-12 · Alternatives et plan d'engagement 3 mois
+- **Fait** : alternatives Idées déco, Coulisses en post, 3 couvertures Réalisation, 3 variantes Avant / après (lot CASASENSO-alternatives-20261112).
+- **Proposé** : `docs/plan-contenus-3-mois.md` — 9 publications datées (24.11 → 11.02), 3 en réserve, conditions côté Laetitia, ce qui n'est pas tenable.
+- **Statut** : à valider par Diego.
