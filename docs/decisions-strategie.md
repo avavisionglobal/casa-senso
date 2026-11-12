@@ -76,3 +76,9 @@ Format : date · décision · raison · remplace · statut · source.
 - **Remplace** : chapitres « D’où je viens / Pourquoi Casa Senso / Ma méthode » du calendrier du 12.11.
 - **Statut** : décidé ; calendrier Figma (page 01) à mettre à jour : 4 chapitres au lieu de 3.
 - **Source** : `sources/2026-11-12-histoire/`, lot CASASENSO-livre-ch1-v3-20261112.
+
+## 2026-11-12 · Le Livre complet en 4 chapitres
+- **Décision** : les chapitres I à IV sont montés (page 06 du Figma, 30 slides). Photos au téléphone retouchées localement pour plus de vie, photos pro intactes. Chapitres I à III datés dans le calendrier (24.11, 19.01, 11.02) ; chapitre IV prêt, date à caler.
+- **Raison** : demande de Diego du 12.11.
+- **Statut** : à valider par Diego puis Laetitia.
+- **Source** : lots CASASENSO-livre-ch1-v3-20261112 et CASASENSO-livre-ch2-4-20261112.
