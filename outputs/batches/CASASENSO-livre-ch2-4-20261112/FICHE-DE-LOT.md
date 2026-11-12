@@ -37,3 +37,9 @@ En attente de Diego.
 - Retour de Diego : couverture A « trop IA », variante B mieux mais pas convaincante à 100 %.
 - 5 propositions sur le chapitre I (Figma page 06, section « Couverture · 5 propositions ») : C1 Monographie, C2 Étiquette, C3 Tranche (Cormorant Garamond), C4 Tirage, C5 Grand blanc. Sans voile sombre, sans dorure ni ombre portée sur le texte.
 - En attente du choix de Diego, puis déclinaison aux chapitres II à IV.
+
+## Révision du 12.11.2026 · couverture « Tranche » retenue
+- Choix de Diego : C3 · Tranche, « à travailler : mise en page du texte et jeux de couleurs ».
+- Appliquée aux 4 chapitres (vert forêt) : bande de 440 px, liseré doré et pli de reliure sur la photo, « Le Livre Casa Senso » + filet, grand chiffre romain (Cormorant Garamond SemiBold), « Chapitre premier… », titre Cormorant SemiBold (taille ajustée pour que « reconstruction » tienne sur une ligne), filet, phrase de Laetitia en Cormorant Medium couleur pleine, bloc centré verticalement, « Laetitia Rein » + logo en bas.
+- Jeux de couleurs sur le chapitre I : vert forêt, prune, vert sous-bois (moodboard), lin et vert. En attente du choix.
+- Variante B et les 5 propositions : conservées en « pistes écartées », page 06.

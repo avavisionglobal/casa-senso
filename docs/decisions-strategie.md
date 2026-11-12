@@ -82,3 +82,13 @@ Format : date · décision · raison · remplace · statut · source.
 - **Raison** : demande de Diego du 12.11.
 - **Statut** : à valider par Diego puis Laetitia.
 - **Source** : lots CASASENSO-livre-ch1-v3-20261112 et CASASENSO-livre-ch2-4-20261112.
+
+## 2026-11-12 · Couverture des chapitres : « Tranche »
+- **Décision** : couverture « Tranche » (bande de couleur à gauche comme un dos de livre relié, photo à droite), typographie Cormorant Garamond pour la couverture. Remplace la couverture plein cadre jugée « trop IA ».
+- **Statut** : retenue par Diego ; couleur de bande à choisir (vert forêt en place).
+- **Source** : Figma page 06.
+
+## 2026-11-12 · Rubrique Inspiration et voyage : « Carnet de voyage »
+- **Décision** : la rubrique suit le schéma « Raconter son parcours » sous forme de carnets numérotés (N° 01 Marrakech), même système que le Livre ; chaque rubrique a sa couleur (Livre : vert forêt ; Voyage : terre cuite).
+- **Statut** : proposé par Contrast à la demande de Diego ; textes à valider par Laetitia.
+- **Source** : Figma page 07, lot CASASENSO-voyage-marrakech-20261112.
