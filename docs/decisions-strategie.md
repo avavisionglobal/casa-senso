@@ -102,3 +102,9 @@ Format : date · décision · raison · remplace · statut · source.
 - **Décision** : une seule page « Rubriques » où chaque rubrique a un bandeau (principe, textes, date, statut) et sa création à valider ; Le Livre et le Carnet de voyage y sont réunis. Exemples, concepts et anciennes versions regroupés dans une seule page Archives.
 - **Raison** : « trop de dossiers dans les pages » (Diego) ; Laetitia doit comprendre d'un coup d'œil.
 - **Statut** : fait.
+
+## 2026-11-12 · Couleur du Livre : ocre doux (House & Garden), plus de vert forêt
+- **Décision** : couvertures Tranche et cartes du Livre passent du vert forêt #2F4A3A à l'ocre doux #A69368, d'après House & Garden (instagram.com/p/Dfoa_nfkzZa). Mise en page inchangée. Assombrissement des bords retiré, texture allégée, dorures passées en blanc.
+- **Raison** : vert jugé terne et sombre par Diego ; le vert n'était pas une couleur de charte Casa Senso (site en noir et blanc), il venait de ses moodboards.
+- **Remplace** : vert forêt comme couleur du Livre. Variable « Marque/Ocre doux » ajoutée à la charte.
+- **Statut** : décidé par Diego.
