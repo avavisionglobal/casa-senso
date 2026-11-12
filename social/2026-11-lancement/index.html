@@ -1,0 +1,400 @@
+<title>Casa Senso Lancement</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout : document éditorial sur fond clair, comme le site actuel (blanc, encre noire, titres en sérif) ;
+   la couleur vient des photos et des nuanciers, pas de l'interface. */
+:root{
+  --bg:#FBFAF7; --surface:#F2EEE7; --fg:#1E1A17; --muted:#6B625A; --line:#E2DBD0;
+  --accent:#2F4A3A; --todo:#7A3348;
+  --c-lin:#EEE6DA; --c-sable:#D6C3A6; --c-chene:#A47B4C; --c-laiton:#B38A3E; --c-foret:#2F4A3A; --c-prune:#5A2B3A; --c-encre:#221D1A; --c-sauge:#6E7F73; --c-ocre:#B9A58A;
+  --display:"DM Serif Display", "Didot", Georgia, serif;
+  --text:"Figtree", "Helvetica Neue", Arial, sans-serif;
+  --step-1:1.25rem; --step-2:1.75rem; --step-3:2.5rem; --step-4:clamp(2.6rem,6vw,4.4rem);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#161412; --surface:#1F1C19; --fg:#EFE9E1; --muted:#A99F94; --line:#35302B; --accent:#8DB39A; --todo:#D79AAE; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161412; --surface:#1F1C19; --fg:#EFE9E1; --muted:#A99F94; --line:#35302B; --accent:#8DB39A; --todo:#D79AAE; color-scheme:dark}
+
+body{background:var(--bg); color:var(--fg); font-family:var(--text); font-size:16px; line-height:1.55;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:0 64px}
+.wrap{max-width:1120px; margin:0 auto}
+h1,h2,h3{font-family:var(--display); font-weight:400; line-height:1.08; text-wrap:balance; margin:0}
+h1{font-size:var(--step-4)} h2{font-size:var(--step-3)} h3{font-size:var(--step-1); font-family:var(--text); font-weight:600; line-height:1.3}
+p{margin:0}
+.label{font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:500}
+.lead{font-size:var(--step-1); max-width:62ch}
+.muted{color:var(--muted)}
+.narrow{max-width:68ch}
+section{padding-block:72px 0; display:grid; gap:28px}
+hr{border:0; border-top:1px solid var(--line); margin:0}
+img{display:block; width:100%; height:100%; object-fit:cover}
+
+.top{display:flex; justify-content:space-between; align-items:center; padding-block:22px; border-bottom:1px solid var(--line); gap:16px; flex-wrap:wrap}
+.wordmark{font-family:var(--display); font-size:1.6rem; letter-spacing:.02em}
+.toc{display:flex; gap:18px; flex-wrap:wrap; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase}
+.toc a{color:var(--fg); text-decoration:none; border-bottom:1px solid transparent}
+.toc a:hover{border-color:var(--fg)}
+.hero{padding-top:56px; display:grid; gap:22px}
+.hero h1 em{font-style:italic}
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
+.facts div{background:var(--bg); padding:16px 18px; display:grid; gap:4px; min-width:0}
+.facts strong{font-family:var(--display); font-weight:400; font-size:1.5rem; font-variant-numeric:tabular-nums}
+
+.board{display:grid; gap:10px; grid-template-columns:repeat(6,1fr); grid-auto-rows:120px}
+.board figure{margin:0; position:relative; overflow:hidden; background:var(--surface); min-width:0}
+.board figcaption{position:absolute; left:8px; bottom:8px; background:rgba(20,17,15,.62); color:#F6F1EA; font-size:.72rem; padding:3px 8px; letter-spacing:.04em}
+.b1{grid-column:1/4; grid-row:span 3}.b2{grid-column:4/5; grid-row:span 2}.b3{grid-column:5/7; grid-row:span 2}
+.b4{grid-column:4/6; grid-row:span 2}.b5{grid-column:6/7; grid-row:span 2}.b6{grid-column:1/3; grid-row:span 2}
+.b7{grid-column:3/4; grid-row:span 2}
+.board img{transition:transform .8s ease}
+.board figure:hover img{transform:scale(1.03)}
+@media (max-width:760px){.board{grid-template-columns:repeat(2,1fr); grid-auto-rows:150px}
+  .b1{grid-column:1/3; grid-row:span 2}.b2,.b5,.b7{grid-column:auto; grid-row:span 2}.b3,.b4,.b6{grid-column:1/3; grid-row:span 1}}
+
+.two{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:28px}
+.univers{display:grid; gap:12px; align-content:start}
+.univers .pair{display:grid; grid-template-columns:1fr 1fr; gap:8px; height:260px}
+.univers .pair img{min-height:0}
+.swatches{display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:12px}
+.sw{display:grid; gap:8px; align-content:start}
+.chip{height:84px; border:1px solid var(--line)}
+.sw b{font-weight:600; font-size:.9rem}.sw span{font-size:.8rem; color:var(--muted); font-variant-numeric:tabular-nums}
+.rules{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px}
+.rule{border-top:1px solid var(--fg); padding-top:12px; display:grid; gap:6px; align-content:start}
+.rule ul{margin:0; padding-left:1.1em; display:grid; gap:4px}
+.quote{font-family:var(--display); font-size:var(--step-2); line-height:1.25; max-width:32ch; border-left:2px solid var(--accent); padding-left:20px; margin:0}
+.quote small{display:block; font-family:var(--text); font-size:.85rem; color:var(--muted); margin-top:10px}
+.mbs{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px}
+.mbs figure{margin:0; display:grid; gap:6px}.mbs img{aspect-ratio:3/2; height:auto; border:1px solid var(--line)}
+.mbs figcaption{font-size:.8rem; color:var(--muted)}
+
+.ba{display:grid; grid-template-columns:1fr 1fr; gap:8px; max-width:760px}
+.ba figure{margin:0; position:relative}.ba img{aspect-ratio:4/5; height:auto}
+.ba figcaption{position:absolute; top:10px; left:10px; background:var(--bg); color:var(--fg); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; padding:4px 8px}
+
+.pillars{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
+.pillar{background:var(--bg); padding:18px; display:grid; gap:6px; align-content:start; min-width:0}
+.dot{width:10px; height:10px; border-radius:50%; display:inline-block; margin-right:8px; vertical-align:middle}
+.pillar .share{font-size:.8rem; color:var(--muted)}
+
+.phases{display:grid; border-top:1px solid var(--line)}
+.phase{display:grid; grid-template-columns:200px 1fr; gap:24px; padding-block:20px; border-bottom:1px solid var(--line)}
+.phase .when{display:grid; gap:2px; align-content:start}
+.phase .when strong{font-family:var(--display); font-weight:400; font-size:1.35rem}
+.phase ul{margin:0; padding-left:1.1em; display:grid; gap:5px; min-width:0}
+@media (max-width:640px){.phase{grid-template-columns:1fr; gap:10px}}
+
+.filters{display:flex; flex-wrap:wrap; gap:8px}
+.filters button{font:inherit; font-size:.85rem; padding:6px 12px; border:1px solid var(--line); background:var(--bg); color:var(--fg); border-radius:999px; cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--fg); color:var(--bg); border-color:var(--fg)}
+.filters button:focus-visible,.toc a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.month{display:grid; gap:0}
+.month h3{font-family:var(--display); font-weight:400; font-size:var(--step-2); padding-block:22px 8px}
+.week{display:grid; grid-template-columns:150px 1fr; gap:18px; padding:16px 0; border-top:1px solid var(--line)}
+.week .wk{display:grid; gap:2px; align-content:start}
+.week .wk b{font-variant-numeric:tabular-nums}
+.week .note{font-size:.8rem; color:var(--accent); font-weight:600}
+.posts{display:grid; gap:10px; min-width:0}
+.post{display:grid; grid-template-columns:96px 1fr auto; gap:12px; align-items:baseline; min-width:0}
+.post .fmt{font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.post .what{min-width:0}
+.post .tag{font-size:.75rem; white-space:nowrap; display:inline-flex; align-items:center; gap:6px; color:var(--muted)}
+.post .tag .dot{width:8px; height:8px; margin:0}
+.post .src{display:block; font-size:.8rem; color:var(--muted)}
+.post .src.todo{color:var(--todo)}
+@media (max-width:640px){.week{grid-template-columns:1fr; gap:8px}.post{grid-template-columns:1fr; gap:2px}}
+
+.todo-list{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px}
+.todo-list > div{display:grid; gap:10px; align-content:start}
+.todo-list ul{margin:0; padding-left:1.1em; display:grid; gap:6px}
+footer{padding-top:56px; font-size:.85rem; color:var(--muted); display:grid; gap:6px}
+@media (prefers-reduced-motion: reduce){.board img{transition:none}.board figure:hover img{transform:none}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="wordmark">casa senso</div>
+    <nav class="toc" aria-label="Sommaire">
+      <a href="#direction">Direction</a><a href="#piliers">Contenus</a><a href="#feuille-de-route">Feuille de route</a><a href="#calendrier">Calendrier</a><a href="#a-fournir">À fournir</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <p class="label">Pack Lancement · novembre 2026 à février 2027</p>
+    <h1>De l’idée à la réalisation, <em>aussi sur Instagram</em></h1>
+    <p class="lead">La direction visuelle des contenus Casa Senso et le calendrier des trois mois d’accompagnement : site, comptes publicitaires, contenus, vidéo et campagnes. Tout part des réalisations et des moodboards de Laetitia.</p>
+    <div class="facts">
+      <div><span class="label">Durée</span><strong>13 semaines</strong><span class="muted">du 12 novembre au 12 février environ</span></div>
+      <div><span class="label">Rythme proposé</span><strong>3 publications</strong><span class="muted">par semaine, plus des stories</span></div>
+      <div><span class="label">Budget publicitaire</span><strong>CHF 300 à 500</strong><span class="muted">par mois, payé aux plateformes</span></div>
+      <div><span class="label">Vidéo offerte</span><strong>Tournage en décembre</strong><span class="muted">publication début janvier</span></div>
+    </div>
+  </div>
+
+  <section id="direction" aria-labelledby="t-direction">
+    <p class="label">01 · Moodboard</p>
+    <h2 id="t-direction">La lumière du Sud, le caractère de la matière</h2>
+    <p class="lead">Les photos de Cannes donnent la lumière et le calme. Celles de Corcelles apportent du caractère : brique, noir, laiton. Les moodboards de Laetitia relient les deux avec une même palette de matières naturelles. Le compte doit montrer sa capacité à composer un intérieur complet, pas seulement une suite de jolies photos.</p>
+    <div class="board">
+      <figure class="b1"><img src="img/cannes-salon.jpg" alt="Salon de l’appartement de Cannes : canapé lin, fauteuils bouclette, miroirs convexes au mur"><figcaption>Cannes · salon</figcaption></figure>
+      <figure class="b2"><img src="img/cannes-pampa.jpg" alt="Coin fenêtre avec pampa séchée dans un grand vase en verre"><figcaption>Cannes · détail</figcaption></figure>
+      <figure class="b3"><img src="img/cannes-cuisine.jpg" alt="Cuisine en chêne avec îlot en marbre et suspensions en rotin"><figcaption>Cannes · cuisine</figcaption></figure>
+      <figure class="b4"><img src="img/corcelles-brique.jpg" alt="Mur de brique, buffet noir tressé et affiche Évasion"><figcaption>Corcelles · séjour</figcaption></figure>
+      <figure class="b5"><img src="img/cannes-sdb-chene.jpg" alt="Salle de bain : lames de chêne, robinetterie laiton, vasque blanche"><figcaption>Cannes · salle de bain</figcaption></figure>
+      <figure class="b6"><img src="img/cannes-chambre-verte.jpg" alt="Chambre avec mur vert forêt, cadres botaniques et appliques laiton"><figcaption>Cannes · chambre</figcaption></figure>
+      <figure class="b7"><img src="img/corcelles-fauteuil.jpg" alt="Fauteuil gris, coussin plume dorée et table basse en bois brut"><figcaption>Corcelles · coin lecture</figcaption></figure>
+    </div>
+
+    <div class="two">
+      <div class="univers">
+        <h3>Univers clair · Cannes</h3>
+        <div class="pair"><img src="img/cannes-miroirs.jpg" alt="Mur de miroirs convexes au-dessus d’un panier en jonc"><img src="img/cannes-chambre-rotin.jpg" alt="Chambre avec tête de lit en rotin et suspensions"></div>
+        <p class="muted">Lin, chêne clair, rotin, verre. Lumière du jour, plans larges, beaucoup d’air. Sert à montrer l’ensemble d’un projet.</p>
+      </div>
+      <div class="univers">
+        <h3>Univers caractère · Corcelles</h3>
+        <div class="pair"><img src="img/corcelles-table.jpg" alt="Table basse en bois brut avec livres et bougeoirs laiton"><img src="img/corcelles-chaises.jpg" alt="Chaises dorées autour d’une table blanche"></div>
+        <p class="muted">Brique, bois sombre, noir, laiton, plantes. Contraste plus fort, cadrages serrés sur les objets. Sert aux détails et à l’ambiance.</p>
+      </div>
+    </div>
+
+    <h3>Palette, tirée des réalisations et des moodboards</h3>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:var(--c-lin)"></div><b>Lin</b><span>#EEE6DA · fonds, textes sur photo sombre</span></div>
+      <div class="sw"><div class="chip" style="background:var(--c-sable)"></div><b>Sable</b><span>#D6C3A6 · aplats, cadres</span></div>
+      <div class="sw"><div class="chip" style="background:var(--c-chene)"></div><b>Chêne</b><span>#A47B4C · matière dominante</span></div>
+      <div class="sw"><div class="chip" style="background:var(--c-laiton)"></div><b>Laiton</b><span>#B38A3E · touches, jamais en fond</span></div>
+      <div class="sw"><div class="chip" style="background:var(--c-foret)"></div><b>Vert forêt</b><span>#2F4A3A · accent principal</span></div>
+      <div class="sw"><div class="chip" style="background:var(--c-prune)"></div><b>Prune</b><span>#5A2B3A · accent rare</span></div>
+      <div class="sw"><div class="chip" style="background:var(--c-encre)"></div><b>Encre</b><span>#221D1A · textes, logo</span></div>
+    </div>
+
+    <div class="rules">
+      <div class="rule"><h3>Photo</h3><ul><li>Lumière naturelle, tons chauds, pas de filtre froid.</li><li>Alterner plan large, détail matière et objet.</li><li>Une pièce par carrousel, de l’entrée au détail.</li></ul></div>
+      <div class="rule"><h3>Texte sur visuel</h3><ul><li>Titres en sérif fine, comme le logo et le site.</li><li>Six mots maximum sur l’image, le reste en légende.</li><li>Texte lin sur photo sombre, encre sur fond lin.</li></ul></div>
+      <div class="rule"><h3>Voix</h3><ul><li>Laetitia parle à la première personne, comme sur le site.</li><li>Nommer la pièce, le lieu et le besoin du client.</li><li>Une émotion, un fait concret, une invitation.</li></ul></div>
+      <div class="rule"><h3>À éviter</h3><ul><li>Photos d’autres créateurs sans crédit.</li><li>Visuels générés présentés comme des réalisations.</li><li>Visages d’enfants et de clients sans accord écrit.</li></ul></div>
+    </div>
+
+    <blockquote class="quote">« Ce qui m’anime avec Casa Senso, c’est de provoquer une émotion, de soulager les gens et de voir le bonheur dans leurs yeux lorsqu’ils découvrent le résultat. »<small>Laetitia Rein, texte écrit pour la page partenaire QLIQ, 8 novembre 2026</small></blockquote>
+
+    <h3>Le format signature : ses moodboards</h3>
+    <p class="muted narrow">Laetitia en a déjà quinze, pour des particuliers et des lieux professionnels (bar, magasin, bureau, club de tennis). Ils deviennent un rendez-vous régulier : le moodboard, puis la réalisation quand elle existe.</p>
+    <div class="mbs">
+      <figure><img src="img/mb-salon-vert.jpg" alt="Moodboard salon vert : canapé velours vert, suspension laiton, nuancier"><figcaption>Salon vert</figcaption></figure>
+      <figure><img src="img/mb-bureau-prune.jpg" alt="Moodboard bureau prune et nature"><figcaption>Bureau prune et nature</figcaption></figure>
+      <figure><img src="img/mb-bar.jpg" alt="Moodboard bar : bois, rotin, éclairage chaleureux"><figcaption>Bar · espace professionnel</figcaption></figure>
+      <figure><img src="img/mb-nature.jpg" alt="Moodboard nature : matières brutes, tons sable et vert"><figcaption>Nature</figcaption></figure>
+    </div>
+
+    <h3>La preuve la plus forte : l’avant / après de Cannes</h3>
+    <div class="ba">
+      <figure><img src="img/cannes-avant-salon.jpg" alt="Avant : pièce de l’appartement de Cannes avant travaux, moquette grise et mobilier ancien"><figcaption>Avant</figcaption></figure>
+      <figure><img src="img/cannes-salon.jpg" alt="Après : le salon rénové" style="object-position:30% 50%"><figcaption>Après</figcaption></figure>
+    </div>
+    <p class="muted narrow">Vingt-quatre photos « avant », dont le chantier, et trente-sept photos professionnelles « après ». La correspondance exacte pièce par pièce reste à confirmer avec Laetitia avant publication.</p>
+  </section>
+
+  <section id="piliers" aria-labelledby="t-piliers">
+    <p class="label">02 · Contenus</p>
+    <h2 id="t-piliers">Huit rubriques, à partir de son propre plan Instagram</h2>
+    <p class="lead">Son document « IG Casa Senso » d’octobre 2026 listait moodboards, idées déco, shopping, voyages et chantiers. On garde ces rubriques et on ajoute trois preuves : l’avant / après, les réalisations détaillées et les espaces professionnels.</p>
+    <div class="pillars" id="pillars"></div>
+  </section>
+
+  <section id="feuille-de-route" aria-labelledby="t-route">
+    <p class="label">03 · Feuille de route</p>
+    <h2 id="t-route">Le site et la mesure d’abord, les campagnes ensuite</h2>
+    <p class="lead">L’audit du 27 octobre a montré que quatre pages du site sont exclues de Google et que les liens d’appel et de rendez-vous partent vers d’autres coordonnées. On corrige cela avant de payer de la publicité.</p>
+    <div class="phases" id="phases"></div>
+  </section>
+
+  <section id="calendrier" aria-labelledby="t-cal">
+    <p class="label">04 · Calendrier éditorial</p>
+    <h2 id="t-cal">Treize semaines de publications</h2>
+    <p class="lead">Mardi, jeudi et dimanche comme point de départ, à ajuster après un mois de statistiques. En gris, la matière déjà disponible ; en prune, ce qu’il faut encore obtenir.</p>
+    <div class="filters" id="filters" role="group" aria-label="Filtrer par rubrique"></div>
+    <div id="calendar"></div>
+  </section>
+
+  <section id="a-fournir" aria-labelledby="t-fournir">
+    <p class="label">05 · À fournir et à valider</p>
+    <h2 id="t-fournir">Ce qu’il reste à réunir</h2>
+    <div class="todo-list">
+      <div><h3>De la part de Laetitia</h3><ul>
+        <li>Trois à cinq portraits d’elle au travail, ou une demi-journée photo.</li>
+        <li>Le bon numéro et la bonne adresse : 2000 Neuchâtel ou Cure 18, 2035 Corcelles.</li>
+        <li>Deux ou trois avis clients écrits, avec accord de publication.</li>
+        <li>Un chantier en cours que l’on peut filmer en janvier.</li>
+        <li>L’usage des locaux de Cannes avant travaux, pour raconter le projet.</li>
+        <li>Une fourchette de prix ou un point de départ, si elle souhaite en parler.</li>
+      </ul></div>
+      <div><h3>Accès</h3><ul>
+        <li>Wix : invitation reçue le 10 novembre, rôle à vérifier.</li>
+        <li>Google Search Console : à créer ou à partager.</li>
+        <li>Meta Business : compte Instagram et page Facebook.</li>
+        <li>Carte de paiement à enregistrer dans les comptes publicitaires.</li>
+        <li>Fiche Google Business Profile : propriétaire à identifier.</li>
+      </ul></div>
+      <div><h3>Décisions</h3><ul>
+        <li>Garder le site sur Wix ou le reconstruire en code.</li>
+        <li>Sujet de la vidéo : visite commentée de Corcelles ou suivi d’un chantier.</li>
+        <li>Part des espaces professionnels dans les campagnes.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <footer>
+    <hr>
+    <p>Préparé par Contrast le 12 novembre 2026, à partir de l’offre RE-00131, de l’audit du 27 octobre 2026, des moodboards et des photos transmis par Laetitia les 5 et 8 novembre.</p>
+    <p>Toutes les images sont des photos et moodboards de Casa Senso. Aucune image n’a été générée.</p>
+  </footer>
+</div>
+
+<script>
+const P = {
+  avant:   {n:"Avant / après", c:"var(--c-foret)", s:"1 fois par semaine", d:"La transformation, de la pièce brute au résultat. Le format qui prouve le métier."},
+  real:    {n:"Réalisations", c:"var(--c-chene)", s:"1 fois par semaine", d:"Une pièce par carrousel, du plan large au détail, avec le besoin du client."},
+  mood:    {n:"Moodboards", c:"var(--c-prune)", s:"toutes les deux semaines", d:"Son format signature : palette, matières, ambiance, puis la réalisation."},
+  conseil: {n:"Idées déco", c:"var(--c-sable)", s:"toutes les deux semaines", d:"Un conseil concret et applicable chez soi, en carrousel ou face caméra."},
+  shop:    {n:"Sélection", c:"var(--c-laiton)", s:"1 fois par mois", d:"Pièces, matières et objets choisis par Laetitia, avec la raison du choix."},
+  coul:    {n:"Coulisses et chantiers", c:"var(--c-encre)", s:"en stories chaque semaine", d:"Laetitia au travail : visites, échantillons, livraisons, installation."},
+  pro:     {n:"Espaces professionnels", c:"var(--c-sauge)", s:"1 fois par mois", d:"Bureaux, commerces, bar, location : l’offre aux professionnels."},
+  voyage:  {n:"Inspirations voyage", c:"var(--c-ocre)", s:"de temps en temps", d:"Ce qu’elle rapporte de Marrakech ou d’ailleurs, et comment ça se traduit chez soi."}
+};
+
+const PHASES = [
+  {t:"Fondations", d:"12 – 29 novembre", items:[
+    "Accepter l’invitation Wix et vérifier le rôle attribué.",
+    "Corriger les quatre pages exclues de Google, le lien téléphone et le lien de rendez-vous.",
+    "Harmoniser l’adresse et le numéro sur le site et la fiche Google.",
+    "Ouvrir Search Console et soumettre le sitemap.",
+    "Installer la mesure : statistiques du site, pixel Meta, demandes de contact.",
+    "Créer et paramétrer les comptes publicitaires Meta et Google.",
+    "Revoir la bio Instagram, le lien et les stories à la une.",
+    "Mettre en ligne la page partenaire QLIQ, validée le 8 novembre."]},
+  {t:"Lancement", d:"30 novembre – 20 décembre", items:[
+    "Publications au rythme de trois par semaine.",
+    "Campagne Meta 1 : faire connaître les réalisations autour de Neuchâtel, dans un rayon d’environ 30 km.",
+    "Tournage de la vidéo, semaine du 7 décembre à confirmer.",
+    "Premier point des statistiques à fin novembre."]},
+  {t:"Fêtes", d:"21 décembre – 3 janvier", items:[
+    "Rythme réduit à deux publications, programmées à l’avance.",
+    "Campagnes en veille : peu de nouveaux projets se décident pendant les fêtes."]},
+  {t:"Nouvelle année", d:"4 – 31 janvier", items:[
+    "Sortie de la vidéo, déclinée en trois formats courts.",
+    "Campagne Meta 2 : demandes de rendez-vous, vers le formulaire du site.",
+    "Test Google Ads limité aux recherches du métier dans le canton.",
+    "Nouvelles pages du site, selon la décision Wix ou code."]},
+  {t:"Bilan", d:"1 – 12 février", items:[
+    "Rapport : abonnés, portée, demandes reçues, coût par demande.",
+    "Ce qui a fonctionné, ce qu’on arrête, proposition pour la suite."]}
+];
+
+// [format, sujet, rubrique, matière, à obtenir ?]
+const WEEKS = [
+  {m:"Novembre", w:"16 – 22 nov.", posts:[
+    ["Carrousel","Qui est Casa Senso : la méthode en quatre étapes, de l’idée à l’installation","coul","Portraits de Laetitia",1],
+    ["Reel","Avant / après de l’appartement de Cannes, en 15 secondes","avant","24 photos avant, 37 photos après"],
+    ["Post","Moodboard « Salon vert » et sa palette","mood","Moodboard salon vert"]]},
+  {m:"Novembre", w:"23 – 29 nov.", posts:[
+    ["Carrousel","Cannes, épisode 1 : l’état de départ et le chantier","avant","Photos avant et chantier"],
+    ["Reel","Chêne, marbre et laiton : les détails de la salle de bain de Cannes","real","Photos HD salle de bain"],
+    ["Carrousel","Trois matières qui réchauffent un intérieur en hiver","conseil","Photos de Corcelles"]]},
+  {m:"Décembre", w:"30 nov. – 6 déc.", note:"Campagne Meta 1", posts:[
+    ["Carrousel","Cannes, épisode 2 : la cuisine, l’îlot et les suspensions en rotin","real","Photos HD cuisine"],
+    ["Reel","Laetitia face caméra : comment se passe un premier rendez-vous","coul","À filmer avec Laetitia",1],
+    ["Post","Sélection : cinq pièces pour créer un coin lecture","shop","Produits à choisir",1]]},
+  {m:"Décembre", w:"7 – 13 déc.", note:"Tournage vidéo", posts:[
+    ["Carrousel","Corcelles : brique, noir et laiton dans un séjour","real","Photos de Corcelles"],
+    ["Reel","Coulisses : un moodboard qui se construit","mood","Enregistrement d’écran",1],
+    ["Post","Idée déco : une table de fêtes avec ce qu’on a déjà","conseil","Photos de Corcelles"]]},
+  {m:"Décembre", w:"14 – 20 déc.", posts:[
+    ["Carrousel","Moodboard d’un bar : rendre un lieu chaleureux","pro","Moodboard bar"],
+    ["Reel","Avant / après d’une chambre à Cannes","avant","Photos avant et après"],
+    ["Post","Sélection : idées de cadeaux déco à moins de CHF 100","shop","Sélection à faire",1]]},
+  {m:"Décembre", w:"21 – 27 déc.", note:"Rythme réduit", posts:[
+    ["Post","Vœux, dans l’ambiance de Corcelles","coul","Photos de Corcelles"],
+    ["Reel","Les projets de 2026 en 20 secondes","real","Photos existantes"]]},
+  {m:"Janvier", w:"28 déc. – 3 janv.", note:"Rythme réduit", posts:[
+    ["Carrousel","Votre intérieur en 2027 : quatre questions à se poser avant de commencer","conseil","Texte et photos existantes"]]},
+  {m:"Janvier", w:"4 – 10 janv.", note:"Sortie vidéo · Campagne Meta 2", posts:[
+    ["Reel","La vidéo Casa Senso : de l’idée à la réalisation","coul","Vidéo tournée en décembre"],
+    ["Carrousel","Comment se déroule un projet : étapes, délais, ce que je vous demande","conseil","À valider avec Laetitia",1],
+    ["Post","Moodboard « Bureau prune et nature » pour le télétravail","mood","Moodboard bureau"]]},
+  {m:"Janvier", w:"11 – 17 janv.", posts:[
+    ["Carrousel","Cannes : deux chambres, deux ambiances (vert forêt et rotin)","real","Photos HD chambres"],
+    ["Reel","Petit espace : trois façons de gagner de la place","conseil","Moodboard rangements"],
+    ["Post","Un avis client, avec la photo du projet","real","Avis à obtenir",1]]},
+  {m:"Janvier", w:"18 – 24 janv.", posts:[
+    ["Carrousel","Bureaux et commerces : un local qui donne envie d’entrer","pro","Moodboards magasin et bureau"],
+    ["Reel","Avant / après de la salle de bain de Cannes","avant","Photos avant et après"],
+    ["Post","Ce que je rapporte de Marrakech","voyage","Photos Marrakech"]]},
+  {m:"Janvier", w:"25 – 31 janv.", posts:[
+    ["Carrousel","Corcelles : la salle de bain en bois sculpté","real","Photos de Corcelles"],
+    ["Reel","Coulisses d’un chantier en cours","coul","Chantier à filmer",1],
+    ["Carrousel","Combien coûte une décoratrice d’intérieur ? Ce qui fait varier le prix","conseil","Réponse de Laetitia",1]]},
+  {m:"Février", w:"1 – 7 févr.", posts:[
+    ["Carrousel","Moodboard d’une chambre cocooning","mood","Moodboard appartement"],
+    ["Reel","Cannes, version longue : toute la transformation","avant","Photos avant et après"],
+    ["Post","Sélection : textiles et lumières pour une chambre","shop","Sélection à faire",1]]},
+  {m:"Février", w:"8 – 14 févr.", note:"Bilan", posts:[
+    ["Stories","Vos questions sur la décoration, réponses en stories","coul","Questions des abonnés"],
+    ["Reel","Les trois réalisations préférées des abonnés","real","Statistiques Instagram"]]}
+];
+
+function h(tag, props, ...kids){
+  const e = document.createElement(tag);
+  for (const [k,v] of Object.entries(props || {})) {
+    if (k === "class") e.className = v; else if (k === "style") e.setAttribute("style", v); else e.setAttribute(k, v);
+  }
+  kids.flat().forEach(c => { if (c == null || c === false) return; e.append(c instanceof Node ? c : document.createTextNode(String(c))); });
+  return e;
+}
+const $ = s => document.querySelector(s);
+
+$("#pillars").replaceChildren(...Object.values(P).map(p =>
+  h("div",{class:"pillar"}, h("h3",{}, h("span",{class:"dot",style:"background:"+p.c}), p.n), h("p",{},p.d), h("p",{class:"share"},p.s))));
+
+$("#phases").replaceChildren(...PHASES.map((p,i) =>
+  h("div",{class:"phase"},
+    h("div",{class:"when"}, h("span",{class:"label"},"Phase "+(i+1)), h("strong",{},p.t), h("span",{class:"muted"},p.d)),
+    h("ul",{}, p.items.map(x => h("li",{},x))))));
+
+let active = "all";
+function renderFilters(){
+  const opts = [["all","Toutes"], ...Object.entries(P).map(([k,v]) => [k, v.n])];
+  $("#filters").replaceChildren(...opts.map(([k,n]) =>
+    h("button",{type:"button", id:"f-"+k, "data-k":k, "aria-pressed":String(k===active)}, n)));
+}
+function renderCalendar(){
+  const months = [];
+  WEEKS.forEach(w => { let m = months.find(x => x.m === w.m); if (!m) { m = {m:w.m, weeks:[]}; months.push(m); } m.weeks.push(w); });
+  const out = [];
+  months.forEach(m => {
+    const weeks = [];
+    m.weeks.forEach(w => {
+      const posts = w.posts.filter(p => active === "all" || p[2] === active);
+      if (!posts.length) return;
+      weeks.push(h("div",{class:"week"},
+        h("div",{class:"wk"}, h("b",{},w.w), w.note ? h("span",{class:"note"},w.note) : null),
+        h("div",{class:"posts"}, posts.map(p =>
+          h("div",{class:"post"},
+            h("span",{class:"fmt"},p[0]),
+            h("span",{class:"what"}, p[1], h("span",{class:"src"+(p[4]?" todo":"")}, (p[4]?"À obtenir : ":"Matière : ")+p[3])),
+            h("span",{class:"tag"}, h("span",{class:"dot",style:"background:"+P[p[2]].c}), P[p[2]].n))))));
+    });
+    if (weeks.length) out.push(h("div",{class:"month"}, h("h3",{},m.m), weeks));
+  });
+  $("#calendar").replaceChildren(...out);
+}
+$("#filters").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  active = b.dataset.k; renderFilters(); renderCalendar();
+  const nb = document.getElementById("f-" + active); if (nb) nb.focus();
+});
+renderFilters(); renderCalendar();
+</script>
