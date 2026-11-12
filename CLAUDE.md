@@ -20,7 +20,8 @@ Lire d'abord `docs/decisions-strategie.md`, puis ce bloc. Ouvrir les sources dè
 
 - Moodboards et plan Instagram de Laetitia (WeTransfer du 05.11) : `~/Downloads/instagram - Csa Senso/` (moodboard 15, idées déco, shopping, inspirations voyages 40, photos Marrakech 51, chantiers 15, `construction site/IG CASA SENSO.pptx`).
 - Photos pro (SwissTransfer du 08.11, 666 Mo) : `~/Downloads/transfer-01a1bc38/` — maison Corcelles (68), Cannes photos HD (37), Cannes avant (24), `cannes locations.pptx`.
-- Drive : dossier « CASA SENSO » (04 Site web, 05 Offre et présentations, 06 Instagram).
+- **Récit et cas client de Laetitia (reçus le 12.11, 131 Mo)** : Drive `CASA SENSO/07 - Contenus de Laetitia/2026-11-12 - Mon histoire et projet restaurant/`. `mon histoire.pptx` (14 slides, 46 images) : rénovation de sa maison en quatre chapitres (découverte, démolition, reconstruction, mise en valeur), texte à la première personne, matière des premiers posts et de la page « À propos ». `projet restaurant.pptx` (8 slides, 24 images) : cas client restaurant, un seul texte d'intro, le reste en photos. À utiliser pour les réalisations du site et les réseaux sociaux.
+- Drive : dossier « CASA SENSO » (04 Site web, 05 Offre et présentations, 06 Instagram, 07 Contenus de Laetitia), synchronisé en local sous `~/Library/CloudStorage/GoogleDrive-info@contrast-marketing.ch/My Drive/01 - Clients et marques/CASA SENSO/`.
 - À rapatrier dans ce dépôt ou sur le Drive : les deux dossiers de `~/Downloads` ne sont pas sauvegardés.
 
 ## Livrables
@@ -32,3 +33,4 @@ Lire d'abord `docs/decisions-strategie.md`, puis ce bloc. Ouvrir les sources dè
 - `outputs/batches/CASASENSO-chaine-graphique-20261112/` : 8 concepts de charte réseaux sociaux (directions A Le Livre, B Carnet d’atelier), GPT Image 2.5, Figma page 03. Direction A retenue le 12.11.
 - `outputs/batches/CASASENSO-mois1-20261112/` : charte Figma (page 00) et 3 premiers posts du calendrier (page 04), direction A. En attente de Laetitia.
 - `outputs/batches/CASASENSO-mois1-v2-20261112/` : posts du mois 1 v2 « Livre objet » (Figma page 04), v1 archivée en page 99.
+- `veille/2026-11-instagram/` : veille Instagram (21 comptes, 36 carrousels), Figma page 05. En attente des exemples de Diego.

@@ -1,0 +1,4 @@
+# Veille : images de comptes tiers, usage interne, ne jamais pousser
+veille/**/*.jpg
+veille/**/*.jpeg
+veille/**/*.png
