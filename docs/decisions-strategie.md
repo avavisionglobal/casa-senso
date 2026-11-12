@@ -27,3 +27,23 @@ Format : date · décision · raison · remplace · statut · source.
 - **Décision** : en attente de Diego.
 - **Raison** : voir `docs/site-wix-ou-code.md`.
 - **Statut** : ouvert.
+
+## 2026-11-12 · Site reconstruit en code (remplace « en attente » ci-dessus)
+- **Décision** : bascule complète de Wix vers un site codé dans les prochains jours ; site opérationnel le 20.11 avec GA4, Search Console, pixel Meta et suivi du formulaire. Les modifications de Laetitia passent par Contrast (elle envoie textes et images) ; un petit tableau de bord reste une option.
+- **Raison** : Diego a reçu l'accès administrateur Wix ; contrat appelé à durer.
+- **Remplace** : « Site : rester sur Wix ou passer en code » (ouvert).
+- **Statut** : décidé par Diego.
+- **Source** : message de Diego du 12.11.2026.
+
+## 2026-11-12 · Rythme, rubriques et Livre Casa Senso (remplace le rythme de 3 par semaine)
+- **Décision** : trois publications par mois (mardi ou jeudi), stories chaque semaine. Huit rubriques : Le Livre Casa Senso (signature), Avant / après, Réalisations, Moodboards, Idées déco, Coulisses et chantiers, Espaces professionnels, Inspiration et voyage. Rubrique Sélection retirée. Le Livre raconte l'histoire de Laetitia en chapitres mis en page comme un livre (ch. 1 le 24.11, ch. 2 le 19.01, ch. 3 le 11.02).
+- **Raison** : consigne de Diego ; la présentation « Qui est Casa Senso » devient une série signature.
+- **Remplace** : 3 publications par semaine et rubrique Sélection de la page du 12.11.
+- **Statut** : décidé par Diego, à valider par Laetitia.
+- **Source** : Figma « Principale », page 01.
+
+## 2026-11-12 · Campagne avec Jules chez Laetitia
+- **Décision** : à ajouter au plan ; objet, dates et budget à préciser.
+- **Raison** : discutée oralement selon Diego ; aucune trace écrite trouvée dans Gmail le 12.11.
+- **Statut** : ouvert.
+- **Source** : message de Diego du 12.11.2026.
