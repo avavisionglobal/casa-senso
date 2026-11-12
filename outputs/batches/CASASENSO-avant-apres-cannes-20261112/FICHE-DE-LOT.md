@@ -11,7 +11,7 @@ Variantes Étape = Avant · Pendant · Après · Fin ; propriété texte « Phra
 
 ## Cannes (Figma page 02, rubrique 03), 9 slides
 Avant IMG_9104, IMG_9113 · Pendant IMG_3630, IMG_3629 (téléphone, retouche « vivid ») · Après HD-28, HD-22, HD-7, HD-5 · Fin HD-24 (photos pro intactes).
-Écartées : IMG_9103 (enfant visible), HD-35 et HD-36 (famille cliente avec enfants).
+Écartées : IMG_9103 (enfant visible), HD-35 et HD-36 (famille avec enfants, probablement celle de Laetitia : Cannes est son appartement).
 Textes : toutes les bulles proposées par Contrast, à valider par Laetitia.
 Les pièces avant/après ne se correspondent pas une à une → récit en étapes. Nature des locaux d'origine à confirmer.
 Aucune génération.

@@ -39,3 +39,19 @@ Source de vérité visuelle : Figma « Principale » (https://www.figma.com/desi
 - Modèle Emily Henderson : une étape par slide, photo plein cadre, bulle blanche centrée (League Spartan Regular, phrase courte et parlée), étiquette AVANT / PENDANT / APRÈS en corail #C8613F en bas à gauche, dernière slide = question + logo.
 - Template Figma : composant « Avant-après / Slide 4:5 » (page 00). Ordre conseillé : 2 Avant, 2 Pendant, 3–4 Après, 1 Fin.
 - Exclure toute photo montrant des clients ou des enfants.
+
+## Rubrique 04 · Moodboards (livrée pour validation le 12.11.2026)
+- Système de cartes du Livre (House & Garden), couleur prune vif #7A3B4E, League Spartan, texte aligné à gauche.
+- Template Figma « Moodboard / Slide 4:5 » : Couverture (planche en tirage blanc) · Palette (bandes de couleur, à part) · Détail (recadrage plein cadre + mention et titre en bas à gauche) · Citation · Fin (contact + logo).
+
+## Rubrique 08 · Idées déco (livrée pour validation le 12.11.2026)
+- Schéma « Trois cartes, une couleur, toujours les mêmes » ; bleu majorelle #2F4FA2 ; League Spartan.
+- Template Figma « Idées déco / Slide 4:5 » : Couverture (grand chiffre + titre + « à enregistrer ») · Conseil (photo plein cadre, pastille numérotée, titre, conseil en 1–2 lignes) · À retenir · Fin (invitation à écrire + logo).
+
+## Couleurs de rubrique (12.11.2026)
+Livre ocre #A69368 · Voyage sans carte (photo) · Avant/après corail #C8613F · Moodboards prune vif #7A3B4E · Idées déco bleu majorelle #2F4FA2.
+
+## Rubrique 05 · Réalisations (livrée pour validation le 12.11.2026)
+- House & Garden à l'identique : couverture photo (mention en haut, titre blanc en bas à gauche), photos plein cadre sans texte, une carte citation rose poudré #E2A79A texte encre, fin photo + « Votre projet ? Écrivez-moi » + logo. 8 à 10 slides.
+- Template Figma « Réalisation / Slide 4:5 ».
+- Ne jamais publier d'adresse de logement.

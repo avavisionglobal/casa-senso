@@ -122,3 +122,16 @@ Format : date · décision · raison · remplace · statut · source.
 ## 2026-11-12 · Rubrique Avant / après : modèle Emily Henderson + template
 - **Décision** : template « Avant-après / Slide 4:5 » (bulle blanche, étiquette corail #C8613F), premier carrousel Cannes 9 slides.
 - **Statut** : livré pour validation par Diego ; bulles à valider par Laetitia.
+
+## 2026-11-12 · Rubrique Moodboards : cartes prune vif + template
+- **Décision** : template « Moodboard / Slide 4:5 », couleur #7A3B4E ; premier carrousel « Le salon vert », 8 slides.
+- **Statut** : livré pour validation par Diego.
+
+## 2026-11-12 · Rubrique Idées déco : cartes bleu majorelle + template
+- **Décision** : template « Idées déco / Slide 4:5 », couleur #2F4FA2 ; premier carrousel « 3 matières qui réchauffent un intérieur », 7 slides.
+- **Statut** : livré pour validation par Diego ; conseils à valider par Laetitia.
+
+## 2026-11-12 · Rubrique Réalisations : visite House & Garden + template
+- **Décision** : template « Réalisation / Slide 4:5 », rose poudré #E2A79A ; première visite Cannes, 9 slides, le 22.12 à la place de Corcelles.
+- **À noter** : Cannes est l'appartement de Laetitia (mis en location), pas celui d'un client.
+- **Statut** : livré pour validation par Diego.
