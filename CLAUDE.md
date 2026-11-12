@@ -34,3 +34,4 @@ Lire d'abord `docs/decisions-strategie.md`, puis ce bloc. Ouvrir les sources dè
 - `outputs/batches/CASASENSO-mois1-20261112/` : charte Figma (page 00) et 3 premiers posts du calendrier (page 04), direction A. En attente de Laetitia.
 - `outputs/batches/CASASENSO-mois1-v2-20261112/` : posts du mois 1 v2 « Livre objet » (Figma page 04), v1 archivée en page 99.
 - `veille/2026-11-instagram/` : veille Instagram (21 comptes, 36 carrousels), Figma page 05. En attente des exemples de Diego.
+- `outputs/batches/CASASENSO-livre-ch1-v3-20261112/` : Livre chapitre 1 v3 « La découverte » (Figma page 04, en tête). En attente de Diego.

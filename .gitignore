@@ -2,3 +2,6 @@
 veille/**/*.jpg
 veille/**/*.jpeg
 veille/**/*.png
+# Sources lourdes du client (gardées sur Drive et sur le disque)
+sources/**/*.pptx
+sources/**/extrait/

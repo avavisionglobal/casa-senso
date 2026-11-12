@@ -23,3 +23,6 @@ Usage interne : références de structure pour la charte réseaux sociaux de Cas
 4. Texte sur photo seulement pour raconter (parcours, étapes d’avant/après).
 5. Visites de 8 à 10 slides, du plan large au détail.
 6. Manquent : portraits de Laetitia, détails de matières, photos de chantier soignées, clients qui acceptent d’apparaître.
+
+## Retenus par Diego (12.11.2026)
+Raconter son parcours · Trois cartes, une couleur, toujours les mêmes · Avant, pendant, après, en étapes · La presse comme caution.

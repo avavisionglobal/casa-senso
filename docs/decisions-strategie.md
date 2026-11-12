@@ -61,3 +61,18 @@ Format : date · décision · raison · remplace · statut · source.
 - **Remplace** : posts du mois 1 v1 (page 99 · Archives).
 - **Statut** : à valider par Diego puis Laetitia.
 - **Source** : lot CASASENSO-mois1-v2-20261112.
+
+## 2026-11-12 · Schémas de publication retenus après la veille Instagram
+- **Décision** : quatre schémas guident les posts : (1) Raconter son parcours (modèle Amber Lewis : photos plein cadre, une phrase en sérif blanc par slide) ; (2) Trois cartes, une couleur, toujours les mêmes (modèle House & Garden : couverture, citation, fin) ; (3) Avant, pendant, après, en étapes (modèle Emily Henderson : une étape par slide, phrase courte à la voix de la créatrice) ; (4) La presse comme caution (parution en première slide, uniquement quand elle existe).
+- **Non retenus** : visite plein cadre, plan large à la matière, livre-objet et page de respiration, maison et habitants, créatrice en scène, ambiance sans texte.
+- **Raison** : choix de Diego après la veille du 12.11 (Figma page 05).
+- **Remplace** : la mise en page v2 (cadres papier autour de chaque photo), à refaire selon ces schémas.
+- **Statut** : décidé par Diego.
+- **Source** : message de Diego du 12.11.2026 ; `veille/2026-11-instagram/`.
+
+## 2026-11-12 · Le Livre suit les 4 chapitres écrits par Laetitia
+- **Décision** : le Livre Casa Senso reprend la structure de son document « mon histoire » : I La découverte (Tout commence par un rêve), II La démolition (Oser tout bousculer), III La reconstruction (Donner une âme aux choses), IV La mise en valeur (Quand tout prend sens). Le chapitre 1 v3 garde la double page de la v2 et une couverture inspirée d’Emily Henderson.
+- **Raison** : document fourni par Laetitia le 12.11 ; consigne de Diego.
+- **Remplace** : chapitres « D’où je viens / Pourquoi Casa Senso / Ma méthode » du calendrier du 12.11.
+- **Statut** : décidé ; calendrier Figma (page 01) à mettre à jour : 4 chapitres au lieu de 3.
+- **Source** : `sources/2026-11-12-histoire/`, lot CASASENSO-livre-ch1-v3-20261112.
