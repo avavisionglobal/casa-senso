@@ -36,3 +36,7 @@ Lire d'abord `docs/decisions-strategie.md`, puis ce bloc. Ouvrir les sources dè
 - `veille/2026-11-instagram/` : veille Instagram (21 comptes, 36 carrousels), Figma page 05. En attente des exemples de Diego.
 - `outputs/batches/CASASENSO-livre-ch1-v3-20261112/` : Livre chapitre 1 v3 « La découverte » (Figma page 04, en tête). En attente de Diego.
 - `outputs/batches/CASASENSO-livre-ch2-4-20261112/` : Livre chapitres II à IV + retouche « vivid » du chapitre I (Figma page 06).
+
+## Figma « Principale » · organisation au 12.11.2026 (fait foi)
+- 00 Charte graphique · 01 Plan de lancement · 02 Rubriques (une création à valider par rubrique : 01 Le Livre, 02 Inspiration et voyage, 03 à 08 à venir) · 03 Références (veille Instagram) · 99 Archives (versions précédentes et pistes écartées).
+- Toute nouvelle création de rubrique va dans la page 02, sous le bandeau de sa rubrique. Les anciennes versions vont en 99.

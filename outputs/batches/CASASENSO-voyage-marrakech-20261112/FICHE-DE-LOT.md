@@ -22,3 +22,17 @@ Carnet de voyage N° 01 · Marrakech, 9 slides, couleur de rubrique terre cuite 
 
 ## À confirmer avec Laetitia
 Lieu exact de la séance photo et des deux photos de voyage ; validation des phrases proposées.
+
+## Version 2 (12.11.2026) · modèle Amber Lewis
+- Demande de Diego : le style « livre » reste réservé au Livre ; carnet de voyage sur le modèle de l'exemple Amber Lewis ; ne plus couper les têtes ; images d'ambiance générées pour l'ouverture et la fin.
+- 8 slides (Figma page 07, section « v2 ») : photo plein cadre, traitement pellicule (grain, couleurs adoucies), court paragraphe en serif Lora blanc à la première personne dans une zone calme, sans cadre ni carte ni logo.
+- Recadrages calés en haut (cy 0,15 à 0,3) : têtes entières sur les slides 2, 3, 6, 7.
+- Génération : 2 images GPT Image 2.5 (médina, terrasse), sans personne ni texte ; coût et identifiants inconnus. Présentées comme images d'ambiance, jamais comme photos de Laetitia.
+- Textes de Laetitia : slides 2 et 7. Textes proposés à valider : 1, 3, 4, 5, 6, 8.
+- Version « livre » conservée en piste écartée (même page).
+
+## Version 2.1 (12.11.2026) · Laetitia une seule fois
+- Retour de Diego : « topissime », mais Laetitia apparaît trop ; maximum une fois, plutôt des lieux, carrousel plus court.
+- 7 slides : 1 ouverture (générée) · 2 portrait de Laetitia (seule apparition) · 3 patio de riad (IMG_2623) · 4 terre cuite · 5 bleu · 6 couloir (IMG_1959, citation de Laetitia) · 7 terrasse (générée).
+- Retirées : velours, céramiques, Laetitia debout. Écartée : IMG_2187 (lanternes), visages de clients visibles en bas.
+- Règle retenue pour la rubrique : la créatrice apparaît au plus une fois par carrousel.

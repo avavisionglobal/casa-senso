@@ -92,3 +92,13 @@ Format : date · décision · raison · remplace · statut · source.
 - **Décision** : la rubrique suit le schéma « Raconter son parcours » sous forme de carnets numérotés (N° 01 Marrakech), même système que le Livre ; chaque rubrique a sa couleur (Livre : vert forêt ; Voyage : terre cuite).
 - **Statut** : proposé par Contrast à la demande de Diego ; textes à valider par Laetitia.
 - **Source** : Figma page 07, lot CASASENSO-voyage-marrakech-20261112.
+
+## 2026-11-12 · Carnet de voyage : modèle Amber Lewis, pas le style livre
+- **Décision** : le style « livre » (couverture Tranche, cartes, double page) est réservé au Livre Casa Senso. Inspiration et voyage = photos plein cadre au grain doux, court paragraphe à la première personne posé sur la photo, sans cadre. Images d'ambiance générées autorisées pour ouvrir ou fermer un carnet, sans personne, signalées comme telles.
+- **Remplace** : carnet de voyage v1 en style livre (piste écartée).
+- **Statut** : décidé par Diego ; textes à valider par Laetitia.
+
+## 2026-11-12 · Organisation du Figma par rubrique
+- **Décision** : une seule page « Rubriques » où chaque rubrique a un bandeau (principe, textes, date, statut) et sa création à valider ; Le Livre et le Carnet de voyage y sont réunis. Exemples, concepts et anciennes versions regroupés dans une seule page Archives.
+- **Raison** : « trop de dossiers dans les pages » (Diego) ; Laetitia doit comprendre d'un coup d'œil.
+- **Statut** : fait.
