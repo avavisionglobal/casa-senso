@@ -31,3 +31,4 @@ Lire d'abord `docs/decisions-strategie.md`, puis ce bloc. Ouvrir les sources dè
 - `social/2026-11-exemples/fiche-lot.md` : fiche du lot d’exemples.
 - `outputs/batches/CASASENSO-chaine-graphique-20261112/` : 8 concepts de charte réseaux sociaux (directions A Le Livre, B Carnet d’atelier), GPT Image 2.5, Figma page 03. Direction A retenue le 12.11.
 - `outputs/batches/CASASENSO-mois1-20261112/` : charte Figma (page 00) et 3 premiers posts du calendrier (page 04), direction A. En attente de Laetitia.
+- `outputs/batches/CASASENSO-mois1-v2-20261112/` : posts du mois 1 v2 « Livre objet » (Figma page 04), v1 archivée en page 99.

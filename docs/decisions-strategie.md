@@ -54,3 +54,10 @@ Format : date · décision · raison · remplace · statut · source.
 - **Remplace** : direction B « Carnet d’atelier » (non retenue).
 - **Statut** : décidé par Diego ; les trois premiers posts sont à valider par Laetitia.
 - **Source** : message de Diego du 12.11.2026 ; Figma pages 00 et 04.
+
+## 2026-11-12 · Posts du mois 1, version 2 « Livre objet »
+- **Décision** : les trois premiers posts sont refaits avec un niveau de finition supérieur (couverture toile, signet prune, reliure, doubles pages panoramiques, tirages montés, pages de couleur). La v1 est archivée.
+- **Raison** : « Je souhaite quelque chose de bien plus travaillé ! » (Diego).
+- **Remplace** : posts du mois 1 v1 (page 99 · Archives).
+- **Statut** : à valider par Diego puis Laetitia.
+- **Source** : lot CASASENSO-mois1-v2-20261112.
