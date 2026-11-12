@@ -29,4 +29,5 @@ Lire d'abord `docs/decisions-strategie.md`, puis ce bloc. Ouvrir les sources dè
 - `docs/site-wix-ou-code.md` : analyse ; décision du 12.11 : bascule en code, site opérationnel le 20.11.
 - Figma « Principale » (https://www.figma.com/design/xGYOPXzuBSCmZf94Z7FgK4/Principale) : page 01 feuille de route, rubriques, calendrier 3 mois, prochaines étapes ; page 02 cinq exemples à valider. Fait foi sur le rythme (3 publications par mois) ; la page claude.ai du 12.11 garde l’ancien rythme.
 - `social/2026-11-exemples/fiche-lot.md` : fiche du lot d’exemples.
-- `outputs/batches/CASASENSO-chaine-graphique-20261112/` : 8 concepts de charte réseaux sociaux (directions A Le Livre, B Carnet d’atelier), GPT Image 2.5, Figma page 03. En attente du choix de Diego.
+- `outputs/batches/CASASENSO-chaine-graphique-20261112/` : 8 concepts de charte réseaux sociaux (directions A Le Livre, B Carnet d’atelier), GPT Image 2.5, Figma page 03. Direction A retenue le 12.11.
+- `outputs/batches/CASASENSO-mois1-20261112/` : charte Figma (page 00) et 3 premiers posts du calendrier (page 04), direction A. En attente de Laetitia.

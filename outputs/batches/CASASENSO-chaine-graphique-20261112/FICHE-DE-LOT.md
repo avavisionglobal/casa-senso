@@ -34,4 +34,4 @@ Pas de texte, de logo ni de chiffre généré. Pas de personne. Les concepts ne 
 « Restaurant à Tavannes » : exemple donné par Diego, projet non vérifié dans les sources.
 
 ## Retours
-En attente de Diego.
+Direction A retenue par Diego le 12.11.2026.

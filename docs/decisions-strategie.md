@@ -47,3 +47,10 @@ Format : date · décision · raison · remplace · statut · source.
 - **Raison** : discutée oralement selon Diego ; aucune trace écrite trouvée dans Gmail le 12.11.
 - **Statut** : ouvert.
 - **Source** : message de Diego du 12.11.2026.
+
+## 2026-11-12 · Direction graphique A « Le Livre » et charte commune site + réseaux
+- **Décision** : direction A retenue pour Instagram. Une seule charte pour Instagram et le futur site, dans Figma page 00 : couleurs en variables, styles de texte, composants (logo officiel, cadres du Livre, étiquettes, boutons, navigation, champ). Titres DM Serif Display, texte Wix Madefor Text.
+- **Raison** : choix de Diego après les concepts du lot CASASENSO-chaine-graphique-20261112.
+- **Remplace** : direction B « Carnet d’atelier » (non retenue).
+- **Statut** : décidé par Diego ; les trois premiers posts sont à valider par Laetitia.
+- **Source** : message de Diego du 12.11.2026 ; Figma pages 00 et 04.
