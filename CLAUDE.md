@@ -40,3 +40,6 @@ Lire d'abord `docs/decisions-strategie.md`, puis ce bloc. Ouvrir les sources dè
 ## Figma « Principale » · organisation au 12.11.2026 (fait foi)
 - 00 Charte graphique · 01 Plan de lancement · 02 Rubriques (une création à valider par rubrique : 01 Le Livre, 02 Inspiration et voyage, 03 à 08 à venir) · 03 Références (veille Instagram) · 99 Archives (versions précédentes et pistes écartées).
 - Toute nouvelle création de rubrique va dans la page 02, sous le bandeau de sa rubrique. Les anciennes versions vont en 99.
+
+## Charte réseaux sociaux validée (12.11.2026)
+Lire `brand/charte-reseaux-sociaux.md` avant toute création : League Spartan, ocre doux #A69368 pour le Livre, cartes à l'identique de House & Garden, carnet de voyage sur le modèle Amber Lewis (Lora), Laetitia une fois par carrousel, provenance de chaque texte et image signalée.

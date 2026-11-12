@@ -108,3 +108,17 @@ Format : date · décision · raison · remplace · statut · source.
 - **Raison** : vert jugé terne et sombre par Diego ; le vert n'était pas une couleur de charte Casa Senso (site en noir et blanc), il venait de ses moodboards.
 - **Remplace** : vert forêt comme couleur du Livre. Variable « Marque/Ocre doux » ajoutée à la charte.
 - **Statut** : décidé par Diego.
+
+## 2026-11-12 · Typographie League Spartan et cartes du Livre à l'identique de House & Garden
+- **Décision** : typographie de toute la charte = League Spartan (SemiBold titres et citations, Medium capitales espacées, Regular texte). Cartes citation : fond ocre plein, mention en capitales en haut à gauche, citation alignée à gauche, signature en capitales, aucun cadre. Cartes de fin : photo plein cadre du chapitre suivant + « À suivre · Chapitre … » + logo (modèle « Discover more at »). Couvertures Tranche : numéros 01 à 04, sans filets. Phrases sur photo alignées à gauche.
+- **Exception** : le carnet de voyage garde le serif Lora (modèle Amber Lewis validé).
+- **Remplace** : DM Serif Display, Wix Madefor, Cormorant Garamond ; cartes encadrées à filets.
+- **Statut** : décidé par Diego (« faire exactement pareil » que instagram.com/p/Dfoa_nfkzZa).
+
+## 2026-11-12 · Charte réseaux sociaux enregistrée
+- **Décision** : Diego valide l'ensemble (« Franchement c'est top ! Enregistre ceci »). Charte consignée dans `brand/charte-reseaux-sociaux.md`.
+- **Statut** : validé par Diego ; à présenter à Laetitia.
+
+## 2026-11-12 · Rubrique Avant / après : modèle Emily Henderson + template
+- **Décision** : template « Avant-après / Slide 4:5 » (bulle blanche, étiquette corail #C8613F), premier carrousel Cannes 9 slides.
+- **Statut** : livré pour validation par Diego ; bulles à valider par Laetitia.
