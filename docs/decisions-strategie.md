@@ -135,3 +135,14 @@ Format : date · décision · raison · remplace · statut · source.
 - **Décision** : template « Réalisation / Slide 4:5 », rose poudré #E2A79A ; première visite Cannes, 9 slides, le 22.12 à la place de Corcelles.
 - **À noter** : Cannes est l'appartement de Laetitia (mis en location), pas celui d'un client.
 - **Statut** : livré pour validation par Diego.
+
+## 2026-11-12 · Rubrique Coulisses et chantiers : stories « La niche » + template
+- **Décision** : stories 9:16 sur le modèle Dorothée Meilichzon (blocs encre chaude #4A4440, une étape par story) ; template « Coulisses / Story 9:16 » ; première série « Une niche sur mesure, en trois jours », 6 stories (photos du dossier « chantiers », 19 au 21 oct. 2025).
+- **Statut** : livré pour validation par Diego ; textes, lieu et matériaux à confirmer par Laetitia.
+- **Source** : demande de Diego « Rubrique 06 · Coulisses et chantiers ».
+
+## 2026-11-12 · Rubrique Espaces professionnels : ICHI Ramen Shop + template
+- **Décision** : carrousel 4:5 en sauge #6E7F73 avec une « fiche projet » pour les professionnels ; template « Espace pro / Slide 4:5 » ; premier carrousel ICHI Ramen Shop, 9 slides, mar. 26 janv. (remplace « restaurant ou bar » du plan).
+- **Raison** : le document « projet restaurant » reçu le 12.11 fournit photos pro et texte de Laetitia ; un gérant veut voir le lieu et ce qui a été fait.
+- **Statut** : livré pour validation par Diego ; accord du restaurant, ville et mission à obtenir de Laetitia avant publication.
+- **Source** : demande de Diego « Rubrique 07 · Espaces professionnels ».

@@ -55,3 +55,16 @@ Livre ocre #A69368 · Voyage sans carte (photo) · Avant/après corail #C8613F �
 - House & Garden à l'identique : couverture photo (mention en haut, titre blanc en bas à gauche), photos plein cadre sans texte, une carte citation rose poudré #E2A79A texte encre, fin photo + « Votre projet ? Écrivez-moi » + logo. 8 à 10 slides.
 - Template Figma « Réalisation / Slide 4:5 ».
 - Ne jamais publier d'adresse de logement.
+
+## Rubrique 06 · Coulisses et chantiers (livrée pour validation le 12.11.2026)
+- Stories 9:16, une étape par story, modèle Dorothée Meilichzon (instagram.com/p/DZ4dBXPjZLW) : photo plein cadre, phrases courtes posées ligne par ligne dans des blocs **encre chaude #4A4440** (variable « Rubrique/Coulisses »), texte blanc League Spartan SemiBold, pastille du jour au-dessus (Medium, capitales espacées).
+- Template Figma « Coulisses / Story 9:16 » (page 00) : Étape (récit ancré en bas, au-dessus des 290 px de sécurité) · Fin (question + zone du sticker Instagram, à poser dans l'application, + logo encre).
+- Indiquer le jour et l'heure seulement s'ils viennent des dates des photos. Ne nommer aucun matériau sans confirmation de Laetitia.
+
+## Rubrique 07 · Espaces professionnels (livrée pour validation le 12.11.2026)
+- Visite d'un lieu professionnel du plan large au détail (modèle Studio McGee, instagram.com/p/DdjU5voF35E), cartes **sauge #6E7F73** (variable « Rubrique/Espaces pro », alias de Marque/Sauge), texte blanc.
+- Template Figma « Espace pro / Slide 4:5 » : Couverture · **Fiche projet** (lieu, type, approche, mission ; ce qui est inconnu reste entre crochets) · Photo · Citation · Fin (« Votre lieu ? Parlons-en » + logo). 8 à 10 slides.
+- Nom et photos d'un lieu client : accord du client avant publication.
+
+## Couleurs de rubrique (mise à jour 12.11.2026)
+Livre ocre #A69368 · Voyage sans carte · Avant/après corail #C8613F · Moodboards prune vif #7A3B4E · Réalisations rose poudré #E2A79A · Coulisses encre chaude #4A4440 · Espaces pro sauge #6E7F73 · Idées déco bleu majorelle #2F4FA2.
