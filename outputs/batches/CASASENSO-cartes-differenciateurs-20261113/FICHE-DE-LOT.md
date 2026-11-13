@@ -20,3 +20,4 @@ Retours : en attente.
 - 13.11.2026, Diego : valide « B · Trait » pour les 4 cartes. Appliqué dans les carrousels Figma (frames 128:415, 128:426, 128:431, 128:436 ; anciennes versions en Archives) et dans l'artefact.
 
 - 13.11.2026 : 1 génération de plus (trait « voyage » : valise, palme, lanterne) pour la story à la une Voyages du profil optimisé, sur pastille terracotta #9A5636. Job ID et coût inconnus.
+- 13.11.2026 : 1 génération de plus (trait « espaces pros » : comptoir, tabourets, suspensions). Icônes des 8 rubriques construites dans Figma (page 00, section 137:96), exportées dans brand/icones-rubriques/. Job ID et coût inconnus.

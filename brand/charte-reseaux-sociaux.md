@@ -81,3 +81,6 @@ Livre ocre #A69368 · Voyage sans carte · Avant/après corail #C8613F · Moodbo
 - Les cartes citation et fin reçoivent une illustration au trait fin, en bas à droite, crème sur les cartes foncées, encre sur le rose (esprit de ses couvertures de stories à la une, sans dorure).
 - Validées : Idées déco B-6 Fin (fauteuil et lampe), Moodboard citation (nuancier de tissus), Livre I carte citation (la vieille bâtisse), Réalisation Cannes citation (fenêtre en arche sur la mer).
 - Dessins générés (GPT Image 2.5), traités en PNG transparent : lot CASASENSO-cartes-differenciateurs-20261113. Toujours au moins 50 px sous la signature.
+
+## Icônes des rubriques (13.11.2026)
+Une pastille par rubrique, dessin au trait crème sur la couleur de la rubrique (encre sur le rose) : Le Livre (bâtisse), Voyages (valise), Avant / après (porte ouverte), Moodboards (nuancier), Réalisations (fenêtre en arche), Chantiers (arche et truelle), Espaces pros (comptoir), Idées déco (fauteuil). Figma page 00, section 137:96 ; fichiers dans brand/icones-rubriques/. Servent aux stories à la une et aux supports.
