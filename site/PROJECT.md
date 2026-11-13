@@ -127,3 +127,10 @@ Revue du 13.11 (local, http://localhost:4321) : accueil 1440 et 390 px relu visu
 - Ancienne version : `proofs/agence-reproduction-wix-2026-11-13.astro`.
 - Revue : 1440, 820, 390 et 360 px, aucune erreur, aucun défilement horizontal (corrigé : la photo débordait de 15 px sur mobile).
 - **13.11, Diego : ouverture de L'agence « trop gros, il faut simple et efficace »** : une seule colonne, titre Lora 48 px sur une ligne (« Des espaces qui *inspirent*. »), « Des projets sans contraintes. » en petit gris, texte d'intro dessous ; marges réduites. Relu à 1440 et 390 px.
+
+## L'agence v4 · 13.11.2026 (proposition, à valider par Diego)
+- **Demande de Diego** : « pas fan » de la v3 ; reprendre le système de lignes du site en ligne et la séparation par couleur ; textes et photo mal alignés ; photo de Laetitia pas nette.
+- **Structure** : en-tête comme le site en ligne (titre « L'agence » 56 px, sous-titre « Des espaces qui *inspirent*. Des projets sans contraintes. », filet noir pleine largeur qui se trace, texte d'intro) · bande beige « Une approche en *3 temps* » : une ligne par temps séparée par des filets (numéro, dessin au trait, titre, texte), devise · portrait de Laetitia (rectangle arrondi) et son texte, la phrase « Une seule interlocutrice… » sous un filet · bande olive inchangée.
+- **Alignement** : tous les blocs partent de la même marge (60 px ordinateur, 20 px mobile), contenu limité à 1320 px. Vérifié par mesure.
+- **Photo** : `agence-laetitia-hd.jpg`, recadrage 4:5 de l'original « fairment-8 » (séance pro, 7008 × 4672 px, WeTransfer du 05.11, même décor que l'ancienne photo). Ancienne photo floue non utilisée.
+- Revue : 1440 et 390 px, aucune erreur, aucun défilement horizontal.

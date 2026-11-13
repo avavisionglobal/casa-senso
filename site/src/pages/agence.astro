@@ -1,12 +1,13 @@
 ---
-// L'agence v3 (13.11.2026) : même charte que l'accueil v3 et que les réseaux sociaux
-// (Lora + League Spartan, crème, terracotta, olive, dessins au trait). Textes du site actuel inchangés.
-// Version précédente : proofs/agence-reproduction-wix-2026-11-13.astro
+// L'agence v4 (13.11.2026) : structure du site en ligne (titre, filet pleine largeur, bande de couleur
+// pour les 3 temps séparés par des filets), charte de l'accueil v3. Tout est aligné sur la même marge
+// gauche et la même grille. Photo de Laetitia : séance pro « fairment-8 » (originale, nette).
+// Versions précédentes : proofs/agence-reproduction-wix-2026-11-13.astro
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import ArrowButton from '../components/ArrowButton.astro';
 import { site } from '../data/site';
-import laetitia from '../assets/images/agence-laetitia.jpg';
+import laetitia from '../assets/images/agence-laetitia-hd.jpg';
 import traitImaginer from '../assets/images/traits/echantillons-encre.png';
 import traitComposer from '../assets/images/traits/miseenvaleur-encre.png';
 import traitDeleguer from '../assets/images/traits/transformation-encre.png';
@@ -22,50 +23,54 @@ const temps = [
   title="L’agence Casa Senso | Votre intérieur sur mesure"
   description="Découvrez Casa Senso à Neuchâtel : une approche personnalisée de l’aménagement intérieur, une seule interlocutrice et un projet accompagné de A à Z."
 >
-  <!-- 1. Ouverture -->
-  <section class="ouverture" data-stagger="120">
-    <p class="mention">L'agence</p>
-    <h1 class="titre-serif">Des espaces qui <em>inspirent</em>.</h1>
-    <p class="ouverture-sous">Des projets sans contraintes.</p>
-    <p class="ouverture-texte">J'imagine et aménage des espaces qui allient esthétique, harmonie et fonctionnalité. De la conception à l'installation finale, je prends en charge votre projet pour un intérieur à votre image, en toute sérénité.</p>
+  <!-- 1. En-tête (système du site en ligne : titre, sous-titre, filet, texte) -->
+  <header class="tete">
+    <div class="tete-titres" data-stagger="110">
+      <h1 class="titre-serif">L'agence</h1>
+      <p class="tete-sous">Des espaces qui <em>inspirent</em>. Des projets sans contraintes.</p>
+    </div>
+    <hr class="filet" />
+    <p class="tete-texte" data-anim="up">J'imagine et aménage des espaces qui allient esthétique, harmonie et fonctionnalité. De la conception à l'installation finale, je prends en charge votre projet pour un intérieur à votre image, en toute sérénité.</p>
+  </header>
+
+  <!-- 2. Une approche en 3 temps (bande de couleur, une ligne par temps) -->
+  <section class="temps" aria-labelledby="temps-titre">
+    <div class="temps-in">
+      <div class="temps-tete" data-anim="up">
+        <h2 id="temps-titre" class="titre-serif">Une approche en <em>3 temps</em></h2>
+        <p>Trois dimensions complémentaires pour donner vie à des espaces uniques, adaptés à vos envies et à votre quotidien.</p>
+      </div>
+      <ol data-stagger="130">
+        {temps.map((x) => (
+          <li class="ligne">
+            <span class="ligne-n">{x.n}</span>
+            <Image class="ligne-trait" src={x.img} alt="" width={160} />
+            <h3 class="titre-serif">{x.t}</h3>
+            <p>{x.d}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="devise" data-anim="up">Le plaisir de choisir. La liberté de <em>déléguer</em>.</p>
+    </div>
   </section>
 
-  <!-- 2. Laetitia -->
+  <!-- 3. Laetitia -->
   <section class="portrait">
     <figure class="portrait-photo" data-anim="reveal">
-      <Image src={laetitia} alt="Laetitia Rein Casa Senso Neuchâtel" widths={[400, 700, 1167]} sizes="(max-width: 999px) 100vw, 44vw" />
+      <Image src={laetitia} alt="Laetitia Rein, fondatrice de Casa Senso, à Neuchâtel" widths={[480, 800, 1200, 1440]} sizes="(max-width: 999px) 100vw, 42vw" />
     </figure>
-    <div class="portrait-texte" data-stagger="110">
+    <div class="portrait-texte" data-stagger="100">
       <p class="mention">Laetitia Rein · fondatrice</p>
       <h2 class="titre-serif">Le sens du détail, le plaisir d'un intérieur <em>bien pensé</em>.</h2>
       <p>Parce qu'un intérieur réussi ne se résume pas à son esthétique, mais à la manière dont on s'y sent et dont on y vit.</p>
       <p>Je conçois des intérieurs où chaque choix a sa raison d'être, en associant créativité, fonctionnalité et harmonie.</p>
+      <p>Du choix des matériaux et du mobilier à la coordination des commandes et à l'installation finale, je veille à chaque détail.</p>
       <p class="engagement">Une seule interlocutrice, un projet entièrement accompagné et la liberté de profiter du résultat.</p>
       <ArrowButton href="/prestations" label="Découvrez mes prestations" />
     </div>
   </section>
 
-  <!-- 3. L'approche en 3 temps -->
-  <section class="approche" aria-labelledby="approche-titre">
-    <div class="approche-tete" data-stagger="110">
-      <p class="mention">Une approche en 3 temps</p>
-      <h2 id="approche-titre" class="titre-serif">Imaginer. Composer. <em>Déléguer.</em></h2>
-      <p>Trois dimensions complémentaires pour donner vie à des espaces uniques, adaptés à vos envies et à votre quotidien.</p>
-    </div>
-    <ol class="temps" data-stagger="150">
-      {temps.map((x) => (
-        <li class="temps-carte">
-          <div class="temps-haut"><span class="temps-n">{x.n}</span><Image class="temps-trait" src={x.img} alt="" width={200} /></div>
-          <h3 class="titre-serif">{x.t}</h3>
-          <p>{x.d}</p>
-        </li>
-      ))}
-    </ol>
-    <p class="approche-fin" data-anim="up">Du choix des matériaux et du mobilier à la coordination des commandes et à l'installation finale, je veille à chaque détail.</p>
-    <p class="devise" data-anim="up">Le plaisir de choisir. La liberté de <em>déléguer</em>.</p>
-  </section>
-
-  <!-- 4. Phrase forte -->
+  <!-- 4. Bande olive -->
   <section class="bande" aria-label="Notre engagement">
     <div class="bande-bloc" data-anim="up">
       <Image class="bande-trait" src={traitMaison} alt="" width={110} />
@@ -79,46 +84,52 @@ const temps = [
 </Base>
 
 <style>
-  /* ---------- 1. Ouverture ---------- */
-  .ouverture { padding: 72px var(--gutter) 64px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; max-width: calc(760px + 2 * var(--gutter)); }
-  .ouverture h1 { font-size: 48px; line-height: 1.1; }
-  .ouverture-sous { font-size: 20px; color: var(--muted); }
-  .ouverture-texte { margin-top: 10px; font-size: 18px; line-height: 1.7; }
+  /* Une seule grille : marge gauche var(--gutter), contenu max 1320 px. */
+  .tete, .temps-in, .portrait { max-width: calc(1320px + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
 
-  /* ---------- 2. Portrait ---------- */
-  .portrait { padding: 0 var(--gutter) 140px; display: grid; grid-template-columns: 44fr 56fr; gap: 90px; align-items: center; }
-  .portrait > * { min-width: 0; }
-  .portrait-photo { margin: 0; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 999px 999px var(--radius) var(--radius) / 360px 360px var(--radius) var(--radius); background: var(--grey); }
-  .portrait-photo :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 34% 50%; }
-  .portrait-texte { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; max-width: 600px; }
-  .portrait-texte h2 { font-size: 44px; margin-bottom: 6px; }
-  .portrait-texte p:not(.mention) { font-size: 18px; line-height: 1.7; }
-  .engagement { margin-top: 6px; padding: 18px 22px; border-radius: var(--radius); background: var(--card); font-family: var(--serif); font-style: italic; font-size: 21px !important; line-height: 1.5 !important; }
-  .portrait-texte :global(.btn-outline) { margin-top: 14px; }
+  /* ---------- 1. En-tête ---------- */
+  .tete { padding-top: 76px; padding-bottom: 64px; }
+  .tete h1 { font-size: 56px; line-height: 1.1; }
+  .tete-sous { margin-top: 8px; font-size: 22px; color: var(--muted); }
+  .tete-sous em { font-family: var(--serif); color: var(--accent); }
+  .filet { margin: 36px 0 0; border: 0; border-top: 1px solid var(--ink); opacity: .85; }
+  .js .filet { transform-origin: left; }
+  @media (prefers-reduced-motion: no-preference) { .js .filet { animation: filet 1.4s var(--ease) .2s both; } }
+  @keyframes filet { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .tete-texte { margin-top: 32px; max-width: 760px; font-size: 18px; line-height: 1.7; }
 
-  /* ---------- 3. Approche ---------- */
-  .approche { padding: 0 var(--gutter) 140px; }
-  .approche-tete { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; max-width: 760px; margin: 0 auto 56px; }
-  .approche-tete h2 { font-size: 52px; }
-  .approche-tete p:not(.mention) { font-size: 19px; line-height: 1.7; color: var(--muted); }
-  .temps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .temps-carte { background: var(--card); border-radius: calc(var(--radius) + 8px); padding: 34px 34px 40px; display: flex; flex-direction: column; gap: 14px; transition: transform .6s var(--ease), box-shadow .6s var(--ease); }
-  .temps-carte:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -30px rgba(30, 26, 23, .35); }
-  .temps-haut { display: flex; justify-content: space-between; align-items: flex-start; min-height: 170px; }
-  .temps-n { font-family: var(--serif); font-size: 22px; color: var(--accent); }
-  .temps-carte :global(.temps-trait) { width: auto; height: 160px; object-fit: contain; transition: transform .8s var(--ease); }
-  .temps-carte:hover :global(.temps-trait) { transform: translateY(-4px) rotate(-1.5deg); }
-  .temps-carte h3 { font-size: 36px; }
-  .temps-carte p { font-size: 17px; line-height: 1.65; }
-  .approche-fin { max-width: 720px; margin: 56px auto 0; text-align: center; font-size: 19px; line-height: 1.7; }
-  .devise { margin-top: 22px; text-align: center; font-family: var(--serif); font-size: 30px; line-height: 1.3; }
+  /* ---------- 2. 3 temps ---------- */
+  .temps { background: var(--card); padding: 84px 0 76px; }
+  .temps-tete { display: grid; grid-template-columns: 5fr 7fr; gap: 40px; align-items: end; padding-bottom: 36px; }
+  .temps-tete h2 { font-size: 44px; }
+  .temps-tete p { font-size: 17px; line-height: 1.7; color: var(--muted); max-width: 560px; }
+  ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+  .ligne { display: grid; grid-template-columns: 60px 120px 3fr 7fr; gap: 0 40px; align-items: center; padding: 28px 0; border-bottom: 1px solid rgba(30, 26, 23, .25); transition: background-color .5s var(--ease), padding .5s var(--ease); }
+  .ligne:hover { background: rgba(255, 255, 255, .45); padding-inline: 16px; }
+  .ligne-n { font-family: var(--serif); font-size: 20px; color: var(--accent); }
+  .ligne :global(.ligne-trait) { width: 100px; height: 84px; object-fit: contain; transition: transform .7s var(--ease); }
+  .ligne:hover :global(.ligne-trait) { transform: translateY(-3px) rotate(-2deg); }
+  .ligne h3 { font-size: 34px; }
+  .ligne p { font-size: 17px; line-height: 1.6; max-width: 620px; }
+  .devise { margin-top: 40px; font-family: var(--serif); font-size: 26px; }
   .devise em { color: var(--accent); }
 
+  /* ---------- 3. Portrait ---------- */
+  .portrait { padding-top: 120px; padding-bottom: 120px; display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
+  .portrait > * { min-width: 0; }
+  .portrait-photo { margin: 0; overflow: hidden; aspect-ratio: 4 / 5; border-radius: var(--radius); background: var(--grey); }
+  .portrait-photo :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  .portrait-texte { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding-top: 8px; max-width: 640px; }
+  .portrait-texte h2 { font-size: 40px; margin-bottom: 8px; }
+  .portrait-texte p:not(.mention) { font-size: 17px; line-height: 1.7; }
+  .engagement { margin-top: 8px; padding-top: 18px; border-top: 1px solid var(--line); width: 100%; font-family: var(--serif); font-style: italic; font-size: 21px !important; line-height: 1.5 !important; }
+  .portrait-texte :global(.btn-outline) { margin-top: 12px; }
+
   /* ---------- 4. Bande olive ---------- */
-  .bande { padding: 0 var(--gutter) 130px; }
-  .bande-bloc { background: var(--olive); color: #F3EDE3; border-radius: calc(var(--radius) + 8px); padding: 90px 8vw; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 30px; }
-  .bande-bloc :global(.bande-trait) { width: 92px; height: auto; opacity: .9; }
-  .bande-bloc p { max-width: 900px; font-family: var(--serif); font-size: 36px; line-height: 1.35; }
+  .bande { padding: 0 var(--gutter) 120px; max-width: calc(1320px + 2 * var(--gutter)); margin-inline: auto; }
+  .bande-bloc { background: var(--olive); color: #F3EDE3; border-radius: calc(var(--radius) + 8px); padding: 84px 8vw; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px; }
+  .bande-bloc :global(.bande-trait) { width: 88px; height: auto; opacity: .9; }
+  .bande-bloc p { max-width: 880px; font-family: var(--serif); font-size: 34px; line-height: 1.35; }
   .bande-bloc p em { color: #E9D9B4; }
   .bande-actions { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
   .btn-clair { display: inline-flex; align-items: center; height: 52px; padding: 0 26px; border-radius: 999px; background: #F3EDE3; color: var(--ink); font-weight: 500; font-size: 16px; transition: background-color .35s var(--ease), transform .45s var(--ease); }
@@ -129,35 +140,33 @@ const temps = [
 
   /* ---------- Tablette ---------- */
   @media (max-width: 1199px) {
-    .portrait { gap: 56px; }
-    .temps-carte { padding: 28px 26px 32px; }
-    .temps-carte :global(.temps-trait) { height: 130px; }
-    .temps-haut { min-height: 140px; }
+    .ligne { grid-template-columns: 44px 96px 2fr 4fr; gap: 0 28px; }
+    .portrait { gap: 48px; }
   }
 
   /* ---------- Mobile ---------- */
   @media (max-width: 999px) {
-    .ouverture { padding: 44px var(--gutter) 44px; gap: 10px; }
-    .ouverture h1 { font-size: 34px; }
-    .ouverture-sous { font-size: 18px; }
-    .ouverture-texte { font-size: 17px; }
-    .portrait { grid-template-columns: 1fr; gap: 36px; padding-bottom: 90px; }
-    .portrait-photo { aspect-ratio: 4 / 4.6; border-radius: 999px 999px var(--radius) var(--radius) / 220px 220px var(--radius) var(--radius); }
-    .portrait-texte h2 { font-size: 32px; }
-    .portrait-texte p:not(.mention) { font-size: 17px; }
+    .tete { padding-top: 44px; padding-bottom: 44px; }
+    .tete h1 { font-size: 40px; }
+    .tete-sous { font-size: 18px; }
+    .filet { margin-top: 24px; }
+    .tete-texte { margin-top: 22px; font-size: 17px; }
+    .temps { padding: 56px 0 52px; }
+    .temps-tete { grid-template-columns: 1fr; gap: 12px; padding-bottom: 24px; }
+    .temps-tete h2 { font-size: 32px; }
+    .ligne { grid-template-columns: 36px 1fr 76px; grid-template-areas: "n t i" "p p p"; gap: 6px 14px; padding: 22px 0; }
+    .ligne:hover { padding-inline: 0; }
+    .ligne-n { grid-area: n; }
+    .ligne h3 { grid-area: t; font-size: 28px; }
+    .ligne :global(.ligne-trait) { grid-area: i; width: 76px; height: 64px; justify-self: end; }
+    .ligne p { grid-area: p; font-size: 16px; }
+    .devise { font-size: 22px; margin-top: 28px; }
+    .portrait { grid-template-columns: 1fr; gap: 32px; padding-top: 72px; padding-bottom: 80px; }
+    .portrait-texte h2 { font-size: 30px; }
+    .portrait-texte p:not(.mention) { font-size: 16px; }
     .engagement { font-size: 19px !important; }
-    .approche { padding-bottom: 90px; }
-    .approche-tete { margin-bottom: 34px; }
-    .approche-tete h2 { font-size: 34px; }
-    .approche-tete p:not(.mention) { font-size: 17px; }
-    .temps { grid-template-columns: 1fr; gap: 14px; }
-    .temps-haut { min-height: 0; }
-    .temps-carte :global(.temps-trait) { height: 110px; }
-    .temps-carte h3 { font-size: 30px; }
-    .approche-fin { font-size: 17px; margin-top: 36px; }
-    .devise { font-size: 24px; }
     .bande { padding-bottom: 80px; }
-    .bande-bloc { padding: 56px 24px; gap: 24px; }
+    .bande-bloc { padding: 56px 24px; gap: 22px; }
     .bande-bloc p { font-size: 24px; }
   }
 </style>
