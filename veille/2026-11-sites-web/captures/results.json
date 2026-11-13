@@ -1,0 +1,171 @@
+{
+ "antoine-mege": {
+  "error": "page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.antoinemege.com/"
+ },
+ "emilie-guitton": {
+  "error": "page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.emilieguitton.com/"
+ },
+ "alix-du-halgouet": {
+  "error": "page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://www.alixduhalgouet.com/"
+ },
+ "hommes-sweet-homme": {
+  "error": "page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.hommessweethomme.com/"
+ },
+ "laura-gonzalez": {
+  "status": 200,
+  "title": "Accueil | Laura Gonzalez",
+  "h": 4118,
+  "final": "https://www.lauragonzalez.fr/",
+  "nav": [
+   "PROJETS",
+   "HÔTELS",
+   "Mandarin Oriental Punta Negra",
+   "Belmond Villa Timeo",
+   "Îlot Saint-Germain",
+   "Mandarin Oriental Miami",
+   "Casa Monti",
+   "Tout voir",
+   "Résidentiels",
+   "Super Yacht 150m",
+   "Private Aircraft",
+   "Champs de Mars",
+   "La Muette",
+   "Saint James Résidentiel"
+  ]
+ },
+ "sarah-lavoine": {
+  "error": "page.goto: net::ERR_BLOCKED_BY_CLIENT at http://sarahlavoine.com/"
+ },
+ "marion-mailaender": {
+  "status": 200,
+  "title": "Marion Mailaender",
+  "h": 1868,
+  "final": "https://marionmailaender.com/",
+  "nav": []
+ },
+ "mackenzie-collier": {
+  "status": 200,
+  "title": "Award-Winning Phoenix, Arizona Interior Designer | Residential & Commercial",
+  "h": 4596,
+  "final": "https://www.mackenziecollierinteriors.com/",
+  "nav": [
+   "Skip to Content",
+   "HOME",
+   "ABOUT",
+   "Residential Portfolio",
+   "Residential Services",
+   "Commercial Portfolio",
+   "Commercial Services",
+   "Results",
+   "Press",
+   "Blog",
+   "CONTACT",
+   "Book A Call",
+   "Book A Call",
+   "Home"
+  ]
+ },
+ "bo-design": {
+  "status": 200,
+  "title": "Joëlle Fichard | Projets",
+  "h": 900,
+  "final": "https://www.joellefichard.com/",
+  "nav": []
+ },
+ "studio-ko": {
+  "status": 200,
+  "title": "Studio KO",
+  "h": 922,
+  "final": "https://www.studioko.fr/",
+  "nav": []
+ },
+ "atelier-oi": {
+  "status": 200,
+  "title": "Projects | atelier oï, architecture and design",
+  "h": 26272,
+  "final": "https://www.atelier-oi.ch/",
+  "nav": [
+   "NEWS",
+   "FR",
+   "Work",
+   "About",
+   "Clients",
+   "Contact & Jobs",
+   "News",
+   "Search",
+   "fr",
+   "VIRTUAL ARCHITECTURE\n#VISTOSIVIRTUALMUSEUM\n\n2022\n\natelier oï for Vistosi (IT)\n\nMake your own Virtual Visit",
+   "LOUIS VUITTON\nSPIRAL CHANDELIER\n\n2023\n\natelier oï for Louis Vuitton (FR)",
+   "CHAIR COLLECTION\n“CETONIA”\n\n2019\natelier oï for Passoni (IT)",
+   "DESIGN\nATELIER OÏ PRIVÉ - COLLECTION TACTILE\n\nATELIER OÏ PRIVÉ - COLLECTION TACTILE\n\n\natelier oï launches atelier oï PRIVÉ Collection Tactile: a limited-edition series of leather artworks",
+   "SUSPENDED LIGHT\n“STAIRS”\n\n2016\natelier oï for Lasvit (CZ)"
+  ]
+ },
+ "studio-ilse": {
+  "status": 200,
+  "title": "Welcome - STUDIOILSE",
+  "h": 5432,
+  "final": "https://www.studioilse.com/",
+  "nav": []
+ },
+ "vincent-van-duysen": {
+  "status": 200,
+  "title": "Vincent Van Duysen | Vincent Van Duysen",
+  "h": 900,
+  "final": "https://vincentvanduysen.com/",
+  "nav": [
+   "Interior",
+   "Residential",
+   "Retail",
+   "Offices",
+   "Hospitality",
+   "Molteni&C",
+   "Other",
+   "Products",
+   "Architecture",
+   "Residential",
+   "Offices",
+   "Competition",
+   "Retail",
+   "Hospitality"
+  ]
+ },
+ "joseph-dirand": {
+  "status": 200,
+  "title": "Joseph Dirand Architecture -",
+  "h": 26465,
+  "final": "https://josephdirand.com/",
+  "nav": [
+   "Réalisations",
+   "Mobilier",
+   "Informations",
+   "Contact",
+   "Propriété intellectuelle"
+  ]
+ },
+ "katie-hodges": {
+  "status": 200,
+  "title": "Katie Hodges Design",
+  "h": 3198,
+  "final": "https://www.katiehodgesdesign.com/",
+  "nav": [
+   "SKIP TO CONTENT",
+   "ABOUT",
+   "PORTFOLIO",
+   "COLLABORATIONS",
+   "Press",
+   "Inquire",
+   "About",
+   "Portfolio",
+   "Collaborations",
+   "PRESS",
+   "INQUIRE",
+   "About",
+   "Portfolio",
+   "Collaborations"
+  ]
+ },
+ "athena-calderone": {
+  "error": "page.goto: Timeout 45000ms exceeded."
+ }
+}
