@@ -127,3 +127,6 @@ em { font-style: italic; }
 @media (min-width: 1000px) {
   .mobile-only { display: none; }
 }
+
+/* ---------- Grille commune des pages intérieures v4 : une seule marge gauche ---------- */
+.conteneur { max-width: calc(1320px + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }

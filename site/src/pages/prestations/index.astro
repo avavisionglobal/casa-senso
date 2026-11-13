@@ -1,0 +1,85 @@
+---
+// Prestations v4 (13.11.2026) : page d'orientation « Pour qui ? » + les 3 services + rendez-vous.
+// Textes du site actuel ; ajouts : « Pour qui ? », « Découvrir ». Ancienne version : proofs/prestations-reproduction-wix-2026-11-13.astro
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageTete from '../../components/PageTete.astro';
+import Lignes from '../../components/Lignes.astro';
+import BandeOlive from '../../components/BandeOlive.astro';
+import { services, envies } from '../../data/prestations';
+import photoParticuliers from '../../assets/images/accueil/hero-cannes-salon.jpg';
+import photoPros from '../../assets/images/pro/ichi-07-salle-arches.jpg';
+
+const portes = [
+  { href: '/prestations/particuliers', t: 'Particuliers', d: 'Des intérieurs imaginés pour vous, jusque dans les détails.', img: photoParticuliers, alt: "Salon de l'appartement de Cannes aménagé par Casa Senso", pos: '50% 50%' },
+  { href: '/prestations/professionnels', t: 'Professionnels', d: 'Des espaces qui valorisent votre activité et votre identité.', img: photoPros, alt: 'Salle voûtée du restaurant ICHI Ramen Shop', pos: '50% 50%' },
+];
+---
+<Base
+  title="Aménagement & décoration sur mesure | Casa Senso"
+  description="Aménagement, décoration, sélection du mobilier et installation : Casa Senso accompagne les particuliers et professionnels à Neuchâtel, de l’idée au résultat."
+>
+  <PageTete titre="Prestations" sous="La liberté du sur-mesure. La simplicité du <em>clé en main</em> !"
+    texte="Que vous souhaitiez repenser votre intérieur, aménager un nouvel espace ou donner une nouvelle identité à vos locaux professionnels, je vous propose un accompagnement sur mesure, adapté à vos envies, vos besoins et votre budget." />
+
+  <!-- Pour qui ? -->
+  <section class="portes conteneur" aria-labelledby="portes-titre">
+    <h2 id="portes-titre" class="titre-serif" data-anim="up">Pour <em>qui</em> ?</h2>
+    <div class="portes-grille" data-stagger="140" data-stagger-anim="reveal">
+      {portes.map((p) => (
+        <a class="porte" href={p.href}>
+          <Image src={p.img} alt={p.alt} widths={[600, 900, 1300]} sizes="(max-width: 999px) 100vw, 50vw" style={`object-position:${p.pos}`} />
+          <span class="porte-texte">
+            <span class="porte-titre">{p.t}</span>
+            <span class="porte-d">{p.d}</span>
+            <span class="pill">Découvrir</span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <Lignes titre="Ce que je <em>fais</em> pour vous" texte="Trois savoir-faire réunis dans un seul accompagnement, de l'idée à l'installation." lignes={services} />
+
+  <section class="envies conteneur" data-anim="up">
+    <h2 class="titre-serif">À chaque envie, une réponse <em>sur mesure</em>.</h2>
+    <ul>{envies.map((e) => <li>{e}</li>)}</ul>
+  </section>
+
+  <BandeOlive phrase="Une seule interlocutrice, un projet <em>clé en main</em>." lien={{ href: '/realisations', label: 'Voir mes réalisations' }} />
+</Base>
+
+<style>
+  .portes { padding-bottom: 100px; }
+  .portes h2 { font-size: 44px; margin-bottom: 32px; }
+  .portes h2 em { color: var(--accent); }
+  .portes-grille { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .porte { position: relative; display: block; aspect-ratio: 5 / 4; overflow: hidden; border-radius: var(--radius); background: var(--grey); isolation: isolate; }
+  .porte :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .porte:hover :global(img) { transform: scale(1.05); }
+  .porte::after { content: ''; position: absolute; inset: 35% 0 0 0; background: linear-gradient(to top, rgba(20,16,12,.62), transparent); }
+  .porte-texte { position: absolute; left: 32px; right: 32px; bottom: 30px; z-index: 1; color: #fff; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .porte-titre { font-family: var(--serif); font-size: 44px; line-height: 1.05; }
+  .porte-d { font-size: 18px; max-width: 420px; }
+  .pill { margin-top: 6px; display: inline-flex; align-items: center; height: 40px; padding: 0 20px; border-radius: 999px; background: var(--accent); color: #fff; font-weight: 500; font-size: 15px; transition: background-color .35s var(--ease), transform .45s var(--ease); }
+  .porte:hover .pill { background: var(--accent-dark); transform: translateY(-2px); }
+
+  .envies { padding-top: 100px; padding-bottom: 100px; }
+  .envies h2 { font-size: 40px; max-width: 760px; }
+  .envies h2 em { color: var(--accent); }
+  .envies ul { list-style: none; padding: 0; margin: 32px 0 0; display: flex; flex-wrap: wrap; gap: 12px; }
+  .envies li { padding: 12px 20px; border: 1px solid var(--line); border-radius: 999px; font-size: 16px; background: #fff; }
+
+  @media (max-width: 999px) {
+    .portes { padding-bottom: 64px; }
+    .portes h2 { font-size: 32px; margin-bottom: 22px; }
+    .portes-grille { grid-template-columns: 1fr; gap: 12px; }
+    .porte { aspect-ratio: 4 / 3.4; }
+    .porte-texte { left: 20px; right: 20px; bottom: 20px; }
+    .porte-titre { font-size: 32px; }
+    .porte-d { font-size: 16px; }
+    .envies { padding-top: 64px; padding-bottom: 64px; }
+    .envies h2 { font-size: 30px; }
+    .envies li { font-size: 15px; padding: 10px 16px; }
+  }
+</style>

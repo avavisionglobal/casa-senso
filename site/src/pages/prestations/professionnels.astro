@@ -1,0 +1,96 @@
+---
+// Prestations · Professionnels (13.11.2026). Textes du site actuel (carte « Professionnels ») ;
+// cas ICHI : ses mots (document « projet restaurant », 12.11) ; accord du restaurant à obtenir avant mise en ligne.
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageTete from '../../components/PageTete.astro';
+import Lignes from '../../components/Lignes.astro';
+import BandeOlive from '../../components/BandeOlive.astro';
+import { services } from '../../data/prestations';
+import traitPro from '../../assets/images/traits/pro-encre.png';
+import ichiArches from '../../assets/images/pro/ichi-07-salle-arches.jpg';
+import ichiBar from '../../assets/images/pro/ichi-03-bar.jpg';
+import ichiTablee from '../../assets/images/pro/ichi-08-tablee.jpg';
+
+const lieux = [
+  { t: 'Bureaux et espaces de travail' }, { t: 'Commerces et showrooms' }, { t: "Cabinets et espaces d'accueil" },
+  { t: 'Restaurants' }, { t: 'Biens destinés à la location' },
+].map((l) => ({ ...l, d: '' }));
+---
+<Base
+  title="Aménagement d'espaces professionnels | Casa Senso, Neuchâtel"
+  description="Bureaux, commerces, cabinets, restaurants et biens à louer : Casa Senso conçoit et coordonne l'aménagement de vos locaux professionnels, de la conception à l'installation."
+>
+  <PageTete mention="Prestations · Professionnels" titre="Professionnels" sous="Des espaces qui valorisent votre <em>activité</em> et votre identité."
+    texte="De la conception à l'installation, je coordonne chaque étape pour créer des espaces esthétiques et fonctionnels." />
+
+  <section class="lieux conteneur" aria-labelledby="lieux-titre">
+    <div class="lieux-tete" data-anim="up">
+      <h2 id="lieux-titre" class="titre-serif">Les lieux que <em>j'aménage</em></h2>
+      <Image class="lieux-trait" src={traitPro} alt="" width={200} />
+    </div>
+    <ul data-stagger="90">
+      {lieux.map((l, i) => (<li><span class="n">{String(i + 1).padStart(2, '0')}</span><span class="titre-serif">{l.t}</span></li>))}
+    </ul>
+  </section>
+
+  <section class="cas" aria-labelledby="cas-titre">
+    <div class="conteneur cas-in">
+      <div class="cas-photos" data-stagger="140" data-stagger-anim="reveal">
+        <figure class="grand"><Image src={ichiArches} alt="Salle voûtée du restaurant ICHI Ramen Shop" widths={[600, 1000]} sizes="(max-width: 999px) 100vw, 30vw" /></figure>
+        <figure><Image src={ichiBar} alt="Bar du restaurant ICHI Ramen Shop" widths={[400, 700]} sizes="(max-width: 999px) 50vw, 18vw" /></figure>
+        <figure><Image src={ichiTablee} alt="Tablée du restaurant ICHI Ramen Shop" widths={[400, 700]} sizes="(max-width: 999px) 50vw, 18vw" /></figure>
+      </div>
+      <div class="cas-texte" data-stagger="110">
+        <p class="mention">Projet · Restaurant</p>
+        <h2 id="cas-titre" class="titre-serif">ICHI <em>Ramen</em> Shop</h2>
+        <p class="approche">Écouter ses envies, comprendre sa culture, respecter son histoire, imaginer des ambiances.</p>
+        <blockquote>« Et surtout trouver cette petite touche qui fait toute la différence. »<footer>Laetitia Rein</footer></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <Lignes titre="Comment je vous <em>accompagne</em>" texte="Une seule interlocutrice qui coordonne chaque étape, de la conception à l'installation." lignes={services} fond="creme" />
+
+  <BandeOlive phrase="Une seule interlocutrice, un projet <em>clé en main</em>." lien={{ href: '/prestations/particuliers', label: 'Vous êtes un particulier ?' }} />
+</Base>
+
+<style>
+  .lieux { padding-bottom: 100px; }
+  .lieux-tete { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; padding-bottom: 28px; }
+  .lieux h2 { font-size: 44px; }
+  .lieux h2 em, .cas h2 em { color: var(--accent); }
+  .lieux :global(.lieux-trait) { width: 150px; height: auto; }
+  .lieux ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+  .lieux li { display: grid; grid-template-columns: 60px 1fr; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--line); transition: padding .5s var(--ease), color .5s var(--ease); }
+  .lieux li:hover { padding-left: 14px; color: var(--accent); }
+  .lieux .n { font-family: var(--serif); font-size: 18px; color: var(--accent); }
+  .lieux li .titre-serif { font-size: 30px; }
+
+  .cas { background: var(--card); padding: 100px 0; }
+  .cas-in { display: grid; grid-template-columns: 7fr 5fr; gap: 70px; align-items: center; }
+  .cas-in > * { min-width: 0; }
+  .cas-photos { display: grid; grid-template-columns: 1.2fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; height: 560px; }
+  .cas-photos figure { margin: 0; overflow: hidden; border-radius: var(--radius); }
+  .cas-photos .grand { grid-row: span 2; }
+  .cas-photos :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .cas-texte { display: flex; flex-direction: column; gap: 18px; }
+  .cas h2 { font-size: 46px; }
+  .approche { font-size: 19px; line-height: 1.7; }
+  blockquote { margin: 8px 0 0; padding-top: 20px; border-top: 1px solid rgba(30,26,23,.25); font-family: var(--serif); font-style: italic; font-size: 24px; line-height: 1.45; }
+  blockquote footer { margin-top: 12px; font-family: var(--sans); font-style: normal; font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
+
+  @media (max-width: 999px) {
+    .lieux { padding-bottom: 64px; }
+    .lieux h2 { font-size: 32px; }
+    .lieux :global(.lieux-trait) { width: 96px; }
+    .lieux li { grid-template-columns: 40px 1fr; padding: 16px 0; }
+    .lieux li .titre-serif { font-size: 22px; }
+    .cas { padding: 64px 0; }
+    .cas-in { grid-template-columns: 1fr; gap: 32px; }
+    .cas-photos { height: 420px; }
+    .cas h2 { font-size: 34px; }
+    .approche { font-size: 17px; }
+    blockquote { font-size: 20px; }
+  }
+</style>

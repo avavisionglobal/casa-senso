@@ -1,0 +1,63 @@
+---
+// Bande de couleur avec une ligne par élément, séparées par des filets (comme « Une approche en 3 temps »).
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Ligne { t: string; d?: string; items?: string[]; img?: ImageMetadata }
+interface Props { titre: string; texte?: string; lignes: Ligne[]; fond?: 'beige' | 'creme'; numeros?: boolean }
+const { titre, texte, lignes, fond = 'beige', numeros = true } = Astro.props;
+---
+<section class:list={['bande', fond]}>
+  <div class="conteneur">
+    <div class="tete-l" data-anim="up">
+      <h2 class="titre-serif" set:html={titre} />
+      {texte && <p>{texte}</p>}
+    </div>
+    <ol data-stagger="120">
+      {lignes.map((l, i) => (
+        <li class:list={['ligne', { 'sans-img': !l.img }]}>
+          {numeros && <span class="n">{String(i + 1).padStart(2, '0')}</span>}
+          {l.img ? <Image class="trait" src={l.img} alt="" width={160} /> : null}
+          <h3 class="titre-serif">{l.t}</h3>
+          {l.items ? <ul>{l.items.map((x) => <li>{x}</li>)}</ul> : <p>{l.d}</p>}
+        </li>
+      ))}
+    </ol>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .bande { padding: 84px 0 76px; }
+  .beige { background: var(--card); }
+  .tete-l { display: grid; grid-template-columns: 5fr 7fr; gap: 40px; align-items: end; padding-bottom: 36px; }
+  .tete-l h2 { font-size: 44px; }
+  .tete-l h2 :global(em) { color: var(--accent); }
+  .tete-l p { font-size: 17px; line-height: 1.7; color: var(--muted); max-width: 560px; }
+  ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+  .ligne { display: grid; grid-template-columns: 60px 120px 3fr 7fr; gap: 0 40px; align-items: center; padding: 28px 0; border-bottom: 1px solid rgba(30, 26, 23, .25); transition: background-color .5s var(--ease), padding .5s var(--ease); }
+  .ligne.sans-img { grid-template-columns: 60px 4fr 7fr; }
+  .ligne:hover { background: rgba(255, 255, 255, .45); padding-inline: 16px; }
+  .n { font-family: var(--serif); font-size: 20px; color: var(--accent); }
+  .ligne :global(.trait) { width: 100px; height: 84px; object-fit: contain; transition: transform .7s var(--ease); }
+  .ligne:hover :global(.trait) { transform: translateY(-3px) rotate(-2deg); }
+  h3 { font-size: 32px; }
+  .ligne p { font-size: 17px; line-height: 1.6; max-width: 620px; }
+  ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 17px; line-height: 1.5; }
+  ul li { position: relative; padding-left: 20px; }
+  ul li::before { content: ''; position: absolute; left: 0; top: .7em; width: 8px; height: 1px; background: var(--accent); }
+  @media (max-width: 1199px) {
+    .ligne { grid-template-columns: 44px 96px 2fr 4fr; gap: 0 28px; }
+    .ligne.sans-img { grid-template-columns: 44px 3fr 5fr; }
+  }
+  @media (max-width: 999px) {
+    .bande { padding: 56px 0 52px; }
+    .tete-l { grid-template-columns: 1fr; gap: 12px; padding-bottom: 24px; }
+    .tete-l h2 { font-size: 32px; }
+    .ligne, .ligne.sans-img { grid-template-columns: 36px 1fr 76px; grid-template-areas: "n t i" "p p p"; gap: 8px 14px; padding: 22px 0; }
+    .ligne:hover { padding-inline: 0; }
+    .n { grid-area: n; }
+    h3 { grid-area: t; font-size: 26px; }
+    .ligne :global(.trait) { grid-area: i; width: 76px; height: 64px; justify-self: end; }
+    .ligne p, .ligne ul { grid-area: p; font-size: 16px; }
+  }
+</style>

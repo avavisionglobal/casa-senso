@@ -1,0 +1,34 @@
+---
+// En-tête de page intérieure (système du site en ligne) : mention, titre, sous-titre, filet pleine largeur, texte.
+interface Props { titre: string; sous?: string; mention?: string; texte?: string }
+const { titre, sous, mention, texte } = Astro.props;
+---
+<header class="tete conteneur">
+  <div data-stagger="110">
+    {mention && <p class="mention">{mention}</p>}
+    <h1 class="titre-serif">{titre}</h1>
+    {sous && <p class="tete-sous" set:html={sous} />}
+  </div>
+  <hr class="filet" />
+  {texte && <p class="tete-texte" data-anim="up">{texte}</p>}
+  <slot />
+</header>
+
+<style>
+  .tete { padding-top: 76px; padding-bottom: 64px; }
+  .mention { margin-bottom: 14px; }
+  h1 { font-size: 56px; line-height: 1.1; }
+  .tete-sous { margin-top: 8px; font-size: 22px; color: var(--muted); }
+  .tete-sous :global(em) { font-family: var(--serif); color: var(--accent); }
+  .filet { margin: 36px 0 0; border: 0; border-top: 1px solid var(--ink); opacity: .85; transform-origin: left; }
+  @media (prefers-reduced-motion: no-preference) { :global(.js) .filet { animation: filet 1.4s var(--ease) .2s both; } }
+  @keyframes filet { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .tete-texte { margin-top: 32px; max-width: 760px; font-size: 18px; line-height: 1.7; }
+  @media (max-width: 999px) {
+    .tete { padding-top: 44px; padding-bottom: 44px; }
+    h1 { font-size: 40px; }
+    .tete-sous { font-size: 18px; }
+    .filet { margin-top: 24px; }
+    .tete-texte { margin-top: 22px; font-size: 17px; }
+  }
+</style>

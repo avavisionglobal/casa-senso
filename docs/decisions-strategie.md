@@ -277,3 +277,9 @@ Format : date · décision · raison · remplace · statut · source.
 - **Remplace** : « Site : grand visuel Couverture de livre retenu ».
 - **Statut** : appliqué en local ; site non déployé.
 - **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · Site : Prestations en une page d'orientation + Particuliers + Professionnels
+- **Décision** : `/prestations` oriente vers `/prestations/particuliers` et `/prestations/professionnels` ; les 3 prestations (aménagement, décoration, clé en main) restent des étapes présentées sur chaque page, pas des pages séparées.
+- **Raison** : publics, preuves et recherches différents ; volumes trop faibles pour 3 pages métier ; landing pages distinctes pour les campagnes Meta.
+- **Statut** : construit en local ; site non déployé. Accord ICHI et questions home staging / formules à poser à Laetitia.
+- **Source** : Diego, conversation du 13.11.2026 ; `site/PROJECT.md`.

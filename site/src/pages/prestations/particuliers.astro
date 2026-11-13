@@ -1,0 +1,103 @@
+---
+// Prestations · Particuliers (13.11.2026). Textes du site actuel (carte « Particuliers ») ;
+// ajouts : intitulés de section, légendes des photos, liens vers les réalisations.
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageTete from '../../components/PageTete.astro';
+import Lignes from '../../components/Lignes.astro';
+import BandeOlive from '../../components/BandeOlive.astro';
+import ArrowButton from '../../components/ArrowButton.astro';
+import { services } from '../../data/prestations';
+import salon from '../../assets/images/accueil/hero-cannes-salon.jpg';
+import chambre from '../../assets/images/accueil/hero-cannes-chambre.jpg';
+import cuisine from '../../assets/images/accueil/cannes-cuisine.jpg';
+import traitMaison from '../../assets/images/traits/batisse-encre.png';
+import maison from '../../assets/images/accueil/maison-salon.jpg';
+import cannesSejour from '../../assets/images/accueil/hero-cannes-sejour.jpg';
+import maisonSalle from '../../assets/images/accueil/maison-salle-a-manger.jpg';
+
+const espaces = [
+  { t: 'Salons et espaces de vie', img: salon, alt: "Salon de l'appartement de Cannes", cls: 'grand' },
+  { t: 'Chambres et dressings', img: chambre, alt: "Chambre de l'appartement de Cannes, mur vert" },
+  { t: 'Cuisines et salles de bains', img: cuisine, alt: "Cuisine de l'appartement de Cannes" },
+  { t: 'Appartements et maisons', img: maison, alt: 'Salon de la maison de famille' },
+];
+---
+<Base
+  title="Décoration et aménagement pour particuliers | Casa Senso, Neuchâtel"
+  description="Salons, chambres, cuisines, salles de bains, appartements et maisons : Casa Senso imagine et aménage votre intérieur à Neuchâtel, de l'idée à l'installation."
+>
+  <PageTete mention="Prestations · Particuliers" titre="Particuliers" sous="Des intérieurs imaginés pour vous, <em>jusque dans les détails</em>."
+    texte="De l'aménagement à la décoration, je prends en charge votre projet pour un intérieur harmonieux et personnalisé." />
+
+  <section class="espaces conteneur" aria-labelledby="espaces-titre">
+    <h2 id="espaces-titre" class="titre-serif" data-anim="up">Les espaces que je <em>repense</em></h2>
+    <div class="espaces-grille" data-stagger="110" data-stagger-anim="reveal">
+      {espaces.map((e) => (
+        <figure class:list={['espace', e.cls]}>
+          <Image src={e.img} alt={e.alt} widths={[500, 800, 1200]} sizes="(max-width: 999px) 100vw, 33vw" />
+          <figcaption>{e.t}</figcaption>
+        </figure>
+      ))}
+      <div class="espace texte"><Image class="t" src={traitMaison} alt="" width={180} /><p class="titre-serif">Valorisation de biens après succession</p></div>
+    </div>
+  </section>
+
+  <Lignes titre="Comment je vous <em>accompagne</em>" texte="Un seul accompagnement, de la première idée à la mise en place finale." lignes={services} />
+
+  <section class="projets conteneur" aria-labelledby="projets-titre">
+    <div class="projets-tete" data-anim="up">
+      <h2 id="projets-titre" class="titre-serif">Quelques <em>réalisations</em></h2>
+      <ArrowButton href="/realisations" label="Toutes les réalisations" />
+    </div>
+    <div class="projets-grille" data-stagger="140" data-stagger-anim="reveal">
+      <a class="projet" href="/realisations"><Image src={cannesSejour} alt="Séjour de l'appartement de Cannes" widths={[600, 1000, 1400]} sizes="(max-width: 999px) 100vw, 50vw" /><span>L'appartement de Cannes</span></a>
+      <a class="projet" href="/realisations"><Image src={maisonSalle} alt="Salle à manger de la maison de famille" widths={[600, 1000, 1400]} sizes="(max-width: 999px) 100vw, 50vw" /><span>La maison de famille</span></a>
+    </div>
+  </section>
+
+  <BandeOlive phrase="Un projet sur mesure, <em>sans contraintes</em>." lien={{ href: '/prestations/professionnels', label: 'Vous êtes un professionnel ?' }} />
+</Base>
+
+<style>
+  .espaces { padding-bottom: 100px; }
+  .espaces h2, .projets h2 { font-size: 44px; }
+  .espaces h2 em, .projets h2 em { color: var(--accent); }
+  .espaces h2 { margin-bottom: 32px; }
+  .espaces-grille { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 300px; gap: 14px; }
+  .espace { position: relative; margin: 0; overflow: hidden; border-radius: var(--radius); background: var(--grey); }
+  .espace.grand { grid-row: span 2; }
+  .espace :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .espace:hover :global(img) { transform: scale(1.05); }
+  .espace::after { content: ''; position: absolute; inset: 50% 0 0 0; background: linear-gradient(to top, rgba(20,16,12,.55), transparent); }
+  .espace.texte { background: var(--card); display: flex; flex-direction: column; justify-content: flex-end; gap: 16px; padding: 22px; }
+  .espace.texte::after { display: none; }
+  .espace.texte :global(.t) { width: 110px; height: auto; }
+  .espace.texte p { font-size: 24px; line-height: 1.2; }
+  figcaption { position: absolute; left: 22px; right: 22px; bottom: 18px; z-index: 1; color: #fff; font-family: var(--serif); font-size: 24px; line-height: 1.2; }
+  .grand figcaption { font-size: 32px; }
+
+  .projets { padding-top: 100px; padding-bottom: 100px; }
+  .projets-tete { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 32px; flex-wrap: wrap; }
+  .projets-grille { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .projet { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius); }
+  .projet :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .projet:hover :global(img) { transform: scale(1.05); }
+  .projet::after { content: ''; position: absolute; inset: 50% 0 0 0; background: linear-gradient(to top, rgba(20,16,12,.55), transparent); }
+  .projet span { position: absolute; left: 26px; bottom: 22px; z-index: 1; color: #fff; font-family: var(--serif); font-size: 32px; }
+
+  @media (max-width: 999px) {
+    .espaces { padding-bottom: 64px; }
+    .espaces h2, .projets h2 { font-size: 32px; }
+    .espaces-grille { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; gap: 10px; }
+    .espace.grand { grid-column: span 2; grid-row: span 1; }
+    .espace.texte { padding: 14px; gap: 10px; }
+    .espace.texte :global(.t) { width: 70px; }
+    .espace.texte p { font-size: 18px; }
+    figcaption { left: 14px; right: 14px; bottom: 12px; font-size: 18px; }
+    .grand figcaption { font-size: 24px; }
+    .projets { padding-top: 64px; padding-bottom: 64px; }
+    .projets-grille { grid-template-columns: 1fr; gap: 10px; }
+    .projet span { font-size: 26px; left: 18px; bottom: 16px; }
+  }
+</style>
