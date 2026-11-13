@@ -11,9 +11,6 @@
   "dependencies": {
     "@fontsource-variable/league-spartan": "^5.3.0",
     "@fontsource-variable/lora": "^5.3.0",
-    "@fontsource-variable/wix-madefor-display": "5.3.0",
-    "@fontsource-variable/wix-madefor-text": "5.3.0",
-    "@fontsource/bodoni-moda": "5.3.0",
     "astro": "7.4.4"
   }
 }

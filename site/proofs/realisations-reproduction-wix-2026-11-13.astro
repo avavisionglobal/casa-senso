@@ -1,0 +1,91 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ArrowButton from '../components/ArrowButton.astro';
+import chambre1 from '../assets/images/realisations-chambre-1.jpg';
+import chambre2 from '../assets/images/realisations-chambre-2.jpg';
+import sdb from '../assets/images/realisations-salle-de-bain.jpg';
+import avDressing from '../assets/images/avant-dressing.jpg';
+import apDressing from '../assets/images/apres-dressing.jpg';
+import avEnfant from '../assets/images/avant-chambre-enfant.jpg';
+import apEnfant from '../assets/images/apres-chambre-enfant.jpg';
+import avCheminee from '../assets/images/avant-cheminee.jpg';
+import apCheminee from '../assets/images/apres-cheminee.jpg';
+import cuisine from '../assets/images/realisations-cuisine.jpg';
+import { site } from '../data/site';
+
+const trio = [
+  // Points focaux Wix : fp 0.84 et 0.31 → positions équivalentes en object-position.
+  { src: chambre1, pos: '100% 50%', alt: "Décoration d'intérieure chambre lit double, design contemporain. Casa Senso Neuchâtel" },
+  { src: chambre2, pos: '50% 50%', alt: "Décoration d'intérieure chambre lit double, design contemporain. Casa Senso Neuchâtel" },
+  { src: sdb, pos: '10% 50%', alt: "Décoration d'intérieure salle de bain, design contemporain. Casa Senso Neuchâtel" },
+];
+// Textes alternatifs repris du site Wix ; la photo « après » de la chambre d'enfant y était libellée « Avant » (corrigé).
+const paires = [
+  { av: avDressing, ap: apDressing, altAv: 'Rangement dressing Avant Casa Senso Neuchâtel', altAp: 'Rangement dressing Après Casa Senso Neuchâtel', ratio: '545 / 369' },
+  { av: avEnfant, ap: apEnfant, altAv: "Agencement, décoration chambre d'enfant Avant Casa Senso Neuchâtel", altAp: "Agencement, décoration chambre d'enfant Après Casa Senso Neuchâtel", ratio: '545 / 369' },
+  { av: avCheminee, ap: apCheminee, altAv: 'Décoration et aménagement coin cheminée Avant Casa Senso Neuchâtel', altAp: 'Décoration et aménagement coin cheminée Après Casa Senso Neuchâtel', ratio: '545 / 355' },
+];
+---
+<Base
+  title="Réalisations en aménagement intérieur | Casa Senso"
+  description="Découvrez les réalisations Casa Senso : des intérieurs transformés avec soin, où matières, mobilier et décoration associent esthétique et fonctionnalité."
+>
+  <div class="page-head" data-anim="fade">
+    <h1 class="page-title">Réalisations</h1>
+    <p class="page-sub">Des intérieurs qui ont du <span class="senso">senso</span><span class="dot">.</span></p>
+  </div>
+
+  <div class="trio">
+    {trio.map((t) => <Image src={t.src} alt={t.alt} widths={[400, 800, 1543]} sizes="(max-width: 999px) 100vw, 34vw" style={`--pos: ${t.pos}`} />)}
+  </div>
+
+  <section class="avap" data-anim="fade">
+    <h2>Avant - Après</h2>
+    <div class="paires">
+      {paires.map((p) => (
+        <div class="paire" style={`--ratio: ${p.ratio}`}>
+          <Image src={p.av} alt={p.altAv} widths={[400, 760]} sizes="(max-width: 999px) 45vw, 38vw" />
+          <Image src={p.ap} alt={p.altAp} widths={[400, 760]} sizes="(max-width: 999px) 45vw, 38vw" />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <Image src={cuisine} alt="Décoration d'intérieure, cuisine contemporaine lumineuse. Casa Senso Neuchâtel" widths={[800, 1440, 2000]} sizes="100vw" class="cuisine" />
+
+  <div class="cta" data-anim="fade"><ArrowButton href={`mailto:${site.email}`} label="Prendre rendez-vous" /></div>
+</Base>
+
+<style>
+  .senso { font-family: var(--hatton); }
+  .dot { font-family: var(--hatton-light); }
+  .trio { margin-top: 50px; display: grid; grid-template-columns: repeat(3, 1fr); }
+  .trio :global(img) { width: 100%; aspect-ratio: 3 / 4; height: auto; object-fit: cover; object-position: var(--pos, 50% 50%); }
+
+  .avap { padding-top: 55px; }
+  .avap h2 { text-align: center; font-family: var(--didot); font-style: italic; font-weight: 400; font-size: 55px; line-height: 77px; }
+  .paires { width: min(1140px, 100% - 2 * var(--gutter)); margin: 32px auto 0; display: grid; gap: 70px; }
+  .paire { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+  .paire :global(img) { width: 100%; aspect-ratio: var(--ratio); height: auto; object-fit: cover; }
+
+  :global(.cuisine) { margin-top: 60px; width: 100%; aspect-ratio: 16 / 9; height: auto; object-fit: cover; }
+  .cta { display: flex; justify-content: center; padding: 30px 20px 51px; }
+
+  @media (max-width: 999px) {
+    .trio { margin-top: 20px; }
+    .avap { padding-top: 32px; }
+    .avap h2 { font-size: 25px; line-height: 35px; }
+    .paires { margin-top: 8px; gap: 20px; }
+    .paire { gap: 20px; }
+    .paire:nth-child(1) { --ratio: 165 / 138 !important; }
+    .paire:nth-child(2) { --ratio: 165 / 148 !important; }
+    .paire:nth-child(3) { --ratio: 165 / 140 !important; }
+    :global(.cuisine) { margin-top: 30px; aspect-ratio: 3 / 4; }
+    .cta { padding: 25px 20px 40px; }
+  }
+  @media (max-width: 599px) {
+    .trio { grid-template-columns: 1fr; }
+    .trio :global(img) { object-position: 50% 50%; }
+  }
+</style>

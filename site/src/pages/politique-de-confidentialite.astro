@@ -1,13 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageTete from '../components/PageTete.astro';
 import { site } from '../data/site';
 ---
 <Base title="Politique de confidentialité | Casa Senso" description="Politique de confidentialité du site Casa Senso : données collectées par le formulaire de contact, utilisation, conservation et droits.">
-  <div class="page-head">
-    <h1 class="page-title">Politique de confidentialité</h1>
-  </div>
-  <hr class="page-rule privacy-rule" />
-  <article class="privacy">
+  <PageTete titre="Politique de confidentialité" />
+  <article class="privacy conteneur">
     <p>Nous accordons une grande importance à la protection de vos données personnelles.</p>
     <p>Cette politique de confidentialité explique quelles données nous collectons via notre site internet et comment elles sont utilisées.</p>
 
@@ -62,17 +60,16 @@ import { site } from '../data/site';
 </Base>
 
 <style>
-  .privacy-rule { margin-top: 54px; }
-  .privacy { padding: 56px var(--gutter) 76px; max-width: calc(899px + 2 * var(--gutter)); font-family: var(--text); font-size: 16px; line-height: 22.4px; }
-  .privacy h2 { margin: 17px 0 8px; font-family: var(--display); font-weight: 700; font-size: 25px; line-height: 22.4px; }
-  .privacy p:first-child + p + h2 { margin-top: 17px; }
-  .privacy ul { padding-left: 29px; }
-  .privacy a { text-decoration: underline; }
-
+  .privacy { padding-bottom: 110px; font-size: 17px; line-height: 1.7; }
+  .privacy > * { max-width: 760px; }
+  .privacy h2 { margin: 44px 0 12px; padding-top: 20px; border-top: 1px solid var(--line); font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.2; }
+  .privacy p + p { margin-top: 10px; }
+  .privacy ul { margin: 10px 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+  .privacy li { position: relative; padding-left: 20px; }
+  .privacy li::before { content: ''; position: absolute; left: 0; top: .8em; width: 8px; height: 1px; background: var(--accent); }
+  .privacy a { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
   @media (max-width: 999px) {
-    .page-title { line-height: 44px; }
-    .privacy-rule { margin-top: 12px; }
-    .privacy { padding-top: 36px; padding-bottom: 40px; }
-    .privacy h2 { margin: 22px 0 2px; line-height: 24px; }
+    .privacy { padding-bottom: 70px; font-size: 16px; }
+    .privacy h2 { font-size: 24px; margin-top: 34px; }
   }
 </style>

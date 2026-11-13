@@ -283,3 +283,9 @@ Format : date · décision · raison · remplace · statut · source.
 - **Raison** : publics, preuves et recherches différents ; volumes trop faibles pour 3 pages métier ; landing pages distinctes pour les campagnes Meta.
 - **Statut** : construit en local ; site non déployé. Accord ICHI et questions home staging / formules à poser à Laetitia.
 - **Source** : Diego, conversation du 13.11.2026 ; `site/PROJECT.md`.
+
+## 2026-11-13 · Site entier dans la DA des réseaux sociaux
+- **Décision** : toutes les pages (accueil, agence, prestations ×3, réalisations, contact, confidentialité) suivent la même charte (Lora + League Spartan, crème, terracotta, olive, filets, dessins au trait) en gardant leur mise en page ; texte du grand visuel centré sur la photo ; PP Hatton abandonnée (plus de question de licence).
+- **Raison** : Diego, « tout refaire dans cette DA, je te fais confiance ».
+- **Statut** : construit en local, build OK ; non déployé. Avant mise en ligne : supprimer `/apercu-heros`, accord ICHI, clé Resend, mesure, numéro et adresse à confirmer, accès GoDaddy.
+- **Source** : Diego, conversation du 13.11.2026 ; `site/PROJECT.md`.

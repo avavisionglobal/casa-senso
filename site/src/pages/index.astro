@@ -56,6 +56,7 @@ const insta = [
       ))}
     </div>
     <div class="hero-texte">
+      <p class="hero-kicker">Casa Senso · Neuchâtel</p>
       <h1 class="titre-serif">De l'idée à la <em>réalisation</em></h1>
       <p class="hero-sous">Le plaisir de choisir. La liberté de déléguer.</p>
     </div>
@@ -164,11 +165,12 @@ const insta = [
   .slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 1.8s ease; }
   .slide.is-active { opacity: 1; }
   .slide :global(img) { width: 100%; height: 100%; object-fit: cover; }
-  .hero::after { content: ''; position: absolute; inset: auto 0 0 0; height: 55%; background: linear-gradient(to top, rgba(20, 16, 12, .5), rgba(20, 16, 12, 0)); pointer-events: none; }
-  .hero-texte { position: absolute; left: var(--gutter); bottom: 72px; z-index: 1; color: #fff; max-width: 900px; }
-  .hero h1 { font-size: clamp(44px, 6.4vw, 92px); line-height: 1.02; }
-  .hero h1 em { color: #EFE2C6; }
-  .hero-sous { margin-top: 18px; font-size: 22px; }
+  .hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(20,16,12,.55) 0%, rgba(20,16,12,.32) 55%, rgba(20,16,12,.18) 100%); pointer-events: none; }
+  .hero-texte { position: absolute; inset: 0; z-index: 1; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 18px; padding: 0 24px; text-shadow: 0 2px 24px rgba(0,0,0,.25); }
+  .hero-kicker { font-weight: 500; font-size: 14px; letter-spacing: .3em; text-transform: uppercase; }
+  .hero h1 { font-size: clamp(44px, 7.4vw, 112px); line-height: 1.02; }
+  .hero h1 em { color: #FFF1D6; }
+  .hero-sous { font-size: 22px; font-weight: 500; }
   @media (prefers-reduced-motion: no-preference) {
     .slide :global(img) { transform: scale(1.12); transition: transform 9s linear; }
     .slide.is-active :global(img) { transform: scale(1); }
@@ -258,9 +260,9 @@ const insta = [
   /* ---------- Mobile ---------- */
   @media (max-width: 999px) {
     .hero { padding-top: 40px; }
-    .hero-sous { font-size: 18px; margin-top: 12px; }
+    .hero-sous { font-size: 18px; }
     .hero { height: min(720px, calc(100svh - var(--header-h))); min-height: 540px; }
-    .hero-texte { bottom: 40px; right: var(--gutter); }
+    .hero-kicker { font-size: 12px; }
 
     .intro { padding: 72px 20px 80px; }
     .intro :global(.trait) { width: 76px; margin-bottom: 22px; }

@@ -1,7 +1,11 @@
 ---
+// Réalisations v4 (13.11.2026) : même mise en page que le site (trio de photos, avant / après, grande photo, rendez-vous),
+// dans la charte de l'accueil et des prestations. Textes et textes alternatifs du site actuel.
+// Ancienne version : proofs/realisations-reproduction-wix-2026-11-13.astro
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import ArrowButton from '../components/ArrowButton.astro';
+import PageTete from '../components/PageTete.astro';
+import BandeOlive from '../components/BandeOlive.astro';
 import chambre1 from '../assets/images/realisations-chambre-1.jpg';
 import chambre2 from '../assets/images/realisations-chambre-2.jpg';
 import sdb from '../assets/images/realisations-salle-de-bain.jpg';
@@ -12,80 +16,84 @@ import apEnfant from '../assets/images/apres-chambre-enfant.jpg';
 import avCheminee from '../assets/images/avant-cheminee.jpg';
 import apCheminee from '../assets/images/apres-cheminee.jpg';
 import cuisine from '../assets/images/realisations-cuisine.jpg';
-import { site } from '../data/site';
 
 const trio = [
-  // Points focaux Wix : fp 0.84 et 0.31 → positions équivalentes en object-position.
   { src: chambre1, pos: '100% 50%', alt: "Décoration d'intérieure chambre lit double, design contemporain. Casa Senso Neuchâtel" },
   { src: chambre2, pos: '50% 50%', alt: "Décoration d'intérieure chambre lit double, design contemporain. Casa Senso Neuchâtel" },
   { src: sdb, pos: '10% 50%', alt: "Décoration d'intérieure salle de bain, design contemporain. Casa Senso Neuchâtel" },
 ];
-// Textes alternatifs repris du site Wix ; la photo « après » de la chambre d'enfant y était libellée « Avant » (corrigé).
 const paires = [
-  { av: avDressing, ap: apDressing, altAv: 'Rangement dressing Avant Casa Senso Neuchâtel', altAp: 'Rangement dressing Après Casa Senso Neuchâtel', ratio: '545 / 369' },
-  { av: avEnfant, ap: apEnfant, altAv: "Agencement, décoration chambre d'enfant Avant Casa Senso Neuchâtel", altAp: "Agencement, décoration chambre d'enfant Après Casa Senso Neuchâtel", ratio: '545 / 369' },
-  { av: avCheminee, ap: apCheminee, altAv: 'Décoration et aménagement coin cheminée Avant Casa Senso Neuchâtel', altAp: 'Décoration et aménagement coin cheminée Après Casa Senso Neuchâtel', ratio: '545 / 355' },
+  { t: 'Dressing', av: avDressing, ap: apDressing, altAv: 'Rangement dressing Avant Casa Senso Neuchâtel', altAp: 'Rangement dressing Après Casa Senso Neuchâtel' },
+  { t: "Chambre d'enfant", av: avEnfant, ap: apEnfant, altAv: "Agencement, décoration chambre d'enfant Avant Casa Senso Neuchâtel", altAp: "Agencement, décoration chambre d'enfant Après Casa Senso Neuchâtel" },
+  { t: 'Coin cheminée', av: avCheminee, ap: apCheminee, altAv: 'Décoration et aménagement coin cheminée Avant Casa Senso Neuchâtel', altAp: 'Décoration et aménagement coin cheminée Après Casa Senso Neuchâtel' },
 ];
 ---
 <Base
   title="Réalisations en aménagement intérieur | Casa Senso"
   description="Découvrez les réalisations Casa Senso : des intérieurs transformés avec soin, où matières, mobilier et décoration associent esthétique et fonctionnalité."
 >
-  <div class="page-head" data-anim="fade">
-    <h1 class="page-title">Réalisations</h1>
-    <p class="page-sub">Des intérieurs qui ont du <span class="senso">senso</span><span class="dot">.</span></p>
-  </div>
+  <PageTete titre="Réalisations" sous="Des intérieurs qui ont du <em>senso</em>." />
 
-  <div class="trio">
-    {trio.map((t) => <Image src={t.src} alt={t.alt} widths={[400, 800, 1543]} sizes="(max-width: 999px) 100vw, 34vw" style={`--pos: ${t.pos}`} />)}
-  </div>
+  <section class="trio conteneur" data-stagger="140" data-stagger-anim="reveal" aria-label="Photos de réalisations">
+    {trio.map((t) => (<figure><Image src={t.src} alt={t.alt} widths={[400, 800, 1543]} sizes="(max-width: 999px) 100vw, 33vw" style={`object-position:${t.pos}`} /></figure>))}
+  </section>
 
-  <section class="avap" data-anim="fade">
-    <h2>Avant - Après</h2>
-    <div class="paires">
-      {paires.map((p) => (
-        <div class="paire" style={`--ratio: ${p.ratio}`}>
-          <Image src={p.av} alt={p.altAv} widths={[400, 760]} sizes="(max-width: 999px) 45vw, 38vw" />
-          <Image src={p.ap} alt={p.altAp} widths={[400, 760]} sizes="(max-width: 999px) 45vw, 38vw" />
-        </div>
-      ))}
+  <section class="avap" aria-labelledby="avap-titre">
+    <div class="conteneur">
+      <h2 id="avap-titre" class="titre-serif" data-anim="up">Avant · <em>Après</em></h2>
+      <div class="paires">
+        {paires.map((p, i) => (
+          <article class="paire" data-anim="up">
+            <div class="paire-tete"><span class="n">{String(i + 1).padStart(2, '0')}</span><h3 class="titre-serif">{p.t}</h3></div>
+            <div class="paire-photos" data-stagger="160" data-stagger-anim="reveal">
+              <figure><span class="etiquette">Avant</span><Image src={p.av} alt={p.altAv} widths={[400, 760]} sizes="(max-width: 999px) 50vw, 40vw" /></figure>
+              <figure><span class="etiquette apres">Après</span><Image src={p.ap} alt={p.altAp} widths={[400, 760]} sizes="(max-width: 999px) 50vw, 40vw" /></figure>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
-  <Image src={cuisine} alt="Décoration d'intérieure, cuisine contemporaine lumineuse. Casa Senso Neuchâtel" widths={[800, 1440, 2000]} sizes="100vw" class="cuisine" />
+  <section class="conteneur grande" data-anim="reveal" aria-label="Cuisine contemporaine">
+    <Image src={cuisine} alt="Décoration d'intérieure, cuisine contemporaine lumineuse. Casa Senso Neuchâtel" widths={[800, 1440, 2000]} sizes="100vw" />
+  </section>
 
-  <div class="cta" data-anim="fade"><ArrowButton href={`mailto:${site.email}`} label="Prendre rendez-vous" /></div>
+  <BandeOlive phrase="Et si votre intérieur était le <em>prochain</em> ?" lien={{ href: '/prestations', label: 'Découvrez mes prestations' }} />
 </Base>
 
 <style>
-  .senso { font-family: var(--hatton); }
-  .dot { font-family: var(--hatton-light); }
-  .trio { margin-top: 50px; display: grid; grid-template-columns: repeat(3, 1fr); }
-  .trio :global(img) { width: 100%; aspect-ratio: 3 / 4; height: auto; object-fit: cover; object-position: var(--pos, 50% 50%); }
+  .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding-bottom: 110px; }
+  .trio figure { margin: 0; overflow: hidden; border-radius: var(--radius); aspect-ratio: 3 / 4; background: var(--grey); }
+  .trio :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .trio figure:hover :global(img) { transform: scale(1.04); }
 
-  .avap { padding-top: 55px; }
-  .avap h2 { text-align: center; font-family: var(--didot); font-style: italic; font-weight: 400; font-size: 55px; line-height: 77px; }
-  .paires { width: min(1140px, 100% - 2 * var(--gutter)); margin: 32px auto 0; display: grid; gap: 70px; }
-  .paire { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
-  .paire :global(img) { width: 100%; aspect-ratio: var(--ratio); height: auto; object-fit: cover; }
+  .avap { background: var(--card); padding: 90px 0 100px; }
+  .avap h2 { font-size: 44px; padding-bottom: 32px; border-bottom: 1px solid var(--ink); }
+  .avap h2 em { color: var(--accent); }
+  .paires { display: grid; }
+  .paire { padding: 36px 0; border-bottom: 1px solid rgba(30, 26, 23, .25); display: grid; grid-template-columns: 3fr 9fr; gap: 40px; align-items: start; }
+  .paire-tete { display: flex; align-items: baseline; gap: 22px; }
+  .n { font-family: var(--serif); font-size: 20px; color: var(--accent); }
+  .paire h3 { font-size: 30px; }
+  .paire-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .paire-photos figure { position: relative; margin: 0; overflow: hidden; border-radius: var(--radius); aspect-ratio: 3 / 2; background: var(--grey); }
+  .paire-photos :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .etiquette { position: absolute; left: 14px; top: 14px; z-index: 1; height: 28px; padding: 0 12px; border-radius: 999px; display: inline-flex; align-items: center; background: rgba(250, 247, 240, .92); font-weight: 600; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; }
+  .etiquette.apres { background: var(--accent); color: #fff; }
 
-  :global(.cuisine) { margin-top: 60px; width: 100%; aspect-ratio: 16 / 9; height: auto; object-fit: cover; }
-  .cta { display: flex; justify-content: center; padding: 30px 20px 51px; }
+  .grande { padding-top: 110px; padding-bottom: 110px; }
+  .grande :global(img) { width: 100%; aspect-ratio: 16 / 8; height: auto; object-fit: cover; border-radius: calc(var(--radius) + 8px); }
 
   @media (max-width: 999px) {
-    .trio { margin-top: 20px; }
-    .avap { padding-top: 32px; }
-    .avap h2 { font-size: 25px; line-height: 35px; }
-    .paires { margin-top: 8px; gap: 20px; }
-    .paire { gap: 20px; }
-    .paire:nth-child(1) { --ratio: 165 / 138 !important; }
-    .paire:nth-child(2) { --ratio: 165 / 148 !important; }
-    .paire:nth-child(3) { --ratio: 165 / 140 !important; }
-    :global(.cuisine) { margin-top: 30px; aspect-ratio: 3 / 4; }
-    .cta { padding: 25px 20px 40px; }
-  }
-  @media (max-width: 599px) {
-    .trio { grid-template-columns: 1fr; }
-    .trio :global(img) { object-position: 50% 50%; }
+    .trio { grid-template-columns: 1fr 1fr; gap: 10px; padding-bottom: 64px; }
+    .trio figure:first-child { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+    .avap { padding: 56px 0 60px; }
+    .avap h2 { font-size: 32px; padding-bottom: 22px; }
+    .paire { grid-template-columns: 1fr; gap: 16px; padding: 26px 0; }
+    .paire h3 { font-size: 24px; }
+    .paire-photos { gap: 8px; }
+    .grande { padding-top: 64px; padding-bottom: 64px; }
+    .grande :global(img) { aspect-ratio: 4 / 5; }
   }
 </style>

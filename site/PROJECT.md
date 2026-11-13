@@ -143,3 +143,13 @@ Revue du 13.11 (local, http://localhost:4321) : accueil 1440 et 390 px relu visu
 - **À obtenir avant mise en ligne** : accord du restaurant ICHI (photos et nom) ; réponses de Laetitia sur le home staging et d'éventuelles formules ; pas de FAQ tant qu'on n'a pas ses réponses.
 - Ancienne version : `proofs/prestations-reproduction-wix-2026-11-13.astro`. Menu : « Prestations » actif aussi sur les sous-pages.
 - Revue : 3 pages à 1440 et 390 px, statut 200, aucune erreur, aucun défilement horizontal, alignement vérifié par mesure (60 / 20 px).
+
+## Site complet dans la nouvelle DA · 13.11.2026 (proposition, à valider par Diego)
+- **Demande de Diego** : « tout refaire dans cette DA, garder la mise en page, je te fais confiance ».
+- **Accueil** : texte du grand visuel centré sur la photo (option 1 de `/apercu-heros`, recommandée par Contrast) : mention « Casa Senso · Neuchâtel », titre, phrase, voile radial léger. La page de comparaison `/apercu-heros` reste (hors index) et **doit être supprimée avant la mise en ligne**.
+- **Réalisations** : en-tête à filet, trio de photos arrondies, bande beige « Avant · *Après* » (une ligne numérotée par paire : Dressing, Chambre d'enfant, Coin cheminée ; étiquettes Avant / Après), grande photo de la cuisine, bande olive « Et si votre intérieur était le *prochain* ? » (phrase proposée par Contrast).
+- **Contact** : en-tête « Me contacter · Parlons de votre *projet* », coordonnées dans une carte beige avec le fauteuil dessiné, formulaire à libellés en capitales, bouton terracotta. Logique d'envoi inchangée (Resend, clé à créer).
+- **Politique de confidentialité** : en-tête à filet, titres en Lora séparés par des filets. Texte inchangé.
+- **Polices** : seules League Spartan et Lora sont chargées. PP Hatton (licence non confirmée), Madefor et Bodoni sont retirées du projet (fichiers et paquets).
+- Anciennes versions : `proofs/*-reproduction-wix-2026-11-13.astro`.
+- Revue : 8 pages × 1440 et 390 px : statut 200, aucune erreur console, aucun défilement horizontal, aucune image manquante ; `astro build` OK (9 pages, dont `/apercu-heros`).
