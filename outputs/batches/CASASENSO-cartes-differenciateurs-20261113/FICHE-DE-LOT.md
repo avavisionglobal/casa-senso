@@ -1,4 +1,4 @@
-# Lot CASASENSO-cartes-differenciateurs-20261113 · version 1 · statut : livré pour choix dans Figma (13.11.2026)
+# Lot CASASENSO-cartes-differenciateurs-20261113 · version 1 · statut : B · Trait validé par Diego (13.11.2026)
 
 Demande de Diego (13.11.2026) : les cartes de couleur (B-6 Fin Idées déco, MBV2-7 Citation moodboard, v3-S6 Carte citation Livre I, RE-4 Citation Réalisation) sont « trop ternes » ; ajouter des patterns, des icônes ou quelque chose de plus travaillé que « une couleur et une slide neutre ». Expériences avec GPT Image 2.5, propositions dans Figma.
 Mode : exploration, 3 pistes par carte, texte et mise en page inchangés.
@@ -15,3 +15,6 @@ Retours : en attente.
 - `prepare.py` : textures → grain neutre (fusion Incrustation dans Figma, opacité 0,28 à 0,5) ; traits → PNG transparent crème (encre sur la carte rose), trait épaissi ; objets → recadrés au contour.
 - Figma page 02, section 121:365 « Expériences 13.11 · cartes plus travaillées » : 4 cartes × 5 colonnes (Actuelle, A Matière, B Trait, C Collage, D Matière + trait).
 - Associations : Idées déco = enduit / fauteuil et lampe / eucalyptus ; Moodboard = lin / nuancier de tissus / échantillons ; Livre = papier fait main / la vieille bâtisse / clé ancienne ; Réalisation = enduit / fenêtre en arche sur la mer / palme séchée.
+
+## Retours
+- 13.11.2026, Diego : valide « B · Trait » pour les 4 cartes. Appliqué dans les carrousels Figma (frames 128:415, 128:426, 128:431, 128:436 ; anciennes versions en Archives) et dans l'artefact.

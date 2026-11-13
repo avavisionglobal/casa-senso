@@ -76,3 +76,8 @@ Livre ocre #A69368 · Voyage sans carte · Avant/après corail #C8613F · Moodbo
 - **Coulisses et chantiers** : mise en page « Légende blanche » (modèle Apartamento) retenue : photo en haut, bande blanche avec le jour, une phrase SemiBold encre et le folio « n / 7 ». Post 4:5 ; les stories ne sont plus le format principal.
 - **Idées déco** : DA « Olive du site » retenue, d'après casa-senso.ch : cartes olive #404734, conseils en photo plein cadre avec légende blanche, « À retenir » sur blanc cassé #F7F7F7. Le bleu majorelle est abandonné.
 - Couleurs de rubrique : Livre ocre #A69368 · Voyage sans carte · Avant/après corail #C8613F · Moodboards prune vif #7A3B4E · Réalisations rose poudré #E2A79A · Coulisses encre chaude #4A4440 · Espaces pro sauge #6E7F73 · Idées déco olive #404734.
+
+## Cartes de couleur : illustration au trait (validée par Diego le 13.11.2026)
+- Les cartes citation et fin reçoivent une illustration au trait fin, en bas à droite, crème sur les cartes foncées, encre sur le rose (esprit de ses couvertures de stories à la une, sans dorure).
+- Validées : Idées déco B-6 Fin (fauteuil et lampe), Moodboard citation (nuancier de tissus), Livre I carte citation (la vieille bâtisse), Réalisation Cannes citation (fenêtre en arche sur la mer).
+- Dessins générés (GPT Image 2.5), traités en PNG transparent : lot CASASENSO-cartes-differenciateurs-20261113. Toujours au moins 50 px sous la signature.
