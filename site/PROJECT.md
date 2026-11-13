@@ -110,3 +110,7 @@ Revue du 13.11 : ordinateur 1440, tablette 820, mobile 390 relus visuellement ; 
 - **Versions précédentes** : `proofs/index-v2-madah-2026-11-13.astro`, `proofs/index-reproduction-wix-2026-11-13.astro`.
 
 Revue du 13.11 (local, http://localhost:4321) : accueil 1440 et 390 px relu visuellement ; aucun défilement horizontal ; aucune erreur console ; pages L'agence, Prestations, Réalisations, Contact relues à 1440 px avec la nouvelle charte (mises en page Wix conservées, à retravailler page par page si validé). NON VÉRIFIÉ : tablette 820 px, pages intérieures en mobile.
+
+### Retours du 13.11 (2) · Avant / après retiré, 3 grands visuels à comparer
+- La rangée « Avant / Après » de l'accueil est retirée (demande de Diego).
+- Page de travail `/apercu-heros` (hors index, **à supprimer avant la mise en ligne**) : grand visuel actuel + 3 versions. A · Éditorial partagé (texte sur le crème à gauche, diaporama arrondi à droite avec un grand arrondi en bas à gauche, bouton prestations). B · Couverture de livre (grand titre centré au-dessus, photo encadrée en dessous, arche sur mobile). C · Bande vivante (titre centré, bande de photos arrondies décalées qui défile lentement en continu). Relu à 1440 et 390 px, sans erreur ni défilement horizontal.

@@ -1,0 +1,161 @@
+---
+// Page de comparaison des grands visuels (13.11.2026). Hors index ; à supprimer avant la mise en ligne.
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ArrowButton from '../components/ArrowButton.astro';
+
+import heroSalon from '../assets/images/accueil/hero-cannes-salon.jpg';
+import heroSejour from '../assets/images/accueil/hero-cannes-sejour.jpg';
+import heroCuisine from '../assets/images/accueil/hero-cannes-cuisine.jpg';
+import heroChambre from '../assets/images/accueil/hero-cannes-chambre.jpg';
+import cannesConsole from '../assets/images/accueil/cannes-console.jpg';
+import cannesBain from '../assets/images/accueil/cannes-salle-de-bain.jpg';
+import maisonSalon from '../assets/images/accueil/maison-salon.jpg';
+import maisonSalle from '../assets/images/accueil/maison-salle-a-manger.jpg';
+import maisonCanape from '../assets/images/accueil/maison-canape.jpg';
+import igMiroirs from '../assets/images/accueil/insta-cannes-miroirs.jpg';
+import igChambre from '../assets/images/accueil/insta-maison-chambre.jpg';
+
+const slides = [
+  { src: heroSalon, alt: "Salon de l'appartement de Cannes" },
+  { src: heroSejour, alt: "Séjour de l'appartement de Cannes" },
+  { src: heroCuisine, alt: "Cuisine de l'appartement de Cannes" },
+  { src: heroChambre, alt: "Chambre de l'appartement de Cannes" },
+];
+const bande = [
+  { src: cannesConsole, alt: "Entrée de l'appartement de Cannes" },
+  { src: maisonSalon, alt: 'Salon de la maison de famille' },
+  { src: cannesBain, alt: "Salle de bains de l'appartement de Cannes" },
+  { src: maisonSalle, alt: 'Salle à manger de la maison de famille' },
+  { src: igMiroirs, alt: 'Miroirs ronds dorés' },
+  { src: maisonCanape, alt: 'Canapé de la maison de famille' },
+  { src: igChambre, alt: 'Chevet et bouquet de fleurs' },
+];
+---
+<Base title="Aperçu des grands visuels · Casa Senso" description="Page de travail : comparaison de quatre grands visuels.">
+  <div class="note"><p class="mention">Page de travail · comparaison des grands visuels · 13.11.2026</p></div>
+
+  <!-- Version actuelle -->
+  <p class="label"><span>Actuelle</span> Plein écran, diaporama continu, titre sur la photo</p>
+  <section class="h0" data-carousel>
+    {slides.map((s, i) => (<figure class:list={['slide', { 'is-active': i === 0 }]}><Image src={s.src} alt={s.alt} widths={[1024, 1600, 2400]} sizes="100vw" /></figure>))}
+    <div class="h0-texte"><h1 class="titre-serif">De l'idée à la <em>réalisation</em></h1><p>Le plaisir de choisir. La liberté de déléguer.</p></div>
+  </section>
+
+  <!-- A · Éditorial partagé -->
+  <p class="label"><span>A</span> Éditorial partagé : le texte à gauche sur le crème, le diaporama arrondi à droite</p>
+  <section class="hA">
+    <div class="hA-texte">
+      <p class="mention">Aménagement & décoration · Neuchâtel</p>
+      <h1 class="titre-serif">De l'idée<br />à la <em>réalisation</em></h1>
+      <p class="hA-sous">Le plaisir de choisir. La liberté de déléguer.</p>
+      <ArrowButton href="/prestations" label="Découvrez mes prestations" />
+    </div>
+    <div class="hA-image" data-carousel>
+      {slides.map((s, i) => (<figure class:list={['slide', { 'is-active': i === 0 }]}><Image src={s.src} alt={s.alt} widths={[800, 1200, 1800]} sizes="(max-width: 999px) 100vw, 58vw" /></figure>))}
+    </div>
+  </section>
+
+  <!-- B · Couverture de livre -->
+  <p class="label"><span>B</span> Couverture de livre : grand titre centré au-dessus, photo encadrée en dessous</p>
+  <section class="hB">
+    <p class="mention">Casa Senso · Laetitia Rein</p>
+    <h1 class="titre-serif">De l'idée à la <em>réalisation</em></h1>
+    <p class="hB-sous">Le plaisir de choisir. La liberté de déléguer.</p>
+    <div class="hB-image" data-carousel>
+      {slides.map((s, i) => (<figure class:list={['slide', { 'is-active': i === 0 }]}><Image src={s.src} alt={s.alt} widths={[1024, 1600, 2400]} sizes="94vw" /></figure>))}
+    </div>
+  </section>
+
+  <!-- C · Bande de photos qui défile -->
+  <p class="label"><span>C</span> Bande vivante : titre au centre, une bande de photos arrondies qui défile lentement</p>
+  <section class="hC">
+    <div class="hC-texte">
+      <h1 class="titre-serif">De l'idée à la <em>réalisation</em></h1>
+      <p>Le plaisir de choisir. La liberté de déléguer.</p>
+      <ArrowButton href="/realisations" label="Voir les réalisations" />
+    </div>
+    <div class="hC-bande" aria-hidden="true">
+      <div class="hC-piste">
+        {[...bande, ...bande].map((b) => (<figure><Image src={b.src} alt="" widths={[400, 700]} sizes="22vw" /></figure>))}
+      </div>
+    </div>
+  </section>
+  <div class="fin"></div>
+</Base>
+
+<script>
+  // Chaque [data-carousel] fait défiler ses .slide en continu (décalés pour ne pas tourner ensemble).
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((c, n) => {
+    const slides = [...c.querySelectorAll<HTMLElement>('.slide')];
+    if (reduced || slides.length < 2) return;
+    let i = 0;
+    setTimeout(() => setInterval(() => { slides[i].classList.remove('is-active'); i = (i + 1) % slides.length; slides[i].classList.add('is-active'); }, 6000), n * 900);
+  });
+</script>
+
+<style>
+  .note { padding: 18px var(--gutter); border-bottom: 1px solid var(--line); }
+  .label { display: flex; align-items: center; gap: 14px; padding: 48px var(--gutter) 16px; font-size: 16px; color: var(--muted); }
+  .label span { display: inline-grid; place-items: center; min-width: 40px; height: 40px; padding: 0 12px; border-radius: 999px; background: var(--ink); color: var(--paper); font-weight: 600; }
+  .fin { height: 120px; }
+
+  .slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 1.8s ease; }
+  .slide.is-active { opacity: 1; }
+  .slide :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  @media (prefers-reduced-motion: no-preference) {
+    .slide :global(img) { transform: scale(1.12); transition: transform 9s linear; }
+    .slide.is-active :global(img) { transform: scale(1); }
+  }
+
+  /* Actuelle */
+  .h0 { position: relative; height: calc(100svh - var(--header-h)); min-height: 620px; max-height: 900px; overflow: hidden; }
+  .h0::after { content: ''; position: absolute; inset: auto 0 0 0; height: 55%; background: linear-gradient(to top, rgba(20,16,12,.5), transparent); }
+  .h0-texte { position: absolute; left: var(--gutter); bottom: 72px; z-index: 1; color: #fff; }
+  .h0 h1 { font-size: clamp(44px, 6.4vw, 92px); line-height: 1.02; }
+  .h0 h1 em { color: #EFE2C6; }
+  .h0-texte p { margin-top: 18px; font-size: 22px; }
+
+  /* A · Éditorial partagé */
+  .hA { display: grid; grid-template-columns: 42fr 58fr; gap: 56px; align-items: stretch; padding: 24px var(--gutter) 0; height: calc(100svh - var(--header-h)); min-height: 600px; max-height: 860px; }
+  .hA-texte { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 26px; padding-bottom: 40px; }
+  .hA h1 { font-size: clamp(48px, 5.6vw, 86px); line-height: 1.02; }
+  .hA-sous { font-size: 22px; color: var(--muted); max-width: 26ch; }
+  .hA-image { position: relative; overflow: hidden; border-radius: 28px 28px 28px 220px; margin-bottom: 40px; }
+
+  /* B · Couverture de livre */
+  .hB { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 64px var(--gutter) 0; }
+  .hB h1 { margin-top: 18px; font-size: clamp(48px, 7vw, 108px); line-height: 1; }
+  .hB-sous { margin-top: 18px; font-size: 22px; color: var(--muted); }
+  .hB-image { position: relative; overflow: hidden; width: 100%; height: 62svh; min-height: 420px; max-height: 640px; margin-top: 48px; border-radius: 40px; }
+
+  /* C · Bande vivante */
+  .hC { padding: 80px 0 0; overflow: hidden; }
+  .hC-texte { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; padding: 0 var(--gutter); }
+  .hC h1 { font-size: clamp(48px, 7vw, 108px); line-height: 1; }
+  .hC-texte p { font-size: 22px; color: var(--muted); }
+  .hC-bande { margin-top: 56px; }
+  .hC-piste { display: flex; gap: 16px; width: max-content; }
+  .hC-piste figure { margin: 0; width: clamp(220px, 22vw, 340px); aspect-ratio: 3 / 4; border-radius: var(--radius); overflow: hidden; flex: none; }
+  .hC-piste figure:nth-child(even) { margin-top: 48px; }
+  .hC-piste :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  @media (prefers-reduced-motion: no-preference) {
+    .hC-piste { animation: defile 60s linear infinite; }
+  }
+  @keyframes defile { to { transform: translateX(-50%); } }
+
+  @media (max-width: 999px) {
+    .label { padding-top: 36px; font-size: 14px; }
+    .h0 { height: min(680px, calc(100svh - var(--header-h))); min-height: 540px; }
+    .h0-texte { bottom: 40px; right: var(--gutter); }
+    .hA { grid-template-columns: 1fr; height: auto; max-height: none; gap: 28px; padding-top: 16px; }
+    .hA-texte { padding: 20px 0 0; }
+    .hA-image { height: 62svh; min-height: 380px; border-radius: 20px 20px 20px 120px; }
+    .hB { padding-top: 40px; }
+    .hB-image { height: 54svh; min-height: 360px; border-radius: 999px 999px var(--radius) var(--radius) / 200px 200px var(--radius) var(--radius); }
+    .hC { padding-top: 48px; }
+    .hC-piste figure { width: 52vw; }
+    .hC-piste figure:nth-child(even) { margin-top: 28px; }
+  }
+</style>
