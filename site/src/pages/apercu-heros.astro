@@ -32,60 +32,36 @@ const bande = [
   { src: igChambre, alt: 'Chevet et bouquet de fleurs' },
 ];
 ---
-<Base title="Aperçu des grands visuels · Casa Senso" description="Page de travail : comparaison de quatre grands visuels.">
-  <div class="note"><p class="mention">Page de travail · comparaison des grands visuels · 13.11.2026</p></div>
+<Base title="Aperçu des grands visuels · Casa Senso" description="Page de travail : où placer le texte du grand visuel.">
+  <div class="note"><p class="mention">Page de travail · où placer le texte du grand visuel · 13.11.2026</p></div>
 
-  <!-- Version actuelle -->
-  <p class="label"><span>Actuelle</span> Plein écran, diaporama continu, titre sur la photo</p>
-  <section class="h0" data-carousel>
+  <p class="label"><span>1</span> Au milieu : titre centré sur la photo, voile léger sur toute l’image</p>
+  <section class="hero v1" data-carousel>
     {slides.map((s, i) => (<figure class:list={['slide', { 'is-active': i === 0 }]}><Image src={s.src} alt={s.alt} widths={[1024, 1600, 2400]} sizes="100vw" /></figure>))}
-    <div class="h0-texte"><h1 class="titre-serif">De l'idée à la <em>réalisation</em></h1><p>Le plaisir de choisir. La liberté de déléguer.</p></div>
+    <div class="txt"><p class="kicker">Casa Senso · Neuchâtel</p><h1 class="titre-serif">De l'idée à la <em>réalisation</em></h1><p class="sous">Le plaisir de choisir. La liberté de déléguer.</p></div>
   </section>
 
-  <!-- A · Éditorial partagé -->
-  <p class="label"><span>A</span> Éditorial partagé : le texte à gauche sur le crème, le diaporama arrondi à droite</p>
-  <section class="hA">
-    <div class="hA-texte">
-      <p class="mention">Aménagement & décoration · Neuchâtel</p>
-      <h1 class="titre-serif">De l'idée<br />à la <em>réalisation</em></h1>
-      <p class="hA-sous">Le plaisir de choisir. La liberté de déléguer.</p>
-      <ArrowButton href="/prestations" label="Découvrez mes prestations" />
-    </div>
-    <div class="hA-image" data-carousel>
-      {slides.map((s, i) => (<figure class:list={['slide', { 'is-active': i === 0 }]}><Image src={s.src} alt={s.alt} widths={[800, 1200, 1800]} sizes="(max-width: 999px) 100vw, 58vw" /></figure>))}
-    </div>
+  <p class="label"><span>2</span> Au milieu, dans un cadre de verre dépoli</p>
+  <section class="hero v2" data-carousel>
+    {slides.map((s, i) => (<figure class:list={['slide', { 'is-active': i === 0 }]}><Image src={s.src} alt={s.alt} widths={[1024, 1600, 2400]} sizes="100vw" /></figure>))}
+    <div class="txt"><p class="kicker">Casa Senso · Neuchâtel</p><h1 class="titre-serif">De l'idée à la <em>réalisation</em></h1><p class="sous">Le plaisir de choisir. La liberté de déléguer.</p></div>
   </section>
 
-  <!-- B · Couverture de livre -->
-  <p class="label"><span>B</span> Couverture de livre : grand titre centré au-dessus, photo encadrée en dessous</p>
-  <section class="hB">
-    <p class="mention">Casa Senso · Laetitia Rein</p>
-    <h1 class="titre-serif">De l'idée à la <em>réalisation</em></h1>
-    <p class="hB-sous">Le plaisir de choisir. La liberté de déléguer.</p>
-    <div class="hB-image" data-carousel>
-      {slides.map((s, i) => (<figure class:list={['slide', { 'is-active': i === 0 }]}><Image src={s.src} alt={s.alt} widths={[1024, 1600, 2400]} sizes="94vw" /></figure>))}
-    </div>
+  <p class="label"><span>3</span> À gauche, au milieu de la hauteur, sur un dégradé latéral</p>
+  <section class="hero v3" data-carousel>
+    {slides.map((s, i) => (<figure class:list={['slide', { 'is-active': i === 0 }]}><Image src={s.src} alt={s.alt} widths={[1024, 1600, 2400]} sizes="100vw" /></figure>))}
+    <div class="txt"><p class="kicker">Casa Senso · Neuchâtel</p><h1 class="titre-serif">De l'idée<br />à la <em>réalisation</em></h1><p class="sous">Le plaisir de choisir.<br />La liberté de déléguer.</p></div>
   </section>
 
-  <!-- C · Bande de photos qui défile -->
-  <p class="label"><span>C</span> Bande vivante : titre au centre, une bande de photos arrondies qui défile lentement</p>
-  <section class="hC">
-    <div class="hC-texte">
-      <h1 class="titre-serif">De l'idée à la <em>réalisation</em></h1>
-      <p>Le plaisir de choisir. La liberté de déléguer.</p>
-      <ArrowButton href="/realisations" label="Voir les réalisations" />
-    </div>
-    <div class="hC-bande" aria-hidden="true">
-      <div class="hC-piste">
-        {[...bande, ...bande].map((b) => (<figure><Image src={b.src} alt="" widths={[400, 700]} sizes="22vw" /></figure>))}
-      </div>
-    </div>
+  <p class="label"><span>4</span> En bas au centre, très grand, sur un dégradé plus marqué</p>
+  <section class="hero v4" data-carousel>
+    {slides.map((s, i) => (<figure class:list={['slide', { 'is-active': i === 0 }]}><Image src={s.src} alt={s.alt} widths={[1024, 1600, 2400]} sizes="100vw" /></figure>))}
+    <div class="txt"><h1 class="titre-serif">De l'idée à la <em>réalisation</em></h1><p class="sous">Le plaisir de choisir. La liberté de déléguer.</p></div>
   </section>
   <div class="fin"></div>
 </Base>
 
 <script>
-  // Chaque [data-carousel] fait défiler ses .slide en continu (décalés pour ne pas tourner ensemble).
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((c, n) => {
     const slides = [...c.querySelectorAll<HTMLElement>('.slide')];
@@ -101,6 +77,7 @@ const bande = [
   .label span { display: inline-grid; place-items: center; min-width: 40px; height: 40px; padding: 0 12px; border-radius: 999px; background: var(--ink); color: var(--paper); font-weight: 600; }
   .fin { height: 120px; }
 
+  .hero { position: relative; height: calc(100svh - var(--header-h)); min-height: 620px; max-height: 1000px; overflow: hidden; background: var(--grey); color: #fff; }
   .slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 1.8s ease; }
   .slide.is-active { opacity: 1; }
   .slide :global(img) { width: 100%; height: 100%; object-fit: cover; }
@@ -108,54 +85,42 @@ const bande = [
     .slide :global(img) { transform: scale(1.12); transition: transform 9s linear; }
     .slide.is-active :global(img) { transform: scale(1); }
   }
+  .txt { position: absolute; z-index: 2; }
+  .kicker { font-weight: 500; font-size: 14px; letter-spacing: .3em; text-transform: uppercase; }
+  .hero h1 { line-height: 1.02; }
+  .hero h1 em { color: #F1E3C3; }
+  .v1 h1 em, .v2 h1 em { color: #FFF1D6; }
+  .v1 .sous, .v2 .sous { font-weight: 500; }
+  .sous { font-size: 22px; }
 
-  /* Actuelle */
-  .h0 { position: relative; height: calc(100svh - var(--header-h)); min-height: 620px; max-height: 900px; overflow: hidden; }
-  .h0::after { content: ''; position: absolute; inset: auto 0 0 0; height: 55%; background: linear-gradient(to top, rgba(20,16,12,.5), transparent); }
-  .h0-texte { position: absolute; left: var(--gutter); bottom: 72px; z-index: 1; color: #fff; }
-  .h0 h1 { font-size: clamp(44px, 6.4vw, 92px); line-height: 1.02; }
-  .h0 h1 em { color: #EFE2C6; }
-  .h0-texte p { margin-top: 18px; font-size: 22px; }
+  /* 1 · Au milieu, voile léger */
+  .v1::after { content: ''; position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse at center, rgba(20,16,12,.55) 0%, rgba(20,16,12,.32) 55%, rgba(20,16,12,.18) 100%); }
+  .v1 .txt { inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 18px; padding: 0 24px; text-shadow: 0 2px 24px rgba(0,0,0,.25); }
+  .v1 h1 { font-size: clamp(48px, 7.4vw, 112px); }
 
-  /* A · Éditorial partagé */
-  .hA { display: grid; grid-template-columns: 42fr 58fr; gap: 56px; align-items: stretch; padding: 24px var(--gutter) 0; height: calc(100svh - var(--header-h)); min-height: 600px; max-height: 860px; }
-  .hA-texte { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 26px; padding-bottom: 40px; }
-  .hA h1 { font-size: clamp(48px, 5.6vw, 86px); line-height: 1.02; }
-  .hA-sous { font-size: 22px; color: var(--muted); max-width: 26ch; }
-  .hA-image { position: relative; overflow: hidden; border-radius: 28px 28px 28px 220px; margin-bottom: 40px; }
+  /* 2 · Verre dépoli */
+  .v2 .txt { left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(820px, calc(100% - 40px)); padding: 48px 56px; border-radius: 28px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px;
+    background: rgba(30, 26, 23, .32); border: 1px solid rgba(255,255,255,.28); backdrop-filter: blur(14px) saturate(1.1); -webkit-backdrop-filter: blur(14px) saturate(1.1); box-shadow: 0 30px 80px -40px rgba(0,0,0,.45); text-shadow: 0 1px 16px rgba(0,0,0,.25); }
+  .v2 h1 { font-size: clamp(42px, 5.8vw, 84px); }
 
-  /* B · Couverture de livre */
-  .hB { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 64px var(--gutter) 0; }
-  .hB h1 { margin-top: 18px; font-size: clamp(48px, 7vw, 108px); line-height: 1; }
-  .hB-sous { margin-top: 18px; font-size: 22px; color: var(--muted); }
-  .hB-image { position: relative; overflow: hidden; width: 100%; height: 62svh; min-height: 420px; max-height: 640px; margin-top: 48px; border-radius: 40px; }
+  /* 3 · À gauche, dégradé latéral */
+  .v3::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to right, rgba(20,16,12,.62) 0%, rgba(20,16,12,.35) 38%, rgba(20,16,12,0) 65%); }
+  .v3 .txt { left: var(--gutter); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 20px; max-width: 640px; }
+  .v3 h1 { font-size: clamp(48px, 6.6vw, 100px); }
 
-  /* C · Bande vivante */
-  .hC { padding: 80px 0 0; overflow: hidden; }
-  .hC-texte { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; padding: 0 var(--gutter); }
-  .hC h1 { font-size: clamp(48px, 7vw, 108px); line-height: 1; }
-  .hC-texte p { font-size: 22px; color: var(--muted); }
-  .hC-bande { margin-top: 56px; }
-  .hC-piste { display: flex; gap: 16px; width: max-content; }
-  .hC-piste figure { margin: 0; width: clamp(220px, 22vw, 340px); aspect-ratio: 3 / 4; border-radius: var(--radius); overflow: hidden; flex: none; }
-  .hC-piste figure:nth-child(even) { margin-top: 48px; }
-  .hC-piste :global(img) { width: 100%; height: 100%; object-fit: cover; }
-  @media (prefers-reduced-motion: no-preference) {
-    .hC-piste { animation: defile 60s linear infinite; }
-  }
-  @keyframes defile { to { transform: translateX(-50%); } }
+  /* 4 · En bas au centre */
+  .v4::after { content: ''; position: absolute; inset: auto 0 0 0; height: 70%; z-index: 1; background: linear-gradient(to top, rgba(20,16,12,.72) 0%, rgba(20,16,12,.35) 45%, rgba(20,16,12,0) 100%); }
+  .v4 .txt { left: 0; right: 0; bottom: 64px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; padding: 0 20px; }
+  .v4 h1 { font-size: clamp(52px, 8.4vw, 128px); }
 
   @media (max-width: 999px) {
     .label { padding-top: 36px; font-size: 14px; }
-    .h0 { height: min(680px, calc(100svh - var(--header-h))); min-height: 540px; }
-    .h0-texte { bottom: 40px; right: var(--gutter); }
-    .hA { grid-template-columns: 1fr; height: auto; max-height: none; gap: 28px; padding-top: 16px; }
-    .hA-texte { padding: 20px 0 0; }
-    .hA-image { height: 62svh; min-height: 380px; border-radius: 20px 20px 20px 120px; }
-    .hB { padding-top: 40px; }
-    .hB-image { height: 54svh; min-height: 360px; border-radius: 999px 999px var(--radius) var(--radius) / 200px 200px var(--radius) var(--radius); }
-    .hC { padding-top: 48px; }
-    .hC-piste figure { width: 52vw; }
-    .hC-piste figure:nth-child(even) { margin-top: 28px; }
+    .hero { height: min(720px, calc(100svh - var(--header-h))); min-height: 540px; }
+    .sous { font-size: 18px; }
+    .kicker { font-size: 12px; }
+    .v2 .txt { padding: 32px 22px; }
+    .v3::after { background: linear-gradient(to top, rgba(20,16,12,.65), rgba(20,16,12,.15) 70%); }
+    .v3 .txt { top: auto; bottom: 40px; transform: none; right: var(--gutter); }
+    .v4 .txt { bottom: 40px; }
   }
 </style>
