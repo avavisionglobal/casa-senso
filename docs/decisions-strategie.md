@@ -264,3 +264,9 @@ Format : date · décision · raison · remplace · statut · source.
 - **Remplace** : accueil v2 (PP Hatton, Madefor, encarts blancs) et la règle « DA du site inchangée ».
 - **Statut** : proposition en local, à valider par Diego ; pages intérieures à reprendre ensuite ; site non déployé.
 - **Source** : Diego, conversation du 13.11.2026 ; `site/PROJECT.md`.
+
+## 2026-11-13 · Site : grand visuel « Couverture de livre » retenu
+- **Décision** : l'accueil ouvre sur le grand visuel B (titre « De l'idée à la réalisation » centré au-dessus, diaporama continu encadré dessous) ; la rangée Avant / Après est retirée de l'accueil.
+- **Raison** : choix de Diego parmi 3 versions (A éditorial partagé, B couverture de livre, C bande vivante).
+- **Statut** : appliqué en local ; site non déployé. Page de comparaison `/apercu-heros` à supprimer avant la mise en ligne.
+- **Source** : Diego, conversation du 13.11.2026.
