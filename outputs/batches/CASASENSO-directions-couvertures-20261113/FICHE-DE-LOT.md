@@ -15,3 +15,9 @@ Retours : en attente du choix de Diego.
 - Livre (133:401) : L1 récit + signet, L2 couverture de livre, L3 récit + numéro (4 chapitres chacune).
 - Idées déco (133:493) : I1 photo forte + 3, I2 triptyque, I3 récit (+ slide 2).
 Aucune génération. À surveiller : I1 dégradé chaud proche d'un voile ; L2 III montre l'affiche « VOYAGE EVASION ».
+
+## Retours du 13.11.2026 (2)
+- Idées déco : I1 « Photo forte + 3 » retenue, appliquée en couverture du carrousel (Figma 134:92, ancienne B-1 en Archives).
+- Moodboard : M1 et M2 gardés tous les deux, posts complets de 9 slides construits (Figma 134:371 et 134:422 ; propositions/mb-full) pour que Laetitia choisisse.
+- Livre : L1 et L2 gardés ; chaque option = sa couverture + les slides intérieures existantes.
+- Artefact : section « Aperçu du profil » interactive ; Laetitia choisit Profil (actuel / optimisé), Livre (L1 / L2), Moodboard (M1 / M2) ; la grille, les rubriques, le calendrier et les propositions se mettent à jour ; choix gardé dans son navigateur.

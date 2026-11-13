@@ -207,3 +207,9 @@ Format : date · décision · raison · remplace · statut · source.
 - **Remplace** : les couvertures précédentes de ces 5 rubriques (Archives du Figma) ; Lora n'est plus réservé au Voyage pour les couvertures.
 - **Statut** : décidé pour 5 rubriques ; choix Livre (L1–L3), Moodboard (M1–M3), Idées déco (I1–I3) en attente.
 - **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · Idées déco I1 ; Livre L1/L2 et Moodboard M1/M2 au choix de Laetitia
+- **Décision** : couverture Idées déco = I1 « Photo forte + 3 ». Livre (L1 récit + signet / L2 couverture de livre) et Moodboard (M1 magazine / M2 planche éditoriale) restent au choix de Laetitia, présentés en posts complets dans l'artefact avec un aperçu du profil qui suit ses choix.
+- **Raison** : laisser la cliente comparer concrètement.
+- **Statut** : I1 décidé ; L1/L2 et M1/M2 en attente du choix de Laetitia.
+- **Source** : Diego, conversation du 13.11.2026.

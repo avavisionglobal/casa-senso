@@ -143,6 +143,15 @@ section{padding-block:80px 0}
 .prop{border-top:3px solid var(--fg); padding-block:24px 8px; display:grid; gap:14px}
 .prop h3{font-size:clamp(24px,2.6vw,32px)}
 .prop p.d{color:var(--muted); font-size:16px; max-width:70ch}
+.choix{display:grid; gap:12px; padding:16px; background:var(--paper)}
+.choix .g{display:grid; gap:6px}
+.choix .tabs button{font-size:14px; padding:7px 13px}
+.iggrid{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:#fff}
+.igt{position:relative; aspect-ratio:3/4; overflow:hidden; padding:0; border:0; cursor:zoom-in; background:#ddd; display:block}
+.igt img{width:100%; height:100%; object-fit:cover; display:block}
+.igt .pin{position:absolute; top:5px; right:7px; font-size:14px; line-height:1}
+.igt .vid{position:absolute; inset:0; background:#332E29; color:#fff; display:flex; align-items:flex-end; padding:10px; font:600 12px/1.2 var(--font); text-align:left}
+.phone > img{display:block; width:100%}
 .dir-pts{margin:0; padding-left:18px; display:grid; gap:8px; font-size:16px}
 .apercu{display:grid; grid-template-columns:minmax(0,420px) 1fr; gap:40px; align-items:start}
 .phone{border:10px solid var(--fg); border-radius:36px; overflow:hidden auto; max-height:min(860px,85vh); background:#fff; scrollbar-width:none}
@@ -204,7 +213,8 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
   </section>
 
   <section id="propositions" aria-labelledby="t-prop">
-    <div class="sec-head"><h2 id="t-prop">Propositions à choisir</h2><p class="eyebrow">Livre · Moodboard · Idées déco</p></div>
+    <div class="sec-head"><h2 id="t-prop">Propositions à choisir</h2><p class="eyebrow">Livre · Moodboard</p></div>
+    <p class="dir-intro">Choisissez une option : l’aperçu du profil, les rubriques et le calendrier se mettent à jour avec votre choix. Idées déco : couverture I1 retenue.</p>
     <div id="props"></div>
   </section>
 
@@ -258,8 +268,9 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
     <div class="sec-head"><h2 id="t-apercu">Aperçu du profil</h2><p class="eyebrow">Après le 25 février 2027</p></div>
     <div class="tabs" id="apx-tabs" role="tablist" aria-label="Profils à comparer"></div>
     <div class="apercu">
-      <div class="phone" id="apx-phone"><img id="apx-img" src="img/ig-apercu.jpg" alt=""></div>
+      <div class="phone" id="apx-phone"></div>
       <div class="apercu-txt">
+        <div class="choix" id="choix"></div>
         <p id="apx-cap"></p>
         <p class="eyebrow" style="margin-top:12px">Ce qu’on améliore sur son profil</p>
         <ol class="rules">
@@ -269,7 +280,7 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
           <li>Des stories à la une aux couleurs des rubriques, avec les dessins au trait, sans dorure. « Shopping » est remplacé par « Réalisations » ; à garder si elle s’en sert.</li>
           <li>Trois posts épinglés : le Livre I (qui elle est), l’Avant / après (la transformation), la Réalisation de Cannes (la preuve).</li>
         </ol>
-        <p class="s">Grille en 3:4 : Instagram rogne les posts 4:5 sur les côtés. Faites défiler dans le téléphone. Comptes de référence : relevés le 12.11.2026, 12 derniers posts.</p>
+        <p class="s">Grille en 3:4 : Instagram rogne les posts 4:5 sur les côtés. Faites défiler dans le téléphone ; touchez une case pour voir le post entier. Comptes de référence : relevés le 12.11.2026, 12 derniers posts.</p>
       </div>
     </div>
   </section>
@@ -315,7 +326,7 @@ const RUBS = [
 ];
 
 // Couvertures
-["img/livre-1-01.jpg","img/real-cov-03.jpg","img/mood2-01.jpg","img/ar-01.jpg","img/voyage-01.jpg","img/ideesB-01.jpg","img/pro-01.jpg","img/cob-01.jpg"].forEach((s, i) => $("#covers").append(h("img", {src:s, alt:""})));
+["img/prop-L1-1.jpg","img/real-01.jpg","img/mb1-01.jpg","img/ar-01.jpg","img/voyage-01.jpg","img/ideesB-01.jpg","img/pro-01.jpg","img/cob-01.jpg"].forEach((s, i) => $("#covers").append(h("img", {src:s, alt:""})));
 
 // Visionneuse
 let LB = {list:[], i:0, cap:""};
@@ -327,7 +338,14 @@ $("#lb-close").addEventListener("click", () => { $("#lb").hidden = true; });
 $("#lb").addEventListener("click", e => { if (e.target.id === "lb") $("#lb").hidden = true; });
 document.addEventListener("keydown", e => { if ($("#lb").hidden) return; if (e.key === "Escape") $("#lb").hidden = true; if (e.key === "ArrowRight") $("#lb-next").click(); if (e.key === "ArrowLeft") $("#lb-prev").click(); });
 
+// Choix de la cliente : Livre (L1/L2), Moodboard (M1/M2), profil (actuel/optimisé)
+const SEL = {prof:"optimise", livre:"L1", mood:"M1"};
+const LN = {1:7, 2:7, 3:8, 4:8};
+const livreList = k => [`img/prop-${SEL.livre}-${k}.jpg`, ...R(`livre-${k}`, LN[k]).slice(1)];
+const moodList = () => R(SEL.mood === "M1" ? "mb1" : "mb2", 9);
+
 // Rubriques
+function renderRubs(){ $("#rubs").replaceChildren();
 RUBS.forEach(r => {
   const reel = h("div", {class:"reel"});
   const tabs = h("div", {class:"tabs", role:"tablist", "aria-label":"Versions de " + r.name});
@@ -342,7 +360,7 @@ RUBS.forEach(r => {
       h("div", {class:"chips"}, h("a", {class:"chip pat-l", href:"#patterns"}, "Pattern · " + PAT_OF[r.id]), r.chips.map(([c, t]) => h("span", {class:"chip " + c}, t)))),
     r.tabs.length > 1 ? tabs : null, reel));
   show(0);
-});
+}); }
 
 // Patterns : visuels = slides réelles posées sur une surface générée (GPT Image 2.5), légendes en HTML
 const PATS = [
@@ -390,42 +408,63 @@ showDir(2);
 // Propositions (Livre, Moodboard, Idées déco)
 const P = (k, n) => Array.from({length:n}, (_, i) => `img/prop-${k}-${i + 1}.jpg`);
 const PROPS = [
-  {n:"Le Livre · couverture", c:"var(--r-livre)", opts:[
-    ["L1 · Récit + signet", P("L1",4), "La couverture « Le récit », sa phrase en sérif, et un signet ocre qui porte le numéro du chapitre."],
-    ["L2 · Couverture de livre", P("L2",4), "Page crème, grand numéro ocre, titre en italique, photo en médaillon et le dessin du chapitre."],
-    ["L3 · Récit + numéro", P("L3",4), "Photo plein cadre, grand numéro romain en sérif, sa phrase en bas sous un filet ocre."]]},
-  {n:"Moodboard · couverture magazine", c:"var(--r-mood)", opts:[
-    ["M1 · Couverture de magazine", P("M1",2), "Le canapé en velours plein cadre, « Moodboard » en titre de magazine, numéro et date, les quatre matières en ligne de couverture."],
-    ["M2 · Planche éditoriale", P("M2",2), "Page crème façon sommaire : quatre photos numérotées, le titre en sérif."],
-    ["M3 · Double lecture", P("M3",2), "Photo en haut, bande crème avec le titre en italique, les échantillons posés à la jonction."]]},
-  {n:"Idées déco · couverture", c:"var(--r-idees)", opts:[
-    ["I1 · Photo forte + 3", P("I1",2), "La photo du laiton en plein cadre, un grand « 3 » en sérif, l’olive en simple filet."],
-    ["I2 · Triptyque", P("I2",2), "Chêne, rotin et laiton côte à côte, bande olive avec le titre."],
-    ["I3 · Récit", P("I3",2), "Le traitement « Le récit » comme les autres rubriques, avec « À enregistrer »."]]}];
+  {key:"livre", n:"Le Livre · couverture", c:"var(--r-livre)", opts:[
+    ["L1", "L1 · Récit + signet", P("L1",4), "La couverture « Le récit », sa phrase en sérif, et un signet ocre qui porte le numéro du chapitre. Les 4 chapitres ; la suite de chaque post reste la même."],
+    ["L2", "L2 · Couverture de livre", P("L2",4), "Page crème, grand numéro ocre, titre en italique, photo en médaillon et le dessin du chapitre. Les 4 chapitres ; la suite de chaque post reste la même."]]},
+  {key:"mood", n:"Moodboard · le post complet", c:"var(--r-mood)", opts:[
+    ["M1", "M1 · Magazine", R("mb1",9), "Photos plein cadre, titres en sérif, folios de magazine : le post entier, de la couverture à la fin."],
+    ["M2", "M2 · Planche éditoriale", R("mb2",9), "Pages crème façon livre, photos en grille avec légendes numérotées : le post entier, de la couverture à la fin."]]}];
+const PROPSHOW = {};
 PROPS.forEach(g => {
   const reel = h("div", {class:"reel"}), desc = h("p", {class:"d"}), tabs = h("div", {class:"tabs", role:"tablist"});
-  function show(i){ const [label, list, d] = g.opts[i]; desc.textContent = d;
+  function show(v){ const o = g.opts.find(x => x[0] === v); const [, label, list, d] = o; desc.textContent = d;
     reel.replaceChildren(...list.map((s, j) => h("button", {type:"button", "aria-label":`${label}, slide ${j + 1}`, onclick:() => openLB(list, j, `${g.n} · ${label}`)}, h("img", {src:s, alt:"", loading:"lazy"}))));
-    [...tabs.children].forEach((b, j) => b.setAttribute("aria-selected", String(j === i))); }
-  g.opts.forEach(([label], i) => tabs.append(h("button", {type:"button", role:"tab", onclick:() => show(i)}, label)));
+    [...tabs.children].forEach((b, j) => b.setAttribute("aria-selected", String(g.opts[j][0] === v))); }
+  g.opts.forEach(([v, label]) => tabs.append(h("button", {type:"button", role:"tab", onclick:() => setSel(g.key, v)}, label)));
+  PROPSHOW[g.key] = show;
   $("#props").append(h("article", {class:"prop", style:`border-top-color:${g.c}`}, h("h3", {}, g.n), tabs, desc, reel));
-  show(0);
 });
 
 // Aperçu : Casa Senso et comptes de référence
 const APX = [
-  ["Casa Senso · prévu", "img/ig-apercu.jpg", "Son profil tel quel, avec les 12 publications prévues au-dessus des 3 posts déjà en ligne."],
-  ["Casa Senso · optimisé", "img/ig-optimise.jpg", "Proposition : nom, bio, boutons, stories à la une et trois posts épinglés (📌)."],
+  ["Casa Senso · selon vos choix", null, ""],
   ["House & Garden", "img/ig-ref-houseandgarden.jpg", "@houseandgarden : modèle des cartes du Livre et des Réalisations."],
   ["Amber Lewis", "img/ig-ref-amberinteriors.jpg", "@amberinteriors : modèle de « Raconter son parcours » et du récit sur photo."],
-  ["Emily Henderson", "img/ig-ref-em_henderson.jpg", "@em_henderson : modèle de l’Avant / après en étapes."],
+  ["Emily Henderson", "img/ig-ref-em_henderson.jpg", "@em_henderson : modèle des couvertures « Le récit » et de l’Avant / après."],
   ["Studio McGee", "img/ig-ref-studiomcgee.jpg", "@studiomcgee : modèle de la fiche projet des Espaces pros."],
   ["Apartamento", "img/ig-ref-apartamentomagazine.jpg", "@apartamentomagazine : modèle de la « Légende blanche » des Coulisses."],
   ["Dorothée Meilichzon", "img/ig-ref-dorotheemeilichzon.jpg", "@dorotheemeilichzon : premier modèle des Coulisses."]];
-function showApx(i){ $("#apx-img").src = APX[i][1]; $("#apx-img").alt = "Aperçu du profil : " + APX[i][0]; $("#apx-cap").textContent = APX[i][2]; $("#apx-phone").scrollTop = 0;
+let apxI = 0;
+const TILE = {
+  L4:() => [`img/prop-${SEL.livre}-4.jpg`, livreList(4), "Le Livre · Chapitre IV"], L3:() => [`img/prop-${SEL.livre}-3.jpg`, livreList(3), "Le Livre · Chapitre III"],
+  L2:() => [`img/prop-${SEL.livre}-2.jpg`, livreList(2), "Le Livre · Chapitre II"], L1:() => [`img/prop-${SEL.livre}-1.jpg`, livreList(1), "Le Livre · Chapitre I"],
+  ID:() => ["img/ideesB-01.jpg", R("ideesB",6), "Idées déco"], EP:() => ["img/pro-01.jpg", R("pro",9), "ICHI Ramen Shop"],
+  VID:() => [null, null, "Vidéo à tourner"], RE:() => ["img/real-01.jpg", R("real",9), "Réalisation · Cannes"],
+  MB:() => [SEL.mood === "M1" ? "img/mb1-01.jpg" : "img/mb2-01.jpg", moodList(), "Moodboard · Le salon vert"], AA:() => ["img/ar-01.jpg", R("ar",9), "Avant / après · Cannes"],
+  CO:() => ["img/cob-01.jpg", R("cob",7), "Coulisses · La niche"], VO:() => ["img/voyage-01.jpg", R("voyage",7), "Carnet · Marrakech"],
+  E1:() => ["img/ig-p1.jpg", ["img/ig-p1.jpg"], "Déjà publié (28 oct.)"], E2:() => ["img/ig-p2.jpg", ["img/ig-p2.jpg"], "Déjà publié (24 oct.)"], E3:() => ["img/ig-p3.jpg", ["img/ig-p3.jpg"], "Déjà publié (22 oct.)"]};
+const ORDER = ["L4","L3","ID","EP","L2","VID","RE","MB","AA","CO","VO","L1","E1","E2","E3"];
+function renderPhone(){
+  const opt = SEL.prof === "optimise", pins = ["L1","AA","RE"];
+  const order = opt ? [...pins, ...ORDER.filter(k => !pins.includes(k))] : ORDER;
+  const tiles = order.map((k, i) => { const [img, list, t] = TILE[k]();
+    return h("button", {type:"button", class:"igt", "aria-label":t, title:t, onclick:() => list && openLB(list, 0, t)},
+      img ? h("img", {src:img, alt:"", loading:"lazy"}) : h("span", {class:"vid"}, "Vidéo Casa Senso à tourner"),
+      opt && i < 3 ? h("span", {class:"pin", "aria-hidden":"true"}, "📌") : null); });
+  $("#apx-phone").replaceChildren(h("img", {src: opt ? "img/ig-head-optimise.jpg" : "img/ig-head-prevu.jpg", alt:"En-tête du profil casa_senso.ch"}), h("div", {class:"iggrid"}, tiles));
+  $("#apx-cap").textContent = opt ? "Profil optimisé : nom, bio, boutons, stories à la une et trois posts épinglés (📌), avec vos choix de couverture." : "Profil actuel (bio et stories à la une d’aujourd’hui), avec les 12 publications prévues au-dessus des 3 posts déjà en ligne.";
+}
+function renderChoix(){
+  const G = [["prof","Profil",[["prevu","Actuel"],["optimise","Optimisé"]]], ["livre","Le Livre",[["L1","L1 · Récit + signet"],["L2","L2 · Couverture de livre"]]], ["mood","Moodboard",[["M1","M1 · Magazine"],["M2","M2 · Planche éditoriale"]]]];
+  $("#choix").replaceChildren(h("p", {class:"eyebrow"}, "Vos choix"), ...G.map(([k, n, o]) => h("div", {class:"g"}, h("span", {style:"font-size:14px; font-weight:600"}, n),
+    h("div", {class:"tabs"}, o.map(([v, l]) => h("button", {type:"button", "aria-pressed":String(SEL[k] === v), "aria-selected":String(SEL[k] === v), onclick:() => setSel(k, v)}, l))))));
+  $("#choix").hidden = apxI !== 0;
+}
+function showApx(i){ apxI = i;
+  if (i === 0) renderPhone(); else { $("#apx-phone").replaceChildren(h("img", {src:APX[i][1], alt:"Aperçu du profil : " + APX[i][0]})); $("#apx-cap").textContent = APX[i][2]; }
+  $("#apx-phone").scrollTop = 0; renderChoix();
   [...$("#apx-tabs").children].forEach((b, j) => b.setAttribute("aria-selected", String(j === i))); }
 APX.forEach(([l], i) => $("#apx-tabs").append(h("button", {type:"button", role:"tab", onclick:() => showApx(i)}, l)));
-showApx(0);
 
 // Charte : couleurs
 [["Encre","#1E1A17"],["Papier","#F3EDE3"]].forEach(([n, x]) => $("#dots").append(h("div", {class:"dot"}, h("i", {style:`background:${x}; box-shadow:inset 0 0 0 1px var(--line)`}), n, h("small", {}, x))));
@@ -433,18 +472,18 @@ Object.keys(HEX).forEach(k => $("#dots").append(h("div", {class:"dot"}, h("i", {
 
 // Calendrier
 const EVENTS = [
-  {d:"2026-11-17", k:"livre", t:"Le Livre · Chapitre I", img:"img/livre-1-01.jpg", list:R("livre-1",7)},
+  {d:"2026-11-17", k:"livre", ch:1, t:"Le Livre · Chapitre I"},
   {d:"2026-11-24", k:"voyage", t:"Carnet de voyage · Marrakech", img:"img/voyage-01.jpg", list:R("voyage",7)},
   {d:"2026-11-30", k:"cou", t:"Coulisses · La niche", img:"img/cob-01.jpg", list:R("cob",7)},
   {d:"2026-12-03", k:"aa", t:"Avant / après · Cannes", img:"img/ar-01.jpg", list:R("ar",9)},
-  {d:"2026-12-15", k:"mood", t:"Moodboard · Le salon vert", img:"img/mood2-01.jpg", list:R("mood2",9)},
+  {d:"2026-12-15", k:"mood", t:"Moodboard · Le salon vert"},
   {d:"2026-12-22", k:"real", t:"Réalisation · Cannes", img:"img/real-01.jpg", list:R("real",9)},
   {d:"2027-01-07", k:"cou", t:"Vidéo Casa Senso (à tourner)", flag:true},
-  {d:"2027-01-19", k:"livre", t:"Le Livre · Chapitre II", img:"img/livre-2-01.jpg", list:R("livre-2",7)},
+  {d:"2027-01-19", k:"livre", ch:2, t:"Le Livre · Chapitre II"},
   {d:"2027-01-26", k:"pro", t:"Espace pro · ICHI", img:"img/pro-01.jpg", list:R("pro",9), flag:true},
   {d:"2027-02-04", k:"idees", t:"Idées déco · 3 matières", img:"img/ideesB-01.jpg", list:R("ideesB",6)},
-  {d:"2027-02-11", k:"livre", t:"Le Livre · Chapitre III", img:"img/livre-3-01.jpg", list:R("livre-3",8)},
-  {d:"2027-02-25", k:"livre", t:"Le Livre · Chapitre IV", img:"img/livre-4-01.jpg", list:R("livre-4",8)}
+  {d:"2027-02-11", k:"livre", ch:3, t:"Le Livre · Chapitre III"},
+  {d:"2027-02-25", k:"livre", ch:4, t:"Le Livre · Chapitre IV"}
 ];
 const MONTHS = [[2026,10],[2026,11],[2027,0],[2027,1]];
 const TODAY = new Date(2026, 10, 13);
@@ -479,5 +518,13 @@ function render(){
 $("#cal-prev").addEventListener("click", () => { if (mi > 0) { mi--; render(); } });
 $("#cal-next").addEventListener("click", () => { if (mi < MONTHS.length - 1) { mi++; render(); } });
 $("#cal-today").addEventListener("click", () => { mi = 0; render(); });
-render();
+function applySel(){
+  RUBS[0].tabs = [1, 2, 3, 4].map(k => [["Chapitre I","II","III","IV"][k - 1], livreList(k)]);
+  RUBS[3].tabs = [["Le salon vert", moodList()]];
+  EVENTS.forEach(e => { if (e.k === "livre") { e.img = `img/prop-${SEL.livre}-${e.ch}.jpg`; e.list = livreList(e.ch); } if (e.k === "mood") { const l = moodList(); e.img = l[0]; e.list = l; } });
+  renderRubs(); render(); PROPSHOW.livre(SEL.livre); PROPSHOW.mood(SEL.mood); showApx(apxI);
+}
+function setSel(k, v){ SEL[k] = v; try { localStorage.setItem("casa-sel", JSON.stringify(SEL)); } catch (e) {} applySel(); }
+try { Object.assign(SEL, JSON.parse(localStorage.getItem("casa-sel") || "{}")); } catch (e) {}
+applySel();
 </script>
