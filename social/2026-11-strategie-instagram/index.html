@@ -143,6 +143,10 @@ section{padding-block:80px 0}
 .prop{border-top:3px solid var(--fg); padding-block:24px 8px; display:grid; gap:14px}
 .prop h3{font-size:clamp(24px,2.6vw,32px)}
 .prop p.d{color:var(--muted); font-size:16px; max-width:70ch}
+.optrow{display:flex; gap:10px 14px; align-items:center; flex-wrap:wrap; padding:12px 14px; background:var(--paper)}
+.optrow .lab{font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+.optrow .d{font-size:15px; color:var(--muted); flex-basis:100%}
+.optrow .tabs button{font-size:14px; padding:7px 13px}
 .choix{display:grid; gap:12px; padding:16px; background:var(--paper)}
 .choix .g{display:grid; gap:6px}
 .choix .tabs button{font-size:14px; padding:7px 13px}
@@ -174,7 +178,7 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
 
 <nav class="nav" aria-label="Sommaire"><div class="nav-in">
   <span class="logo" role="img" aria-label="casa senso"></span>
-  <a href="#strategie">Stratégie</a><a href="#propositions">Propositions</a><a href="#patterns">Patterns</a><a href="#rubriques">Rubriques</a><a href="#charte">Charte</a><a href="#calendrier">Calendrier</a><a href="#apercu">Aperçu</a>
+  <a href="#strategie">Stratégie</a><a href="#patterns">Patterns</a><a href="#rubriques">Rubriques</a><a href="#charte">Charte</a><a href="#apercu">Aperçu</a><a href="#calendrier">Calendrier</a>
 </div></nav>
 
 <div class="wrap">
@@ -194,12 +198,6 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
       <div><b>Ce qu’on montre</b><span>Son histoire, ses moodboards, ses projets réels. Aucune image générée présentée comme une réalisation.</span></div>
       <div><b>Comment</b><span>Une rubrique = un format et une couleur fixes, pour être reconnue dans le fil.</span></div>
     </div>
-  </section>
-
-  <section id="propositions" aria-labelledby="t-prop">
-    <div class="sec-head"><h2 id="t-prop">Propositions à choisir</h2><p class="eyebrow">Livre · Moodboard</p></div>
-    <p class="dir-intro">Choisissez une option : l’aperçu du profil, les rubriques et le calendrier se mettent à jour avec votre choix. Idées déco : couverture I1 retenue.</p>
-    <div id="props"></div>
   </section>
 
   <section id="patterns" aria-labelledby="t-pat">
@@ -232,21 +230,6 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
     </div>
   </section>
 
-  <section id="calendrier" aria-labelledby="t-cal">
-    <div class="sec-head"><h2 id="t-cal">Calendrier</h2></div>
-    <div class="cal">
-      <div class="cal-bar">
-        <h3 id="cal-title" aria-live="polite"></h3>
-        <button type="button" id="cal-today">Aujourd’hui</button>
-        <button type="button" id="cal-prev" aria-label="Mois précédent">‹</button>
-        <button type="button" id="cal-next" aria-label="Mois suivant">›</button>
-      </div>
-      <div class="legend" id="legend"></div>
-      <div class="grid" id="dow"></div>
-      <div class="grid" id="grid"></div>
-      <div class="agenda" id="agenda"></div>
-    </div>
-  </section>
 
   <section id="apercu" aria-labelledby="t-apercu">
     <div class="sec-head"><h2 id="t-apercu">Aperçu du profil</h2><p class="eyebrow">Après le 25 février 2027</p></div>
@@ -266,6 +249,22 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
         </ol>
         <p class="s">Grille en 3:4 : Instagram rogne les posts 4:5 sur les côtés. Faites défiler dans le téléphone ; touchez une case pour voir le post entier. Comptes de référence : relevés le 12.11.2026, 12 derniers posts.</p>
       </div>
+    </div>
+  </section>
+
+  <section id="calendrier" aria-labelledby="t-cal">
+    <div class="sec-head"><h2 id="t-cal">Calendrier</h2></div>
+    <div class="cal">
+      <div class="cal-bar">
+        <h3 id="cal-title" aria-live="polite"></h3>
+        <button type="button" id="cal-today">Aujourd’hui</button>
+        <button type="button" id="cal-prev" aria-label="Mois précédent">‹</button>
+        <button type="button" id="cal-next" aria-label="Mois suivant">›</button>
+      </div>
+      <div class="legend" id="legend"></div>
+      <div class="grid" id="dow"></div>
+      <div class="grid" id="grid"></div>
+      <div class="agenda" id="agenda"></div>
     </div>
   </section>
 
@@ -291,13 +290,13 @@ const PAT_OF = {livre:"Parcours + Trois cartes", voyage:"Raconter son parcours",
 const NAME = {livre:"Le Livre", voyage:"Voyage", aa:"Avant / après", mood:"Moodboards", real:"Réalisations", cou:"Coulisses", pro:"Espaces pros", idees:"Idées déco"};
 
 const RUBS = [
-  {id:"livre", n:"01", name:"Le Livre Casa Senso", line:"Son histoire en quatre chapitres, mise en page comme un livre.", chips:[["ok","Ses mots"],["","17 nov. · 19 janv. · 11 févr. · 25 févr."]],
+  {id:"livre", opt:{key:"livre", o:[["L1","L1 · Récit + signet","Couverture « Le récit » avec sa phrase en sérif et un signet ocre qui porte le numéro du chapitre."],["L2","L2 · Couverture de livre","Page crème, grand numéro ocre, titre en italique, photo en médaillon et le dessin du chapitre."]]}, n:"01", name:"Le Livre Casa Senso", line:"Son histoire en quatre chapitres, mise en page comme un livre.", chips:[["ok","Ses mots"],["","17 nov. · 19 janv. · 11 févr. · 25 févr."]],
    tabs:[["Chapitre I", R("livre-1",7)],["II", R("livre-2",7)],["III", R("livre-3",8)],["IV", R("livre-4",8)]]},
   {id:"voyage", n:"02", name:"Inspiration et voyage", line:"Un carnet par lieu, photos plein cadre et un court texte.", chips:[["wait","Textes à valider"],["","24 nov."]],
    tabs:[["Marrakech", R("voyage",7)]]},
   {id:"aa", n:"03", name:"Avant / après", line:"Une transformation en étapes, racontée sur la photo.", chips:[["wait","Textes à valider"],["","3 déc."]],
    tabs:[["Cannes", R("ar",9)]]},
-  {id:"mood", n:"04", name:"Moodboards", line:"Sa planche, la palette, puis les pièces en gros plan.", chips:[["wait","Titres à valider"],["","15 déc."]],
+  {id:"mood", opt:{key:"mood", o:[["M1","M1 · Magazine","Photos plein cadre, titres en sérif, folios de magazine."],["M2","M2 · Planche éditoriale","Pages crème façon livre, photos en grille avec légendes numérotées."]]}, n:"04", name:"Moodboards", line:"Sa planche, la palette, puis les pièces en gros plan.", chips:[["wait","Titres à valider"],["","15 déc."]],
    tabs:[["Le salon vert", R("mood2",9)]]},
   {id:"real", n:"05", name:"Réalisations", line:"La visite d’un projet terminé.", chips:[["ok","Prêt"],["","22 déc."]],
    tabs:[["Visite Cannes", R("real",9)],["3 couvertures", R("real-cov",3)]]},
@@ -342,6 +341,9 @@ RUBS.forEach(r => {
       h("div", {class:"badge", style:`background:${COL[r.id]}; color:${r.id === "real" ? "#1E1A17" : "#fff"}`}, r.n),
       h("div", {style:"min-width:0"}, h("h3", {}, r.name), h("p", {}, r.line)),
       h("div", {class:"chips"}, h("a", {class:"chip pat-l", href:"#patterns"}, "Pattern · " + PAT_OF[r.id]), r.chips.map(([c, t]) => h("span", {class:"chip " + c}, t)))),
+    r.opt ? h("div", {class:"optrow"}, h("span", {class:"lab"}, "Proposition à choisir"),
+      h("div", {class:"tabs"}, r.opt.o.map(([v, l]) => h("button", {type:"button", "aria-pressed":String(SEL[r.opt.key] === v), "aria-selected":String(SEL[r.opt.key] === v), onclick:() => setSel(r.opt.key, v)}, l))),
+      h("span", {class:"d"}, r.opt.o.find(x => x[0] === SEL[r.opt.key])[2])) : null,
     r.tabs.length > 1 ? tabs : null, reel));
   show(0);
 }); }
@@ -371,26 +373,6 @@ PATS.forEach(p => $("#pats").append(h("article", {class:"pat" + (p.later ? " lat
   h("p", {class:"eyebrow"}, p.m), h("h3", {}, p.n), h("p", {class:"d"}, p.d),
   p.r.length ? h("div", {class:"tags"}, p.r.map(k => h("span", {class:"tag"}, h("i", {style:`background:${COL[k]}`}), NAME[k]))) : null,
   p.list ? h("button", {type:"button", class:"ex", onclick:() => openLB(p.list, 0, p.n)}, "Voir le post réel ›") : null)));
-
-// Propositions (Livre, Moodboard, Idées déco)
-const P = (k, n) => Array.from({length:n}, (_, i) => `img/prop-${k}-${i + 1}.jpg`);
-const PROPS = [
-  {key:"livre", n:"Le Livre · couverture", c:"var(--r-livre)", opts:[
-    ["L1", "L1 · Récit + signet", P("L1",4), "La couverture « Le récit », sa phrase en sérif, et un signet ocre qui porte le numéro du chapitre. Les 4 chapitres ; la suite de chaque post reste la même."],
-    ["L2", "L2 · Couverture de livre", P("L2",4), "Page crème, grand numéro ocre, titre en italique, photo en médaillon et le dessin du chapitre. Les 4 chapitres ; la suite de chaque post reste la même."]]},
-  {key:"mood", n:"Moodboard · le post complet", c:"var(--r-mood)", opts:[
-    ["M1", "M1 · Magazine", R("mb1",9), "Photos plein cadre, titres en sérif, folios de magazine : le post entier, de la couverture à la fin."],
-    ["M2", "M2 · Planche éditoriale", R("mb2",9), "Pages crème façon livre, photos en grille avec légendes numérotées : le post entier, de la couverture à la fin."]]}];
-const PROPSHOW = {};
-PROPS.forEach(g => {
-  const reel = h("div", {class:"reel"}), desc = h("p", {class:"d"}), tabs = h("div", {class:"tabs", role:"tablist"});
-  function show(v){ const o = g.opts.find(x => x[0] === v); const [, label, list, d] = o; desc.textContent = d;
-    reel.replaceChildren(...list.map((s, j) => h("button", {type:"button", "aria-label":`${label}, slide ${j + 1}`, onclick:() => openLB(list, j, `${g.n} · ${label}`)}, h("img", {src:s, alt:"", loading:"lazy"}))));
-    [...tabs.children].forEach((b, j) => b.setAttribute("aria-selected", String(g.opts[j][0] === v))); }
-  g.opts.forEach(([v, label]) => tabs.append(h("button", {type:"button", role:"tab", onclick:() => setSel(g.key, v)}, label)));
-  PROPSHOW[g.key] = show;
-  $("#props").append(h("article", {class:"prop", style:`border-top-color:${g.c}`}, h("h3", {}, g.n), tabs, desc, reel));
-});
 
 // Aperçu : Casa Senso et comptes de référence
 const APX = [
@@ -489,7 +471,7 @@ function applySel(){
   RUBS[0].tabs = [1, 2, 3, 4].map(k => [["Chapitre I","II","III","IV"][k - 1], livreList(k)]);
   RUBS[3].tabs = [["Le salon vert", moodList()]];
   EVENTS.forEach(e => { if (e.k === "livre") { e.img = `img/prop-${SEL.livre}-${e.ch}.jpg`; e.list = livreList(e.ch); } if (e.k === "mood") { const l = moodList(); e.img = l[0]; e.list = l; } });
-  renderRubs(); render(); PROPSHOW.livre(SEL.livre); PROPSHOW.mood(SEL.mood); showApx(apxI);
+  renderRubs(); render(); showApx(apxI);
 }
 function setSel(k, v){ SEL[k] = v; try { localStorage.setItem("casa-sel", JSON.stringify(SEL)); } catch (e) {} applySel(); }
 try { Object.assign(SEL, JSON.parse(localStorage.getItem("casa-sel") || "{}")); } catch (e) {}
