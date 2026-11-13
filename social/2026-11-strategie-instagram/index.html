@@ -138,6 +138,7 @@ section{padding-block:80px 0}
 .agenda .s{font-size:13px; color:var(--muted)}
 @media (max-width:760px){.agenda{display:block}}
 
+#apx-tabs{margin-bottom:20px}
 .apercu{display:grid; grid-template-columns:minmax(0,420px) 1fr; gap:40px; align-items:start}
 .phone{border:10px solid var(--fg); border-radius:36px; overflow:hidden auto; max-height:min(860px,85vh); background:#fff; scrollbar-width:none}
 .phone img{display:block; width:100%}
@@ -167,7 +168,7 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
     <div>
       <p class="eyebrow">Novembre 2026 → février 2027</p>
       <h1>De l’idée à la réalisation, <span>sur Instagram.</span></h1>
-      <p class="sub">8 rubriques, 11 publications prêtes, 3 par mois. Premier post le 17 novembre.</p>
+      <p class="sub">8 rubriques, 12 publications prêtes, 3 par mois. Premier post le 17 novembre.</p>
     </div>
     <div class="covers" id="covers" aria-label="Une création par rubrique"></div>
   </header>
@@ -228,13 +229,21 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
   </section>
 
   <section id="apercu" aria-labelledby="t-apercu">
-    <div class="sec-head"><h2 id="t-apercu">Aperçu du profil</h2><p class="eyebrow">Après le 11 février 2027</p></div>
+    <div class="sec-head"><h2 id="t-apercu">Aperçu du profil</h2><p class="eyebrow">Après le 25 février 2027</p></div>
+    <div class="tabs" id="apx-tabs" role="tablist" aria-label="Profils à comparer"></div>
     <div class="apercu">
-      <div class="phone"><img src="img/ig-apercu.jpg" alt="Aperçu du profil Instagram casa_senso.ch avec les publications prévues" loading="lazy"></div>
+      <div class="phone" id="apx-phone"><img id="apx-img" src="img/ig-apercu.jpg" alt=""></div>
       <div class="apercu-txt">
-        <p>Les 10 publications prévues, à la suite des 3 posts déjà en ligne (octobre 2026), le plus récent en haut à gauche. Faites défiler dans le téléphone.</p>
-        <p>La grille du profil est en 3:4 : Instagram rogne les posts 4:5 sur les côtés.</p>
-        <p class="s">Avant / après : version 1 en attendant le choix. Réalisation : couverture RE-1. La vidéo du 7 janvier reste à tourner.</p>
+        <p id="apx-cap"></p>
+        <p class="eyebrow" style="margin-top:12px">Ce qu’on améliore sur son profil</p>
+        <ol class="rules">
+          <li>Le nom avec le métier : « Casa Senso · Décoration d’intérieur ». Le nom est lu par la recherche Instagram.</li>
+          <li>Une bio en 4 lignes : la promesse et le lieu, ce qu’elle fait, pour qui, comment la contacter.</li>
+          <li>Les boutons « Contacter » et « E-mail » du compte professionnel.</li>
+          <li>Des stories à la une aux couleurs des rubriques, avec les dessins au trait, sans dorure. « Shopping » est remplacé par « Réalisations » ; à garder si elle s’en sert.</li>
+          <li>Trois posts épinglés : le Livre I (qui elle est), l’Avant / après (la transformation), la Réalisation de Cannes (la preuve).</li>
+        </ol>
+        <p class="s">Grille en 3:4 : Instagram rogne les posts 4:5 sur les côtés. Faites défiler dans le téléphone. Comptes de référence : relevés le 12.11.2026, 12 derniers posts.</p>
       </div>
     </div>
   </section>
@@ -261,12 +270,12 @@ const PAT_OF = {livre:"Parcours + Trois cartes", voyage:"Raconter son parcours",
 const NAME = {livre:"Le Livre", voyage:"Voyage", aa:"Avant / après", mood:"Moodboards", real:"Réalisations", cou:"Coulisses", pro:"Espaces pros", idees:"Idées déco"};
 
 const RUBS = [
-  {id:"livre", n:"01", name:"Le Livre Casa Senso", line:"Son histoire en quatre chapitres, mise en page comme un livre.", chips:[["ok","Ses mots"],["","17 nov. · 19 janv. · 11 févr."]],
+  {id:"livre", n:"01", name:"Le Livre Casa Senso", line:"Son histoire en quatre chapitres, mise en page comme un livre.", chips:[["ok","Ses mots"],["","17 nov. · 19 janv. · 11 févr. · 25 févr."]],
    tabs:[["Chapitre I", R("livre-1",7)],["II", R("livre-2",7)],["III", R("livre-3",8)],["IV", R("livre-4",8)]]},
-  {id:"voyage", n:"02", name:"Inspiration et voyage", line:"Un carnet par lieu, photos plein cadre et un court texte.", chips:[["wait","Textes à valider"],["","Réserve"]],
+  {id:"voyage", n:"02", name:"Inspiration et voyage", line:"Un carnet par lieu, photos plein cadre et un court texte.", chips:[["wait","Textes à valider"],["","24 nov."]],
    tabs:[["Marrakech", R("voyage",7)]]},
-  {id:"aa", n:"03", name:"Avant / après", line:"Une transformation en étapes. 4 versions : une à choisir.", chips:[["wait","Textes à valider"],["","3 déc."]],
-   tabs:[["1 · Version complète", R("aa",9)],["2 · Écran partagé", R("aa-var",12).slice(0,4)],["3 · Récit sur photo", R("aa-var",12).slice(4,8)],["4 · House & Garden", R("aa-var",12).slice(8,12)]]},
+  {id:"aa", n:"03", name:"Avant / après", line:"Une transformation en étapes, racontée sur la photo.", chips:[["wait","Textes à valider"],["","3 déc."]],
+   tabs:[["Cannes", R("ar",9)]]},
   {id:"mood", n:"04", name:"Moodboards", line:"Sa planche, la palette, puis les pièces en gros plan.", chips:[["wait","Titres à valider"],["","15 déc."]],
    tabs:[["Le salon vert", R("mood2",9)]]},
   {id:"real", n:"05", name:"Réalisations", line:"La visite d’un projet terminé.", chips:[["ok","Prêt"],["","22 déc."]],
@@ -280,7 +289,7 @@ const RUBS = [
 ];
 
 // Couvertures
-["img/livre-1-01.jpg","img/real-cov-03.jpg","img/mood2-01.jpg","img/aa-var-09.jpg","img/voyage-01.jpg","img/ideesB-01.jpg","img/pro-01.jpg","img/cob-01.jpg"].forEach((s, i) => $("#covers").append(h("img", {src:s, alt:""})));
+["img/livre-1-01.jpg","img/real-cov-03.jpg","img/mood2-01.jpg","img/ar-01.jpg","img/voyage-01.jpg","img/ideesB-01.jpg","img/pro-01.jpg","img/cob-01.jpg"].forEach((s, i) => $("#covers").append(h("img", {src:s, alt:""})));
 
 // Visionneuse
 let LB = {list:[], i:0, cap:""};
@@ -315,8 +324,8 @@ const PATS = [
    d:"Elle parle à la première personne, sur ses propres photos. On suit une histoire, pas une publicité : c'est ce qui crée l'attachement."},
   {k:"cartes", n:"Trois cartes, une couleur", m:"Modèle House & Garden", r:["livre","mood","idees"], list:R("livre-1",7),
    d:"Trois cartes de couleur pleine qui reviennent toujours au même endroit du carrousel. Dans le fil, on reconnaît la rubrique avant de lire."},
-  {k:"aa", n:"Avant, pendant, après", m:"Modèle Emily Henderson", r:["aa"], list:R("aa",9),
-   d:"Une étape par slide, une phrase parlée dans une bulle. On fait glisser pour voir la suite : la transformation se vit dans l'ordre."},
+  {k:"aa", n:"Avant, pendant, après", m:"Récit sur photo (modèle Amber Lewis)", r:["aa"], list:R("ar",9),
+   d:"Une étape par slide, une phrase courte posée sur la photo, dans l’ordre du chantier. Puis une carte de fin avec un dessin, le logo et l’appel à écrire."},
   {k:"visite", n:"Visite plein cadre", m:"Modèle House & Garden", r:["real"], list:R("real",9),
    d:"Le titre sur la couverture, puis les pièces sans aucun texte. Les photos font le travail ; une seule carte citation pour la voix du client."},
   {k:"planche", n:"La planche décortiquée", m:"Modèle House & Garden", r:["mood"], list:R("mood2",9),
@@ -335,6 +344,21 @@ PATS.forEach(p => $("#pats").append(h("article", {class:"pat" + (p.later ? " lat
   p.r.length ? h("div", {class:"tags"}, p.r.map(k => h("span", {class:"tag"}, h("i", {style:`background:${COL[k]}`}), NAME[k]))) : null,
   p.list ? h("button", {type:"button", class:"ex", onclick:() => openLB(p.list, 0, p.n)}, "Voir le post réel ›") : null)));
 
+// Aperçu : Casa Senso et comptes de référence
+const APX = [
+  ["Casa Senso · prévu", "img/ig-apercu.jpg", "Son profil tel quel, avec les 12 publications prévues au-dessus des 3 posts déjà en ligne."],
+  ["Casa Senso · optimisé", "img/ig-optimise.jpg", "Proposition : nom, bio, boutons, stories à la une et trois posts épinglés (📌)."],
+  ["House & Garden", "img/ig-ref-houseandgarden.jpg", "@houseandgarden : modèle des cartes du Livre et des Réalisations."],
+  ["Amber Lewis", "img/ig-ref-amberinteriors.jpg", "@amberinteriors : modèle de « Raconter son parcours » et du récit sur photo."],
+  ["Emily Henderson", "img/ig-ref-em_henderson.jpg", "@em_henderson : modèle de l’Avant / après en étapes."],
+  ["Studio McGee", "img/ig-ref-studiomcgee.jpg", "@studiomcgee : modèle de la fiche projet des Espaces pros."],
+  ["Apartamento", "img/ig-ref-apartamentomagazine.jpg", "@apartamentomagazine : modèle de la « Légende blanche » des Coulisses."],
+  ["Dorothée Meilichzon", "img/ig-ref-dorotheemeilichzon.jpg", "@dorotheemeilichzon : premier modèle des Coulisses."]];
+function showApx(i){ $("#apx-img").src = APX[i][1]; $("#apx-img").alt = "Aperçu du profil : " + APX[i][0]; $("#apx-cap").textContent = APX[i][2]; $("#apx-phone").scrollTop = 0;
+  [...$("#apx-tabs").children].forEach((b, j) => b.setAttribute("aria-selected", String(j === i))); }
+APX.forEach(([l], i) => $("#apx-tabs").append(h("button", {type:"button", role:"tab", onclick:() => showApx(i)}, l)));
+showApx(0);
+
 // Charte : couleurs
 [["Encre","#1E1A17"],["Papier","#F3EDE3"]].forEach(([n, x]) => $("#dots").append(h("div", {class:"dot"}, h("i", {style:`background:${x}; box-shadow:inset 0 0 0 1px var(--line)`}), n, h("small", {}, x))));
 Object.keys(HEX).forEach(k => $("#dots").append(h("div", {class:"dot"}, h("i", {style:`background:${HEX[k]}`}), NAME[k], h("small", {}, HEX[k]))));
@@ -342,21 +366,23 @@ Object.keys(HEX).forEach(k => $("#dots").append(h("div", {class:"dot"}, h("i", {
 // Calendrier
 const EVENTS = [
   {d:"2026-11-17", k:"livre", t:"Le Livre · Chapitre I", img:"img/livre-1-01.jpg", list:R("livre-1",7)},
+  {d:"2026-11-24", k:"voyage", t:"Carnet de voyage · Marrakech", img:"img/voyage-01.jpg", list:R("voyage",7)},
   {d:"2026-11-30", k:"cou", t:"Coulisses · La niche", img:"img/cob-01.jpg", list:R("cob",7)},
-  {d:"2026-12-03", k:"aa", t:"Avant / après · Cannes", img:"img/aa-01.jpg", list:R("aa",9)},
+  {d:"2026-12-03", k:"aa", t:"Avant / après · Cannes", img:"img/ar-01.jpg", list:R("ar",9)},
   {d:"2026-12-15", k:"mood", t:"Moodboard · Le salon vert", img:"img/mood2-01.jpg", list:R("mood2",9)},
   {d:"2026-12-22", k:"real", t:"Réalisation · Cannes", img:"img/real-01.jpg", list:R("real",9)},
   {d:"2027-01-07", k:"cou", t:"Vidéo Casa Senso (à tourner)", flag:true},
   {d:"2027-01-19", k:"livre", t:"Le Livre · Chapitre II", img:"img/livre-2-01.jpg", list:R("livre-2",7)},
   {d:"2027-01-26", k:"pro", t:"Espace pro · ICHI", img:"img/pro-01.jpg", list:R("pro",9), flag:true},
   {d:"2027-02-04", k:"idees", t:"Idées déco · 3 matières", img:"img/ideesB-01.jpg", list:R("ideesB",6)},
-  {d:"2027-02-11", k:"livre", t:"Le Livre · Chapitre III", img:"img/livre-3-01.jpg", list:R("livre-3",8)}
+  {d:"2027-02-11", k:"livre", t:"Le Livre · Chapitre III", img:"img/livre-3-01.jpg", list:R("livre-3",8)},
+  {d:"2027-02-25", k:"livre", t:"Le Livre · Chapitre IV", img:"img/livre-4-01.jpg", list:R("livre-4",8)}
 ];
 const MONTHS = [[2026,10],[2026,11],[2027,0],[2027,1]];
 const TODAY = new Date(2026, 10, 13);
 let mi = 0;
 ["lun","mar","mer","jeu","ven","sam","dim"].forEach(d => $("#dow").append(h("div", {class:"dow"}, d)));
-["livre","aa","mood","real","cou","pro","idees"].forEach(k => $("#legend").append(h("span", {}, h("i", {style:`background:${COL[k]}`}), NAME[k])));
+["livre","voyage","aa","mood","real","cou","pro","idees"].forEach(k => $("#legend").append(h("span", {}, h("i", {style:`background:${COL[k]}`}), NAME[k])));
 $("#legend").append(h("span", {}, h("i", {style:"border:2px dashed var(--warn); background:transparent"}), "À débloquer"));
 const pd = s => { const [a, b, c] = s.split("-").map(Number); return new Date(a, b - 1, c); };
 EVENTS.forEach(e => e.date = pd(e.d));

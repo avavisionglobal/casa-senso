@@ -5,7 +5,7 @@ B, I = sys.argv[1], sys.argv[2]
 SETS = {
  "parcours":  ["livre-1-04","voyage-05","voyage-03"],
  "cartes":    ["livre-1-01","livre-1-06","livre-1-07"],
- "aa":        ["aa-02","aa-03","aa-05"],
+ "aa":        ["ar-02","ar-05","ar-09"],
  "visite":    ["real-01","real-03","real-04"],
  "planche":   ["mood2-01","mood2-03","mood2-04"],
  "coulisses": ["cob-01","cob-03","cob-06"],

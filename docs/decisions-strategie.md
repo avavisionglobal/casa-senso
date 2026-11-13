@@ -193,3 +193,10 @@ Format : date · décision · raison · remplace · statut · source.
 - **Remplace** : variantes A et C des Coulisses, stories et post v1 ; Idées déco bleu et direction A ; moodboard v1 (tous déplacés dans la page Archives du Figma).
 - **Statut** : décidé ; Avant / après (versions 1 à 4) et couverture de la Réalisation encore à choisir.
 - **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · Livre en architecture commune, Avant / après « Récit sur photo », calendrier complété, profil optimisé
+- **Décision** : chaque carte citation du Livre reçoit un dessin au trait propre au chapitre (I bâtisse, II mur démoli, III arche et truelle, IV console) ; Avant / après = « Récit sur photo », post complet de 9 slides avec carte de fin corail (dessin, logo, CTA) ; Carnet Marrakech le mar. 24 nov. et Livre IV le jeu. 25 févr. ajoutés au calendrier (12 publications) ; aperçu du profil prévu et optimisé (nom avec le métier, bio en 4 lignes, boutons Contacter/E-mail, stories à la une aux couleurs des rubriques avec dessins, 3 posts épinglés) et comparaison avec 6 comptes de référence.
+- **Raison** : retours de Diego du 13.11.
+- **Remplace** : Avant / après à bulles (Archives) ; Livre IV et Marrakech « en réserve ».
+- **Statut** : décidé ; bio optimisée et posts épinglés = proposition à valider avec Laetitia.
+- **Source** : Diego, conversation du 13.11.2026.

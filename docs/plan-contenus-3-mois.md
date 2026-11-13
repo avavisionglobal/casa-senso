@@ -24,6 +24,7 @@ Rythme : 3 publications par mois, mardi ou jeudi, + 1 série de stories par mois
 | Date | Rubrique | Publication | État |
 |---|---|---|---|
 | Mar. 17 nov. | Le Livre | Chapitre I · La découverte | Prêt |
+| Mar. 24 nov. | Voyage | Carnet N° 01 · Marrakech | Prêt, textes à valider |
 | Lun. 30 nov. | Coulisses | La niche (post, 7 slides) | Prêt, textes à valider |
 | Jeu. 3 déc. | Avant / après | Cannes | Prêt, bulles à valider |
 | Mar. 15 déc. | Moodboards | Le salon vert | Prêt, titres à valider |
@@ -33,10 +34,11 @@ Rythme : 3 publications par mois, mardi ou jeudi, + 1 série de stories par mois
 | Mar. 26 janv. | Espaces pros | ICHI Ramen Shop | Prêt, accord du restaurant à obtenir |
 | Jeu. 4 févr. | Idées déco | 3 matières | Prêt, conseils à réécrire par elle |
 | Jeu. 11 févr. | Le Livre | Chapitre III · La reconstruction | Prêt |
+| Jeu. 25 févr. | Le Livre | Chapitre IV · La mise en valeur | Prêt |
 
 « La niche » passe en post le 30 nov. (sa version stories reste en réserve). Ensuite une série par mois **seulement si** Laetitia envoie des photos de chantier.
 
-En réserve (remplace une date si un post bloque) : Livre IV, Carnet de voyage Marrakech, La niche en stories, variantes Avant / après.
+En réserve : La niche en stories, couvertures alternatives de la Réalisation. Le Livre IV et le Carnet Marrakech sont maintenant au calendrier (13.11).
 
 ## 3. Ce qui est tenable, ce qui ne l'est pas
 
