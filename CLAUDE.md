@@ -62,3 +62,4 @@ Lire d'abord `docs/decisions-strategie.md`, puis ce bloc. Ouvrir les sources dè
 
 ## Charte réseaux sociaux validée (12.11.2026)
 Lire `brand/charte-reseaux-sociaux.md` avant toute création : League Spartan, ocre doux #A69368 pour le Livre, cartes à l'identique de House & Garden, carnet de voyage sur le modèle Amber Lewis (Lora), Laetitia une fois par carrousel, provenance de chaque texte et image signalée. Une couleur par rubrique : Livre ocre #A69368 · Voyage sans carte · Avant/après corail #C8613F · Moodboards prune vif #7A3B4E · Réalisations rose poudré #E2A79A · Coulisses encre chaude #4A4440 · Espaces pro sauge #6E7F73 · Idées déco bleu majorelle #2F4FA2.
+- `social/2026-11-strategie-instagram/` : page de synthèse (stratégie, feuille de route, charte, 8 rubriques avec slides et variantes, calendrier, engagements). Publiée en privé : https://claude.ai/artifact/1zhTSNExrnU7qs7NMwzeky
