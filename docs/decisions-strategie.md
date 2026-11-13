@@ -257,3 +257,10 @@ Format : date · décision · raison · remplace · statut · source.
 - **Remplace** : l'accueil reproduit à l'identique de Wix (archivé dans `site/proofs/`).
 - **Statut** : proposition en local (http://localhost:4321), à valider par Diego puis Laetitia ; textes proposés listés dans `site/PROJECT.md`.
 - **Source** : message de Diego du 13.11.2026.
+
+## 2026-11-13 · Site : charte des réseaux sociaux et accueil v3
+- **Décision** : le site adopte la charte des réseaux sociaux (Lora + League Spartan, crème, encre, terracotta, olive, dessins au trait, coins arrondis) ; l'accueil garde l'ordre des sections de madah.fr mais en version épurée et animée ; grand visuel en diaporama continu, sans compteur, légende ni bouton pause ; PP Hatton abandonnée.
+- **Raison** : retour de Diego (« pas fan », « beaucoup plus épuré », « la DA de ses réseaux sociaux », « animations plus modernes », « que ça fasse décoration intérieure »).
+- **Remplace** : accueil v2 (PP Hatton, Madefor, encarts blancs) et la règle « DA du site inchangée ».
+- **Statut** : proposition en local, à valider par Diego ; pages intérieures à reprendre ensuite ; site non déployé.
+- **Source** : Diego, conversation du 13.11.2026 ; `site/PROJECT.md`.
