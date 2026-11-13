@@ -37,6 +37,8 @@ const { titre, texte, lignes, fond = 'beige', numeros = true } = Astro.props;
   .ligne { display: grid; grid-template-columns: 60px 120px 3fr 7fr; gap: 0 40px; align-items: center; padding: 28px 0; border-bottom: 1px solid rgba(30, 26, 23, .25); transition: background-color .5s var(--ease), padding .5s var(--ease); }
   .ligne.sans-img { grid-template-columns: 60px 4fr 7fr; }
   .ligne:hover { background: rgba(255, 255, 255, .45); padding-inline: 16px; }
+  .ligne > * { min-width: 0; }
+  h3 { overflow-wrap: anywhere; hyphens: auto; }
   .n { font-family: var(--serif); font-size: 20px; color: var(--accent); }
   .ligne :global(.trait) { width: 100px; height: 84px; object-fit: contain; transition: transform .7s var(--ease); }
   .ligne:hover :global(.trait) { transform: translateY(-3px) rotate(-2deg); }
@@ -53,7 +55,7 @@ const { titre, texte, lignes, fond = 'beige', numeros = true } = Astro.props;
     .bande { padding: 56px 0 52px; }
     .tete-l { grid-template-columns: 1fr; gap: 12px; padding-bottom: 24px; }
     .tete-l h2 { font-size: 32px; }
-    .ligne, .ligne.sans-img { grid-template-columns: 36px 1fr 76px; grid-template-areas: "n t i" "p p p"; gap: 8px 14px; padding: 22px 0; }
+    .ligne, .ligne.sans-img { grid-template-columns: 36px minmax(0, 1fr) 76px; grid-template-areas: "n t i" "p p p"; gap: 8px 14px; padding: 22px 0; }
     .ligne:hover { padding-inline: 0; }
     .n { grid-area: n; }
     h3 { grid-area: t; font-size: 26px; }

@@ -161,3 +161,11 @@ Revue du 13.11 (local, http://localhost:4321) : accueil 1440 et 390 px relu visu
 - **API** (`api/contact.js`) : champs obligatoires prénom, nom, e-mail, message ; facultatifs sujet, profil, projet, téléphone (repris dans l'e-mail envoyé à Laetitia).
 - **Liens** : tous les « Prendre rendez-vous » (en-tête, menu mobile, accueil, agence, bandes olive) mènent à `/contact#formulaire` ; depuis les pages Particuliers et Professionnels, le profil est présélectionné (`?profil=…`).
 - Revue : clic en-tête → formulaire ; lien de la page pros → profil « Professionnel » coché ; validation des champs vides ; 1440 et 390 px sans erreur ni débordement ; build OK. Envoi réel toujours NON VÉRIFIÉ (clé Resend).
+
+## Animation d'entrée, bande de photos, pied de page · 13.11.2026
+- **Demande de Diego** : une animation d'entrée sympa ; des photos qui défilent en bas des Réalisations ; un pied de page sur le modèle du site crème (captures fournies).
+- **Animation d'entrée** (`Base.astro`, `global.css`) : voile crème, le logo se dévoile de gauche à droite, un filet terracotta se trace, mention « Aménagement & décoration · Neuchâtel », puis le voile se lève comme un rideau et la page monte légèrement (≈ 2,5 s). Une fois par visite (sessionStorage), jamais avec « réduire les animations », un clic la passe.
+- **Réalisations** : bande de 9 photos bord à bord qui défile en continu juste avant le pied de page (pause au survol, arrêtée avec « réduire les animations »).
+- **Pied de page** (toutes les pages) : grand logo ; colonnes « me contacter ? » (nom, e-mail, téléphone, Prendre rendez-vous), « où me trouver ? » (2000 Neuchâtel, Suisse), « le site » ; badge circulaire qui tourne « aménagement · décoration · clé en main » autour du dessin de la maison ; en bas © et politique à gauche, @casa_senso.ch et icône Instagram ocre à droite. Pas d'horaires (crème en a ; Casa Senso n'a pas de boutique). Ancienne version : `proofs/footer-v3-2026-11-13.astro`.
+- **Corrections de débordement** trouvées à cette occasion : badge qui tourne (rogné en cercle), images zoomées avant leur apparition (`[data-anim="reveal"]` en overflow clip), lignes des prestations à 360 px.
+- Revue : 8 pages × 360 / 390 / 820 / 1440 px sans débordement ni erreur ; animation d'entrée vérifiée image par image (0,4 / 1,1 / 1,9 / 2,8 s), absente au rechargement ; build OK.

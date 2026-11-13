@@ -6,6 +6,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../data/site';
+import logoSvg from '../assets/logo.svg?raw';
 
 interface Props { title: string; description?: string; ogTitle?: string }
 const { title, description, ogTitle } = Astro.props;
@@ -47,11 +48,25 @@ const ld = [
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // Animation d'entrée : une fois par visite (onglet), jamais si « réduire les animations ».
+      try {
+        if (!sessionStorage.getItem('cs-intro') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.documentElement.classList.add('intro');
+          sessionStorage.setItem('cs-intro', '1');
+        }
+      } catch (e) {}
+    </script>
     <script type="application/ld+json" set:html={JSON.stringify(ld[0])} />
     <script type="application/ld+json" set:html={JSON.stringify(ld[1])} />
   </head>
   <body>
+    <div class="intro-voile" aria-hidden="true">
+      <div class="intro-logo"><Fragment set:html={logoSvg} /></div>
+      <span class="intro-trait"></span>
+      <p class="intro-mention">Aménagement & décoration · Neuchâtel</p>
+    </div>
     <a class="skip-link" href="#contenu">Passer au contenu principal</a>
     <Header />
     <main id="contenu">
@@ -59,6 +74,13 @@ const ld = [
     </main>
     <Footer />
     <script>
+      // Fin de l'animation d'entrée (ou clic pour passer).
+      const root = document.documentElement;
+      if (root.classList.contains('intro')) {
+        const fin = () => root.classList.remove('intro');
+        const t = window.setTimeout(fin, 2600);
+        document.querySelector('.intro-voile')?.addEventListener('click', () => { clearTimeout(t); fin(); });
+      }
       // Enfants d'un bloc data-stagger : apparition l'un après l'autre.
       document.querySelectorAll<HTMLElement>('[data-stagger]').forEach((parent) => {
         const step = Number(parent.dataset.stagger) || 110;
