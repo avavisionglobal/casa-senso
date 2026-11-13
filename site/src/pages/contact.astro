@@ -98,7 +98,7 @@ import { site } from '../data/site';
 </script>
 
 <style>
-  .contact-grid { padding: 79px var(--gutter) 141px; display: grid; grid-template-columns: 416px 1fr; gap: 45px; align-items: start; }
+  .contact-grid { padding: 72px var(--gutter) 134px; display: grid; grid-template-columns: 416px 1fr; gap: 45px; align-items: start; }
   .name { font-family: var(--display); font-size: 28.125px; line-height: 35px; }
   .strong { margin-top: 25px; font-family: var(--text-wix); font-weight: 700; font-size: 18px; line-height: 28.8px; }
   .strong a:hover { text-decoration: underline; }
@@ -115,7 +115,7 @@ import { site } from '../data/site';
     border: 0; border-bottom: 1px solid var(--ink); border-radius: 0; background: transparent;
     height: 47px; padding: 10px 0 8px; font-size: 16px; font-family: var(--text); outline: none;
   }
-  textarea { height: 99px; resize: vertical; }
+  textarea { height: 99px; resize: none; }
   input:focus-visible, textarea:focus-visible { border-bottom-width: 2px; }
   [aria-invalid] { border-bottom-color: #b3261e; }
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
@@ -133,7 +133,7 @@ import { site } from '../data/site';
   @media (max-width: 999px) {
     .contact-grid { padding: 28px 20px 41px; grid-template-columns: 1fr; gap: 42px; }
     .name { font-size: 24px; line-height: 30px; }
-    .strong { margin-top: 11px; }
+    .strong { margin-top: 6px; }
     .person { font-size: 15px; line-height: 24px; }
     .addr { margin-top: 8px; font-size: 18px; line-height: 28.8px; }
     .coord :global(.fauteuil) { margin-top: 20px; aspect-ratio: 350 / 294; }

@@ -63,7 +63,7 @@ const temps = [
   .detail { padding: 40px var(--gutter) 51px; }
   .detail-intro { max-width: 805px; font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 32px; }
   .detail-grid { margin-top: 40px; display: grid; grid-template-columns: 640fr 641fr; gap: 40px; align-items: center; }
-  .detail-grid :global(.portrait) { width: 100%; aspect-ratio: 640 / 672; height: auto; object-fit: cover; object-position: 50% 50%; }
+  .detail-grid :global(.portrait) { width: 100%; aspect-ratio: 640 / 672; height: auto; object-fit: cover; object-position: 34% 50%; }
   .detail-text { font-family: var(--text); font-size: 16px; line-height: 25.6px; }
   .detail-text p + p { margin-top: 10px; }
   .detail-text .lead { font-weight: 700; font-size: 20px; line-height: 32px; }
@@ -75,12 +75,13 @@ const temps = [
     .temps { margin-top: 20px; padding: 23px 20px 20px; }
     dl { margin-top: 13px; gap: 0; }
     .row { grid-template-columns: 143px 1fr; min-height: 120px; }
+    @media (min-width: 600px) { .row { min-height: 72px; } }
     dt { font-size: 25px; line-height: 32.5px; }
     dd { line-height: 25.6px; }
     .temps-fin { margin-top: 16px; font-size: 17px; line-height: 23.8px; }
     .detail { padding: 21px 20px 40px; }
     .detail-grid { grid-template-columns: 1fr; gap: 0; margin-top: 30px; }
-    .detail-grid :global(.portrait) { aspect-ratio: 350 / 345; object-position: 43% 50%; }
+    .detail-grid :global(.portrait) { aspect-ratio: 350 / 345; object-position: 32% 50%; }
     .detail-text { padding-top: 20px; }
     .detail-text .lead { font-size: 16px; line-height: 25.6px; }
     .detail-text h2 { font-size: 28px; line-height: 35px; }

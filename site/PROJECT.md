@@ -53,3 +53,26 @@ Version 1 · 13.11.2026 · stade : reproduction du site Wix actuel.
 - Clé Resend et test d'envoi réel du formulaire.
 - GA4, Search Console, pixel Meta et suivi du formulaire (décision du 12.11).
 - Accès GoDaddy pour les enregistrements A / CNAME (ne pas toucher aux MX).
+
+## Revue du rendu · 13.11.2026 (version 1)
+
+Méthode : captures pleine page du site Wix et du site codé à 1440 px et 390 px, comparées côte à côte, plus mesures pixel (positions des titres, filets, pied de page, cadrages photo).
+
+| Page | Hauteur Wix / code (1440 px) | Hauteur Wix / code (390 px) |
+| --- | --- | --- |
+| Accueil | 2342 / 2346 | 2540 / 2544 |
+| L'agence | 1912 / 1914 | 2521 / 2522 |
+| Prestations | 2273 / 2276 | 3396 / 3398 |
+| Réalisations | 3614 / 3617 | 3360 / 3362 |
+| Contact | 1273 / 1276 | 1891 / 1892 |
+| Politique de confidentialité | 1739 / 1745 | 2102 / 2104 |
+
+| Critère | Verdict | Note |
+| --- | --- | --- |
+| Fidélité de composition | PASS | Mêmes retours à la ligne, mêmes positions à quelques px. Le gras « fabriqué » de Wix (Madefor déclarée en 400) est reproduit. Points focaux Wix appliqués (portrait 34 %, réalisations 100 % / 10 %). |
+| Textes | PASS | Repris mot pour mot. Seul changement : texte alternatif « Après » de la chambre d'enfant (Wix indiquait « Avant »). |
+| Interactions | PASS | En-tête fixe, survols, menu mobile plein écran (Échap, fermeture à la navigation), apparitions au défilement (fondu, montée, glissé) avec respect de « réduire les animations ». |
+| Lisibilité | PASS | Aucun défilement horizontal de 360 à 1920 px ; tablette 768 / 1024 px propre. |
+| Liens | PASS | Pages internes 200 ; e-mail studio@ partout ; téléphone +41 76 615 09 43. |
+| Formulaire | NON VÉRIFIÉ | Validation et messages testés ; envoi réel impossible sans clé Resend et déploiement Vercel. |
+| « Avant - Après » | Écart assumé | Bodoni Moda Italic au lieu de Linotype Didot (licence Wix). |

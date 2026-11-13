@@ -10,7 +10,7 @@ import { site } from '../data/site';
 
 interface Props { title: string; description?: string; ogTitle?: string }
 const { title, description, ogTitle } = Astro.props;
-const path = Astro.url.pathname.replace(/\/$/, '');
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/?index$/, '').replace(/\/$/, '');
 const canonical = site.url + path;
 // Tant que le domaine n'est pas basculé sur ce site, l'aperçu reste hors index.
 // Mettre PUBLIC_SITE_LIVE=1 dans l'environnement de production au moment de la bascule.

@@ -31,6 +31,7 @@ Lire d'abord `docs/decisions-strategie.md`, puis ce bloc. Ouvrir les sources dè
 
 - `social/2026-11-lancement/` : moodboard de direction, rubriques, feuille de route, calendrier éditorial (16.11.2026 → 14.02.2027). Publié en page privée : https://claude.ai/artifact/843NMueC8mLhfn95DAapzR
 - `docs/site-wix-ou-code.md` : analyse ; décision du 12.11 : bascule en code, site opérationnel le 20.11.
+- `site/` (13.11) : reproduction à l'identique du site Wix en Astro, contrat et revue dans `site/PROJECT.md`, relevé Wix dans `sources/site-wix-2026-11-13/`. Aperçu local : `cd site && npm install && npm run build && npx astro preview`. Non déployé. Police des titres PP Hatton : licence à vérifier avant mise en ligne.
 - Figma « Principale » (https://www.figma.com/design/xGYOPXzuBSCmZf94Z7FgK4/Principale) : page 01 feuille de route, rubriques, calendrier 3 mois, prochaines étapes ; page 02 cinq exemples à valider. Fait foi sur le rythme (3 publications par mois) ; la page claude.ai du 12.11 garde l’ancien rythme.
 - `social/2026-11-exemples/fiche-lot.md` : fiche du lot d’exemples.
 - `outputs/batches/CASASENSO-chaine-graphique-20261112/` : 8 concepts de charte réseaux sociaux (directions A Le Livre, B Carnet d’atelier), GPT Image 2.5, Figma page 03. Direction A retenue le 12.11.

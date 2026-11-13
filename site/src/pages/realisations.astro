@@ -15,9 +15,10 @@ import cuisine from '../assets/images/realisations-cuisine.jpg';
 import { site } from '../data/site';
 
 const trio = [
-  { src: chambre1, alt: "Décoration d'intérieure chambre lit double, design contemporain. Casa Senso Neuchâtel" },
-  { src: chambre2, alt: "Décoration d'intérieure chambre lit double, design contemporain. Casa Senso Neuchâtel" },
-  { src: sdb, alt: "Décoration d'intérieure salle de bain, design contemporain. Casa Senso Neuchâtel" },
+  // Points focaux Wix : fp 0.84 et 0.31 → positions équivalentes en object-position.
+  { src: chambre1, pos: '100% 50%', alt: "Décoration d'intérieure chambre lit double, design contemporain. Casa Senso Neuchâtel" },
+  { src: chambre2, pos: '50% 50%', alt: "Décoration d'intérieure chambre lit double, design contemporain. Casa Senso Neuchâtel" },
+  { src: sdb, pos: '10% 50%', alt: "Décoration d'intérieure salle de bain, design contemporain. Casa Senso Neuchâtel" },
 ];
 // Textes alternatifs repris du site Wix ; la photo « après » de la chambre d'enfant y était libellée « Avant » (corrigé).
 const paires = [
@@ -36,7 +37,7 @@ const paires = [
   </div>
 
   <div class="trio">
-    {trio.map((t) => <Image src={t.src} alt={t.alt} widths={[400, 800, 1543]} sizes="(max-width: 999px) 100vw, 34vw" />)}
+    {trio.map((t) => <Image src={t.src} alt={t.alt} widths={[400, 800, 1543]} sizes="(max-width: 999px) 100vw, 34vw" style={`--pos: ${t.pos}`} />)}
   </div>
 
   <section class="avap" data-anim="fade">
@@ -60,7 +61,7 @@ const paires = [
   .senso { font-family: var(--hatton); }
   .dot { font-family: var(--hatton-light); }
   .trio { margin-top: 50px; display: grid; grid-template-columns: repeat(3, 1fr); }
-  .trio :global(img) { width: 100%; aspect-ratio: 3 / 4; height: auto; object-fit: cover; }
+  .trio :global(img) { width: 100%; aspect-ratio: 3 / 4; height: auto; object-fit: cover; object-position: var(--pos, 50% 50%); }
 
   .avap { padding-top: 55px; }
   .avap h2 { text-align: center; font-family: var(--didot); font-style: italic; font-weight: 400; font-size: 55px; line-height: 77px; }
@@ -72,7 +73,7 @@ const paires = [
   .cta { display: flex; justify-content: center; padding: 30px 20px 51px; }
 
   @media (max-width: 999px) {
-    .trio { margin-top: 20px; grid-template-columns: 1fr; }
+    .trio { margin-top: 20px; }
     .avap { padding-top: 32px; }
     .avap h2 { font-size: 25px; line-height: 35px; }
     .paires { margin-top: 8px; gap: 20px; }
@@ -82,5 +83,9 @@ const paires = [
     .paire:nth-child(3) { --ratio: 165 / 140 !important; }
     :global(.cuisine) { margin-top: 30px; aspect-ratio: 3 / 4; }
     .cta { padding: 25px 20px 40px; }
+  }
+  @media (max-width: 599px) {
+    .trio { grid-template-columns: 1fr; }
+    .trio :global(img) { object-position: 50% 50%; }
   }
 </style>

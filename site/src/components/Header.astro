@@ -2,7 +2,7 @@
 import Logo from './Logo.astro';
 import ArrowButton from './ArrowButton.astro';
 import { site } from '../data/site';
-const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/?index$/, '').replace(/\/$/, '') || '/';
 const nav = [
   { href: '/agence', label: "L'agence", menu: "L'Agence" },
   { href: '/prestations', label: 'Prestations', menu: 'Prestations' },

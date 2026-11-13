@@ -28,21 +28,21 @@ import { site } from '../data/site';
 </footer>
 
 <style>
-  .site-footer { border-top: 1px solid var(--ink); padding: 39px var(--gutter) 35px; }
+  .site-footer { border-top: 1px solid var(--ink); padding: 43px var(--gutter) 45px; }
   .site-footer :global(.footer-logo) { width: 248px; }
-  .cols { display: grid; grid-template-columns: 310px 1fr auto; margin-top: 39px; align-items: start; }
+  .cols { display: grid; grid-template-columns: 310px 1fr auto; margin-top: 30px; align-items: start; }
   .links, .contact { list-style: none; padding: 0; font-family: var(--display); font-size: 14px; line-height: 22.4px; font-style: normal; }
   .links { font-weight: 500; }
   .contact { display: flex; flex-direction: column; }
   .contact a, .contact span { width: fit-content; }
   .links a:hover, .contact a:hover, .legal a:hover { text-decoration: underline; }
-  .end { display: flex; flex-direction: column; align-items: flex-end; gap: 26px; margin-top: -3px; }
+  .end { display: flex; flex-direction: column; align-items: flex-end; gap: 18px; margin-top: 8px; }
   .legal { font-family: var(--text); font-size: 12px; line-height: 15px; text-align: right; }
 
   @media (max-width: 999px) {
-    .site-footer { padding: 26px 20px 30px; }
+    .site-footer { padding: 30px 20px 30px; }
     .site-footer :global(.footer-logo) { width: 205px; }
-    .cols { grid-template-columns: 1fr; margin-top: 16px; gap: 14px; }
+    .cols { grid-template-columns: 1fr; margin-top: 12px; gap: 14px; }
     .end { align-items: flex-start; gap: 13px; margin-top: 0; }
     .end .btn-small { margin-left: -2px; }
     .legal { text-align: left; }
