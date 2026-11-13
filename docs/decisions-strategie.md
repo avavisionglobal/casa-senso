@@ -270,3 +270,10 @@ Format : date · décision · raison · remplace · statut · source.
 - **Raison** : choix de Diego parmi 3 versions (A éditorial partagé, B couverture de livre, C bande vivante).
 - **Statut** : appliqué en local ; site non déployé. Page de comparaison `/apercu-heros` à supprimer avant la mise en ligne.
 - **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · Site : retour au grand visuel plein écran
+- **Décision** : l'accueil ouvre sur la photo plein écran en diaporama continu avec le titre posé dessus (en bas à gauche) ; pas de texte au-dessus de la photo.
+- **Raison** : Diego, après essai de la version B (« j'aime pas avoir du texte en haut »).
+- **Remplace** : « Site : grand visuel Couverture de livre retenu ».
+- **Statut** : appliqué en local ; site non déployé.
+- **Source** : Diego, conversation du 13.11.2026.

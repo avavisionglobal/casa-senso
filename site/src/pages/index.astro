@@ -46,19 +46,18 @@ const insta = [
   title="Casa Senso | Aménagement & décoration à Neuchâtel"
   description="Casa Senso imagine et aménage votre intérieur à Neuchâtel. Décoration, mobilier et accompagnement clé en main pour des espaces qui vous ressemblent."
 >
-  <!-- 1. Grand visuel « Couverture de livre » (retenu le 13.11) : titre centré, diaporama encadré dessous -->
-  <section class="hero" aria-label="Casa Senso, de l'idée à la réalisation">
-    <div class="hero-texte">
-      <p class="mention">Casa Senso · Laetitia Rein</p>
-      <h1 class="titre-serif">De l'idée à la <em>réalisation</em></h1>
-      <p class="hero-sous">Le plaisir de choisir. La liberté de déléguer.</p>
-    </div>
+  <!-- 1. Grand visuel : photo plein écran en diaporama continu, texte posé sur la photo -->
+  <section class="hero" aria-label="Réalisations Casa Senso">
     <div class="slides">
       {slides.map((s, i) => (
         <figure class:list={['slide', { 'is-active': i === 0 }]}>
-          <Image src={s.src} alt={s.alt} widths={[640, 1024, 1600, 2400, 2880]} sizes="94vw" loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'auto'} />
+          <Image src={s.src} alt={s.alt} widths={[640, 1024, 1600, 2400, 2880]} sizes="100vw" loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'auto'} />
         </figure>
       ))}
+    </div>
+    <div class="hero-texte">
+      <h1 class="titre-serif">De l'idée à la <em>réalisation</em></h1>
+      <p class="hero-sous">Le plaisir de choisir. La liberté de déléguer.</p>
     </div>
   </section>
 
@@ -159,22 +158,22 @@ const insta = [
 </script>
 
 <style>
-  /* ---------- 1. Grand visuel « Couverture de livre » ---------- */
-  .hero { display: flex; flex-direction: column; align-items: center; padding: 44px 20px 0; text-align: center; }
-  .hero-texte { display: flex; flex-direction: column; align-items: center; }
-  .hero h1 { margin-top: 14px; font-size: clamp(44px, 6vw, 92px); line-height: 1; }
-  .hero-sous { margin-top: 14px; font-size: 21px; color: var(--muted); }
-  .slides { position: relative; overflow: hidden; width: 100%; height: calc(100svh - var(--header-h) - 40px); min-height: 560px; max-height: 1000px; margin-top: 36px; border-radius: 32px; background: var(--grey); }
+  /* ---------- 1. Grand visuel plein écran ---------- */
+  .hero { position: relative; height: calc(100svh - var(--header-h)); min-height: 620px; max-height: 1000px; overflow: hidden; background: var(--grey); }
+  .slides { position: absolute; inset: 0; }
   .slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 1.8s ease; }
   .slide.is-active { opacity: 1; }
   .slide :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .hero::after { content: ''; position: absolute; inset: auto 0 0 0; height: 55%; background: linear-gradient(to top, rgba(20, 16, 12, .5), rgba(20, 16, 12, 0)); pointer-events: none; }
+  .hero-texte { position: absolute; left: var(--gutter); bottom: 72px; z-index: 1; color: #fff; max-width: 900px; }
+  .hero h1 { font-size: clamp(44px, 6.4vw, 92px); line-height: 1.02; }
+  .hero h1 em { color: #EFE2C6; }
+  .hero-sous { margin-top: 18px; font-size: 22px; }
   @media (prefers-reduced-motion: no-preference) {
     .slide :global(img) { transform: scale(1.12); transition: transform 9s linear; }
     .slide.is-active :global(img) { transform: scale(1); }
     .hero-texte > * { animation: cs-up 1.2s var(--ease) both; }
-    .hero-texte h1 { animation-delay: .1s; }
     .hero-texte .hero-sous { animation-delay: .25s; }
-    .slides { animation: cs-up 1.4s var(--ease) .35s both; }
   }
 
   /* ---------- 2. Intro ---------- */
@@ -259,9 +258,9 @@ const insta = [
   /* ---------- Mobile ---------- */
   @media (max-width: 999px) {
     .hero { padding-top: 40px; }
-    .hero-sous { font-size: 18px; }
-    .hero { padding: 32px 12px 0; }
-    .slides { height: 72svh; min-height: 440px; margin-top: 26px; border-radius: 999px 999px 20px 20px / 190px 190px 20px 20px; }
+    .hero-sous { font-size: 18px; margin-top: 12px; }
+    .hero { height: min(720px, calc(100svh - var(--header-h))); min-height: 540px; }
+    .hero-texte { bottom: 40px; right: var(--gutter); }
 
     .intro { padding: 72px 20px 80px; }
     .intro :global(.trait) { width: 76px; margin-bottom: 22px; }
