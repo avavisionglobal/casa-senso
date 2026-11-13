@@ -8,12 +8,12 @@
 :root{
   --bg:#FBF8F3; --paper:#F3EDE3; --cell:#FFFFFF; --fg:#1E1A17; --muted:#6B625A; --line:#E4DBCE; --accent:#A69368; --today:#C8613F;
   --r-livre:#A69368; --r-voyage:#9A5636; --r-aa:#C8613F; --r-mood:#7A3B4E; --r-real:#E2A79A; --r-cou:#4A4440; --r-pro:#6E7F73; --r-idees:#2F4FA2;
-  --ok:#3F6B4E; --warn:#B4532F;
+  --ok:#3F6B4E; --warn:#B4532F; --ph:#DCD2C4; --ph2:#C2B39F;
   --font:"League Spartan", "Helvetica Neue", Arial, sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#171513; --paper:#211E1A; --cell:#1C1916; --fg:#F1EBE2; --muted:#B1A799; --line:#3A342D; --accent:#C9B585; --today:#E58A68; --ok:#8DBB9A; --warn:#E59572; color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#171513; --paper:#211E1A; --cell:#1C1916; --fg:#F1EBE2; --muted:#B1A799; --line:#3A342D; --accent:#C9B585; --today:#E58A68; --ok:#8DBB9A; --warn:#E59572; color-scheme:dark}
+  --bg:#171513; --paper:#211E1A; --cell:#1C1916; --fg:#F1EBE2; --muted:#B1A799; --line:#3A342D; --accent:#C9B585; --today:#E58A68; --ok:#8DBB9A; --warn:#E59572; --ph:#3A342D; --ph2:#4D453B; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#171513; --paper:#211E1A; --cell:#1C1916; --fg:#F1EBE2; --muted:#B1A799; --line:#3A342D; --accent:#C9B585; --today:#E58A68; --ok:#8DBB9A; --warn:#E59572; --ph:#3A342D; --ph2:#4D453B; color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--bg); color:var(--fg); font-family:var(--font); font-size:18px; line-height:1.45;
@@ -90,18 +90,20 @@ section{padding-block:80px 0}
 .rules li::before{counter-increment:r; content:counter(r); font-weight:600; color:var(--accent)}
 @media (max-width:760px){.charte{grid-template-columns:1fr}.type-big{font-size:72px}.dots{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
-/* Patterns */
-.pats{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:28px 16px}
-.pat{display:grid; gap:10px; align-content:start}
-.pat button{padding:0; border:0; background:var(--paper); cursor:zoom-in}
-.pat button img{width:100%; aspect-ratio:4/5; object-fit:cover; display:block}
-.pat button:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
-.pat .empty{aspect-ratio:4/5; border:1.5px dashed var(--line); display:grid; place-items:center; padding:24px; text-align:center; color:var(--muted); font-size:15px}
+/* Patterns : chaque schéma est dessiné en trois slides type, pas en photo. */
+.pats{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px}
+.pat{background:var(--paper); padding:20px; display:grid; gap:10px; align-content:start}
+.pat.later{background:transparent; border:1.5px dashed var(--line)}
+.pat-fig{background:var(--cell); padding:14px 8px 10px; margin-bottom:6px}
+.pat-fig svg{display:block; width:100%; height:auto}
+.pat-steps{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; margin-top:8px; font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-align:center}
 .pat h3{font-size:24px}
 .pat p.d{font-size:16px; color:var(--muted)}
-.tags{display:flex; gap:6px; flex-wrap:wrap}
+.tags{display:flex; gap:10px; flex-wrap:wrap}
 .tag{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase}
 .tag i{width:10px; height:10px; border-radius:3px; display:inline-block}
+.ex{justify-self:start; font:inherit; font-size:14px; font-weight:500; border:0; border-bottom:1.5px solid var(--accent); background:none; color:var(--fg); padding:2px 0; cursor:pointer}
+.ex:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
 .chip.pat-l{text-decoration:none; color:var(--fg); border-color:var(--line); background:var(--paper)}
 
 /* Calendrier */
@@ -151,7 +153,7 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
 
 <nav class="nav" aria-label="Sommaire"><div class="nav-in">
   <span class="logo" role="img" aria-label="casa senso"></span>
-  <a href="#strategie">Stratégie</a><a href="#rubriques">Rubriques</a><a href="#patterns">Patterns</a><a href="#charte">Charte</a><a href="#calendrier">Calendrier</a>
+  <a href="#strategie">Stratégie</a><a href="#patterns">Patterns</a><a href="#rubriques">Rubriques</a><a href="#charte">Charte</a><a href="#calendrier">Calendrier</a>
 </div></nav>
 
 <div class="wrap">
@@ -173,14 +175,14 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
     </div>
   </section>
 
+  <section id="patterns" aria-labelledby="t-pat">
+    <div class="sec-head"><h2 id="t-pat">Les patterns</h2><p class="eyebrow">La structure de chaque post</p></div>
+    <div class="pats" id="pats"></div>
+  </section>
+
   <section id="rubriques" aria-labelledby="t-rub">
     <div class="sec-head"><h2 id="t-rub">Les rubriques</h2><p class="eyebrow">Touchez une slide pour l’agrandir</p></div>
     <div id="rubs"></div>
-  </section>
-
-  <section id="patterns" aria-labelledby="t-pat">
-    <div class="sec-head"><h2 id="t-pat">Les patterns</h2><p class="eyebrow">Le schéma derrière chaque post</p></div>
-    <div class="pats" id="pats"></div>
   </section>
 
   <section id="charte" aria-labelledby="t-charte">
@@ -289,30 +291,77 @@ RUBS.forEach(r => {
   show(0);
 });
 
-// Patterns
+// Patterns : schémas dessinés (trois slides type par pattern)
+const NS = "http://www.w3.org/2000/svg";
+function sv(tag, a, ...k){ const e = document.createElementNS(NS, tag); for (const [x, y] of Object.entries(a || {})) e.setAttribute(x, y); k.flat().forEach(c => c && e.append(c)); return e; }
+const W = "#FFFFFF", INK = "#1E1A17";
+const photo = (x, y, w, h) => sv("g", {}, sv("rect", {x, y, width:w, height:h, fill:"var(--ph)"}), sv("circle", {cx:x + w * .72, cy:y + h * .24, r:w * .08, fill:"var(--ph2)"}),
+  sv("polygon", {points:`${x},${y + h * .8} ${x + w * .3},${y + h * .52} ${x + w * .55},${y + h * .72} ${x + w * .76},${y + h * .56} ${x + w},${y + h * .74} ${x + w},${y + h} ${x},${y + h}`, fill:"var(--ph2)"}));
+const card = (x, y, w, h, c) => sv("rect", {x, y, width:w, height:h, fill:c});
+const lines = (x, y, ws, c, t = 4, g = 8) => ws.map((lw, i) => sv("rect", {x, y:y + i * g, width:lw, height:t, rx:t / 2, fill:c}));
+const box = (x, y, w, h, c, r = 0) => sv("rect", {x, y, width:w, height:h, rx:r, fill:c});
+const P = {
+  parcours:[
+    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + h - 26, [44, 32], W, 5, 9)],
+    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + 12, [58, 54, 50, 34], W, 3, 7)],
+    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + h - 14, [30], W, 3)]],
+  cartes:[
+    (x, y, w, h) => [card(x, y, w, h, "var(--r-livre)"), lines(x + 8, y + 8, [30], W, 2), lines(x + 8, y + h - 34, [50, 40], W, 6, 10)],
+    (x, y, w, h) => [card(x, y, w, h, "var(--r-livre)"), lines(x + 8, y + 36, [62, 56, 44], W, 4, 9), lines(x + 8, y + h - 14, [30], W, 2)],
+    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + h - 24, [28], W, 4), lines(x + 8, y + h - 13, [36], W, 3)]],
+  aa:["Avant", "Pendant", "Après"].map(() => (x, y, w, h) => [photo(x, y, w, h), box(x + 10, y + 30, w - 20, 16, W, 8), lines(x + 17, y + 36, [w - 34], INK, 3), box(x + 6, y + h - 14, 26, 8, "var(--r-aa)", 2)]),
+  visite:[
+    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + 8, [30], W, 2), lines(x + 8, y + h - 26, [48, 34], W, 6, 10)],
+    (x, y, w, h) => [photo(x, y, w, h)],
+    (x, y, w, h) => [card(x, y, w, h, "var(--r-real)"), lines(x + 8, y + 36, [62, 56, 42], INK, 4, 9)]],
+  planche:[
+    (x, y, w, h) => [card(x, y, w, h, "var(--r-mood)"), box(x + 10, y + 12, w - 20, 42, W), [0, 1, 2, 3, 4, 5].map(i => box(x + 14 + (i % 3) * 18, y + 16 + Math.floor(i / 3) * 18, 15, 15, i % 2 ? "var(--ph2)" : "var(--ph)")), lines(x + 8, y + h - 26, [46], W, 6)],
+    (x, y, w, h) => ["#3E4A33", "#4A2530", "#9C8253", "#5A3324", "#ECE6DA"].map((c, i) => box(x + i * w / 5, y, w / 5, h, c)),
+    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + h - 26, [24], W, 2), lines(x + 8, y + h - 18, [48], W, 5)]],
+  coulisses:[
+    (x, y, w, h) => [photo(x, y, w, h), box(x + 6, y + h - 46, 22, 5, W, 2), [40, 32, 36].map((lw, i) => box(x + 6, y + h - 36 + i * 9, lw, 7, "var(--r-cou)"))],
+    (x, y, w, h) => [photo(x, y, w, h), box(x + 6, y + h - 46, 22, 5, W, 2), [36, 42].map((lw, i) => box(x + 6, y + h - 36 + i * 9, lw, 7, "var(--r-cou)"))],
+    (x, y, w, h) => [photo(x, y, w, h), box(x + 8, y + 34, w - 16, 22, W, 3), lines(x + 13, y + 40, [w - 26, w - 34], INK, 3, 6), lines(x + 8, y + h - 14, [24], W, 3)]],
+  fiche:[
+    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + h - 26, [48, 34], W, 6, 10)],
+    (x, y, w, h) => [card(x, y, w, h, "var(--r-pro)"), lines(x + 8, y + 9, [24], W, 2), lines(x + 8, y + 18, [54, 40], W, 5, 9),
+      [0, 1, 2, 3].map(i => [box(x + 8, y + 46 + i * 13, w - 16, 0.8, "rgba(255,255,255,.55)"), box(x + 8, y + 50 + i * 13, 12, 2, W), box(x + 26, y + 50 + i * 13, 40 - (i % 2) * 10, 3, W, 1.5)])],
+    (x, y, w, h) => [photo(x, y, w, h)]],
+  presse:[
+    (x, y, w, h) => [photo(x, y, w, h), box(x + 8, y + 8, w - 16, 16, W, 2), lines(x + 14, y + 14, [40], INK, 4)],
+    (x, y, w, h) => [box(x, y, w, h, "var(--cell)"), lines(x + 8, y + 12, [52], "var(--fg)", 6), lines(x + 8, y + 32, [64, 64, 58, 64, 40], "var(--muted)", 3, 8)],
+    (x, y, w, h) => [photo(x, y, w, h)]]
+};
+function schema(key, story){
+  const w = story ? 56 : 80, X = story ? [22, 122, 222] : [10, 110, 210], y = 10, h = 100;
+  const g = sv("svg", {viewBox:"0 0 300 120", role:"img", "aria-hidden":"true"});
+  P[key].forEach((f, i) => { g.append(...[f(X[i], y, w, h)].flat(3), sv("rect", {x:X[i], y, width:w, height:h, fill:"none", stroke:"var(--line)"})); });
+  [100, 200].forEach(ax => g.append(sv("path", {d:`M${ax - 2} 54 l5 6 l-5 6`, fill:"none", stroke:"var(--muted)", "stroke-width":1.5, "stroke-linecap":"round", "stroke-linejoin":"round"})));
+  return g;
+}
 const PATS = [
-  {n:"Raconter son parcours", m:"Modèle Amber Lewis", img:"img/voyage-05.jpg", list:R("voyage",7), i:4, r:["livre","voyage"],
-   d:"Une photo plein cadre et un court texte à la première personne, posé dans une zone calme. On lit une histoire, pas une publicité."},
-  {n:"Trois cartes, une couleur", m:"Modèle House & Garden", img:"img/livre-1-06.jpg", list:R("livre-1",7), i:5, r:["livre","mood","idees"],
-   d:"Couverture, citation et fin sur des cartes de couleur pleine, toujours les mêmes. Mention en capitales en haut, texte aligné à gauche, aucun cadre."},
-  {n:"Avant, pendant, après", m:"Modèle Emily Henderson", img:"img/aa-03.jpg", list:R("aa",9), i:2, r:["aa"],
-   d:"Une étape par slide, une phrase parlée dans une bulle blanche, l’étape en bas à gauche. Le chantier se raconte dans l’ordre."},
-  {n:"Visite plein cadre", m:"Modèle House & Garden", img:"img/real-03.jpg", list:R("real",9), i:2, r:["real"],
-   d:"Titre en bas à gauche de la couverture, puis les pièces en photos plein cadre, sans texte. Une seule carte citation au milieu."},
-  {n:"La planche décortiquée", m:"Sa planche + cartes House & Garden", img:"img/mood-02.jpg", list:R("mood",8), i:1, r:["mood"],
-   d:"Sa planche en ouverture, la palette à part, puis chaque matière en gros plan avec son nom. On voit comment elle compose une pièce."},
-  {n:"Coulisses en blocs", m:"Modèle Dorothée Meilichzon", img:"img/cou-story-01.jpg", list:R("cou-story",6), i:0, r:["cou"],
-   d:"Stories plein écran, une étape par story. Des phrases courtes posées ligne par ligne dans des blocs foncés, le jour au-dessus."},
-  {n:"Fiche projet", m:"Modèle Studio McGee", img:"img/pro-02.jpg", list:R("pro",9), i:1, r:["pro"],
-   d:"Après la couverture, une carte résume le lieu : type, approche, mission. Puis la visite, du plan large au détail."},
-  {n:"La presse comme caution", m:"Gardé pour plus tard", r:[],
+  {k:"parcours", n:"Raconter son parcours", m:"Modèle Amber Lewis", steps:["Photo + titre", "Récit court", "Fin + logo"], r:["livre","voyage"], list:R("voyage",7),
+   d:"Elle parle à la première personne, sur ses propres photos. On suit une histoire, pas une publicité : c'est ce qui crée l'attachement."},
+  {k:"cartes", n:"Trois cartes, une couleur", m:"Modèle House & Garden", steps:["Couverture", "Citation", "Fin · à suivre"], r:["livre","mood","idees"], list:R("livre-1",7),
+   d:"Trois cartes de couleur pleine qui reviennent toujours au même endroit du carrousel. Dans le fil, on reconnaît la rubrique avant de lire."},
+  {k:"aa", n:"Avant, pendant, après", m:"Modèle Emily Henderson", steps:["Avant", "Pendant", "Après"], r:["aa"], list:R("aa",9),
+   d:"Une étape par slide, une phrase parlée dans une bulle. On fait glisser pour voir la suite : la transformation se vit dans l'ordre."},
+  {k:"visite", n:"Visite plein cadre", m:"Modèle House & Garden", steps:["Couverture", "Photos seules", "Citation"], r:["real"], list:R("real",9),
+   d:"Le titre sur la couverture, puis les pièces sans aucun texte. Les photos font le travail ; une seule carte citation pour la voix du client."},
+  {k:"planche", n:"La planche décortiquée", m:"Modèle House & Garden", steps:["Sa planche", "Palette", "Détail nommé"], r:["mood"], list:R("mood",8),
+   d:"On part de sa planche, on isole la palette, puis chaque matière en gros plan avec son nom. On comprend comment elle compose une pièce."},
+  {k:"coulisses", n:"Coulisses en blocs", m:"Modèle Dorothée Meilichzon", steps:["Étape 1", "Étape 2", "Fin + question"], story:true, r:["cou"], list:R("cou-post",7),
+   d:"Une étape du chantier par écran, des phrases courtes dans des blocs foncés et le jour au-dessus. Se lit en trois secondes, en post ou en stories."},
+  {k:"fiche", n:"Fiche projet", m:"Modèle Studio McGee", steps:["Couverture", "Fiche du lieu", "Visite"], r:["pro"], list:R("pro",9),
+   d:"Une carte résume le lieu : type, approche, mission. Le client pro comprend la demande avant de voir le résultat."},
+  {k:"presse", n:"La presse comme caution", m:"Gardé pour plus tard", steps:["Parution", "Extrait", "Le projet"], r:[], later:true,
    d:"La parution en première slide, avec le nom du titre. Seulement quand un article existe vraiment."}
 ];
-PATS.forEach(p => $("#pats").append(h("article", {class:"pat"},
-  p.img ? h("button", {type:"button", "aria-label":"Voir un exemple : " + p.n, onclick:() => openLB(p.list, p.i, p.n)}, h("img", {src:p.img, alt:"", loading:"lazy"}))
-        : h("div", {class:"empty"}, "Pas encore de parution"),
+PATS.forEach(p => $("#pats").append(h("article", {class:"pat" + (p.later ? " later" : "")},
+  h("div", {class:"pat-fig"}, schema(p.k, p.story), h("div", {class:"pat-steps"}, p.steps.map(t => h("span", {}, t)))),
   h("p", {class:"eyebrow"}, p.m), h("h3", {}, p.n), h("p", {class:"d"}, p.d),
-  p.r.length ? h("div", {class:"tags"}, p.r.map(k => h("span", {class:"tag"}, h("i", {style:`background:${COL[k]}`}), NAME[k]))) : null)));
+  p.r.length ? h("div", {class:"tags"}, p.r.map(k => h("span", {class:"tag"}, h("i", {style:`background:${COL[k]}`}), NAME[k]))) : null,
+  p.list ? h("button", {type:"button", class:"ex", onclick:() => openLB(p.list, 0, p.n)}, "Voir le post réel ›") : null)));
 
 // Charte : couleurs
 [["Encre","#1E1A17"],["Papier","#F3EDE3"]].forEach(([n, x]) => $("#dots").append(h("div", {class:"dot"}, h("i", {style:`background:${x}; box-shadow:inset 0 0 0 1px var(--line)`}), n, h("small", {}, x))));
@@ -321,7 +370,6 @@ Object.keys(HEX).forEach(k => $("#dots").append(h("div", {class:"dot"}, h("i", {
 // Calendrier
 const EVENTS = [
   {d:"2026-11-17", k:"livre", t:"Le Livre · Chapitre I", img:"img/livre-1-01.jpg", list:R("livre-1",7)},
-  {d:"2026-11-18", k:"livre", t:"Stories · chapitre I", img:"img/livre-1-06.jpg", list:R("livre-1",7)},
   {d:"2026-11-30", k:"cou", t:"Coulisses · La niche", img:"img/cou-post-01.jpg", list:R("cou-post",7)},
   {d:"2026-12-03", k:"aa", t:"Avant / après · Cannes", img:"img/aa-01.jpg", list:R("aa",9)},
   {d:"2026-12-15", k:"mood", t:"Moodboard · Le salon vert", img:"img/mood-01.jpg", list:R("mood",8)},

@@ -165,3 +165,10 @@ Format : date · décision · raison · remplace · statut · source.
 - **Remplace** : les stories « La niche » de la semaine du 30 nov.
 - **Statut** : décidé ; textes à valider par Laetitia.
 - **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · Pas de stories le 18 novembre
+- **Décision** : aucune publication le 18 nov. ; le chapitre I du Livre reste seul le 17 nov.
+- **Raison** : les stories « relais du chapitre I » étaient une interprétation de Contrast, non demandée par Diego.
+- **Remplace** : l'entrée du 18 nov. ajoutée le même jour.
+- **Statut** : décidé.
+- **Source** : Diego, conversation du 13.11.2026.
