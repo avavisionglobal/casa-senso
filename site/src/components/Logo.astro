@@ -1,0 +1,11 @@
+---
+import logo from '../assets/logo.svg?raw';
+interface Props { class?: string }
+const { class: className = '' } = Astro.props;
+---
+<a href="/" class:list={['logo', className]} aria-label="Casa Senso, accueil"><Fragment set:html={logo} /></a>
+
+<style>
+  .logo { display: block; line-height: 0; }
+  .logo :global(svg) { width: 100%; height: auto; display: block; }
+</style>

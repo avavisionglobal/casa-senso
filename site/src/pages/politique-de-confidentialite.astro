@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base title="Politique de confidentialité | Casa Senso" description="Politique de confidentialité du site Casa Senso : données collectées par le formulaire de contact, utilisation, conservation et droits.">
+  <div class="page-head">
+    <h1 class="page-title">Politique de confidentialité</h1>
+  </div>
+  <hr class="page-rule privacy-rule" />
+  <article class="privacy">
+    <p>Nous accordons une grande importance à la protection de vos données personnelles.</p>
+    <p>Cette politique de confidentialité explique quelles données nous collectons via notre site internet et comment elles sont utilisées.</p>
+
+    <h2>1. Données collectées</h2>
+    <p>Lorsque vous utilisez notre formulaire de contact, nous collectons les informations que vous nous fournissez volontairement, telles que :</p>
+    <ul>
+      <li>Nom</li>
+      <li>Adresse e-mail</li>
+      <li>Numéro de téléphone (le cas échéant)</li>
+      <li>Contenu de votre message</li>
+    </ul>
+
+    <h2>2. Utilisation des données</h2>
+    <p>Les données que vous nous transmettez sont utilisées uniquement dans le but de :</p>
+    <ul>
+      <li>Répondre à votre demande</li>
+      <li>Vous recontacter si nécessaire</li>
+    </ul>
+    <p>Nous n’utilisons pas vos données à des fins marketing et ne les vendons pas à des tiers.</p>
+
+    <h2>3. Conservation des données</h2>
+    <p>Vos données sont conservées uniquement le temps nécessaire pour traiter votre demande, sauf obligation légale contraire.</p>
+
+    <h2>4. Partage des données</h2>
+    <p>Vos données ne sont pas transmises à des tiers, sauf si cela est nécessaire pour répondre à votre demande ou requis par la loi.</p>
+
+    <h2>5. Sécurité des données</h2>
+    <p>Nous mettons en œuvre des mesures techniques et organisationnelles appropriées afin de protéger vos données contre tout accès non autorisé, perte ou divulgation.</p>
+
+    <h2>6. Cookies</h2>
+    <p>Ce site peut utiliser des cookies afin de :</p>
+    <ul>
+      <li>Mesurer l’audience</li>
+      <li>Améliorer votre navigation</li>
+    </ul>
+    <p>Vous pouvez configurer votre navigateur pour refuser les cookies si vous le souhaitez.</p>
+
+    <h2>7. Vos droits</h2>
+    <p>Conformément à la législation applicable, vous disposez des droits suivants :</p>
+    <ul>
+      <li>Droit d’accès à vos données</li>
+      <li>Droit de rectification</li>
+      <li>Droit de suppression</li>
+      <li>Droit d’opposition au traitement</li>
+    </ul>
+    <p>Pour exercer ces droits, vous pouvez nous contacter à l’adresse mentionnée ci-dessus.</p>
+
+    <h2>8. Contact</h2>
+    <p>Pour toute question relative à cette politique de confidentialité, vous pouvez nous contacter à :</p>
+    <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+  </article>
+</Base>
+
+<style>
+  .privacy-rule { margin-top: 54px; }
+  .privacy { padding: 56px var(--gutter) 76px; max-width: calc(899px + 2 * var(--gutter)); font-family: var(--text); font-size: 16px; line-height: 22.4px; }
+  .privacy h2 { margin: 17px 0 8px; font-family: var(--display); font-weight: 700; font-size: 25px; line-height: 22.4px; }
+  .privacy p:first-child + p + h2 { margin-top: 17px; }
+  .privacy ul { padding-left: 29px; }
+  .privacy a { text-decoration: underline; }
+
+  @media (max-width: 999px) {
+    .page-title { line-height: 44px; }
+    .privacy-rule { margin-top: 12px; }
+    .privacy { padding-top: 36px; padding-bottom: 40px; }
+    .privacy h2 { margin: 22px 0 2px; line-height: 24px; }
+  }
+</style>

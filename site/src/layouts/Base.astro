@@ -1,0 +1,75 @@
+---
+import '@fontsource-variable/wix-madefor-display/wght.css';
+import '@fontsource-variable/wix-madefor-text/wght.css';
+import '@fontsource-variable/wix-madefor-text/wght-italic.css';
+import '@fontsource/bodoni-moda/latin-400-italic.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+interface Props { title: string; description?: string; ogTitle?: string }
+const { title, description, ogTitle } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '');
+const canonical = site.url + path;
+// Tant que le domaine n'est pas basculé sur ce site, l'aperçu reste hors index.
+// Mettre PUBLIC_SITE_LIVE=1 dans l'environnement de production au moment de la bascule.
+const live = import.meta.env.PUBLIC_SITE_LIVE === '1';
+
+// Balisage repris du site Wix.
+const ld = [
+  {
+    '@context': 'https://schema.org/', '@type': 'LocalBusiness', name: site.name, url: site.url,
+    image: `${site.url}/og-image.jpg`,
+    address: { '@type': 'PostalAddress', addressCountry: 'CH', addressLocality: 'Neuchâtel', addressRegion: 'NE', postalCode: '2035', streetAddress: 'Rue de la Cure' },
+    telephone: '0041766150943',
+  },
+  { '@context': 'https://schema.org/', '@type': 'WebSite', name: site.name, url: site.url },
+];
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <meta name="robots" content={live ? 'index, follow' : 'noindex, nofollow'} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={ogTitle ?? title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:image" content={`${site.url}/og-image.jpg`} />
+    <meta property="og:image:width" content="1500" />
+    <meta property="og:image:height" content="1000" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Casa Senso" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/pp-hatton-medium.woff2" as="font" type="font/woff2" crossorigin />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script type="application/ld+json" set:html={JSON.stringify(ld[0])} />
+    <script type="application/ld+json" set:html={JSON.stringify(ld[1])} />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenu">Passer au contenu principal</a>
+    <Header />
+    <main id="contenu">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      const els = document.querySelectorAll<HTMLElement>('[data-anim]');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        }, { rootMargin: '0px 0px -8% 0px' });
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('is-in'));
+      }
+    </script>
+  </body>
+</html>

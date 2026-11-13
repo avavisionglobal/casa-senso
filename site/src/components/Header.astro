@@ -1,0 +1,123 @@
+---
+import Logo from './Logo.astro';
+import ArrowButton from './ArrowButton.astro';
+import { site } from '../data/site';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const nav = [
+  { href: '/agence', label: "L'agence", menu: "L'Agence" },
+  { href: '/prestations', label: 'Prestations', menu: 'Prestations' },
+  { href: '/realisations', label: 'Réalisations', menu: 'Réalisations' },
+  { href: '/contact', label: 'Contact', menu: 'Contact' },
+];
+---
+<header class="site-header">
+  <div class="bar">
+    <Logo class="header-logo" />
+    <nav class="nav" aria-label="Navigation principale">
+      <ul>
+        {nav.map((n) => (
+          <li><a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a></li>
+        ))}
+      </ul>
+      <a class="rdv" href={`mailto:${site.email}`}>Prendre rendez-vous</a>
+    </nav>
+    <button class="burger" type="button" aria-label="Ouvrir la navigation du site" aria-expanded="false" aria-controls="menu-mobile">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu-mobile" hidden>
+  <div class="menu-top">
+    <Logo class="menu-logo" />
+    <button class="menu-close" type="button" aria-label="Fermer la navigation">
+      <svg viewBox="0 0 30 30" aria-hidden="true"><path d="M3 3l24 24M27 3 3 27" stroke="currentColor" stroke-width="2.2" /></svg>
+    </button>
+  </div>
+  <nav aria-label="Navigation mobile">
+    <ul>
+      {nav.map((n) => (<li><a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.menu}</a></li>))}
+    </ul>
+  </nav>
+  <ArrowButton href={`mailto:${site.email}`} label="Prendre rendez-vous" class="menu-rdv" />
+</div>
+
+<script>
+  const burger = document.querySelector<HTMLButtonElement>('.burger');
+  const menu = document.getElementById('menu-mobile');
+  const close = document.querySelector<HTMLButtonElement>('.menu-close');
+  const setOpen = (open: boolean) => {
+    if (!menu || !burger) return;
+    menu.hidden = !open;
+    burger.setAttribute('aria-expanded', String(open));
+    document.documentElement.classList.toggle('menu-open', open);
+    (open ? close : burger)?.focus();
+  };
+  burger?.addEventListener('click', () => setOpen(true));
+  close?.addEventListener('click', () => setOpen(false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu && !menu.hidden) setOpen(false); });
+  matchMedia('(min-width: 1000px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+</script>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--paper);
+    border-bottom: 1px solid var(--ink);
+  }
+  .bar {
+    height: var(--header-h);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 65px 0 69px;
+  }
+  .bar :global(.header-logo) { width: 247px; }
+  .nav { display: flex; align-items: center; gap: 35px; }
+  .nav ul { display: flex; gap: 28px; list-style: none; padding: 0; }
+  .nav ul a {
+    font-family: var(--display); font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav ul a:hover { color: var(--muted); }
+  .rdv {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 30px; padding: 0 17px;
+    border: 1px solid var(--ink); border-radius: 999px;
+    background: var(--ink); color: var(--paper);
+    font-family: var(--display); font-weight: 700; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase;
+    transition: background-color .2s, color .2s;
+  }
+  .rdv:hover { background: var(--paper); color: var(--ink); }
+  .burger { display: none; }
+
+  .menu {
+    position: fixed; inset: 0; z-index: 60; background: var(--paper);
+    padding: 0 18px 0 20px; overflow-y: auto;
+  }
+  .menu[hidden] { display: none; }
+  .menu-top { height: 73px; display: flex; align-items: center; justify-content: space-between; }
+  .menu-top :global(.menu-logo) { width: 211px; }
+  .menu-close { width: 30px; height: 30px; padding: 0; border: 0; background: none; cursor: pointer; }
+  .menu-close svg { width: 30px; height: 30px; display: block; }
+  .menu ul { list-style: none; padding: 37px 0 0; display: grid; gap: 20px; }
+  .menu ul a { font-family: var(--text); font-size: 24px; line-height: 33.6px; }
+  .menu :global(.menu-rdv) { margin-top: 228px; }
+
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    .bar { padding: 0 32px; }
+    .bar :global(.header-logo) { width: 210px; }
+    .nav { gap: 24px; }
+    .nav ul { gap: 20px; }
+    .nav ul a { font-size: 14px; letter-spacing: 1.2px; }
+  }
+  @media (max-width: 999px) {
+    .bar { padding: 0 18px 0 20px; }
+    .bar :global(.header-logo) { width: 211px; }
+    .nav { display: none; }
+    .burger {
+      display: grid; align-content: center; gap: 7px;
+      width: 30px; height: 30px; padding: 0; border: 0; background: none; cursor: pointer;
+    }
+    .burger span { display: block; height: 2px; background: var(--ink); }
+  }
+  :global(html.menu-open) { overflow: hidden; }
+</style>

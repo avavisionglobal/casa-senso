@@ -1,0 +1,11 @@
+---
+interface Props { href: string; label: string; class?: string }
+const { href, label, class: className = '' } = Astro.props;
+---
+<a href={href} class:list={['btn-outline', className]}>
+  <svg class="btn-icon" viewBox="0 0 28 28" aria-hidden="true">
+    <circle cx="14" cy="14" r="13.25" stroke-width="1.5"></circle>
+    <path d="M8.5 14h10.5M14.5 9.5 19 14l-4.5 4.5" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+  <span>{label}</span>
+</a>

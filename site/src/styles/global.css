@@ -1,0 +1,156 @@
+/* Casa Senso — reproduction du site Wix (relevé du 13.11.2026).
+   Mesures de référence : captures 1440 px (ordinateur) et 390 px (mobile)
+   dans sources/site-wix-2026-11-13/. */
+
+@font-face {
+  font-family: 'PP Hatton';
+  src: url('/fonts/pp-hatton-medium.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* Wix affiche ce titre en Ultralight graissé par le navigateur (font-weight 700). */
+@font-face {
+  font-family: 'PP Hatton Ultralight';
+  src: url('/fonts/pp-hatton-ultralight.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Wix déclare « madefor-display » et « madefor-text » en graisse 400 seulement :
+   le gras y est fabriqué par le navigateur (plus étroit que le vrai gras).
+   Ces deux familles reproduisent ce rendu là où Wix les utilise. */
+@font-face {
+  font-family: 'Madefor Display 400';
+  src: url('/fonts/madefor-display-latin.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'Madefor Display 400';
+  src: url('/fonts/madefor-display-latin-ext.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Madefor Text 400';
+  src: url('/fonts/madefor-text-latin.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'Madefor Text 400';
+  src: url('/fonts/madefor-text-latin-ext.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+:root {
+  --ink: #000;
+  --paper: #fff;
+  --grey: #f7f7f7;
+  --muted: #999;
+  --gutter: 60px;
+  --header-h: 73px;
+  --hatton: 'PP Hatton', 'Times New Roman', serif;
+  --hatton-light: 'PP Hatton Ultralight', 'PP Hatton', serif;
+  --display: 'Wix Madefor Display Variable', 'Wix Madefor Display', system-ui, sans-serif;
+  --text: 'Wix Madefor Text Variable', 'Wix Madefor Text', system-ui, sans-serif;
+  --display-wix: 'Madefor Display 400', var(--display);
+  --text-wix: 'Madefor Text 400', var(--text);
+  --didot: 'Bodoni Moda', 'Didot', serif;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + 1px); }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, p, ul { margin: 0; }
+button, input, textarea { font: inherit; color: inherit; }
+
+.skip-link {
+  position: absolute; left: 8px; top: -60px; z-index: 100;
+  background: var(--ink); color: var(--paper); padding: 8px 14px; border-radius: 999px; font-size: 14px;
+}
+.skip-link:focus { top: 8px; }
+
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+/* ---------- Boutons ---------- */
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 12px;
+  height: 50px; padding: 0 12px 0 16px;
+  border: 1px solid var(--ink); border-radius: 999px;
+  font-family: var(--text); font-size: 16px; line-height: 1; white-space: nowrap;
+  background: var(--paper); color: var(--ink);
+  transition: background-color .2s cubic-bezier(.65,0,.35,1), color .2s cubic-bezier(.65,0,.35,1);
+}
+.btn-outline .btn-icon { width: 28px; height: 28px; flex: none; }
+.btn-outline .btn-icon circle { fill: transparent; stroke: currentColor; transition: fill .2s, stroke .2s; }
+.btn-outline .btn-icon path { stroke: currentColor; transition: stroke .2s; }
+.btn-outline:hover { background: var(--ink); color: var(--paper); }
+.btn-outline:hover .btn-icon circle { fill: var(--paper); stroke: var(--paper); }
+.btn-outline:hover .btn-icon path { stroke: var(--ink); }
+
+.btn-small {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 37px; padding: 0 15px;
+  border: 1px solid var(--ink); border-radius: 999px;
+  font-family: var(--text); font-size: 14px; line-height: 1;
+  transition: background-color .2s, color .2s;
+}
+.btn-small:hover { background: var(--ink); color: var(--paper); }
+
+/* ---------- En-tête de page intérieure ---------- */
+.page-head { padding: 70px var(--gutter) 0; }
+.page-title {
+  font-family: var(--hatton); font-weight: 700; font-size: 70px; line-height: 1.3;
+  letter-spacing: 0;
+}
+.page-sub {
+  margin-top: 14px;
+  font-family: var(--display-wix); font-size: 28.125px; line-height: 1.35; font-weight: 400;
+}
+.page-rule { margin: 45px var(--gutter) 0; border: 0; border-top: 1px solid var(--ink); }
+.page-lead {
+  margin: 44px var(--gutter) 0; max-width: 1000px;
+  font-family: var(--display); font-size: 16px; line-height: 1.6;
+}
+
+/* ---------- Apparitions au défilement (équivalent des animations Wix) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-anim] { opacity: 0; }
+  .js [data-anim].is-in { animation-fill-mode: both; animation-duration: var(--anim-dur, 600ms); animation-delay: var(--anim-delay, 0ms); }
+  .js [data-anim="fade"].is-in { animation-name: cs-fade; animation-timing-function: cubic-bezier(.445,.05,.55,.95); }
+  .js [data-anim="float"].is-in { animation-name: cs-float; --anim-dur: 1200ms; animation-timing-function: cubic-bezier(.445,.05,.55,.95); }
+  .js [data-anim="glide"].is-in { animation-name: cs-glide; --anim-dur: 1200ms; animation-timing-function: cubic-bezier(.645,.045,.355,1); }
+}
+@keyframes cs-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cs-float { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: none; } }
+@keyframes cs-glide { from { opacity: 0; transform: translateX(-120px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Mobile et tablette ---------- */
+@media (max-width: 999px) {
+  :root { --gutter: 20px; }
+  .page-head { padding-top: 30px; }
+  .page-title { font-size: 40px; line-height: 1.3; }
+  .page-sub { margin-top: 8px; font-size: 20px; line-height: 27px; }
+  .page-rule { margin-top: 20px; }
+  .page-lead { margin-top: 11px; }
+  .mobile-only { display: inline; }
+}
+@media (min-width: 1000px) {
+  .mobile-only { display: none; }
+}

@@ -1,0 +1,146 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import fauteuil from '../assets/images/contact-fauteuil.jpg';
+import { site } from '../data/site';
+---
+<Base
+  title="Contact Casa Senso | Votre projet à Neuchâtel"
+  description="Un projet d’aménagement ou de décoration à Neuchâtel ? Contactez Casa Senso pour imaginer un intérieur adapté à vos envies, à vos besoins et à votre budget."
+>
+  <div class="page-head" data-anim="fade">
+    <h1 class="page-title">Me contacter</h1>
+  </div>
+
+  <div class="contact-grid">
+    <div class="coord" data-anim="fade">
+      <p class="name">Casa Senso</p>
+      <p class="strong">
+        <span class="person">{site.person}</span><br />
+        <a href={`mailto:${site.email}`}>{site.email}</a><br />
+        <a href={site.phoneHref}>{site.phoneDisplay}</a>
+      </p>
+      <p class="addr">{site.cityContact}<br />{site.country}</p>
+      <Image src={fauteuil} alt="Contact Casa Senso Neuchâtel" widths={[416, 598]} sizes="(max-width: 999px) 100vw, 416px" class="fauteuil" />
+    </div>
+
+    <div class="form-col" data-anim="fade">
+      <p class="form-title">Parlons de votre projet.</p>
+      <p class="form-sub">Remplissez le formulaire ci-dessous, je vous recontacte rapidement.</p>
+      <form class="form" method="post" action="/api/contact" novalidate>
+        <div class="field half">
+          <label for="prenom">Prénom *</label>
+          <input id="prenom" name="prenom" type="text" autocomplete="given-name" required />
+        </div>
+        <div class="field half">
+          <label for="nom">Nom *</label>
+          <input id="nom" name="nom" type="text" autocomplete="family-name" required />
+        </div>
+        <div class="field">
+          <label for="email">E-mail *</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="sujet">Sujet *</label>
+          <input id="sujet" name="sujet" type="text" required />
+        </div>
+        <div class="field">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+        <div class="hp" aria-hidden="true">
+          <label for="site-web">Site web</label>
+          <input id="site-web" name="site_web" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+        <button class="send" type="submit">Envoyer</button>
+        <p class="status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.form');
+  const status = document.querySelector<HTMLElement>('.status');
+  const say = (msg: string, kind: 'ok' | 'err') => { if (status) { status.textContent = msg; status.dataset.kind = kind; } };
+  const params = new URLSearchParams(location.search);
+  if (params.get('envoye') === '1') say('Merci, votre message a bien été envoyé.', 'ok');
+  if (params.get('envoye') === '0') say('Le message n’a pas pu être envoyé. Écrivez-moi à studio@casa-senso.ch.', 'err');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    let firstInvalid: HTMLElement | null = null;
+    form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]').forEach((f) => {
+      const bad = !f.value.trim() || (f.type === 'email' && !f.checkValidity());
+      f.toggleAttribute('aria-invalid', bad);
+      if (bad && !firstInvalid) firstInvalid = f;
+    });
+    if (firstInvalid) { (firstInvalid as HTMLElement).focus(); say('Merci de remplir les champs marqués d’un astérisque.', 'err'); return; }
+    const btn = form.querySelector<HTMLButtonElement>('.send');
+    if (btn) btn.disabled = true;
+    say('Envoi en cours…', 'ok');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      say('Merci, votre message a bien été envoyé.', 'ok');
+      window.dispatchEvent(new CustomEvent('cs:lead', { detail: { form: 'contact' } }));
+    } catch {
+      say('Le message n’a pas pu être envoyé. Écrivez-moi à studio@casa-senso.ch.', 'err');
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  .contact-grid { padding: 79px var(--gutter) 141px; display: grid; grid-template-columns: 416px 1fr; gap: 45px; align-items: start; }
+  .name { font-family: var(--display); font-size: 28.125px; line-height: 35px; }
+  .strong { margin-top: 25px; font-family: var(--text-wix); font-weight: 700; font-size: 18px; line-height: 28.8px; }
+  .strong a:hover { text-decoration: underline; }
+  .addr { margin-top: 11px; font-family: var(--text); font-size: 16px; line-height: 25.6px; }
+  .coord :global(.fauteuil) { margin-top: 28px; width: 100%; aspect-ratio: 416 / 349; height: auto; object-fit: contain; }
+
+  .form-title { font-family: var(--display); font-weight: 700; font-size: 25px; line-height: 33.75px; }
+  .form-sub { font-family: var(--text); font-size: 22px; line-height: 29.7px; }
+  .form { margin-top: 44px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; row-gap: 24px; }
+  .field { grid-column: 1 / -1; display: flex; flex-direction: column; }
+  .field.half { grid-column: auto; }
+  label { font-family: var(--text); font-size: 16px; line-height: 22.4px; }
+  input, textarea {
+    border: 0; border-bottom: 1px solid var(--ink); border-radius: 0; background: transparent;
+    height: 47px; padding: 10px 0 8px; font-size: 16px; font-family: var(--text); outline: none;
+  }
+  textarea { height: 99px; resize: vertical; }
+  input:focus-visible, textarea:focus-visible { border-bottom-width: 2px; }
+  [aria-invalid] { border-bottom-color: #b3261e; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .send {
+    grid-column: 1 / -1; justify-self: start; width: 197px; height: 42px; margin-top: 0;
+    border: 1px solid var(--ink); border-radius: 999px; background: var(--paper);
+    font-family: var(--text); font-size: 16px; cursor: pointer; transition: background-color .2s, color .2s;
+  }
+  .send:hover { background: var(--ink); color: var(--paper); }
+  .send:disabled { opacity: .6; cursor: progress; }
+  .status { grid-column: 1 / -1; font-size: 15px; min-height: 0; }
+  .status:empty { display: none; }
+  .status[data-kind='err'] { color: #b3261e; }
+
+  @media (max-width: 999px) {
+    .contact-grid { padding: 28px 20px 41px; grid-template-columns: 1fr; gap: 42px; }
+    .name { font-size: 24px; line-height: 30px; }
+    .strong { margin-top: 11px; }
+    .person { font-size: 15px; line-height: 24px; }
+    .addr { margin-top: 8px; font-size: 18px; line-height: 28.8px; }
+    .coord :global(.fauteuil) { margin-top: 20px; aspect-ratio: 350 / 294; }
+    .form-title { font-size: 23px; line-height: 36.8px; }
+    .form-sub { font-size: 22px; line-height: 35.2px; }
+    .form { margin-top: 30px; grid-template-columns: 1fr; }
+    .field.half { grid-column: 1 / -1; }
+    .send { width: 100%; }
+  }
+</style>

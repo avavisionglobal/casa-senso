@@ -1,0 +1,17 @@
+{
+  "name": "casa-senso-site",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/wix-madefor-display": "5.3.0",
+    "@fontsource-variable/wix-madefor-text": "5.3.0",
+    "@fontsource/bodoni-moda": "5.3.0",
+    "astro": "7.4.4"
+  }
+}

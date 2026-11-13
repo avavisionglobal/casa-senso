@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ArrowButton from '../components/ArrowButton.astro';
+import laetitia from '../assets/images/agence-laetitia.jpg';
+
+const temps = [
+  { t: 'Imaginer', d: 'Vos envies, votre style, votre façon de vivre. Tout commence par vous.' },
+  { t: 'Composer', d: 'Des espaces harmonieux où chaque matière, couleur et détail trouve sa place.' },
+  { t: 'Déléguer', d: "Des commandes à l'installation, je prends tout en main. Vous profitez du résultat." },
+];
+---
+<Base
+  title="L’agence Casa Senso | Votre intérieur sur mesure"
+  description="Découvrez Casa Senso à Neuchâtel : une approche personnalisée de l’aménagement intérieur, une seule interlocutrice et un projet accompagné de A à Z."
+>
+  <div class="page-head" data-anim="fade">
+    <h1 class="page-title">L'agence</h1>
+    <p class="page-sub">Des espaces qui inspirent.<br class="mobile-only" /> Des projets sans contraintes.</p>
+  </div>
+  <hr class="page-rule" />
+  <p class="page-lead" data-anim="fade">J'imagine et aménage des espaces qui allient esthétique, harmonie et fonctionnalité. De la conception à l'installation finale, je prends en charge votre projet pour un intérieur à votre image, en toute sérénité.</p>
+
+  <section class="temps" aria-labelledby="temps-titre">
+    <div data-anim="fade" style="--anim-dur: 700ms">
+      <p class="temps-titre" id="temps-titre">Une approche en 3 temps</p>
+      <dl>
+        {temps.map((x) => (
+          <div class="row"><dt>{x.t}</dt><dd>{x.d}</dd></div>
+        ))}
+      </dl>
+      <p class="temps-fin">Le plaisir de choisir. La liberté de déléguer.</p>
+    </div>
+  </section>
+
+  <section class="detail">
+    <p class="detail-intro" data-anim="fade">Parce que chaque détail mérite toute notre attention, sans jamais devenir l'une de vos préoccupations.</p>
+    <div class="detail-grid">
+      <Image src={laetitia} alt="Laetitia Rein Casa Senso Neuchâtel" widths={[400, 700, 1167]} sizes="(max-width: 999px) 100vw, 45vw" class="portrait" data-anim="fade" />
+      <div class="detail-text" data-anim="fade">
+        <p class="lead">Le sens du détail, le plaisir d'un intérieur bien pensé.</p>
+        <p>Parce qu'un intérieur réussi ne se résume pas à son esthétique, mais à la manière dont on s'y sent et dont on y vit.</p>
+        <p>Je conçois des intérieurs où chaque choix a sa raison d'être, en associant créativité, fonctionnalité et harmonie.</p>
+        <h2>Imaginer. Composer. Déléguer.</h2>
+        <p>Trois dimensions complémentaires pour donner vie à des espaces uniques, adaptés à vos envies et à votre quotidien.</p>
+        <p>Du choix des matériaux et du mobilier à la coordination des commandes et à l'installation finale, je veille à chaque détail.</p>
+        <p class="semi">Une seule interlocutrice, un projet entièrement accompagné et la liberté de profiter du résultat.</p>
+        <ArrowButton href="/prestations" label="Découvrez mes prestations" class="detail-btn" />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .temps { margin-top: 30px; background: var(--grey); padding: 38px var(--gutter) 26px; }
+  .temps-titre { font-family: var(--text); font-weight: 700; font-size: 22px; line-height: 30.8px; }
+  dl { margin: 25px 0 0; display: grid; gap: 23.4px; }
+  .row { display: grid; grid-template-columns: 250px 1fr; align-items: center; }
+  dt { font-family: var(--display); font-weight: 800; font-size: 32px; line-height: 41.6px; }
+  dd { margin: 0; font-family: var(--text); font-size: 16px; line-height: 20.8px; max-width: 893px; }
+  .temps-fin { margin-top: 28px; font-family: var(--text); font-weight: 600; font-size: 20px; line-height: 28px; }
+
+  .detail { padding: 40px var(--gutter) 51px; }
+  .detail-intro { max-width: 805px; font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 32px; }
+  .detail-grid { margin-top: 40px; display: grid; grid-template-columns: 640fr 641fr; gap: 40px; align-items: center; }
+  .detail-grid :global(.portrait) { width: 100%; aspect-ratio: 640 / 672; height: auto; object-fit: cover; object-position: 50% 50%; }
+  .detail-text { font-family: var(--text); font-size: 16px; line-height: 25.6px; }
+  .detail-text p + p { margin-top: 10px; }
+  .detail-text .lead { font-weight: 700; font-size: 20px; line-height: 32px; }
+  .detail-text h2 { margin: 20px 0; font-family: var(--display); font-weight: 800; font-size: 32px; line-height: 40px; }
+  .detail-text .semi { font-weight: 600; }
+  .detail-text :global(.detail-btn) { margin-top: 28px; }
+
+  @media (max-width: 999px) {
+    .temps { margin-top: 20px; padding: 23px 20px 20px; }
+    dl { margin-top: 13px; gap: 0; }
+    .row { grid-template-columns: 143px 1fr; min-height: 120px; }
+    dt { font-size: 25px; line-height: 32.5px; }
+    dd { line-height: 25.6px; }
+    .temps-fin { margin-top: 16px; font-size: 17px; line-height: 23.8px; }
+    .detail { padding: 21px 20px 40px; }
+    .detail-grid { grid-template-columns: 1fr; gap: 0; margin-top: 30px; }
+    .detail-grid :global(.portrait) { aspect-ratio: 350 / 345; object-position: 43% 50%; }
+    .detail-text { padding-top: 20px; }
+    .detail-text .lead { font-size: 16px; line-height: 25.6px; }
+    .detail-text h2 { font-size: 28px; line-height: 35px; }
+    .detail-text :global(.detail-btn) { margin: 33px auto 0; display: flex; width: fit-content; }
+  }
+</style>

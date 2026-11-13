@@ -1,0 +1,121 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ArrowButton from '../components/ArrowButton.astro';
+import miroirs from '../assets/images/prestations-miroirs.jpg';
+import { site } from '../data/site';
+
+const services = [
+  { t: 'Aménagement intérieur', items: ['Optimisation des volumes et agencement des espaces', "Création d'intérieurs esthétiques, fonctionnels et harmonieux", 'Solutions personnalisées adaptées à votre quotidien'] },
+  { t: 'Décoration & mise en valeur', items: ['Sélection du mobilier, des couleurs et des matières', "Création d'ambiances et de planches d'inspiration", 'Harmonisation et mise en scène des espaces'] },
+  { t: 'Accompagnement clé en main', items: ['Recherche de mobilier, matériaux et accessoires', 'Gestion des commandes et coordination des intervenants', 'Livraison, installation et mise en place finale'] },
+];
+const publics = [
+  {
+    t: 'Particuliers', sub: 'Des intérieurs imaginés pour vous, jusque dans les détails :',
+    items: ['Salons et espaces de vie', 'Chambres et dressings', 'Cuisines et salles de bains', 'Appartements et maisons', 'Valorisation de biens après succession'],
+    text: "De l'aménagement à la décoration, je prends en charge votre projet pour un intérieur harmonieux et personnalisé.",
+    tag: 'Un projet sur mesure, sans contraintes.',
+  },
+  {
+    t: 'Professionnels', sub: 'Des espaces qui valorisent votre activité et votre identité :',
+    items: ['Bureaux et espaces de travail', 'Commerces et showrooms', "Cabinets et espaces d'accueil", 'Restaurants', 'Biens destinés à la location'],
+    text: "De la conception à l'installation, je coordonne chaque étape pour créer des espaces esthétiques et fonctionnels.",
+    tag: 'Une seule interlocutrice, un projet clé en main.',
+  },
+];
+const envies = ['Aménagement & optimisation des espaces', 'Décoration & mise en valeur', 'Sélection du mobilier & des matières', 'Coordination & installation', 'Une pièce ou un projet complet'];
+---
+<Base
+  title="Aménagement & décoration sur mesure | Casa Senso"
+  description="Aménagement, décoration, sélection du mobilier et installation : Casa Senso accompagne les particuliers et professionnels à Neuchâtel, de l’idée au résultat."
+>
+  <div class="page-head" data-anim="fade">
+    <h1 class="page-title">Prestations</h1>
+    <p class="page-sub">La liberté du sur-mesure. La simplicité&nbsp;du clé en main !</p>
+  </div>
+  <hr class="page-rule" />
+  <p class="page-lead" data-anim="fade">Que vous souhaitiez repenser votre intérieur, aménager un nouvel espace ou donner une nouvelle identité à vos locaux professionnels, je vous propose un accompagnement sur mesure, adapté à vos envies, vos besoins et votre budget.</p>
+
+  <div class="services" data-anim="glide">
+    {services.map((s) => (
+      <section class="service">
+        <h2>{s.t}</h2>
+        <ul>{s.items.map((i) => <li>{i}</li>)}</ul>
+      </section>
+    ))}
+  </div>
+
+  <Image src={miroirs} alt="Décoration d'intérieure, miroirs de salle de bains. Casa Senso Neuchâtel" widths={[800, 1440, 2000]} sizes="100vw" class="banner" />
+
+  <div class="publics">
+    {publics.map((p, i) => (
+      <section class="public" data-anim="fade" style={`--anim-dur: 700ms; --anim-delay: ${i * 100}ms`}>
+        <h2>{p.t}</h2>
+        <p class="sub">{p.sub}</p>
+        <ul>{p.items.map((it) => <li>{it}</li>)}</ul>
+        <p class="txt">{p.text}</p>
+        <p class="tag">{p.tag}</p>
+      </section>
+    ))}
+  </div>
+
+  <p class="devis">Demander un devis gratuit et sans engagement.</p>
+
+  <section class="envies" data-anim="fade">
+    <h2>À chaque envie, une réponse sur mesure.</h2>
+    <ul>{envies.map((e) => <li>{e}</li>)}</ul>
+  </section>
+
+  <div class="cta" data-anim="float"><ArrowButton href={`mailto:${site.email}`} label="Prendre rendez-vous" /></div>
+</Base>
+
+<style>
+  ul { padding: 0; }
+  .services { margin: 30px var(--gutter) 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .service { background: var(--grey); padding: 28px 27px 28px 30px; }
+  .service h2 { max-width: 330px; font-family: var(--display); font-weight: 700; font-size: 30px; line-height: 36px; }
+  .service ul { margin-top: 15px; padding-left: 29px; font-family: var(--display); font-weight: 600; font-size: 16px; line-height: 25.6px; }
+
+  .services + :global(.banner) { margin-top: 41px; }
+  :global(.banner) { width: 100%; height: 302px; object-fit: cover; object-position: 50% 50%; }
+
+  .publics { margin: 40px var(--gutter) 0; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; }
+  .public { border: 1px solid var(--ink); padding: 29px 29px 28px; font-family: var(--text); font-size: 16px; line-height: 25.6px; }
+  .public h2 { font-family: var(--display); font-weight: 800; font-size: 32px; line-height: 40px; }
+  .public .sub { margin-top: 19px; font-family: var(--display); font-weight: 600; }
+  .public ul { margin-top: 12px; padding-left: 29px; }
+  .public .txt { margin-top: 25px; }
+  .public .tag { margin-top: 24px; font-family: var(--display); font-weight: 500; font-style: italic; font-size: 20px; line-height: 25px; }
+
+  .devis { margin-top: 29px; text-align: center; font-family: var(--display); font-weight: 700; font-size: 16px; line-height: 25.6px; padding: 0 20px; }
+
+  .envies { margin-top: 39px; background: var(--grey); padding: 29px var(--gutter) 40px; text-align: center; }
+  .envies h2 { font-family: var(--display); font-weight: 800; font-size: 32px; line-height: 40px; }
+  .envies ul { list-style: none; margin-top: 16px; font-family: var(--display); font-weight: 500; font-size: 16px; line-height: 25.6px; }
+
+  .cta { display: flex; justify-content: center; padding: 39px 20px 52px; }
+
+  @media (max-width: 1199px) {
+    .service h2 { font-size: 26px; line-height: 32px; }
+  }
+  @media (max-width: 999px) {
+    .services { margin-top: 26px; grid-template-columns: 1fr; gap: 22px; }
+    .service { padding: 18px 20px 19px; }
+    .service h2 { max-width: 260px; font-size: 25px; line-height: 30px; }
+    .service ul { margin-top: 10px; }
+    .services + :global(.banner) { margin-top: 31px; }
+    :global(.banner) { height: 180px; }
+    .publics { margin: 30px 20px 0; grid-template-columns: 1fr; gap: 22px; }
+    .public { padding: 29px 29px 28px; }
+    .public h2 { line-height: 40px; }
+    .public .sub { margin-top: 16px; }
+    .public ul { margin-top: 20px; }
+    .public .txt { margin-top: 21px; }
+    .public .tag { margin-top: 19px; }
+    .devis { margin-top: 33px; font-size: 15px; line-height: 24px; }
+    .envies { margin-top: 29px; padding: 29px 20px 30px; }
+    .envies h2 { font-size: 29px; line-height: 36px; }
+    .cta { padding: 30px 20px 40px; }
+  }
+</style>
