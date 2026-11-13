@@ -25,7 +25,8 @@ const temps = [
   <!-- 1. Ouverture -->
   <section class="ouverture" data-stagger="120">
     <p class="mention">L'agence</p>
-    <h1 class="titre-serif">Des espaces qui <em>inspirent</em>.<br />Des projets sans contraintes.</h1>
+    <h1 class="titre-serif">Des espaces qui <em>inspirent</em>.</h1>
+    <p class="ouverture-sous">Des projets sans contraintes.</p>
     <p class="ouverture-texte">J'imagine et aménage des espaces qui allient esthétique, harmonie et fonctionnalité. De la conception à l'installation finale, je prends en charge votre projet pour un intérieur à votre image, en toute sérénité.</p>
   </section>
 
@@ -79,10 +80,10 @@ const temps = [
 
 <style>
   /* ---------- 1. Ouverture ---------- */
-  .ouverture { padding: 110px var(--gutter) 90px; display: grid; grid-template-columns: 1.15fr 1fr; grid-template-rows: auto 1fr; column-gap: 80px; row-gap: 22px; align-items: end; }
-  .ouverture .mention { grid-column: 1 / -1; }
-  .ouverture h1 { font-size: clamp(44px, 5.2vw, 76px); line-height: 1.05; }
-  .ouverture-texte { font-size: 19px; line-height: 1.7; color: var(--muted); padding-bottom: 8px; border-left: 1px solid var(--line); padding-left: 32px; }
+  .ouverture { padding: 72px var(--gutter) 64px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; max-width: calc(760px + 2 * var(--gutter)); }
+  .ouverture h1 { font-size: 48px; line-height: 1.1; }
+  .ouverture-sous { font-size: 20px; color: var(--muted); }
+  .ouverture-texte { margin-top: 10px; font-size: 18px; line-height: 1.7; }
 
   /* ---------- 2. Portrait ---------- */
   .portrait { padding: 0 var(--gutter) 140px; display: grid; grid-template-columns: 44fr 56fr; gap: 90px; align-items: center; }
@@ -128,7 +129,6 @@ const temps = [
 
   /* ---------- Tablette ---------- */
   @media (max-width: 1199px) {
-    .ouverture { column-gap: 48px; }
     .portrait { gap: 56px; }
     .temps-carte { padding: 28px 26px 32px; }
     .temps-carte :global(.temps-trait) { height: 130px; }
@@ -137,9 +137,10 @@ const temps = [
 
   /* ---------- Mobile ---------- */
   @media (max-width: 999px) {
-    .ouverture { grid-template-columns: 1fr; padding: 56px var(--gutter) 56px; row-gap: 18px; }
-    .ouverture h1 { font-size: 38px; }
-    .ouverture-texte { font-size: 17px; border-left: 0; padding-left: 0; }
+    .ouverture { padding: 44px var(--gutter) 44px; gap: 10px; }
+    .ouverture h1 { font-size: 34px; }
+    .ouverture-sous { font-size: 18px; }
+    .ouverture-texte { font-size: 17px; }
     .portrait { grid-template-columns: 1fr; gap: 36px; padding-bottom: 90px; }
     .portrait-photo { aspect-ratio: 4 / 4.6; border-radius: 999px 999px var(--radius) var(--radius) / 220px 220px var(--radius) var(--radius); }
     .portrait-texte h2 { font-size: 32px; }

@@ -126,3 +126,4 @@ Revue du 13.11 (local, http://localhost:4321) : accueil 1440 et 390 px relu visu
 - **Animations** : montée décalée, photo qui se découvre, cartes qui se soulèvent au survol, dessins qui bougent légèrement.
 - Ancienne version : `proofs/agence-reproduction-wix-2026-11-13.astro`.
 - Revue : 1440, 820, 390 et 360 px, aucune erreur, aucun défilement horizontal (corrigé : la photo débordait de 15 px sur mobile).
+- **13.11, Diego : ouverture de L'agence « trop gros, il faut simple et efficace »** : une seule colonne, titre Lora 48 px sur une ligne (« Des espaces qui *inspirent*. »), « Des projets sans contraintes. » en petit gris, texte d'intro dessous ; marges réduites. Relu à 1440 et 390 px.
