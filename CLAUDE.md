@@ -4,6 +4,12 @@ Décoratrice d'intérieur, Laetitia Rein (studio@casa-senso.ch). Contact busines
 
 Lire d'abord `docs/decisions-strategie.md`, puis ce bloc. Ouvrir les sources dès qu'une réponse dépend d'un prix, d'un chiffre, d'une citation ou d'un engagement.
 
+## État au 13.11.2026 (fin de journée) : voir le « Point d'étape » de `docs/decisions-strategie.md`
+- **Réseaux sociaux** : 12 posts du 17.11.2026 au 25.02.2027 (3 par mois). Couvertures « Le récit » ; Idées déco I1 ; Livre L1/L2 et Moodboard M1/M2 au choix de Laetitia. Icônes des rubriques dans `brand/icones-rubriques/`. Charte à jour : `brand/charte-reseaux-sociaux.md`.
+- **Présentation à Laetitia** : https://claude.ai/artifact/1zhTSNExrnU7qs7NMwzeky (partagée par lien ; copie `social/2026-11-strategie-instagram/`). Tutoiement, « première ébauche », on parle de posts et de patterns thématiques.
+- **Site** : Astro dans `site/`, reproduction à l'identique de Wix, mise en ligne visée le 20.11 avec la mesure ; points ouverts dans la décision du 13.11.
+- **Règle** : Figma d'abord, artefact ensuite ; versions écartées en page 99.
+
 ## Ce qui est établi (12.11.2026)
 
 - **Mandat** : offre RE-00131, Pack Lancement, trois mois, CHF 2'000 moins remise partenariat CHF 500 = CHF 1'500, exonéré de TVA, vidéo offerte. Validée par mail le 04.11.2026 ; contrat signé remis en main propre prévu le 10.11.2026 (à confirmer). Source : `~/Downloads/Contrast_CasaSenso_Offre_RE-00131.pdf`, fil Gmail « Suite à notre séance — proposition pour les trois premiers mois ».
@@ -43,6 +49,12 @@ Lire d'abord `docs/decisions-strategie.md`, puis ce bloc. Ouvrir les sources dè
 - `outputs/batches/CASASENSO-coulisses-niche-20261112/` : rubrique 06 Coulisses, 6 stories « La niche, en trois jours » + template « Coulisses / Story 9:16 » (Figma pages 00 et 02). En attente de Diego.
 - `outputs/batches/CASASENSO-pro-ichi-20261112/` : rubrique 07 Espaces professionnels, carrousel ICHI Ramen Shop 9 slides + template « Espace pro / Slide 4:5 » (Figma pages 00 et 02). En attente de Diego ; accord du restaurant à obtenir.
 
+## Figma « Principale » · ajouts du 13.11.2026
+- Page 00 : icônes des rubriques (section 137:96).
+- Page 01 : aperçu du profil prévu et optimisé (section 131:297) ; plan d'engagement (99:518) à jour des 12 dates.
+- Page 02 : en haut, les mises en scène des patterns (119:365) ; dans chaque rubrique, la version retenue à la place principale ; à droite (x 30000) les directions de couverture A/B/C, les propositions Livre L1–L3, Moodboard M1–M3 et posts complets M1/M2, Idées déco I1–I3, et les expériences de cartes (121:365).
+- Page 03 : profils de référence reconstitués (131:90).
+
 ## Figma « Principale » · organisation au 12.11.2026 (fait foi)
 - 00 Charte graphique · 01 Plan de lancement · 02 Rubriques · 03 Références (veille Instagram) · 99 Archives (versions précédentes et pistes écartées).
 - Page 02, de haut en bas, une création à valider par rubrique (toutes livrées le 12.11) : 01 Le Livre (chapitres I à IV) · 02 Inspiration et voyage (Marrakech) · 03 Avant / après (Cannes) · 04 Moodboards (salon vert) · 05 Réalisations (Cannes) · 06 Coulisses et chantiers (La niche, 6 stories) · 07 Espaces professionnels (ICHI Ramen Shop) · 08 Idées déco (3 matières).
@@ -62,5 +74,5 @@ Lire d'abord `docs/decisions-strategie.md`, puis ce bloc. Ouvrir les sources dè
 - Livre : le plancher sombre (DSC02437) est-il le parquet de locomotives ? Tutoiement ou vouvoiement, emojis.
 
 ## Charte réseaux sociaux validée (12.11.2026)
-Lire `brand/charte-reseaux-sociaux.md` avant toute création : League Spartan, ocre doux #A69368 pour le Livre, cartes à l'identique de House & Garden, carnet de voyage sur le modèle Amber Lewis (Lora), Laetitia une fois par carrousel, provenance de chaque texte et image signalée. Une couleur par rubrique : Livre ocre #A69368 · Voyage sans carte · Avant/après corail #C8613F · Moodboards prune vif #7A3B4E · Réalisations rose poudré #E2A79A · Coulisses encre chaude #4A4440 · Espaces pro sauge #6E7F73 · Idées déco bleu majorelle #2F4FA2.
-- `social/2026-11-strategie-instagram/` : page de synthèse (stratégie, feuille de route, charte, 8 rubriques avec slides et variantes, calendrier, engagements). Publiée en privé : https://claude.ai/artifact/1zhTSNExrnU7qs7NMwzeky
+Lire `brand/charte-reseaux-sociaux.md` avant toute création : League Spartan, ocre doux #A69368 pour le Livre, cartes à l'identique de House & Garden, carnet de voyage sur le modèle Amber Lewis (Lora), Laetitia une fois par carrousel, provenance de chaque texte et image signalée. Une couleur par rubrique : Livre ocre #A69368 · Voyage terracotta #9A5636 (icône seulement) · Avant/après corail #C8613F · Moodboards prune vif #7A3B4E · Réalisations rose poudré #E2A79A · Coulisses encre chaude #4A4440 · Espaces pro sauge #6E7F73 · Idées déco olive #404734 (le bleu majorelle est abandonné le 13.11). Depuis le 13.11 : couvertures « Le récit », Laetitia n’apparaît plus sur les photos du carnet de voyage.
+- `social/2026-11-strategie-instagram/` : page de synthèse (stratégie, feuille de route, charte, 8 rubriques avec slides et variantes, calendrier, engagements). Partagée par lien depuis le 13.11 : https://claude.ai/artifact/1zhTSNExrnU7qs7NMwzeky

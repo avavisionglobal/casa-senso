@@ -84,3 +84,9 @@ Livre ocre #A69368 · Voyage sans carte · Avant/après corail #C8613F · Moodbo
 
 ## Icônes des rubriques (13.11.2026)
 Une pastille par rubrique, dessin au trait crème sur la couleur de la rubrique (encre sur le rose) : Le Livre (bâtisse), Voyages (valise), Avant / après (porte ouverte), Moodboards (nuancier), Réalisations (fenêtre en arche), Chantiers (arche et truelle), Espaces pros (comptoir), Idées déco (fauteuil). Figma page 00, section 137:96 ; fichiers dans brand/icones-rubriques/. Servent aux stories à la une et aux supports.
+
+## Couvertures « Le récit » (13.11.2026)
+- Base de toutes les couvertures : photo plein cadre, une phrase en Lora blanc (un mot en italique) en haut, la suite en bas avec une petite flèche dessinée crème, mention en capitales espacées en bas. Pas de carte de couleur ; dégradé doux local seulement si la lecture l'exige.
+- Appliquée au Voyage, aux Coulisses, à l'Avant / après, à la Réalisation et à ICHI. Exceptions dans la même famille de couleurs : Idées déco I1 (photo forte + grand « 3 » en Lora, olive en filet) ; Livre L1 (récit + signet ocre) ou L2 (page crème façon livre) ; Moodboard M1 (magazine) ou M2 (planche éditoriale), au choix de Laetitia.
+- Fins de post : question ou appel en Lora, flèche dessinée, logo Casa Senso en bas.
+- Lora n'est plus réservée au carnet de voyage : elle porte les phrases des couvertures.

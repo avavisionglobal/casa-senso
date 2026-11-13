@@ -213,3 +213,40 @@ Format : date · décision · raison · remplace · statut · source.
 - **Raison** : laisser la cliente comparer concrètement.
 - **Statut** : I1 décidé ; L1/L2 et M1/M2 en attente du choix de Laetitia.
 - **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · Voyage : fin du carnet en « récit » avec logo ; Réalisation : 3 couvertures retirées
+- **Décision** : la slide 7 du carnet Marrakech reprend la grammaire « Le récit » (mention « CARNET DE VOYAGE · N° 01 · MARRAKECH », question en Lora avec « inspiré » en italique, flèche dessinée, logo crème en bas). Les 3 propositions de couverture de la Réalisation sont retirées (Figma : Archives).
+- **Raison** : demande de Diego, cohérence des fins de post et logo systématique.
+- **Statut** : décidé.
+- **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · Icônes des rubriques
+- **Décision** : une icône par rubrique (dessin au trait crème sur la couleur de la rubrique, encre sur le rose) : Livre bâtisse, Voyages valise, Avant / après porte ouverte, Moodboards nuancier, Réalisations fenêtre en arche, Chantiers arche et truelle, Espaces pros comptoir, Idées déco fauteuil. Servent aux stories à la une du profil optimisé et sous les patterns de l'artefact.
+- **Raison** : demande de Diego (icône manquante pour Voyages, cohérence des patterns).
+- **Statut** : décidé ; Figma page 00 section 137:96, fichiers `brand/icones-rubriques/`.
+- **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · Artefact pour Laetitia : ton, structure et usage
+- **Décision** : l'artefact https://claude.ai/artifact/1zhTSNExrnU7qs7NMwzeky est la présentation envoyée à Laetitia (partagé « tout le monde avec le lien »). Il tutoie Laetitia et lui parle directement ; il se présente comme une **première ébauche** à discuter (appel ou rendez-vous) ; il explique pourquoi la cohérence graphique du fil compte pour une décoratrice ; on parle de **posts** (pas de « rubriques ») et de **patterns thématiques** (modèles de post à partir desquels on construit le calendrier) ; les patterns n'affichent plus les noms des comptes modèles mais les icônes des rubriques. Elle y choisit elle-même Livre L1/L2, Moodboard M1/M2, profil actuel/optimisé, et l'aperçu du profil, les posts et le calendrier se mettent à jour. Ordre : Stratégie, Patterns, Posts, Charte, Aperçu du profil, Calendrier.
+- **Raison** : retours de Diego du 13.11 (« on parle comme si la cliente n'était pas impliquée », « ça fait trop IA », « première ébauche », « parler de posts »).
+- **Statut** : décidé ; mail d'envoi préparé (regarder le macro, pas le micro ; textes pas finis ; prochaine étape = lien de commentaires par post avant validation).
+- **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · Règle de travail : Figma d'abord
+- **Décision** : toute modification visuelle se fait d'abord dans le Figma « Principale », puis est exportée vers l'artefact. Les versions écartées vont dans la page 99 Archives.
+- **Raison** : demande de Diego.
+- **Statut** : règle permanente.
+- **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · Point d'étape (fin de journée) : ce qui fait foi
+**Réseaux sociaux**
+- Rythme : 3 posts par mois, 12 posts du 17.11.2026 au 25.02.2027 : 17 nov. Livre I · 24 nov. Carnet Marrakech · 30 nov. Coulisses « La niche » · 3 déc. Avant / après Cannes · 15 déc. Moodboard « Le salon vert » · 22 déc. Réalisation Cannes · 7 janv. vidéo (à tourner) · 19 janv. Livre II · 26 janv. ICHI (accord à obtenir) · 4 févr. Idées déco « 3 matières » · 11 févr. Livre III · 25 févr. Livre IV.
+- Couvertures : direction « Le récit » (photo plein cadre, phrase en Lora blanc avec un mot en italique, flèche dessinée) pour Voyage, Coulisses, Avant / après, Réalisation, ICHI. Idées déco = I1 « Photo forte + 3 ». Livre = L1 « Récit + signet » ou L2 « Couverture de livre », au choix de Laetitia. Moodboard = M1 « Magazine » ou M2 « Planche éditoriale » (posts complets), au choix de Laetitia.
+- Formats retenus : Livre en 4 chapitres (ses mots), cartes citation avec dessin au trait par chapitre ; Avant / après en « Récit sur photo » + carte de fin corail (dessin, logo, CTA) ; Coulisses en post « Légende blanche » (7 slides) ; Idées déco dans la DA « Olive du site » #404734 ; Moodboard v2 en images haute qualité (éléments de sa planche recréés, images d'inspiration) ; cartes citation et fin avec dessin au trait (B · Trait) ; carnet de voyage sans Laetitia sur les photos.
+- Charte : League Spartan (titres, mentions, texte) ; Lora pour les phrases des couvertures et le carnet de voyage ; couleurs de rubrique Livre ocre #A69368 · Voyage terracotta #9A5636 (icône) · Avant/après corail #C8613F · Moodboards prune #7A3B4E · Réalisations rose #E2A79A · Coulisses encre #4A4440 · Espaces pro sauge #6E7F73 · Idées déco olive #404734 ; même famille de couleurs sur tout le fil ; texte aligné à gauche ; ni voile sombre, ni dorure, ni ombre lourde ; jamais de tête coupée ni d'adresse de client.
+- Profil Instagram (proposition à valider avec Laetitia) : nom « Casa Senso · Décoration d'intérieur », bio en 4 lignes (Neuchâtel, conseil, mobilier, chantier, particuliers et pros, e-mail), boutons Contacter / E-mail, stories à la une aux couleurs des rubriques avec icônes, 3 posts épinglés (Livre I, Avant / après, Réalisation Cannes).
+- Génération d'images : GPT Image 2.5 pour décors, objets, textures, dessins ; jamais présentées comme ses réalisations ; job IDs et coûts non fournis par l'outil.
+**Site web**
+- Bascule de Wix vers un site codé (Astro, `site/`), reproduction à l'identique du site actuel avec les corrections P0 de l'audit ; mise en ligne visée le 20.11 avec GA4, Search Console, pixel Meta et suivi du formulaire ; modifications de Laetitia via Contrast (tableau de bord en option).
+- Restent ouverts : licence PP Hatton, numéro et adresse à confirmer, clé Resend, accès GoDaddy, mesure.
+**En attente de Laetitia** : choix L1/L2 et M1/M2, relecture des textes proposés, accord ICHI, lieu/auteur/matériaux de la niche, validation de la photo AR-2 (ancien cabinet), date de tournage de la vidéo, accès Instagram.
