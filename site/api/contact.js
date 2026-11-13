@@ -6,8 +6,9 @@
 
 const TO = process.env.CONTACT_TO || 'studio@casa-senso.ch';
 const FROM = process.env.CONTACT_FROM || 'Site Casa Senso <onboarding@resend.dev>';
-const FIELDS = ['prenom', 'nom', 'email', 'sujet', 'message'];
-const MAX = { prenom: 100, nom: 100, email: 200, sujet: 200, message: 5000 };
+const FIELDS = ['prenom', 'nom', 'email', 'message'];
+const OPTIONAL = ['sujet', 'profil', 'projet', 'telephone'];
+const MAX = { prenom: 100, nom: 100, email: 200, sujet: 200, message: 5000, profil: 40, projet: 300, telephone: 40 };
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -40,6 +41,11 @@ export default async function handler(req, res) {
     if (!v || v.length > MAX[f]) return done(false);
     data[f] = v;
   }
+  for (const f of OPTIONAL) {
+    const v = String(body[f] ?? '').trim().slice(0, MAX[f]);
+    data[f] = v;
+  }
+  if (!data.sujet) data.sujet = 'Demande de rendez-vous';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return done(false);
 
   if (!process.env.RESEND_API_KEY) {
@@ -49,6 +55,9 @@ export default async function handler(req, res) {
 
   const html = `<p><strong>${esc(data.prenom)} ${esc(data.nom)}</strong> &lt;${esc(data.email)}&gt;</p>
 <p><strong>Sujet :</strong> ${esc(data.sujet)}</p>
+${data.profil ? `<p><strong>Profil :</strong> ${esc(data.profil)}</p>` : ''}
+${data.projet ? `<p><strong>Projet :</strong> ${esc(data.projet)}</p>` : ''}
+${data.telephone ? `<p><strong>Téléphone :</strong> ${esc(data.telephone)}</p>` : ''}
 <p style="white-space:pre-wrap">${esc(data.message)}</p>`;
 
   try {
@@ -61,7 +70,7 @@ export default async function handler(req, res) {
         reply_to: data.email,
         subject: `Site Casa Senso : ${data.sujet}`.slice(0, 200),
         html,
-        text: `${data.prenom} ${data.nom} <${data.email}>\nSujet : ${data.sujet}\n\n${data.message}`,
+        text: `${data.prenom} ${data.nom} <${data.email}>\nSujet : ${data.sujet}\nProfil : ${data.profil || '-'}\nProjet : ${data.projet || '-'}\nTéléphone : ${data.telephone || '-'}\n\n${data.message}`,
       }),
     });
     if (!r.ok) { console.error('contact: Resend', r.status, await r.text()); return done(false, 502); }

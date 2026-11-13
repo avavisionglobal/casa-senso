@@ -153,3 +153,11 @@ Revue du 13.11 (local, http://localhost:4321) : accueil 1440 et 390 px relu visu
 - **Polices** : seules League Spartan et Lora sont chargées. PP Hatton (licence non confirmée), Madefor et Bodoni sont retirées du projet (fichiers et paquets).
 - Anciennes versions : `proofs/*-reproduction-wix-2026-11-13.astro`.
 - Revue : 8 pages × 1440 et 390 px : statut 200, aucune erreur console, aucun défilement horizontal, aucune image manquante ; `astro build` OK (9 pages, dont `/apercu-heros`).
+
+## Contact v5 · 13.11.2026
+- **Demande de Diego** : améliorer le formulaire ; « Prendre rendez-vous » doit mener au formulaire ; le fauteuil dessiné apparaissait dans un fond clair bizarre.
+- **Fauteuil** : détouré (`contact-fauteuil.png`, fond transparent), posé directement sur la carte beige.
+- **Formulaire** (`#formulaire`) : titre « Prendre *rendez-vous* » ; « Vous êtes » Particulier / Professionnel (pastilles, obligatoire) ; « Votre projet » en pastilles à choix multiples (les 3 prestations + « Je ne sais pas encore ») ; prénom, nom, e-mail, téléphone facultatif ; « Votre projet en quelques lignes » avec exemple ; bouton « Envoyer ma demande → » et « Demander un devis gratuit et sans engagement ». Le champ « Sujet » est supprimé : il est composé automatiquement (profil · projets). Sur mobile, le formulaire passe avant les coordonnées.
+- **API** (`api/contact.js`) : champs obligatoires prénom, nom, e-mail, message ; facultatifs sujet, profil, projet, téléphone (repris dans l'e-mail envoyé à Laetitia).
+- **Liens** : tous les « Prendre rendez-vous » (en-tête, menu mobile, accueil, agence, bandes olive) mènent à `/contact#formulaire` ; depuis les pages Particuliers et Professionnels, le profil est présélectionné (`?profil=…`).
+- Revue : clic en-tête → formulaire ; lien de la page pros → profil « Professionnel » coché ; validation des champs vides ; 1440 et 390 px sans erreur ni débordement ; build OK. Envoi réel toujours NON VÉRIFIÉ (clé Resend).

@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import PageTete from '../components/PageTete.astro';
-import fauteuil from '../assets/images/contact-fauteuil.jpg';
+import fauteuil from '../assets/images/contact-fauteuil.png';
 import { site } from '../data/site';
 ---
 <Base
@@ -12,7 +12,7 @@ import { site } from '../data/site';
   <PageTete titre="Me contacter" sous="Parlons de votre <em>projet</em>." />
 
   <div class="contact-grid conteneur">
-    <div class="coord" data-anim="up">
+    <aside class="coord" data-anim="up">
       <p class="mention">Casa Senso</p>
       <p class="strong">
         <span class="person">{site.person}</span><br />
@@ -20,12 +20,29 @@ import { site } from '../data/site';
         <a href={site.phoneHref}>{site.phoneDisplay}</a>
       </p>
       <p class="addr">{site.cityContact}<br />{site.country}</p>
-      <Image src={fauteuil} alt="Contact Casa Senso Neuchâtel" widths={[416, 598]} sizes="(max-width: 999px) 100vw, 416px" class="fauteuil" />
-    </div>
+      <Image src={fauteuil} alt="" widths={[300, 548]} sizes="(max-width: 999px) 70vw, 300px" class="fauteuil" />
+    </aside>
 
-    <div class="form-col" data-anim="up">
+    <section class="form-col" id="formulaire" data-anim="up" aria-labelledby="form-titre">
+      <h2 id="form-titre" class="titre-serif">Prendre <em>rendez-vous</em></h2>
       <p class="form-sub">Remplissez le formulaire ci-dessous, je vous recontacte rapidement.</p>
       <form class="form" method="post" action="/api/contact" novalidate>
+        <fieldset class="choix">
+          <legend>Vous êtes *</legend>
+          <div class="pastilles">
+            <label class="pastille"><input type="radio" name="profil" value="Particulier" required /><span>Particulier</span></label>
+            <label class="pastille"><input type="radio" name="profil" value="Professionnel" required /><span>Professionnel</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="choix">
+          <legend>Votre projet</legend>
+          <div class="pastilles">
+            <label class="pastille"><input type="checkbox" name="projet" value="Aménagement intérieur" /><span>Aménagement intérieur</span></label>
+            <label class="pastille"><input type="checkbox" name="projet" value="Décoration & mise en valeur" /><span>Décoration & mise en valeur</span></label>
+            <label class="pastille"><input type="checkbox" name="projet" value="Accompagnement clé en main" /><span>Accompagnement clé en main</span></label>
+            <label class="pastille"><input type="checkbox" name="projet" value="Je ne sais pas encore" /><span>Je ne sais pas encore</span></label>
+          </div>
+        </fieldset>
         <div class="field half">
           <label for="prenom">Prénom *</label>
           <input id="prenom" name="prenom" type="text" autocomplete="given-name" required />
@@ -34,26 +51,29 @@ import { site } from '../data/site';
           <label for="nom">Nom *</label>
           <input id="nom" name="nom" type="text" autocomplete="family-name" required />
         </div>
-        <div class="field">
+        <div class="field half">
           <label for="email">E-mail *</label>
           <input id="email" name="email" type="email" autocomplete="email" required />
         </div>
-        <div class="field">
-          <label for="sujet">Sujet *</label>
-          <input id="sujet" name="sujet" type="text" required />
+        <div class="field half">
+          <label for="telephone">Téléphone <span class="facultatif">(facultatif)</span></label>
+          <input id="telephone" name="telephone" type="tel" autocomplete="tel" />
         </div>
         <div class="field">
-          <label for="message">Message *</label>
-          <textarea id="message" name="message" rows="4" required></textarea>
+          <label for="message">Votre projet en quelques lignes *</label>
+          <textarea id="message" name="message" rows="5" required placeholder="La pièce, ce que vous aimeriez changer, vos envies…"></textarea>
         </div>
         <div class="hp" aria-hidden="true">
           <label for="site-web">Site web</label>
           <input id="site-web" name="site_web" type="text" tabindex="-1" autocomplete="off" />
         </div>
-        <button class="send" type="submit">Envoyer</button>
+        <div class="envoi">
+          <button class="send" type="submit">Envoyer ma demande <span aria-hidden="true">→</span></button>
+          <p class="devis">Demander un devis gratuit et sans engagement.</p>
+        </div>
         <p class="status" role="status" aria-live="polite"></p>
       </form>
-    </div>
+    </section>
   </div>
 </Base>
 
@@ -64,16 +84,31 @@ import { site } from '../data/site';
   const params = new URLSearchParams(location.search);
   if (params.get('envoye') === '1') say('Merci, votre message a bien été envoyé.', 'ok');
   if (params.get('envoye') === '0') say('Le message n’a pas pu être envoyé. Écrivez-moi à studio@casa-senso.ch.', 'err');
+  // Lien depuis une page (?profil=professionnel ou particulier) : présélection.
+  const profil = params.get('profil');
+  if (profil && form) {
+    const val = profil.toLowerCase().startsWith('pro') ? 'Professionnel' : 'Particulier';
+    const r = form.querySelector<HTMLInputElement>(`input[name="profil"][value="${val}"]`);
+    if (r) r.checked = true;
+  }
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     let firstInvalid: HTMLElement | null = null;
-    form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]').forEach((f) => {
+    form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input[required]:not([type="radio"]), textarea[required]').forEach((f) => {
       const bad = !f.value.trim() || (f.type === 'email' && !f.checkValidity());
       f.toggleAttribute('aria-invalid', bad);
       if (bad && !firstInvalid) firstInvalid = f;
     });
+    const profilOk = !!form.querySelector('input[name="profil"]:checked');
+    form.querySelector('fieldset.choix')?.toggleAttribute('data-invalid', !profilOk);
+    if (!profilOk && !firstInvalid) firstInvalid = form.querySelector<HTMLElement>('input[name="profil"]');
     if (firstInvalid) { (firstInvalid as HTMLElement).focus(); say('Merci de remplir les champs marqués d’un astérisque.', 'err'); return; }
+    const fd = new FormData(form);
+    const projets = fd.getAll('projet').map(String);
+    const data: Record<string, string> = Object.fromEntries([...fd.entries()].filter(([k]) => k !== 'projet').map(([k, v]) => [k, String(v)]));
+    data.projet = projets.join(', ');
+    data.sujet = [data.profil, projets.join(', ')].filter(Boolean).join(' · ') || 'Demande de rendez-vous';
     const btn = form.querySelector<HTMLButtonElement>('.send');
     if (btn) btn.disabled = true;
     say('Envoi en cours…', 'ok');
@@ -81,12 +116,12 @@ import { site } from '../data/site';
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error(String(res.status));
       form.reset();
-      say('Merci, votre message a bien été envoyé.', 'ok');
-      window.dispatchEvent(new CustomEvent('cs:lead', { detail: { form: 'contact' } }));
+      say('Merci, votre message a bien été envoyé. Je vous recontacte rapidement.', 'ok');
+      window.dispatchEvent(new CustomEvent('cs:lead', { detail: { form: 'contact', profil: data.profil } }));
     } catch {
       say('Le message n’a pas pu être envoyé. Écrivez-moi à studio@casa-senso.ch.', 'err');
     } finally {
@@ -96,47 +131,69 @@ import { site } from '../data/site';
 </script>
 
 <style>
-  .contact-grid { padding-bottom: 120px; display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
+  .contact-grid { padding-bottom: 120px; display: grid; grid-template-columns: 4fr 8fr; gap: 72px; align-items: start; }
   .contact-grid > * { min-width: 0; }
-  .coord { background: var(--card); border-radius: calc(var(--radius) + 8px); padding: 36px 36px 28px; }
-  .strong { margin-top: 14px; font-family: var(--serif); font-size: 24px; line-height: 1.5; }
+  .coord { position: sticky; top: calc(var(--header-h) + 24px); background: var(--card); border-radius: calc(var(--radius) + 8px); padding: 34px 32px 30px; }
+  .strong { margin-top: 14px; font-family: var(--serif); font-size: 22px; line-height: 1.5; }
   .strong a { transition: color .3s var(--ease); }
   .strong a:hover { color: var(--accent); }
   .addr { margin-top: 14px; font-size: 16px; line-height: 1.6; color: var(--muted); }
-  .coord :global(.fauteuil) { margin-top: 24px; width: 100%; aspect-ratio: 416 / 349; height: auto; object-fit: contain; mix-blend-mode: multiply; }
+  .coord :global(.fauteuil) { display: block; margin: 26px auto 0; width: 82%; height: auto; }
 
-  .form-sub { font-family: var(--serif); font-size: 26px; line-height: 1.4; }
+  #formulaire { scroll-margin-top: calc(var(--header-h) + 24px); }
+  .form-col h2 { font-size: 44px; }
+  .form-col h2 em { color: var(--accent); }
+  .form-sub { margin-top: 10px; font-size: 18px; color: var(--muted); }
   .form { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; row-gap: 26px; }
+  .choix { grid-column: 1 / -1; margin: 0; padding: 0; border: 0; }
+  legend, label { font-weight: 500; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .facultatif { text-transform: none; letter-spacing: 0; }
+  .pastilles { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .pastille { position: relative; cursor: pointer; letter-spacing: 0; text-transform: none; color: var(--ink); font-size: 16px; }
+  .pastille input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .pastille span { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border: 1px solid var(--line); border-radius: 999px; background: #fff; transition: background-color .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease); }
+  .pastille:hover span { border-color: var(--ink); }
+  .pastille input:checked + span { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .pastille input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .choix[data-invalid] .pastille span { border-color: #b3261e; }
+
   .field { grid-column: 1 / -1; display: flex; flex-direction: column; }
   .field.half { grid-column: auto; }
-  label { font-weight: 500; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
-  input, textarea {
+  input:not([type='radio']):not([type='checkbox']), textarea {
     border: 0; border-bottom: 1px solid var(--ink); border-radius: 0; background: transparent;
     height: 48px; padding: 10px 0 8px; font-size: 17px; font-family: var(--sans); outline: none;
     transition: border-color .3s var(--ease);
   }
-  textarea { height: 120px; resize: none; }
-  input:focus-visible, textarea:focus-visible { border-bottom: 2px solid var(--accent); }
-  [aria-invalid] { border-bottom-color: #b3261e; }
+  textarea { height: 130px; resize: vertical; line-height: 1.6; }
+  textarea::placeholder { color: #A39A90; }
+  input:focus-visible, textarea:focus-visible { border-bottom: 2px solid var(--accent) !important; }
+  [aria-invalid] { border-bottom-color: #b3261e !important; }
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .envoi { grid-column: 1 / -1; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 6px; }
   .send {
-    grid-column: 1 / -1; justify-self: start; height: 52px; padding: 0 34px; margin-top: 6px;
-    border: 0; border-radius: 999px; background: var(--accent); color: #fff;
+    height: 54px; padding: 0 30px; border: 0; border-radius: 999px; background: var(--accent); color: #fff;
     font-family: var(--sans); font-weight: 500; font-size: 16px; cursor: pointer; transition: background-color .35s var(--ease), transform .45s var(--ease);
   }
+  .send span { display: inline-block; margin-left: 6px; transition: transform .45s var(--ease); }
   .send:hover { background: var(--accent-dark); transform: translateY(-2px); }
+  .send:hover span { transform: translateX(4px); }
   .send:disabled { opacity: .6; cursor: progress; }
+  .devis { font-size: 15px; color: var(--muted); }
   .status { grid-column: 1 / -1; font-size: 15px; }
   .status:empty { display: none; }
+  .status[data-kind='ok'] { color: var(--olive); }
   .status[data-kind='err'] { color: #b3261e; }
 
   @media (max-width: 999px) {
     .contact-grid { grid-template-columns: 1fr; gap: 40px; padding-bottom: 70px; }
-    .coord { padding: 26px 22px 20px; }
+    .coord { position: static; order: 2; padding: 26px 22px 20px; }
+    .form-col { order: 1; }
     .strong { font-size: 20px; }
-    .form-sub { font-size: 22px; }
+    .coord :global(.fauteuil) { width: 70%; }
+    .form-col h2 { font-size: 32px; }
     .form { margin-top: 26px; grid-template-columns: 1fr; }
     .field.half { grid-column: 1 / -1; }
+    .pastille span { height: 42px; padding: 0 16px; font-size: 15px; }
     .send { width: 100%; }
   }
 </style>
