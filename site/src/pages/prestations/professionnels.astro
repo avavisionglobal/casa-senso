@@ -46,6 +46,7 @@ const lieux = [
         <h2 id="cas-titre" class="titre-serif">ICHI <em>Ramen</em> Shop</h2>
         <p class="approche">Écouter ses envies, comprendre sa culture, respecter son histoire, imaginer des ambiances.</p>
         <blockquote>« Et surtout trouver cette petite touche qui fait toute la différence. »<footer>Laetitia Rein</footer></blockquote>
+        <a class="voir" href="/realisations/ichi-ramen-shop">Voir le projet <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -78,6 +79,8 @@ const lieux = [
   .cas h2 { font-size: 46px; }
   .approche { font-size: 19px; line-height: 1.7; }
   blockquote { margin: 8px 0 0; padding-top: 20px; border-top: 1px solid rgba(30,26,23,.25); font-family: var(--serif); font-style: italic; font-size: 24px; line-height: 1.45; }
+  .voir { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 22px; border-radius: 999px; background: var(--accent); color: #fff; font-weight: 500; font-size: 15px; transition: background-color .35s var(--ease); }
+  .voir:hover { background: var(--accent-dark); }
   blockquote footer { margin-top: 12px; font-family: var(--sans); font-style: normal; font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
 
   @media (max-width: 999px) {

@@ -289,3 +289,9 @@ Format : date · décision · raison · remplace · statut · source.
 - **Raison** : Diego, « tout refaire dans cette DA, je te fais confiance ».
 - **Statut** : construit en local, build OK ; non déployé. Avant mise en ligne : supprimer `/apercu-heros`, accord ICHI, clé Resend, mesure, numéro et adresse à confirmer, accès GoDaddy.
 - **Source** : Diego, conversation du 13.11.2026 ; `site/PROJECT.md`.
+
+## 2026-11-13 · Site : une page par réalisation
+- **Décision** : Réalisations devient un index de projets ; chaque projet a sa page courte (photos, récit, avant, galerie, contact) sur le modèle madah.fr. Premiers projets : appartement de Cannes, maison de famille, ICHI Ramen Shop.
+- **Raison** : donner au visiteur de vraies preuves par projet ; projets transmis par Laetitia absents du site actuel.
+- **Statut** : construit en local. À valider par Laetitia : textes proposés (Cannes), mention du lieu de la maison, accord ICHI.
+- **Source** : Diego, conversation du 13.11.2026 ; `site/PROJECT.md`.
