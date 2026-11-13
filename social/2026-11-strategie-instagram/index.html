@@ -138,7 +138,9 @@ section{padding-block:80px 0}
 .agenda .s{font-size:13px; color:var(--muted)}
 @media (max-width:760px){.agenda{display:block}}
 
-#apx-tabs{margin-bottom:20px}
+#apx-tabs,#dir-tabs{margin-bottom:20px}
+.dir-intro{max-width:62ch; color:var(--muted); margin-bottom:20px}
+.dir-pts{margin:0; padding-left:18px; display:grid; gap:8px; font-size:16px}
 .apercu{display:grid; grid-template-columns:minmax(0,420px) 1fr; gap:40px; align-items:start}
 .phone{border:10px solid var(--fg); border-radius:36px; overflow:hidden auto; max-height:min(860px,85vh); background:#fff; scrollbar-width:none}
 .phone img{display:block; width:100%}
@@ -160,7 +162,7 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
 
 <nav class="nav" aria-label="Sommaire"><div class="nav-in">
   <span class="logo" role="img" aria-label="casa senso"></span>
-  <a href="#strategie">Stratégie</a><a href="#patterns">Patterns</a><a href="#rubriques">Rubriques</a><a href="#charte">Charte</a><a href="#calendrier">Calendrier</a><a href="#apercu">Aperçu</a>
+  <a href="#strategie">Stratégie</a><a href="#directions">Directions</a><a href="#patterns">Patterns</a><a href="#rubriques">Rubriques</a><a href="#charte">Charte</a><a href="#calendrier">Calendrier</a><a href="#apercu">Aperçu</a>
 </div></nav>
 
 <div class="wrap">
@@ -180,6 +182,22 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
       <div><b>Ce qu’on montre</b><span>Son histoire, ses moodboards, ses projets réels. Aucune image générée présentée comme une réalisation.</span></div>
       <div><b>Comment</b><span>Une rubrique = un format et une couleur fixes, pour être reconnue dans le fil.</span></div>
     </div>
+  </section>
+
+  <section id="directions" aria-labelledby="t-dir">
+    <div class="sec-head"><h2 id="t-dir">Trois directions de couverture</h2><p class="eyebrow">À choisir · 13.11</p></div>
+    <p class="dir-intro">Même système pour les 12 couvertures, pour que le fil se lise comme une seule publication. Choisissez une direction ; on reprend ensuite chaque couverture slide par slide.</p>
+    <div class="tabs" id="dir-tabs" role="tablist" aria-label="Directions"></div>
+    <div class="apercu">
+      <div class="phone" id="dir-phone"><img id="dir-img" src="img/dirA-grid.jpg" alt=""></div>
+      <div class="apercu-txt">
+        <p class="eyebrow" id="dir-model"></p>
+        <h3 id="dir-name" style="font-size:32px"></h3>
+        <p id="dir-desc"></p>
+        <ul class="dir-pts" id="dir-pts"></ul>
+      </div>
+    </div>
+    <div class="reel" id="dir-reel" style="margin-top:28px"></div>
   </section>
 
   <section id="patterns" aria-labelledby="t-pat">
@@ -343,6 +361,23 @@ PATS.forEach(p => $("#pats").append(h("article", {class:"pat" + (p.later ? " lat
   h("p", {class:"eyebrow"}, p.m), h("h3", {}, p.n), h("p", {class:"d"}, p.d),
   p.r.length ? h("div", {class:"tags"}, p.r.map(k => h("span", {class:"tag"}, h("i", {style:`background:${COL[k]}`}), NAME[k]))) : null,
   p.list ? h("button", {type:"button", class:"ex", onclick:() => openLB(p.list, 0, p.n)}, "Voir le post réel ›") : null)));
+
+// Directions de couverture
+const DIRS = [
+  {k:"A", n:"A · La toile", m:"Modèle : livre « Interiors » d’Amber Lewis", d:"Une seule toile taupe (#6B6258) pour toutes les couvertures, le titre en capitales espacées, la photo en médaillon, le nom en bas. La rubrique ne change que par son nom et une petite pastille de couleur.",
+   p:["Le fil le plus calme et le plus reconnaissable.", "Les photos sont plus petites dans la grille.", "Pastilles encre et olive peu visibles sur le taupe."]},
+  {k:"B", n:"B · Le magazine", m:"Modèle : couverture House & Garden", d:"Photo plein cadre, « casa senso » en titre de magazine terracotta (#B4532F) sur chaque couverture, le numéro et la date de publication dessous, le titre du post en bas.",
+   p:["Chaque post devient un numéro : identité forte.", "Le titre répété peut paraître lourd sur toute la grille.", "Quelques titres raccourcis sont à valider par Laetitia."]},
+  {k:"C", n:"C · Le récit", m:"Modèle : Emily Henderson", d:"Photo plein cadre et une phrase en sérif blanc (Lora), un mot en italique, la suite en bas avec une petite flèche dessinée. Pas de carte de couleur : la cohérence vient de la voix.",
+   p:["Le plus naturel, le plus proche d’elle (ses phrases).", "Lisibilité juste sur les photos claires (Livre I et IV).", "Étend Lora, réservé au Voyage, à toutes les couvertures."]}];
+const DNAMES = ["Livre I","Voyage","Coulisses","Avant / après","Moodboard","Réalisation","Vidéo","Livre II","ICHI","Idées déco","Livre III","Livre IV"];
+function showDir(i){ const d = DIRS[i]; $("#dir-img").src = `img/dir${d.k}-grid.jpg`; $("#dir-img").alt = "Grille du profil, direction " + d.n; $("#dir-phone").scrollTop = 0;
+  $("#dir-model").textContent = d.m; $("#dir-name").textContent = d.n; $("#dir-desc").textContent = d.d; $("#dir-pts").replaceChildren(...d.p.map(t => h("li", {}, t)));
+  const list = R("dir" + d.k, 12);
+  $("#dir-reel").replaceChildren(...list.map((s, j) => h("button", {type:"button", "aria-label":`${d.n}, ${DNAMES[j]}`, onclick:() => openLB(list, j, d.n)}, h("img", {src:s, alt:"", loading:"lazy"}))));
+  [...$("#dir-tabs").children].forEach((b, j) => b.setAttribute("aria-selected", String(j === i))); }
+DIRS.forEach((d, i) => $("#dir-tabs").append(h("button", {type:"button", role:"tab", onclick:() => showDir(i)}, d.n)));
+showDir(0);
 
 // Aperçu : Casa Senso et comptes de référence
 const APX = [

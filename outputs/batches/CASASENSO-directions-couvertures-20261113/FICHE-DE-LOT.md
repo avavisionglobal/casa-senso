@@ -1,0 +1,9 @@
+# Lot CASASENSO-directions-couvertures-20261113 · statut : livré pour choix (13.11.2026)
+Demande de Diego : audit du fil, manque de cohérence (couleurs, couvertures toutes différentes) ; couvertures « pas toutes similaires mais assez similaires » ; moodboard comme un magazine ; page héros du Livre à retravailler ; proposer 2–3 directions, puis travailler slide par slide.
+Références données par Diego : couverture House & Garden (déc. 2026), livre « Interiors » d'Amber Lewis, posts et grille d'Emily Henderson.
+Trois directions, 12 couvertures chacune + aperçu de grille 3:4 (Figma page 02, x 30000) :
+- A · La toile (132:573) : une toile taupe #6B6258 (texture lin), titre en capitales espacées, photo en médaillon, nom en bas ; rubrique = nom + pastille.
+- B · Le magazine (132:465) : photo plein cadre, « casa senso » en titre de magazine terracotta #B4532F, numéro et date, titre du post en bas.
+- C · Le récit (132:675) : photo plein cadre, phrase en Lora blanc avec un mot en italique, suite en bas avec flèche dessinée ; pas de carte de couleur.
+Aucune génération (textures et photos existantes). Textes : titres et phrases existants ; B contient quelques titres raccourcis et deux mentions d'attente à valider.
+Retours : en attente du choix de Diego.
