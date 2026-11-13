@@ -140,6 +140,9 @@ section{padding-block:80px 0}
 
 #apx-tabs,#dir-tabs{margin-bottom:20px}
 .dir-intro{max-width:62ch; color:var(--muted); margin-bottom:20px}
+.prop{border-top:3px solid var(--fg); padding-block:24px 8px; display:grid; gap:14px}
+.prop h3{font-size:clamp(24px,2.6vw,32px)}
+.prop p.d{color:var(--muted); font-size:16px; max-width:70ch}
 .dir-pts{margin:0; padding-left:18px; display:grid; gap:8px; font-size:16px}
 .apercu{display:grid; grid-template-columns:minmax(0,420px) 1fr; gap:40px; align-items:start}
 .phone{border:10px solid var(--fg); border-radius:36px; overflow:hidden auto; max-height:min(860px,85vh); background:#fff; scrollbar-width:none}
@@ -162,7 +165,7 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
 
 <nav class="nav" aria-label="Sommaire"><div class="nav-in">
   <span class="logo" role="img" aria-label="casa senso"></span>
-  <a href="#strategie">Stratégie</a><a href="#directions">Directions</a><a href="#patterns">Patterns</a><a href="#rubriques">Rubriques</a><a href="#charte">Charte</a><a href="#calendrier">Calendrier</a><a href="#apercu">Aperçu</a>
+  <a href="#strategie">Stratégie</a><a href="#directions">Couvertures</a><a href="#propositions">Propositions</a><a href="#patterns">Patterns</a><a href="#rubriques">Rubriques</a><a href="#charte">Charte</a><a href="#calendrier">Calendrier</a><a href="#apercu">Aperçu</a>
 </div></nav>
 
 <div class="wrap">
@@ -185,8 +188,8 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
   </section>
 
   <section id="directions" aria-labelledby="t-dir">
-    <div class="sec-head"><h2 id="t-dir">Trois directions de couverture</h2><p class="eyebrow">À choisir · 13.11</p></div>
-    <p class="dir-intro">Même système pour les 12 couvertures, pour que le fil se lise comme une seule publication. Choisissez une direction ; on reprend ensuite chaque couverture slide par slide.</p>
+    <div class="sec-head"><h2 id="t-dir">Couvertures : « Le récit »</h2><p class="eyebrow">Retenue le 13.11</p></div>
+    <p class="dir-intro">Direction C retenue : photo plein cadre et une phrase en sérif. Elle est appliquée au Voyage, aux Coulisses, à l’Avant / après, à la Réalisation et à ICHI. Le Livre, le Moodboard et les Idées déco gardent leur propre couverture, dans la même famille de couleurs : propositions ci-dessous.</p>
     <div class="tabs" id="dir-tabs" role="tablist" aria-label="Directions"></div>
     <div class="apercu">
       <div class="phone" id="dir-phone"><img id="dir-img" src="img/dirA-grid.jpg" alt=""></div>
@@ -198,6 +201,11 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
       </div>
     </div>
     <div class="reel" id="dir-reel" style="margin-top:28px"></div>
+  </section>
+
+  <section id="propositions" aria-labelledby="t-prop">
+    <div class="sec-head"><h2 id="t-prop">Propositions à choisir</h2><p class="eyebrow">Livre · Moodboard · Idées déco</p></div>
+    <div id="props"></div>
   </section>
 
   <section id="patterns" aria-labelledby="t-pat">
@@ -377,7 +385,32 @@ function showDir(i){ const d = DIRS[i]; $("#dir-img").src = `img/dir${d.k}-grid.
   $("#dir-reel").replaceChildren(...list.map((s, j) => h("button", {type:"button", "aria-label":`${d.n}, ${DNAMES[j]}`, onclick:() => openLB(list, j, d.n)}, h("img", {src:s, alt:"", loading:"lazy"}))));
   [...$("#dir-tabs").children].forEach((b, j) => b.setAttribute("aria-selected", String(j === i))); }
 DIRS.forEach((d, i) => $("#dir-tabs").append(h("button", {type:"button", role:"tab", onclick:() => showDir(i)}, d.n)));
-showDir(0);
+showDir(2);
+
+// Propositions (Livre, Moodboard, Idées déco)
+const P = (k, n) => Array.from({length:n}, (_, i) => `img/prop-${k}-${i + 1}.jpg`);
+const PROPS = [
+  {n:"Le Livre · couverture", c:"var(--r-livre)", opts:[
+    ["L1 · Récit + signet", P("L1",4), "La couverture « Le récit », sa phrase en sérif, et un signet ocre qui porte le numéro du chapitre."],
+    ["L2 · Couverture de livre", P("L2",4), "Page crème, grand numéro ocre, titre en italique, photo en médaillon et le dessin du chapitre."],
+    ["L3 · Récit + numéro", P("L3",4), "Photo plein cadre, grand numéro romain en sérif, sa phrase en bas sous un filet ocre."]]},
+  {n:"Moodboard · couverture magazine", c:"var(--r-mood)", opts:[
+    ["M1 · Couverture de magazine", P("M1",2), "Le canapé en velours plein cadre, « Moodboard » en titre de magazine, numéro et date, les quatre matières en ligne de couverture."],
+    ["M2 · Planche éditoriale", P("M2",2), "Page crème façon sommaire : quatre photos numérotées, le titre en sérif."],
+    ["M3 · Double lecture", P("M3",2), "Photo en haut, bande crème avec le titre en italique, les échantillons posés à la jonction."]]},
+  {n:"Idées déco · couverture", c:"var(--r-idees)", opts:[
+    ["I1 · Photo forte + 3", P("I1",2), "La photo du laiton en plein cadre, un grand « 3 » en sérif, l’olive en simple filet."],
+    ["I2 · Triptyque", P("I2",2), "Chêne, rotin et laiton côte à côte, bande olive avec le titre."],
+    ["I3 · Récit", P("I3",2), "Le traitement « Le récit » comme les autres rubriques, avec « À enregistrer »."]]}];
+PROPS.forEach(g => {
+  const reel = h("div", {class:"reel"}), desc = h("p", {class:"d"}), tabs = h("div", {class:"tabs", role:"tablist"});
+  function show(i){ const [label, list, d] = g.opts[i]; desc.textContent = d;
+    reel.replaceChildren(...list.map((s, j) => h("button", {type:"button", "aria-label":`${label}, slide ${j + 1}`, onclick:() => openLB(list, j, `${g.n} · ${label}`)}, h("img", {src:s, alt:"", loading:"lazy"}))));
+    [...tabs.children].forEach((b, j) => b.setAttribute("aria-selected", String(j === i))); }
+  g.opts.forEach(([label], i) => tabs.append(h("button", {type:"button", role:"tab", onclick:() => show(i)}, label)));
+  $("#props").append(h("article", {class:"prop", style:`border-top-color:${g.c}`}, h("h3", {}, g.n), tabs, desc, reel));
+  show(0);
+});
 
 // Aperçu : Casa Senso et comptes de référence
 const APX = [

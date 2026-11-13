@@ -200,3 +200,10 @@ Format : date · décision · raison · remplace · statut · source.
 - **Remplace** : Avant / après à bulles (Archives) ; Livre IV et Marrakech « en réserve ».
 - **Statut** : décidé ; bio optimisée et posts épinglés = proposition à valider avec Laetitia.
 - **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · Couvertures : direction « Le récit » retenue
+- **Décision** : les couvertures suivent la direction C « Le récit » (photo plein cadre, phrase en Lora blanc avec un mot en italique, flèche dessinée) pour Voyage, Coulisses, Avant / après, Réalisation et ICHI. Le Livre, le Moodboard et les Idées déco gardent leur propre couverture dans la même famille de couleurs (propositions en cours).
+- **Raison** : audit du fil par Diego, manque de cohérence des couleurs et des couvertures.
+- **Remplace** : les couvertures précédentes de ces 5 rubriques (Archives du Figma) ; Lora n'est plus réservé au Voyage pour les couvertures.
+- **Statut** : décidé pour 5 rubriques ; choix Livre (L1–L3), Moodboard (M1–M3), Idées déco (I1–I3) en attente.
+- **Source** : Diego, conversation du 13.11.2026.
