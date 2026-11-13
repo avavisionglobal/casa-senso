@@ -118,3 +118,11 @@ Revue du 13.11 (local, http://localhost:4321) : accueil 1440 et 390 px relu visu
 - **13.11, Diego : « je souhaite quand même une grande image »** : photo du grand visuel agrandie (marges de 20 px, hauteur d'un écran moins l'en-tête, jusqu'à 1000 px ; 72 % de l'écran sur mobile), titre resserré au-dessus. Relu à 1440 et 390 px.
 - **13.11, Diego : « je veux vraiment la photo comme avant en grand avec un texte par-dessus ; pas de texte en haut »** : retour au grand visuel plein écran (diaporama continu, lent zoom, titre et phrase posés en bas à gauche sur un dégradé doux). La version B est abandonnée. Relu à 1440 et 390 px.
 - **13.11, Diego : texte du grand visuel pas assez visible, pas fan de sa place** : page `/apercu-heros` refaite avec 4 placements sur la photo plein écran (1 au milieu avec voile léger, 2 au milieu dans un cadre de verre dépoli foncé, 3 à gauche au milieu de la hauteur avec dégradé latéral, 4 en bas au centre très grand sur dégradé plus marqué). Relu à 1440 et 390 px, sans erreur. En attente du choix.
+
+## L'agence v3 · 13.11.2026 (proposition, à valider par Diego)
+- **Demande de Diego** : refonte de la page L'agence, garder la photo actuelle de Laetitia, ajouter des iconographies, dans l'esprit de l'artefact réseaux sociaux et de l'accueil v3.
+- **Composition** (textes du site inchangés, seulement redistribués) : ouverture (mention « L'agence », titre Lora « Des espaces qui *inspirent*. Des projets sans contraintes. », texte d'intro à droite) · portrait de Laetitia en arche (forme des couvertures des réseaux sociaux) avec son texte et la phrase « Une seule interlocutrice… » mise en avant · « Imaginer. Composer. *Déléguer.* » en 3 cartes numérotées avec dessins au trait (nuancier, console composée, porte ouverte) · bande olive avec la bâtisse et « Parce que chaque détail mérite toute notre attention… », boutons Prendre rendez-vous et Voir mes réalisations.
+- **Ajouts de libellés** : mentions « L'agence », « Laetitia Rein · fondatrice », lien « Voir mes réalisations », numéros 01–03.
+- **Animations** : montée décalée, photo qui se découvre, cartes qui se soulèvent au survol, dessins qui bougent légèrement.
+- Ancienne version : `proofs/agence-reproduction-wix-2026-11-13.astro`.
+- Revue : 1440, 820, 390 et 360 px, aucune erreur, aucun défilement horizontal (corrigé : la photo débordait de 15 px sur mobile).

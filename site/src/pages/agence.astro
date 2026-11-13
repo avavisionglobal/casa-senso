@@ -1,90 +1,162 @@
 ---
+// L'agence v3 (13.11.2026) : même charte que l'accueil v3 et que les réseaux sociaux
+// (Lora + League Spartan, crème, terracotta, olive, dessins au trait). Textes du site actuel inchangés.
+// Version précédente : proofs/agence-reproduction-wix-2026-11-13.astro
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import ArrowButton from '../components/ArrowButton.astro';
+import { site } from '../data/site';
 import laetitia from '../assets/images/agence-laetitia.jpg';
+import traitImaginer from '../assets/images/traits/echantillons-encre.png';
+import traitComposer from '../assets/images/traits/miseenvaleur-encre.png';
+import traitDeleguer from '../assets/images/traits/transformation-encre.png';
+import traitMaison from '../assets/images/traits/batisse-creme.png';
 
 const temps = [
-  { t: 'Imaginer', d: 'Vos envies, votre style, votre façon de vivre. Tout commence par vous.' },
-  { t: 'Composer', d: 'Des espaces harmonieux où chaque matière, couleur et détail trouve sa place.' },
-  { t: 'Déléguer', d: "Des commandes à l'installation, je prends tout en main. Vous profitez du résultat." },
+  { n: '01', t: 'Imaginer', d: 'Vos envies, votre style, votre façon de vivre. Tout commence par vous.', img: traitImaginer },
+  { n: '02', t: 'Composer', d: 'Des espaces harmonieux où chaque matière, couleur et détail trouve sa place.', img: traitComposer },
+  { n: '03', t: 'Déléguer', d: "Des commandes à l'installation, je prends tout en main. Vous profitez du résultat.", img: traitDeleguer },
 ];
 ---
 <Base
   title="L’agence Casa Senso | Votre intérieur sur mesure"
   description="Découvrez Casa Senso à Neuchâtel : une approche personnalisée de l’aménagement intérieur, une seule interlocutrice et un projet accompagné de A à Z."
 >
-  <div class="page-head" data-anim="fade">
-    <h1 class="page-title">L'agence</h1>
-    <p class="page-sub">Des espaces qui inspirent.<br class="mobile-only" /> Des projets sans contraintes.</p>
-  </div>
-  <hr class="page-rule" />
-  <p class="page-lead" data-anim="fade">J'imagine et aménage des espaces qui allient esthétique, harmonie et fonctionnalité. De la conception à l'installation finale, je prends en charge votre projet pour un intérieur à votre image, en toute sérénité.</p>
+  <!-- 1. Ouverture -->
+  <section class="ouverture" data-stagger="120">
+    <p class="mention">L'agence</p>
+    <h1 class="titre-serif">Des espaces qui <em>inspirent</em>.<br />Des projets sans contraintes.</h1>
+    <p class="ouverture-texte">J'imagine et aménage des espaces qui allient esthétique, harmonie et fonctionnalité. De la conception à l'installation finale, je prends en charge votre projet pour un intérieur à votre image, en toute sérénité.</p>
+  </section>
 
-  <section class="temps" aria-labelledby="temps-titre">
-    <div data-anim="fade" style="--anim-dur: 700ms">
-      <p class="temps-titre" id="temps-titre">Une approche en 3 temps</p>
-      <dl>
-        {temps.map((x) => (
-          <div class="row"><dt>{x.t}</dt><dd>{x.d}</dd></div>
-        ))}
-      </dl>
-      <p class="temps-fin">Le plaisir de choisir. La liberté de déléguer.</p>
+  <!-- 2. Laetitia -->
+  <section class="portrait">
+    <figure class="portrait-photo" data-anim="reveal">
+      <Image src={laetitia} alt="Laetitia Rein Casa Senso Neuchâtel" widths={[400, 700, 1167]} sizes="(max-width: 999px) 100vw, 44vw" />
+    </figure>
+    <div class="portrait-texte" data-stagger="110">
+      <p class="mention">Laetitia Rein · fondatrice</p>
+      <h2 class="titre-serif">Le sens du détail, le plaisir d'un intérieur <em>bien pensé</em>.</h2>
+      <p>Parce qu'un intérieur réussi ne se résume pas à son esthétique, mais à la manière dont on s'y sent et dont on y vit.</p>
+      <p>Je conçois des intérieurs où chaque choix a sa raison d'être, en associant créativité, fonctionnalité et harmonie.</p>
+      <p class="engagement">Une seule interlocutrice, un projet entièrement accompagné et la liberté de profiter du résultat.</p>
+      <ArrowButton href="/prestations" label="Découvrez mes prestations" />
     </div>
   </section>
 
-  <section class="detail">
-    <p class="detail-intro" data-anim="fade">Parce que chaque détail mérite toute notre attention, sans jamais devenir l'une de vos préoccupations.</p>
-    <div class="detail-grid">
-      <Image src={laetitia} alt="Laetitia Rein Casa Senso Neuchâtel" widths={[400, 700, 1167]} sizes="(max-width: 999px) 100vw, 45vw" class="portrait" data-anim="fade" />
-      <div class="detail-text" data-anim="fade">
-        <p class="lead">Le sens du détail, le plaisir d'un intérieur bien pensé.</p>
-        <p>Parce qu'un intérieur réussi ne se résume pas à son esthétique, mais à la manière dont on s'y sent et dont on y vit.</p>
-        <p>Je conçois des intérieurs où chaque choix a sa raison d'être, en associant créativité, fonctionnalité et harmonie.</p>
-        <h2>Imaginer. Composer. Déléguer.</h2>
-        <p>Trois dimensions complémentaires pour donner vie à des espaces uniques, adaptés à vos envies et à votre quotidien.</p>
-        <p>Du choix des matériaux et du mobilier à la coordination des commandes et à l'installation finale, je veille à chaque détail.</p>
-        <p class="semi">Une seule interlocutrice, un projet entièrement accompagné et la liberté de profiter du résultat.</p>
-        <ArrowButton href="/prestations" label="Découvrez mes prestations" class="detail-btn" />
+  <!-- 3. L'approche en 3 temps -->
+  <section class="approche" aria-labelledby="approche-titre">
+    <div class="approche-tete" data-stagger="110">
+      <p class="mention">Une approche en 3 temps</p>
+      <h2 id="approche-titre" class="titre-serif">Imaginer. Composer. <em>Déléguer.</em></h2>
+      <p>Trois dimensions complémentaires pour donner vie à des espaces uniques, adaptés à vos envies et à votre quotidien.</p>
+    </div>
+    <ol class="temps" data-stagger="150">
+      {temps.map((x) => (
+        <li class="temps-carte">
+          <div class="temps-haut"><span class="temps-n">{x.n}</span><Image class="temps-trait" src={x.img} alt="" width={200} /></div>
+          <h3 class="titre-serif">{x.t}</h3>
+          <p>{x.d}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="approche-fin" data-anim="up">Du choix des matériaux et du mobilier à la coordination des commandes et à l'installation finale, je veille à chaque détail.</p>
+    <p class="devise" data-anim="up">Le plaisir de choisir. La liberté de <em>déléguer</em>.</p>
+  </section>
+
+  <!-- 4. Phrase forte -->
+  <section class="bande" aria-label="Notre engagement">
+    <div class="bande-bloc" data-anim="up">
+      <Image class="bande-trait" src={traitMaison} alt="" width={110} />
+      <p>Parce que chaque détail mérite toute notre attention, sans jamais devenir l'une de vos <em>préoccupations</em>.</p>
+      <div class="bande-actions">
+        <a class="btn-clair" href={`mailto:${site.email}`}>Prendre rendez-vous</a>
+        <a class="lien-clair" href="/realisations">Voir mes réalisations <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .temps { margin-top: 30px; background: var(--grey); padding: 38px var(--gutter) 26px; }
-  .temps-titre { font-family: var(--text); font-weight: 700; font-size: 22px; line-height: 30.8px; }
-  dl { margin: 25px 0 0; display: grid; gap: 23.4px; }
-  .row { display: grid; grid-template-columns: 250px 1fr; align-items: center; }
-  dt { font-family: var(--display); font-weight: 800; font-size: 32px; line-height: 41.6px; }
-  dd { margin: 0; font-family: var(--text); font-size: 16px; line-height: 20.8px; max-width: 893px; }
-  .temps-fin { margin-top: 28px; font-family: var(--text); font-weight: 600; font-size: 20px; line-height: 28px; }
+  /* ---------- 1. Ouverture ---------- */
+  .ouverture { padding: 110px var(--gutter) 90px; display: grid; grid-template-columns: 1.15fr 1fr; grid-template-rows: auto 1fr; column-gap: 80px; row-gap: 22px; align-items: end; }
+  .ouverture .mention { grid-column: 1 / -1; }
+  .ouverture h1 { font-size: clamp(44px, 5.2vw, 76px); line-height: 1.05; }
+  .ouverture-texte { font-size: 19px; line-height: 1.7; color: var(--muted); padding-bottom: 8px; border-left: 1px solid var(--line); padding-left: 32px; }
 
-  .detail { padding: 40px var(--gutter) 51px; }
-  .detail-intro { max-width: 805px; font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 32px; }
-  .detail-grid { margin-top: 40px; display: grid; grid-template-columns: 640fr 641fr; gap: 40px; align-items: center; }
-  .detail-grid :global(.portrait) { width: 100%; aspect-ratio: 640 / 672; height: auto; object-fit: cover; object-position: 34% 50%; }
-  .detail-text { font-family: var(--text); font-size: 16px; line-height: 25.6px; }
-  .detail-text p + p { margin-top: 10px; }
-  .detail-text .lead { font-weight: 700; font-size: 20px; line-height: 32px; }
-  .detail-text h2 { margin: 20px 0; font-family: var(--display); font-weight: 800; font-size: 32px; line-height: 40px; }
-  .detail-text .semi { font-weight: 600; }
-  .detail-text :global(.detail-btn) { margin-top: 28px; }
+  /* ---------- 2. Portrait ---------- */
+  .portrait { padding: 0 var(--gutter) 140px; display: grid; grid-template-columns: 44fr 56fr; gap: 90px; align-items: center; }
+  .portrait > * { min-width: 0; }
+  .portrait-photo { margin: 0; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 999px 999px var(--radius) var(--radius) / 360px 360px var(--radius) var(--radius); background: var(--grey); }
+  .portrait-photo :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 34% 50%; }
+  .portrait-texte { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; max-width: 600px; }
+  .portrait-texte h2 { font-size: 44px; margin-bottom: 6px; }
+  .portrait-texte p:not(.mention) { font-size: 18px; line-height: 1.7; }
+  .engagement { margin-top: 6px; padding: 18px 22px; border-radius: var(--radius); background: var(--card); font-family: var(--serif); font-style: italic; font-size: 21px !important; line-height: 1.5 !important; }
+  .portrait-texte :global(.btn-outline) { margin-top: 14px; }
 
+  /* ---------- 3. Approche ---------- */
+  .approche { padding: 0 var(--gutter) 140px; }
+  .approche-tete { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; max-width: 760px; margin: 0 auto 56px; }
+  .approche-tete h2 { font-size: 52px; }
+  .approche-tete p:not(.mention) { font-size: 19px; line-height: 1.7; color: var(--muted); }
+  .temps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .temps-carte { background: var(--card); border-radius: calc(var(--radius) + 8px); padding: 34px 34px 40px; display: flex; flex-direction: column; gap: 14px; transition: transform .6s var(--ease), box-shadow .6s var(--ease); }
+  .temps-carte:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -30px rgba(30, 26, 23, .35); }
+  .temps-haut { display: flex; justify-content: space-between; align-items: flex-start; min-height: 170px; }
+  .temps-n { font-family: var(--serif); font-size: 22px; color: var(--accent); }
+  .temps-carte :global(.temps-trait) { width: auto; height: 160px; object-fit: contain; transition: transform .8s var(--ease); }
+  .temps-carte:hover :global(.temps-trait) { transform: translateY(-4px) rotate(-1.5deg); }
+  .temps-carte h3 { font-size: 36px; }
+  .temps-carte p { font-size: 17px; line-height: 1.65; }
+  .approche-fin { max-width: 720px; margin: 56px auto 0; text-align: center; font-size: 19px; line-height: 1.7; }
+  .devise { margin-top: 22px; text-align: center; font-family: var(--serif); font-size: 30px; line-height: 1.3; }
+  .devise em { color: var(--accent); }
+
+  /* ---------- 4. Bande olive ---------- */
+  .bande { padding: 0 var(--gutter) 130px; }
+  .bande-bloc { background: var(--olive); color: #F3EDE3; border-radius: calc(var(--radius) + 8px); padding: 90px 8vw; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 30px; }
+  .bande-bloc :global(.bande-trait) { width: 92px; height: auto; opacity: .9; }
+  .bande-bloc p { max-width: 900px; font-family: var(--serif); font-size: 36px; line-height: 1.35; }
+  .bande-bloc p em { color: #E9D9B4; }
+  .bande-actions { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+  .btn-clair { display: inline-flex; align-items: center; height: 52px; padding: 0 26px; border-radius: 999px; background: #F3EDE3; color: var(--ink); font-weight: 500; font-size: 16px; transition: background-color .35s var(--ease), transform .45s var(--ease); }
+  .btn-clair:hover { background: #fff; transform: translateY(-2px); }
+  .lien-clair { position: relative; font-weight: 500; font-size: 15px; letter-spacing: .04em; padding-bottom: 4px; }
+  .lien-clair::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform-origin: left; transition: transform .45s var(--ease); }
+  .lien-clair:hover::after { transform: scaleX(.4); }
+
+  /* ---------- Tablette ---------- */
+  @media (max-width: 1199px) {
+    .ouverture { column-gap: 48px; }
+    .portrait { gap: 56px; }
+    .temps-carte { padding: 28px 26px 32px; }
+    .temps-carte :global(.temps-trait) { height: 130px; }
+    .temps-haut { min-height: 140px; }
+  }
+
+  /* ---------- Mobile ---------- */
   @media (max-width: 999px) {
-    .temps { margin-top: 20px; padding: 23px 20px 20px; }
-    dl { margin-top: 13px; gap: 0; }
-    .row { grid-template-columns: 143px 1fr; min-height: 120px; }
-    @media (min-width: 600px) { .row { min-height: 72px; } }
-    dt { font-size: 25px; line-height: 32.5px; }
-    dd { line-height: 25.6px; }
-    .temps-fin { margin-top: 16px; font-size: 17px; line-height: 23.8px; }
-    .detail { padding: 21px 20px 40px; }
-    .detail-grid { grid-template-columns: 1fr; gap: 0; margin-top: 30px; }
-    .detail-grid :global(.portrait) { aspect-ratio: 350 / 345; object-position: 32% 50%; }
-    .detail-text { padding-top: 20px; }
-    .detail-text .lead { font-size: 16px; line-height: 25.6px; }
-    .detail-text h2 { font-size: 28px; line-height: 35px; }
-    .detail-text :global(.detail-btn) { margin: 33px auto 0; display: flex; width: fit-content; }
+    .ouverture { grid-template-columns: 1fr; padding: 56px var(--gutter) 56px; row-gap: 18px; }
+    .ouverture h1 { font-size: 38px; }
+    .ouverture-texte { font-size: 17px; border-left: 0; padding-left: 0; }
+    .portrait { grid-template-columns: 1fr; gap: 36px; padding-bottom: 90px; }
+    .portrait-photo { aspect-ratio: 4 / 4.6; border-radius: 999px 999px var(--radius) var(--radius) / 220px 220px var(--radius) var(--radius); }
+    .portrait-texte h2 { font-size: 32px; }
+    .portrait-texte p:not(.mention) { font-size: 17px; }
+    .engagement { font-size: 19px !important; }
+    .approche { padding-bottom: 90px; }
+    .approche-tete { margin-bottom: 34px; }
+    .approche-tete h2 { font-size: 34px; }
+    .approche-tete p:not(.mention) { font-size: 17px; }
+    .temps { grid-template-columns: 1fr; gap: 14px; }
+    .temps-haut { min-height: 0; }
+    .temps-carte :global(.temps-trait) { height: 110px; }
+    .temps-carte h3 { font-size: 30px; }
+    .approche-fin { font-size: 17px; margin-top: 36px; }
+    .devise { font-size: 24px; }
+    .bande { padding-bottom: 80px; }
+    .bande-bloc { padding: 56px 24px; gap: 24px; }
+    .bande-bloc p { font-size: 24px; }
   }
 </style>
