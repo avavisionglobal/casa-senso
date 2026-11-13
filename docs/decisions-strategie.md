@@ -250,3 +250,10 @@ Format : date · décision · raison · remplace · statut · source.
 - Bascule de Wix vers un site codé (Astro, `site/`), reproduction à l'identique du site actuel avec les corrections P0 de l'audit ; mise en ligne visée le 20.11 avec GA4, Search Console, pixel Meta et suivi du formulaire ; modifications de Laetitia via Contrast (tableau de bord en option).
 - Restent ouverts : licence PP Hatton, numéro et adresse à confirmer, clé Resend, accès GoDaddy, mesure.
 **En attente de Laetitia** : choix L1/L2 et M1/M2, relecture des textes proposés, accord ICHI, lieu/auteur/matériaux de la niche, validation de la photo AR-2 (ancien cabinet), date de tournage de la vidéo, accès Instagram.
+
+## 2026-11-13 · Accueil v2 du site codé (structure madah.fr, DA inchangée)
+- **Décision** : nouvel accueil en 6 sections : grand visuel en fondu (4 photos de Cannes), intro actuelle, « Mes dernières réalisations » en mosaïque (Cannes, maison de famille, avant / après), citation de Laetitia sur bandeau olive #404734, carte « Vous avez un projet ? », bloc Instagram. Polices, couleurs, boutons, en-tête et pied de page inchangés.
+- **Raison** : demande de Diego (référence https://www.madah.fr/ pour l'architecture des sections) ; demande de Laetitia du 12.11 d'un site « plus vivant » avec ses chantiers.
+- **Remplace** : l'accueil reproduit à l'identique de Wix (archivé dans `site/proofs/`).
+- **Statut** : proposition en local (http://localhost:4321), à valider par Diego puis Laetitia ; textes proposés listés dans `site/PROJECT.md`.
+- **Source** : message de Diego du 13.11.2026.

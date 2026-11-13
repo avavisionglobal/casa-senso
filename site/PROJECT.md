@@ -76,3 +76,26 @@ Méthode : captures pleine page du site Wix et du site codé à 1440 px et 390 p
 | Liens | PASS | Pages internes 200 ; e-mail studio@ partout ; téléphone +41 76 615 09 43. |
 | Formulaire | NON VÉRIFIÉ | Validation et messages testés ; envoi réel impossible sans clé Resend et déploiement Vercel. |
 | « Avant - Après » | Écart assumé | Bodoni Moda Italic au lieu de Linotype Didot (licence Wix). |
+
+## Accueil v2 · 13.11.2026 (proposition, à valider par Diego)
+
+- **Demande de Diego** : revoir l'accueil sur l'architecture des sections de https://www.madah.fr/ (référence dominante, fiche `contrast-web-references/fiches/REF-0050-madah.md`), sans toucher à la DA du site ; améliorer le grand visuel, les sections et les images.
+- **DA conservée** : PP Hatton et Madefor, noir sur blanc, boutons-pilules à flèche et pilule noire de l'en-tête, en-tête et pied de page inchangés. Seule couleur ajoutée : l'olive #404734, déjà présente dans le site Wix.
+- **Ancienne version** : `site/proofs/index-reproduction-wix-2026-11-13.astro`.
+
+| Section | Hésitation du visiteur | Ce qui la lève | Source |
+| --- | --- | --- | --- |
+| Grand visuel (4 photos de Cannes en fondu, pause possible) | « Est-ce que ce qu'elle fait me plaît ? » | Photos pro HD, nom du lieu et de la pièce | SwissTransfer du 08.11 (HD-30, 28, 23, 7) |
+| Intro | « Que fait-elle exactement ? » | Textes du site actuel | site Wix |
+| Mes dernières réalisations | « A-t-elle vraiment des projets aboutis ? » | Une ligne par projet : Cannes, maison de famille, avant / après | photos HD Cannes et Corcelles, paires avant/après du site |
+| Citation | « Qui est derrière ? » | Les mots de Laetitia | son e-mail du 08.11 (écrit pour la page QLIQ) |
+| Vous avez un projet ? | « Comment je commence ? » | Rendez-vous, devis gratuit, lien vers les prestations | « Demander un devis gratuit… » du site ; reste proposé |
+| Instagram | « Est-ce qu'elle est active ? » | 4–5 photos, lien vers @casa_senso.ch | photos HD |
+
+**Textes proposés par Contrast (à faire valider par Laetitia)** : « Mes dernières réalisations », « L'appartement de Cannes », « La maison de famille », « Vous avez un projet ? Parlons-en ensemble. », « Une pièce à repenser, une maison à aménager ou des locaux à mettre en valeur : dites-moi en quelques lignes ce que vous imaginez, je vous recontacte rapidement. », « Suivez mes projets sur Instagram », « Suivez-moi », légendes du diaporama.
+
+**Écarté faute de preuve** : avis clients (pas d'avis Google), presse.
+
+**Limites** : « Voir le projet » mène à la page Réalisations, qui ne présente pas encore la maison de famille ni les photos HD de Cannes : pages projet à créer. La citation a été écrite pour QLIQ : demander à Laetitia si elle veut la réutiliser.
+
+Revue du 13.11 : ordinateur 1440, tablette 820, mobile 390 relus visuellement ; aucun défilement horizontal de 360 à 1920 px ; aucune erreur console ; liens internes 200. Lisibilité : titres posés sur un encart blanc (le texte noir directement sur les photos claires ne passait pas).

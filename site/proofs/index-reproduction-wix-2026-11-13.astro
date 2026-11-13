@@ -1,0 +1,88 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ArrowButton from '../components/ArrowButton.astro';
+import hero from '../assets/images/accueil-salon.jpg';
+import bandeSalon from '../assets/images/accueil-bande-salon.jpg';
+import bandeChambre from '../assets/images/accueil-bande-chambre.jpg';
+import bandeCuisine from '../assets/images/accueil-bande-cuisine.jpg';
+
+const bande = [
+  { src: bandeSalon, alt: "Décoration d'intérieure salon, design contemporain. Casa Senso Neuchâtel" },
+  { src: bandeChambre, alt: "Décoration d'intérieure chambre lit double, design contemporain. Casa Senso Neuchâtel" },
+  { src: bandeCuisine, alt: "Décoration d'intérieure cuisine lumineuse, design contemporain. Casa Senso Neuchâtel" },
+];
+---
+<Base
+  title="Casa Senso | Aménagement & décoration à Neuchâtel"
+  description="Casa Senso imagine et aménage votre intérieur à Neuchâtel. Décoration, mobilier et accompagnement clé en main pour des espaces qui vous ressemblent."
+>
+  <section class="hero">
+    <Image src={hero} alt="Décoration d'intérieure salon design contemporain. Casa Senso Neuchâtel" widths={[480, 800, 1200, 1500]} sizes="100vw" loading="eager" fetchpriority="high" class="hero-img" />
+    <div class="hero-text">
+      <h1>De l'idée à la réalisation</h1>
+      <p>Le plaisir de choisir. La liberté de déléguer.</p>
+    </div>
+  </section>
+
+  <section class="intro">
+    <h2>Des espaces pensés pour vous, jusque dans les moindres détails.</h2>
+    <h3>Votre intérieur mérite de refléter votre personnalité, vos envies et votre façon de vivre.</h3>
+    <p>De l'aménagement à la décoration, en passant par l'optimisation des espaces, je conçois et coordonne votre projet de A à Z.</p>
+    <p>Sélection du mobilier, choix des matières, commandes et installation : chaque étape est pensée pour vous simplifier la vie.</p>
+    <p class="strong">Décrivez-moi votre intérieur idéal, je me charge de l'imaginer pour vous et de lui donner vie.</p>
+    <p class="devis">Demander un devis gratuit et sans engagement.</p>
+    <ArrowButton href="/agence" label="Découvrez la vision Casa Senso" class="intro-btn" />
+  </section>
+
+  <div class="bande">
+    {bande.map((b) => (
+      <Image src={b.src} alt={b.alt} widths={[400, 800, 1000]} sizes="(max-width: 999px) 100vw, 34vw" />
+    ))}
+  </div>
+
+  <section class="closing">
+    <h2 data-anim="float">Le plaisir de choisir.<br class="mobile-only" /> La liberté de déléguer.</h2>
+    <div data-anim="float"><ArrowButton href="/prestations" label="Découvrez mes prestations" /></div>
+  </section>
+</Base>
+
+<style>
+  .hero { position: relative; aspect-ratio: 1440 / 719; overflow: hidden; }
+  .hero :global(.hero-img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+  .hero-text { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+  .hero h1 { font-family: var(--hatton); font-weight: 400; font-size: 60px; line-height: 84px; }
+  .hero p { font-family: var(--text); font-size: 30px; line-height: 48px; margin-top: -9px; }
+
+  .intro { padding: 82px 20px 94px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .intro h2 { max-width: 700px; font-family: var(--display-wix); font-weight: 700; font-size: 45px; line-height: 63px; }
+  .intro h3 { max-width: 700px; margin-top: 17px; font-family: var(--display-wix); font-weight: 700; font-size: 22.5px; line-height: 31.5px; }
+  .intro p { max-width: 788px; margin-top: 20px; font-family: var(--display-wix); font-size: 20px; line-height: 28px; }
+  .intro p.strong, .intro p.devis { font-family: var(--display); font-weight: 700; }
+  .intro p.devis { font-weight: 700; font-size: 17px; line-height: 23.8px; }
+  .intro :global(.intro-btn) { margin-top: 22px; }
+
+  .bande { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .bande :global(img) { width: 100%; aspect-ratio: 16 / 9; height: auto; object-fit: cover; }
+
+  .closing { padding: 70px 20px 62px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .closing h2 { font-family: var(--hatton-light); font-weight: 700; font-size: 61.875px; line-height: 86.625px; }
+  .closing > div { margin-top: 46px; }
+
+  @media (max-width: 999px) {
+    .hero { aspect-ratio: auto; height: 560px; }
+    .hero h1 { font-size: 31px; line-height: 43.4px; }
+    .hero p { font-size: 17px; line-height: 27.2px; margin-top: -2px; }
+    .intro { padding: 39px 18px 40px; }
+    .intro h2 { max-width: 345px; font-family: var(--display); font-size: 30px; line-height: 36px; }
+    .intro h3 { max-width: 352px; margin-top: 16px; font-size: 20px; line-height: 28px; }
+    .intro p { max-width: 352px; margin-top: 15px; font-size: 16px; line-height: 22.4px; }
+    .intro p.strong { margin-top: 20px; }
+    .intro p.devis { font-size: 14px; line-height: 19.6px; }
+    .intro :global(.intro-btn) { margin-top: 30px; }
+    .closing { padding: 31px 20px 40px; }
+    .closing h2 { font-size: 30px; line-height: 36px; }
+    .closing > div { margin-top: 20px; }
+  }
+  @media (max-width: 599px) { .bande { grid-template-columns: 1fr; } }
+</style>
