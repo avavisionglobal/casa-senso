@@ -68,3 +68,11 @@ Livre ocre #A69368 · Voyage sans carte (photo) · Avant/après corail #C8613F �
 
 ## Couleurs de rubrique (mise à jour 12.11.2026)
 Livre ocre #A69368 · Voyage sans carte · Avant/après corail #C8613F · Moodboards prune vif #7A3B4E · Réalisations rose poudré #E2A79A · Coulisses encre chaude #4A4440 · Espaces pro sauge #6E7F73 · Idées déco bleu majorelle #2F4FA2.
+
+## Mise à jour du 13.11.2026 (retours de Diego)
+- **Règle de travail** : toute modification visuelle se fait d'abord dans le Figma, puis est exportée vers l'artefact.
+- **Inspiration et voyage** : Laetitia n'apparaît sur aucune photo (elle ne veut pas être sur les images). Texte blanc sur photo.
+- **Moodboards** : planche recomposée en haute qualité (éléments de sa planche recréés un par un, images d'inspiration générées, jamais présentées comme une réalisation), puis une slide par élément.
+- **Coulisses et chantiers** : mise en page « Légende blanche » (modèle Apartamento) retenue : photo en haut, bande blanche avec le jour, une phrase SemiBold encre et le folio « n / 7 ». Post 4:5 ; les stories ne sont plus le format principal.
+- **Idées déco** : DA « Olive du site » retenue, d'après casa-senso.ch : cartes olive #404734, conseils en photo plein cadre avec légende blanche, « À retenir » sur blanc cassé #F7F7F7. Le bleu majorelle est abandonné.
+- Couleurs de rubrique : Livre ocre #A69368 · Voyage sans carte · Avant/après corail #C8613F · Moodboards prune vif #7A3B4E · Réalisations rose poudré #E2A79A · Coulisses encre chaude #4A4440 · Espaces pro sauge #6E7F73 · Idées déco olive #404734.

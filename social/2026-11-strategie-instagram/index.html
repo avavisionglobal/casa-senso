@@ -138,6 +138,12 @@ section{padding-block:80px 0}
 .agenda .s{font-size:13px; color:var(--muted)}
 @media (max-width:760px){.agenda{display:block}}
 
+.apercu{display:grid; grid-template-columns:minmax(0,420px) 1fr; gap:40px; align-items:start}
+.phone{border:10px solid var(--fg); border-radius:36px; overflow:hidden auto; max-height:min(860px,85vh); background:#fff; scrollbar-width:none}
+.phone img{display:block; width:100%}
+.apercu-txt{display:grid; gap:14px; font-size:18px; max-width:46ch}
+.apercu-txt .s{color:var(--muted); font-size:16px}
+@media (max-width:760px){.apercu{grid-template-columns:1fr}}
 footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font-size:15px; color:var(--muted)}
 
 .lb{position:fixed; inset:0; z-index:20; background:rgba(15,12,10,.93); display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:12px;
@@ -153,7 +159,7 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
 
 <nav class="nav" aria-label="Sommaire"><div class="nav-in">
   <span class="logo" role="img" aria-label="casa senso"></span>
-  <a href="#strategie">Stratégie</a><a href="#patterns">Patterns</a><a href="#rubriques">Rubriques</a><a href="#charte">Charte</a><a href="#calendrier">Calendrier</a>
+  <a href="#strategie">Stratégie</a><a href="#patterns">Patterns</a><a href="#rubriques">Rubriques</a><a href="#charte">Charte</a><a href="#calendrier">Calendrier</a><a href="#apercu">Aperçu</a>
 </div></nav>
 
 <div class="wrap">
@@ -221,6 +227,18 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
     </div>
   </section>
 
+  <section id="apercu" aria-labelledby="t-apercu">
+    <div class="sec-head"><h2 id="t-apercu">Aperçu du profil</h2><p class="eyebrow">Après le 11 février 2027</p></div>
+    <div class="apercu">
+      <div class="phone"><img src="img/ig-apercu.jpg" alt="Aperçu du profil Instagram casa_senso.ch avec les publications prévues" loading="lazy"></div>
+      <div class="apercu-txt">
+        <p>Les 10 publications prévues, à la suite des 3 posts déjà en ligne (octobre 2026), le plus récent en haut à gauche. Faites défiler dans le téléphone.</p>
+        <p>La grille du profil est en 3:4 : Instagram rogne les posts 4:5 sur les côtés.</p>
+        <p class="s">Avant / après : version 1 en attendant le choix. Réalisation : couverture RE-1. La vidéo du 7 janvier reste à tourner.</p>
+      </div>
+    </div>
+  </section>
+
   <footer>Contrast · 13 novembre 2026 · fichier de travail : <a href="https://www.figma.com/design/xGYOPXzuBSCmZf94Z7FgK4/Principale" target="_blank" rel="noopener">Figma « Principale »</a></footer>
 </div>
 
@@ -239,7 +257,7 @@ const $ = s => document.querySelector(s);
 const R = (k, n) => Array.from({length:n}, (_, i) => `img/${k}-${String(i + 1).padStart(2, "0")}.jpg`);
 const COL = {livre:"var(--r-livre)", voyage:"var(--r-voyage)", aa:"var(--r-aa)", mood:"var(--r-mood)", real:"var(--r-real)", cou:"var(--r-cou)", pro:"var(--r-pro)", idees:"var(--r-idees)"};
 const HEX = {livre:"#A69368", aa:"#C8613F", mood:"#7A3B4E", real:"#E2A79A", cou:"#4A4440", pro:"#6E7F73", idees:"#404734"};
-const PAT_OF = {livre:"Parcours + Trois cartes", voyage:"Raconter son parcours", aa:"Avant, pendant, après", mood:"Planche décortiquée", real:"Visite plein cadre", cou:"Coulisses en blocs", pro:"Fiche projet", idees:"Trois cartes, une couleur"};
+const PAT_OF = {livre:"Parcours + Trois cartes", voyage:"Raconter son parcours", aa:"Avant, pendant, après", mood:"Planche décortiquée", real:"Visite plein cadre", cou:"Légende blanche", pro:"Fiche projet", idees:"Trois cartes, une couleur"};
 const NAME = {livre:"Le Livre", voyage:"Voyage", aa:"Avant / après", mood:"Moodboards", real:"Réalisations", cou:"Coulisses", pro:"Espaces pros", idees:"Idées déco"};
 
 const RUBS = [
@@ -249,20 +267,20 @@ const RUBS = [
    tabs:[["Marrakech", R("voyage",7)]]},
   {id:"aa", n:"03", name:"Avant / après", line:"Une transformation en étapes. 4 versions : une à choisir.", chips:[["wait","Textes à valider"],["","3 déc."]],
    tabs:[["1 · Version complète", R("aa",9)],["2 · Écran partagé", R("aa-var",12).slice(0,4)],["3 · Récit sur photo", R("aa-var",12).slice(4,8)],["4 · House & Garden", R("aa-var",12).slice(8,12)]]},
-  {id:"mood", n:"04", name:"Moodboards", line:"Sa planche, la palette, puis les pièces en gros plan.", chips:[["wait","Proposition v2 à valider"],["","15 déc."]],
-   tabs:[["Le salon vert · v2 haute qualité", R("mood2",9)],["Version 1 (sa planche)", R("mood",8)]]},
+  {id:"mood", n:"04", name:"Moodboards", line:"Sa planche, la palette, puis les pièces en gros plan.", chips:[["wait","Titres à valider"],["","15 déc."]],
+   tabs:[["Le salon vert", R("mood2",9)]]},
   {id:"real", n:"05", name:"Réalisations", line:"La visite d’un projet terminé.", chips:[["ok","Prêt"],["","22 déc."]],
    tabs:[["Visite Cannes", R("real",9)],["3 couvertures", R("real-cov",3)]]},
-  {id:"cou", n:"06", name:"Coulisses et chantiers", line:"Laetitia au travail, étape par étape.", chips:[["wait","3 variantes à choisir"],["","30 nov."]],
-   tabs:[["A · Grand chiffre", R("couA",4)],["B · Légende blanche", R("couB",4)],["C · Demi-carte", R("couC",4)],["Version actuelle", R("cou-post",7)],["Stories", R("cou-story",6), true]]},
+  {id:"cou", n:"06", name:"Coulisses et chantiers", line:"Laetitia au travail, étape par étape.", chips:[["wait","Textes à valider"],["","30 nov."]],
+   tabs:[["La niche", R("cob",7)]]},
   {id:"pro", n:"07", name:"Espaces professionnels", line:"Un lieu pro et sa fiche projet.", chips:[["wait","Accord du restaurant"],["","26 janv."]],
    tabs:[["ICHI Ramen Shop", R("pro",9)]]},
-  {id:"idees", n:"08", name:"Idées déco", line:"Un conseil concret, à enregistrer. Nouvelle DA alignée sur le site.", chips:[["wait","2 directions à choisir"],["","4 févr."]],
-   tabs:[["A · Page blanche", R("ideesA",6)],["B · Olive du site", R("ideesB",6)]]}
+  {id:"idees", n:"08", name:"Idées déco", line:"Un conseil concret, à enregistrer, dans l’olive du site.", chips:[["wait","Conseils à valider"],["","4 févr."]],
+   tabs:[["3 matières", R("ideesB",6)]]}
 ];
 
 // Couvertures
-["img/livre-1-01.jpg","img/real-cov-03.jpg","img/mood2-01.jpg","img/aa-var-09.jpg","img/voyage-01.jpg","img/ideesB-01.jpg","img/pro-01.jpg","img/cou-post-01.jpg"].forEach((s, i) => $("#covers").append(h("img", {src:s, alt:""})));
+["img/livre-1-01.jpg","img/real-cov-03.jpg","img/mood2-01.jpg","img/aa-var-09.jpg","img/voyage-01.jpg","img/ideesB-01.jpg","img/pro-01.jpg","img/cob-01.jpg"].forEach((s, i) => $("#covers").append(h("img", {src:s, alt:""})));
 
 // Visionneuse
 let LB = {list:[], i:0, cap:""};
@@ -303,8 +321,8 @@ const PATS = [
    d:"Le titre sur la couverture, puis les pièces sans aucun texte. Les photos font le travail ; une seule carte citation pour la voix du client."},
   {k:"planche", n:"La planche décortiquée", m:"Modèle House & Garden", r:["mood"], list:R("mood2",9),
    d:"On part de sa planche, on isole la palette, puis chaque matière en gros plan avec son nom. On comprend comment elle compose une pièce."},
-  {k:"coulisses", n:"Coulisses en blocs", m:"Modèle Dorothée Meilichzon", r:["cou"], list:R("cou-story",6),
-   d:"Une étape du chantier par écran, des phrases courtes dans des blocs foncés et le jour au-dessus. Se lit en trois secondes, en post ou en stories."},
+  {k:"coulisses", n:"Légende blanche", m:"Modèle Apartamento", r:["cou"], list:R("cob",7),
+   d:"La photo en haut, une bande blanche avec le jour, une phrase courte et le folio. Le chantier se lit comme un carnet, étape par étape."},
   {k:"fiche", n:"Fiche projet", m:"Modèle Studio McGee", r:["pro"], list:R("pro",9),
    d:"Une carte résume le lieu : type, approche, mission. Le client pro comprend la demande avant de voir le résultat."},
   {k:"presse", n:"La presse comme caution", m:"Gardé pour plus tard", r:[], later:true,
@@ -324,14 +342,14 @@ Object.keys(HEX).forEach(k => $("#dots").append(h("div", {class:"dot"}, h("i", {
 // Calendrier
 const EVENTS = [
   {d:"2026-11-17", k:"livre", t:"Le Livre · Chapitre I", img:"img/livre-1-01.jpg", list:R("livre-1",7)},
-  {d:"2026-11-30", k:"cou", t:"Coulisses · La niche", img:"img/cou-post-01.jpg", list:R("cou-post",7)},
+  {d:"2026-11-30", k:"cou", t:"Coulisses · La niche", img:"img/cob-01.jpg", list:R("cob",7)},
   {d:"2026-12-03", k:"aa", t:"Avant / après · Cannes", img:"img/aa-01.jpg", list:R("aa",9)},
   {d:"2026-12-15", k:"mood", t:"Moodboard · Le salon vert", img:"img/mood2-01.jpg", list:R("mood2",9)},
   {d:"2026-12-22", k:"real", t:"Réalisation · Cannes", img:"img/real-01.jpg", list:R("real",9)},
   {d:"2027-01-07", k:"cou", t:"Vidéo Casa Senso (à tourner)", flag:true},
   {d:"2027-01-19", k:"livre", t:"Le Livre · Chapitre II", img:"img/livre-2-01.jpg", list:R("livre-2",7)},
   {d:"2027-01-26", k:"pro", t:"Espace pro · ICHI", img:"img/pro-01.jpg", list:R("pro",9), flag:true},
-  {d:"2027-02-04", k:"idees", t:"Idées déco · 3 matières", img:"img/ideesA-01.jpg", list:R("ideesA",6)},
+  {d:"2027-02-04", k:"idees", t:"Idées déco · 3 matières", img:"img/ideesB-01.jpg", list:R("ideesB",6)},
   {d:"2027-02-11", k:"livre", t:"Le Livre · Chapitre III", img:"img/livre-3-01.jpg", list:R("livre-3",8)}
 ];
 const MONTHS = [[2026,10],[2026,11],[2027,0],[2027,1]];

@@ -186,3 +186,10 @@ Format : date · décision · raison · remplace · statut · source.
 - **Remplace** : portrait slide 2 ; moodboard v1 ; couleur bleu majorelle des Idées déco.
 - **Statut** : propositions livrées, choix de Diego en attente (Coulisses A/B/C, Idées déco A/B, Avant/après 1 à 4).
 - **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · Choix de Diego : Coulisses « Légende blanche », Idées déco « Olive du site », moodboard v2 ; aperçu du profil
+- **Décision** : Coulisses = variante B « Légende blanche » (post complet de 7 slides, publication le 30 nov.) ; Idées déco = direction B « Olive du site » ; moodboard v2 seul (v1 retirée) ; voyage slide 2 sans Laetitia (IMG_1576, lanternes et scooter, texte blanc). Aperçu du profil Instagram construit dans Figma (page 01) avec ses 3 posts existants (scrapés le 13.11) et les 10 posts prévus.
+- **Raison** : retours de Diego du 13.11 ; règle « Figma d'abord, artefact ensuite ».
+- **Remplace** : variantes A et C des Coulisses, stories et post v1 ; Idées déco bleu et direction A ; moodboard v1 (tous déplacés dans la page Archives du Figma).
+- **Statut** : décidé ; Avant / après (versions 1 à 4) et couverture de la Réalisation encore à choisir.
+- **Source** : Diego, conversation du 13.11.2026.

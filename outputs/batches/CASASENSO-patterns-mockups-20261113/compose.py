@@ -8,7 +8,7 @@ SETS = {
  "aa":        ["aa-02","aa-03","aa-05"],
  "visite":    ["real-01","real-03","real-04"],
  "planche":   ["mood2-01","mood2-03","mood2-04"],
- "coulisses": ["cou-story-02","cou-story-04","cou-story-06"],
+ "coulisses": ["cob-01","cob-03","cob-06"],
  "fiche":     ["pro-01","pro-02","pro-03"],
  "presse":    [None],
 }
@@ -35,7 +35,7 @@ for k, names in SETS.items():
         card = Image.new("RGB", (430, 538), (246, 241, 232))
         place(bg, card, 768, 512, -2.0)
     else:
-        story = k == "coulisses"
+        story = False
         H = 600 if story else 490
         xs = [768 - 440, 768, 768 + 440] if not story else [768 - 385, 768, 768 + 385]
         for i, n in enumerate(names):
