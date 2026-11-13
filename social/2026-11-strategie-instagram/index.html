@@ -90,13 +90,13 @@ section{padding-block:80px 0}
 .rules li::before{counter-increment:r; content:counter(r); font-weight:600; color:var(--accent)}
 @media (max-width:760px){.charte{grid-template-columns:1fr}.type-big{font-size:72px}.dots{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
-/* Patterns : chaque schéma est dessiné en trois slides type, pas en photo. */
-.pats{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px}
-.pat{background:var(--paper); padding:20px; display:grid; gap:10px; align-content:start}
-.pat.later{background:transparent; border:1.5px dashed var(--line)}
-.pat-fig{background:var(--cell); padding:14px 8px 10px; margin-bottom:6px}
-.pat-fig svg{display:block; width:100%; height:auto}
-.pat-steps{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; margin-top:8px; font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-align:center}
+/* Patterns : une mise en scène par pattern (slides réelles posées sur une matière). */
+.pats{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,440px),1fr)); gap:40px 20px}
+.pat{display:grid; gap:10px; align-content:start}
+.pat-img{display:block; width:100%; padding:0; border:0; background:var(--paper); cursor:zoom-in}
+.pat-img img{display:block; width:100%; aspect-ratio:3/2; object-fit:cover}
+.pat-img:focus-visible{outline:3px solid var(--accent); outline-offset:3px}
+.pat.later .pat-img{cursor:default; opacity:.8}
 .pat h3{font-size:24px}
 .pat p.d{font-size:16px; color:var(--muted)}
 .tags{display:flex; gap:10px; flex-wrap:wrap}
@@ -291,74 +291,28 @@ RUBS.forEach(r => {
   show(0);
 });
 
-// Patterns : schémas dessinés (trois slides type par pattern)
-const NS = "http://www.w3.org/2000/svg";
-function sv(tag, a, ...k){ const e = document.createElementNS(NS, tag); for (const [x, y] of Object.entries(a || {})) e.setAttribute(x, y); k.flat().forEach(c => c && e.append(c)); return e; }
-const W = "#FFFFFF", INK = "#1E1A17";
-const photo = (x, y, w, h) => sv("g", {}, sv("rect", {x, y, width:w, height:h, fill:"var(--ph)"}), sv("circle", {cx:x + w * .72, cy:y + h * .24, r:w * .08, fill:"var(--ph2)"}),
-  sv("polygon", {points:`${x},${y + h * .8} ${x + w * .3},${y + h * .52} ${x + w * .55},${y + h * .72} ${x + w * .76},${y + h * .56} ${x + w},${y + h * .74} ${x + w},${y + h} ${x},${y + h}`, fill:"var(--ph2)"}));
-const card = (x, y, w, h, c) => sv("rect", {x, y, width:w, height:h, fill:c});
-const lines = (x, y, ws, c, t = 4, g = 8) => ws.map((lw, i) => sv("rect", {x, y:y + i * g, width:lw, height:t, rx:t / 2, fill:c}));
-const box = (x, y, w, h, c, r = 0) => sv("rect", {x, y, width:w, height:h, rx:r, fill:c});
-const P = {
-  parcours:[
-    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + h - 26, [44, 32], W, 5, 9)],
-    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + 12, [58, 54, 50, 34], W, 3, 7)],
-    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + h - 14, [30], W, 3)]],
-  cartes:[
-    (x, y, w, h) => [card(x, y, w, h, "var(--r-livre)"), lines(x + 8, y + 8, [30], W, 2), lines(x + 8, y + h - 34, [50, 40], W, 6, 10)],
-    (x, y, w, h) => [card(x, y, w, h, "var(--r-livre)"), lines(x + 8, y + 36, [62, 56, 44], W, 4, 9), lines(x + 8, y + h - 14, [30], W, 2)],
-    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + h - 24, [28], W, 4), lines(x + 8, y + h - 13, [36], W, 3)]],
-  aa:["Avant", "Pendant", "Après"].map(() => (x, y, w, h) => [photo(x, y, w, h), box(x + 10, y + 30, w - 20, 16, W, 8), lines(x + 17, y + 36, [w - 34], INK, 3), box(x + 6, y + h - 14, 26, 8, "var(--r-aa)", 2)]),
-  visite:[
-    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + 8, [30], W, 2), lines(x + 8, y + h - 26, [48, 34], W, 6, 10)],
-    (x, y, w, h) => [photo(x, y, w, h)],
-    (x, y, w, h) => [card(x, y, w, h, "var(--r-real)"), lines(x + 8, y + 36, [62, 56, 42], INK, 4, 9)]],
-  planche:[
-    (x, y, w, h) => [card(x, y, w, h, "var(--r-mood)"), box(x + 10, y + 12, w - 20, 42, W), [0, 1, 2, 3, 4, 5].map(i => box(x + 14 + (i % 3) * 18, y + 16 + Math.floor(i / 3) * 18, 15, 15, i % 2 ? "var(--ph2)" : "var(--ph)")), lines(x + 8, y + h - 26, [46], W, 6)],
-    (x, y, w, h) => ["#3E4A33", "#4A2530", "#9C8253", "#5A3324", "#ECE6DA"].map((c, i) => box(x + i * w / 5, y, w / 5, h, c)),
-    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + h - 26, [24], W, 2), lines(x + 8, y + h - 18, [48], W, 5)]],
-  coulisses:[
-    (x, y, w, h) => [photo(x, y, w, h), box(x + 6, y + h - 46, 22, 5, W, 2), [40, 32, 36].map((lw, i) => box(x + 6, y + h - 36 + i * 9, lw, 7, "var(--r-cou)"))],
-    (x, y, w, h) => [photo(x, y, w, h), box(x + 6, y + h - 46, 22, 5, W, 2), [36, 42].map((lw, i) => box(x + 6, y + h - 36 + i * 9, lw, 7, "var(--r-cou)"))],
-    (x, y, w, h) => [photo(x, y, w, h), box(x + 8, y + 34, w - 16, 22, W, 3), lines(x + 13, y + 40, [w - 26, w - 34], INK, 3, 6), lines(x + 8, y + h - 14, [24], W, 3)]],
-  fiche:[
-    (x, y, w, h) => [photo(x, y, w, h), lines(x + 8, y + h - 26, [48, 34], W, 6, 10)],
-    (x, y, w, h) => [card(x, y, w, h, "var(--r-pro)"), lines(x + 8, y + 9, [24], W, 2), lines(x + 8, y + 18, [54, 40], W, 5, 9),
-      [0, 1, 2, 3].map(i => [box(x + 8, y + 46 + i * 13, w - 16, 0.8, "rgba(255,255,255,.55)"), box(x + 8, y + 50 + i * 13, 12, 2, W), box(x + 26, y + 50 + i * 13, 40 - (i % 2) * 10, 3, W, 1.5)])],
-    (x, y, w, h) => [photo(x, y, w, h)]],
-  presse:[
-    (x, y, w, h) => [photo(x, y, w, h), box(x + 8, y + 8, w - 16, 16, W, 2), lines(x + 14, y + 14, [40], INK, 4)],
-    (x, y, w, h) => [box(x, y, w, h, "var(--cell)"), lines(x + 8, y + 12, [52], "var(--fg)", 6), lines(x + 8, y + 32, [64, 64, 58, 64, 40], "var(--muted)", 3, 8)],
-    (x, y, w, h) => [photo(x, y, w, h)]]
-};
-function schema(key, story){
-  const w = story ? 56 : 80, X = story ? [22, 122, 222] : [10, 110, 210], y = 10, h = 100;
-  const g = sv("svg", {viewBox:"0 0 300 120", role:"img", "aria-hidden":"true"});
-  P[key].forEach((f, i) => { g.append(...[f(X[i], y, w, h)].flat(3), sv("rect", {x:X[i], y, width:w, height:h, fill:"none", stroke:"var(--line)"})); });
-  [100, 200].forEach(ax => g.append(sv("path", {d:`M${ax - 2} 54 l5 6 l-5 6`, fill:"none", stroke:"var(--muted)", "stroke-width":1.5, "stroke-linecap":"round", "stroke-linejoin":"round"})));
-  return g;
-}
+// Patterns : visuels = slides réelles posées sur une surface générée (GPT Image 2.5), légendes en HTML
 const PATS = [
-  {k:"parcours", n:"Raconter son parcours", m:"Modèle Amber Lewis", steps:["Photo + titre", "Récit court", "Fin + logo"], r:["livre","voyage"], list:R("voyage",7),
+  {k:"parcours", n:"Raconter son parcours", m:"Modèle Amber Lewis", r:["livre","voyage"], list:R("voyage",7),
    d:"Elle parle à la première personne, sur ses propres photos. On suit une histoire, pas une publicité : c'est ce qui crée l'attachement."},
-  {k:"cartes", n:"Trois cartes, une couleur", m:"Modèle House & Garden", steps:["Couverture", "Citation", "Fin · à suivre"], r:["livre","mood","idees"], list:R("livre-1",7),
+  {k:"cartes", n:"Trois cartes, une couleur", m:"Modèle House & Garden", r:["livre","mood","idees"], list:R("livre-1",7),
    d:"Trois cartes de couleur pleine qui reviennent toujours au même endroit du carrousel. Dans le fil, on reconnaît la rubrique avant de lire."},
-  {k:"aa", n:"Avant, pendant, après", m:"Modèle Emily Henderson", steps:["Avant", "Pendant", "Après"], r:["aa"], list:R("aa",9),
+  {k:"aa", n:"Avant, pendant, après", m:"Modèle Emily Henderson", r:["aa"], list:R("aa",9),
    d:"Une étape par slide, une phrase parlée dans une bulle. On fait glisser pour voir la suite : la transformation se vit dans l'ordre."},
-  {k:"visite", n:"Visite plein cadre", m:"Modèle House & Garden", steps:["Couverture", "Photos seules", "Citation"], r:["real"], list:R("real",9),
+  {k:"visite", n:"Visite plein cadre", m:"Modèle House & Garden", r:["real"], list:R("real",9),
    d:"Le titre sur la couverture, puis les pièces sans aucun texte. Les photos font le travail ; une seule carte citation pour la voix du client."},
-  {k:"planche", n:"La planche décortiquée", m:"Modèle House & Garden", steps:["Sa planche", "Palette", "Détail nommé"], r:["mood"], list:R("mood",8),
+  {k:"planche", n:"La planche décortiquée", m:"Modèle House & Garden", r:["mood"], list:R("mood",8),
    d:"On part de sa planche, on isole la palette, puis chaque matière en gros plan avec son nom. On comprend comment elle compose une pièce."},
-  {k:"coulisses", n:"Coulisses en blocs", m:"Modèle Dorothée Meilichzon", steps:["Étape 1", "Étape 2", "Fin + question"], story:true, r:["cou"], list:R("cou-post",7),
+  {k:"coulisses", n:"Coulisses en blocs", m:"Modèle Dorothée Meilichzon", r:["cou"], list:R("cou-story",6),
    d:"Une étape du chantier par écran, des phrases courtes dans des blocs foncés et le jour au-dessus. Se lit en trois secondes, en post ou en stories."},
-  {k:"fiche", n:"Fiche projet", m:"Modèle Studio McGee", steps:["Couverture", "Fiche du lieu", "Visite"], r:["pro"], list:R("pro",9),
+  {k:"fiche", n:"Fiche projet", m:"Modèle Studio McGee", r:["pro"], list:R("pro",9),
    d:"Une carte résume le lieu : type, approche, mission. Le client pro comprend la demande avant de voir le résultat."},
-  {k:"presse", n:"La presse comme caution", m:"Gardé pour plus tard", steps:["Parution", "Extrait", "Le projet"], r:[], later:true,
+  {k:"presse", n:"La presse comme caution", m:"Gardé pour plus tard", r:[], later:true,
    d:"La parution en première slide, avec le nom du titre. Seulement quand un article existe vraiment."}
 ];
 PATS.forEach(p => $("#pats").append(h("article", {class:"pat" + (p.later ? " later" : "")},
-  h("div", {class:"pat-fig"}, schema(p.k, p.story), h("div", {class:"pat-steps"}, p.steps.map(t => h("span", {}, t)))),
+  p.list ? h("button", {type:"button", class:"pat-img", "aria-label":"Voir le post réel : " + p.n, onclick:() => openLB(p.list, 0, p.n)}, h("img", {src:`img/pat-${p.k}.jpg`, alt:"", loading:"lazy"}))
+         : h("div", {class:"pat-img"}, h("img", {src:`img/pat-${p.k}.jpg`, alt:""})),
   h("p", {class:"eyebrow"}, p.m), h("h3", {}, p.n), h("p", {class:"d"}, p.d),
   p.r.length ? h("div", {class:"tags"}, p.r.map(k => h("span", {class:"tag"}, h("i", {style:`background:${COL[k]}`}), NAME[k]))) : null,
   p.list ? h("button", {type:"button", class:"ex", onclick:() => openLB(p.list, 0, p.n)}, "Voir le post réel ›") : null)));
