@@ -124,7 +124,7 @@ section{padding-block:80px 0}
 .day.we{background:var(--bg)}
 .ev{display:grid; gap:6px; text-align:left; font:inherit; font-size:13px; line-height:1.2; padding:0 0 7px; border:0; border-top:5px solid var(--muted); background:var(--paper); color:var(--fg); cursor:pointer; min-width:0}
 .ev img{width:100%; aspect-ratio:4/5; object-fit:cover; display:block}
-.ev span{min-width:0; padding-inline:6px; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; font-weight:500}
+.ev span{min-width:0; min-height:2.4em; padding-inline:6px; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; font-weight:500; text-wrap:balance}
 .ev.flag{outline:2px dashed var(--warn); outline-offset:1px}
 .ev:focus-visible{outline:3px solid var(--fg); outline-offset:1px}
 .ev.plain{background:transparent; border:1.5px dashed var(--muted); padding:8px 6px}
@@ -251,8 +251,8 @@ const RUBS = [
    tabs:[["Le salon vert", R("mood",8)]]},
   {id:"real", n:"05", name:"Réalisations", line:"La visite d’un projet terminé.", chips:[["ok","Prêt"],["","22 déc."]],
    tabs:[["Visite Cannes", R("real",9)],["3 couvertures", R("real-cov",3)]]},
-  {id:"cou", n:"06", name:"Coulisses et chantiers", line:"Laetitia au travail, en stories.", chips:[["wait","Textes à valider"],["","Semaine du 30 nov."]],
-   tabs:[["Stories", R("cou-story",6), true],["Version post", R("cou-post",7)]]},
+  {id:"cou", n:"06", name:"Coulisses et chantiers", line:"Laetitia au travail, étape par étape.", chips:[["wait","Textes à valider"],["","30 nov."]],
+   tabs:[["Post", R("cou-post",7)],["Version stories", R("cou-story",6), true]]},
   {id:"pro", n:"07", name:"Espaces professionnels", line:"Un lieu pro et sa fiche projet.", chips:[["wait","Accord du restaurant"],["","26 janv."]],
    tabs:[["ICHI Ramen Shop", R("pro",9)]]},
   {id:"idees", n:"08", name:"Idées déco", line:"Un conseil concret, à enregistrer.", chips:[["wait","Conseils à réécrire"],["","4 févr."]],
@@ -321,8 +321,8 @@ Object.keys(HEX).forEach(k => $("#dots").append(h("div", {class:"dot"}, h("i", {
 // Calendrier
 const EVENTS = [
   {d:"2026-11-17", k:"livre", t:"Le Livre · Chapitre I", img:"img/livre-1-01.jpg", list:R("livre-1",7)},
-  {d:"2026-11-18", k:"livre", t:"Stories · relais du chapitre I", img:"img/livre-1-06.jpg", list:R("livre-1",7)},
-  {d:"2026-11-30", k:"cou", t:"Stories · La niche (semaine)", img:"img/cou-story-01.jpg", list:R("cou-story",6)},
+  {d:"2026-11-18", k:"livre", t:"Stories · chapitre I", img:"img/livre-1-06.jpg", list:R("livre-1",7)},
+  {d:"2026-11-30", k:"cou", t:"Coulisses · La niche", img:"img/cou-post-01.jpg", list:R("cou-post",7)},
   {d:"2026-12-03", k:"aa", t:"Avant / après · Cannes", img:"img/aa-01.jpg", list:R("aa",9)},
   {d:"2026-12-15", k:"mood", t:"Moodboard · Le salon vert", img:"img/mood-01.jpg", list:R("mood",8)},
   {d:"2026-12-22", k:"real", t:"Réalisation · Cannes", img:"img/real-01.jpg", list:R("real",9)},

@@ -158,3 +158,10 @@ Format : date · décision · raison · remplace · statut · source.
 - **Remplace** : la date du mardi 24 nov.
 - **Statut** : décidé ; validation du chapitre I et accès Instagram à obtenir de Laetitia d'ici au 16 nov.
 - **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · 30 novembre : la niche en post
+- **Décision** : le 30 nov., « La niche » est publiée en post (7 slides) et non plus en stories.
+- **Raison** : demande de Diego, un vrai post plutôt qu'une story à cette date.
+- **Remplace** : les stories « La niche » de la semaine du 30 nov.
+- **Statut** : décidé ; textes à valider par Laetitia.
+- **Source** : Diego, conversation du 13.11.2026.
