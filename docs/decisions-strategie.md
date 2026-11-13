@@ -151,3 +151,10 @@ Format : date · décision · raison · remplace · statut · source.
 - **Fait** : alternatives Idées déco, Coulisses en post, 3 couvertures Réalisation, 3 variantes Avant / après (lot CASASENSO-alternatives-20261112).
 - **Proposé** : `docs/plan-contenus-3-mois.md` — 9 publications datées (24.11 → 11.02), 3 en réserve, conditions côté Laetitia, ce qui n'est pas tenable.
 - **Statut** : à valider par Diego.
+
+## 2026-11-13 · Premier post avancé au 17 novembre
+- **Décision** : le Livre, chapitre I, est publié le mardi 17 nov., avec un relais en stories le mercredi 18 nov.
+- **Raison** : demande de Diego, démarrer avant la mise en ligne du site (20 nov.).
+- **Remplace** : la date du mardi 24 nov.
+- **Statut** : décidé ; validation du chapitre I et accès Instagram à obtenir de Laetitia d'ici au 16 nov.
+- **Source** : Diego, conversation du 13.11.2026.

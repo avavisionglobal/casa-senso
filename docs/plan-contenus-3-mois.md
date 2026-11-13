@@ -23,7 +23,8 @@ Rythme : 3 publications par mois, mardi ou jeudi, + 1 série de stories par mois
 
 | Date | Rubrique | Publication | État |
 |---|---|---|---|
-| Mar. 24 nov. | Le Livre | Chapitre I · La découverte | Prêt |
+| Mar. 17 nov. | Le Livre | Chapitre I · La découverte | Prêt |
+| Mer. 18 nov. | Le Livre (stories) | Relais du chapitre I en stories | À composer |
 | Jeu. 3 déc. | Avant / après | Cannes | Prêt, bulles à valider |
 | Mar. 15 déc. | Moodboards | Le salon vert | Prêt, titres à valider |
 | Mar. 22 déc. | Réalisations | Cannes | Prêt, à valider |
@@ -56,9 +57,10 @@ Non tenable sans elle, ou impossible à promettre :
 
 | Quoi | Pour quand | Bloque |
 |---|---|---|
-| Validation des créations de la page 02 (en une séance) | 20 nov. | Tout le calendrier |
+| Validation du chapitre I | 16 nov. | Post du 17 nov. |
+| Validation des autres créations de la page 02 (en une séance) | 20 nov. | Reste du calendrier |
 | Réécriture ou validation des textes proposés | 7 jours avant chaque date | Le post concerné |
-| Accès au compte Instagram (publication) | 20 nov. | Tout |
+| Accès au compte Instagram (publication) | 16 nov. | Tout |
 | Accord écrit du restaurant ICHI + crédit photographe | 12 janv. | Post du 26 janv. |
 | Confirmation des lieux (Marrakech, riad, niche) et de qui a réalisé la niche | Avant publication | Carnet, Coulisses |
 | Date de tournage de la vidéo | 27 nov. | Post du 7 janv. |

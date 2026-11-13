@@ -2,12 +2,12 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600&family=Lora:ital,wght@0,400;1,400&display=swap">
 <style>
 /* Layout : page courte en une colonne ; les rubriques défilent comme dans Instagram, le calendrier se lit comme un agenda mensuel. */
 :root{
   --bg:#FBF8F3; --paper:#F3EDE3; --cell:#FFFFFF; --fg:#1E1A17; --muted:#6B625A; --line:#E4DBCE; --accent:#A69368; --today:#C8613F;
-  --r-livre:#A69368; --r-voyage:#9A5636; --r-aa:#C8613F; --r-mood:#7A3B4E; --r-real:#D98F80; --r-cou:#4A4440; --r-pro:#6E7F73; --r-idees:#2F4FA2;
+  --r-livre:#A69368; --r-voyage:#9A5636; --r-aa:#C8613F; --r-mood:#7A3B4E; --r-real:#E2A79A; --r-cou:#4A4440; --r-pro:#6E7F73; --r-idees:#2F4FA2;
   --ok:#3F6B4E; --warn:#B4532F;
   --font:"League Spartan", "Helvetica Neue", Arial, sans-serif;
 }
@@ -65,19 +65,44 @@ section{padding-block:80px 0}
 .tabs button[aria-selected="true"]{background:var(--fg); color:var(--bg); border-color:var(--fg)}
 .tabs button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 .reel{display:flex; gap:10px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:12px; scrollbar-width:thin}
-.reel button{flex:none; width:clamp(140px,18vw,210px); padding:0; border:0; background:none; cursor:zoom-in; scroll-snap-align:start}
-.reel button.story{width:clamp(120px,14vw,160px)}
+.reel button{flex:none; width:clamp(230px,27vw,300px); padding:0; border:0; background:none; cursor:zoom-in; scroll-snap-align:start}
+.reel button.story{width:clamp(180px,19vw,220px)}
 .reel img{width:100%; display:block; background:var(--paper)}
 .reel button:focus-visible img{outline:3px solid var(--accent); outline-offset:2px}
 
 /* Charte */
-.charte{display:grid; grid-template-columns:1.3fr 1fr; gap:16px}
-.charte > div{background:var(--paper); padding:24px; display:grid; gap:14px; align-content:start}
-.type-big{font-size:56px; font-weight:600; line-height:1}
-.dots{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
-.dot{display:grid; gap:6px; font-size:14px}
+.charte{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
+.charte > div{background:var(--paper); padding:28px; display:grid; gap:16px; align-content:start}
+.logo-big{width:min(100%,340px); aspect-ratio:620/76; background:var(--fg); -webkit-mask:url(img/logo.svg) center/contain no-repeat; mask:url(img/logo.svg) center/contain no-repeat}
+.logo-row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.logo-row div{display:grid; place-items:center; padding:28px 18px; aspect-ratio:16/9}
+.logo-row .lg{width:100%; aspect-ratio:620/76; -webkit-mask:url(img/logo.svg) center/contain no-repeat; mask:url(img/logo.svg) center/contain no-repeat}
+.type-big{font-size:96px; font-weight:600; line-height:.9}
+.weights{display:grid; gap:6px; font-size:20px}
+.weights .m{font-weight:500; font-size:13px; letter-spacing:.3em; text-transform:uppercase}
+.lora{font-family:Lora, Georgia, serif; font-style:italic; font-size:22px}
+.dots{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px}
+.dot{display:grid; gap:4px; font-size:14px; line-height:1.25}
 .dot i{display:block; aspect-ratio:1; border-radius:6px}
-@media (max-width:760px){.charte{grid-template-columns:1fr}}
+.dot small{color:var(--muted); font-size:12px; font-variant-numeric:tabular-nums}
+.rules{margin:0; padding:0; list-style:none; display:grid; gap:12px; counter-reset:r}
+.rules li{display:grid; grid-template-columns:28px 1fr; gap:10px; font-size:17px}
+.rules li::before{counter-increment:r; content:counter(r); font-weight:600; color:var(--accent)}
+@media (max-width:760px){.charte{grid-template-columns:1fr}.type-big{font-size:72px}.dots{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Patterns */
+.pats{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:28px 16px}
+.pat{display:grid; gap:10px; align-content:start}
+.pat button{padding:0; border:0; background:var(--paper); cursor:zoom-in}
+.pat button img{width:100%; aspect-ratio:4/5; object-fit:cover; display:block}
+.pat button:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+.pat .empty{aspect-ratio:4/5; border:1.5px dashed var(--line); display:grid; place-items:center; padding:24px; text-align:center; color:var(--muted); font-size:15px}
+.pat h3{font-size:24px}
+.pat p.d{font-size:16px; color:var(--muted)}
+.tags{display:flex; gap:6px; flex-wrap:wrap}
+.tag{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase}
+.tag i{width:10px; height:10px; border-radius:3px; display:inline-block}
+.chip.pat-l{text-decoration:none; color:var(--fg); border-color:var(--line); background:var(--paper)}
 
 /* Calendrier */
 .cal{border:1px solid var(--line); background:var(--cell)}
@@ -91,22 +116,22 @@ section{padding-block:80px 0}
 .legend i{width:10px; height:10px; border-radius:3px; display:inline-block}
 .grid{display:grid; grid-template-columns:repeat(7,minmax(0,1fr))}
 .dow{font-size:12px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); padding:10px 8px; border-bottom:1px solid var(--line); text-align:left}
-.day{min-height:132px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); padding:6px; display:grid; align-content:start; gap:5px; min-width:0}
+.day{min-height:150px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); padding:6px; display:grid; align-content:start; gap:5px; min-width:0}
 .day:nth-child(7n){border-right:0}
 .day .num{font-size:14px; font-weight:500; font-variant-numeric:tabular-nums; width:28px; height:28px; display:grid; place-items:center; border-radius:99px}
 .day.out .num{color:var(--muted); opacity:.45}
 .day.today .num{background:var(--today); color:#fff}
 .day.we{background:var(--bg)}
-.ev{display:grid; grid-template-columns:34px 1fr; gap:6px; align-items:center; text-align:left; font:inherit; font-size:13px; line-height:1.2; padding:4px; border:0; border-radius:6px; color:#fff; cursor:pointer; min-width:0}
-.ev img{width:34px; aspect-ratio:4/5; object-fit:cover; display:block; border-radius:3px}
-.ev span{min-width:0; overflow:hidden; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; font-weight:500}
+.ev{display:grid; gap:6px; text-align:left; font:inherit; font-size:13px; line-height:1.2; padding:0 0 7px; border:0; border-top:5px solid var(--muted); background:var(--paper); color:var(--fg); cursor:pointer; min-width:0}
+.ev img{width:100%; aspect-ratio:4/5; object-fit:cover; display:block}
+.ev span{min-width:0; padding-inline:6px; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; font-weight:500}
 .ev.flag{outline:2px dashed var(--warn); outline-offset:1px}
 .ev:focus-visible{outline:3px solid var(--fg); outline-offset:1px}
-.ev.plain{grid-template-columns:1fr; background:transparent !important; color:var(--fg); border:1.5px dashed var(--muted)}
-@media (max-width:760px){.day{min-height:64px; padding:4px}.ev{grid-template-columns:1fr; padding:0; background:transparent !important}.ev img{width:100%}.ev span{display:none}.ev.plain{border-width:1px; height:8px}.dow{padding:8px 4px; letter-spacing:.05em}}
+.ev.plain{background:transparent; border:1.5px dashed var(--muted); padding:8px 6px}
+@media (max-width:760px){.day{min-height:64px; padding:3px}.ev{padding:0; border-top-width:3px}.ev span{display:none}.ev.plain{border-width:1px; height:8px; padding:0}.dow{padding:8px 4px; letter-spacing:.05em}}
 .agenda{display:none; border-top:1px solid var(--line)}
-.agenda button{display:grid; grid-template-columns:72px 48px 1fr; gap:12px; align-items:center; width:100%; text-align:left; font:inherit; padding:12px 16px; border:0; border-bottom:1px solid var(--line); background:none; color:var(--fg); cursor:pointer}
-.agenda img{width:48px; aspect-ratio:4/5; object-fit:cover; display:block}
+.agenda button{display:grid; grid-template-columns:64px 72px 1fr; gap:12px; align-items:center; width:100%; text-align:left; font:inherit; padding:12px 16px; border:0; border-bottom:1px solid var(--line); background:none; color:var(--fg); cursor:pointer}
+.agenda img{width:72px; aspect-ratio:4/5; object-fit:cover; display:block}
 .agenda .d{font-size:14px; font-weight:600; font-variant-numeric:tabular-nums}
 .agenda .s{font-size:13px; color:var(--muted)}
 @media (max-width:760px){.agenda{display:block}}
@@ -115,6 +140,7 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
 
 .lb{position:fixed; inset:0; z-index:20; background:rgba(15,12,10,.93); display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:12px;
   padding:calc(20px + env(safe-area-inset-top,0px)) max(16px, env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(16px, env(safe-area-inset-left,0px))}
+.lb[hidden]{display:none}
 .lb figure{margin:0; display:grid; justify-items:center; gap:12px; min-width:0}
 .lb img{max-height:min(80vh,960px); max-width:100%; object-fit:contain}
 .lb figcaption{color:#EDE6DC; font-size:15px; text-align:center}
@@ -125,7 +151,7 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
 
 <nav class="nav" aria-label="Sommaire"><div class="nav-in">
   <span class="logo" role="img" aria-label="casa senso"></span>
-  <a href="#strategie">Stratégie</a><a href="#rubriques">Rubriques</a><a href="#charte">Charte</a><a href="#calendrier">Calendrier</a>
+  <a href="#strategie">Stratégie</a><a href="#rubriques">Rubriques</a><a href="#patterns">Patterns</a><a href="#charte">Charte</a><a href="#calendrier">Calendrier</a>
 </div></nav>
 
 <div class="wrap">
@@ -133,7 +159,7 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
     <div>
       <p class="eyebrow">Novembre 2026 → février 2027</p>
       <h1>De l’idée à la réalisation, <span>sur Instagram.</span></h1>
-      <p class="sub">8 rubriques, 11 publications prêtes, 3 par mois.</p>
+      <p class="sub">8 rubriques, 11 publications prêtes, 3 par mois. Premier post le 17 novembre.</p>
     </div>
     <div class="covers" id="covers" aria-label="Une création par rubrique"></div>
   </header>
@@ -152,11 +178,28 @@ footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font
     <div id="rubs"></div>
   </section>
 
+  <section id="patterns" aria-labelledby="t-pat">
+    <div class="sec-head"><h2 id="t-pat">Les patterns</h2><p class="eyebrow">Le schéma derrière chaque post</p></div>
+    <div class="pats" id="pats"></div>
+  </section>
+
   <section id="charte" aria-labelledby="t-charte">
-    <div class="sec-head"><h2 id="t-charte">Charte</h2></div>
+    <div class="sec-head"><h2 id="t-charte">Charte simplifiée</h2></div>
     <div class="charte">
-      <div><p class="eyebrow">Typographie</p><p class="type-big">League Spartan</p><p style="color:var(--muted)">Titres SemiBold · mentions en capitales · texte Regular. Carnet de voyage en Lora.</p></div>
-      <div><p class="eyebrow">Couleurs des rubriques</p><div class="dots" id="dots"></div></div>
+      <div><p class="eyebrow">Logo</p>
+        <div class="logo-row">
+          <div style="background:#FFFFFF"><span class="lg" style="background:#1E1A17" role="img" aria-label="Logo noir sur fond clair"></span></div>
+          <div style="background:#A69368"><span class="lg" style="background:#FFFFFF" role="img" aria-label="Logo blanc sur couleur ou photo"></span></div>
+        </div>
+        <p style="color:var(--muted); font-size:16px">Noir sur fond clair, blanc sur couleur ou photo. Toujours sur la dernière slide.</p></div>
+      <div><p class="eyebrow">Typographie · League Spartan</p>
+        <p class="type-big">Aa</p>
+        <div class="weights"><b style="font-weight:600">SemiBold · titres et citations</b><span class="m">Medium · mentions en capitales</span><span>Regular · texte courant</span></div>
+        <p class="lora">Lora, seulement pour le carnet de voyage.</p></div>
+      <div><p class="eyebrow">Couleurs</p><div class="dots" id="dots"></div>
+        <p style="color:var(--muted); font-size:15px">Voyage : pas de couleur, photos plein cadre.</p></div>
+      <div><p class="eyebrow">Trois règles</p>
+        <ol class="rules"><li>Texte aligné à gauche, jamais centré pour décorer.</li><li>Photos plein cadre : ni cadre, ni ombre, ni dorure.</li><li>Jamais une tête coupée, jamais une adresse de client.</li></ol></div>
     </div>
   </section>
 
@@ -193,10 +236,12 @@ function h(tag, props, ...kids){ const e = document.createElement(tag);
 const $ = s => document.querySelector(s);
 const R = (k, n) => Array.from({length:n}, (_, i) => `img/${k}-${String(i + 1).padStart(2, "0")}.jpg`);
 const COL = {livre:"var(--r-livre)", voyage:"var(--r-voyage)", aa:"var(--r-aa)", mood:"var(--r-mood)", real:"var(--r-real)", cou:"var(--r-cou)", pro:"var(--r-pro)", idees:"var(--r-idees)"};
+const HEX = {livre:"#A69368", aa:"#C8613F", mood:"#7A3B4E", real:"#E2A79A", cou:"#4A4440", pro:"#6E7F73", idees:"#2F4FA2"};
+const PAT_OF = {livre:"Parcours + Trois cartes", voyage:"Raconter son parcours", aa:"Avant, pendant, après", mood:"Planche décortiquée", real:"Visite plein cadre", cou:"Coulisses en blocs", pro:"Fiche projet", idees:"Trois cartes, une couleur"};
 const NAME = {livre:"Le Livre", voyage:"Voyage", aa:"Avant / après", mood:"Moodboards", real:"Réalisations", cou:"Coulisses", pro:"Espaces pros", idees:"Idées déco"};
 
 const RUBS = [
-  {id:"livre", n:"01", name:"Le Livre Casa Senso", line:"Son histoire en quatre chapitres, mise en page comme un livre.", chips:[["ok","Ses mots"],["","24 nov. · 19 janv. · 11 févr."]],
+  {id:"livre", n:"01", name:"Le Livre Casa Senso", line:"Son histoire en quatre chapitres, mise en page comme un livre.", chips:[["ok","Ses mots"],["","17 nov. · 19 janv. · 11 févr."]],
    tabs:[["Chapitre I", R("livre-1",7)],["II", R("livre-2",7)],["III", R("livre-3",8)],["IV", R("livre-4",8)]]},
   {id:"voyage", n:"02", name:"Inspiration et voyage", line:"Un carnet par lieu, photos plein cadre et un court texte.", chips:[["wait","Textes à valider"],["","Réserve"]],
    tabs:[["Marrakech", R("voyage",7)]]},
@@ -237,19 +282,46 @@ RUBS.forEach(r => {
   r.tabs.forEach(([label], ti) => tabs.append(h("button", {type:"button", role:"tab", id:`tab-${r.id}-${ti}`, onclick:() => show(ti)}, label)));
   $("#rubs").append(h("article", {class:"rub", style:`border-top-color:${COL[r.id]}`},
     h("div", {class:"rub-head"},
-      h("div", {class:"badge", style:`background:${COL[r.id]}`}, r.n),
+      h("div", {class:"badge", style:`background:${COL[r.id]}; color:${r.id === "real" ? "#1E1A17" : "#fff"}`}, r.n),
       h("div", {style:"min-width:0"}, h("h3", {}, r.name), h("p", {}, r.line)),
-      h("div", {class:"chips"}, r.chips.map(([c, t]) => h("span", {class:"chip " + c}, t)))),
+      h("div", {class:"chips"}, h("a", {class:"chip pat-l", href:"#patterns"}, "Pattern · " + PAT_OF[r.id]), r.chips.map(([c, t]) => h("span", {class:"chip " + c}, t)))),
     r.tabs.length > 1 ? tabs : null, reel));
   show(0);
 });
 
+// Patterns
+const PATS = [
+  {n:"Raconter son parcours", m:"Modèle Amber Lewis", img:"img/voyage-05.jpg", list:R("voyage",7), i:4, r:["livre","voyage"],
+   d:"Une photo plein cadre et un court texte à la première personne, posé dans une zone calme. On lit une histoire, pas une publicité."},
+  {n:"Trois cartes, une couleur", m:"Modèle House & Garden", img:"img/livre-1-06.jpg", list:R("livre-1",7), i:5, r:["livre","mood","idees"],
+   d:"Couverture, citation et fin sur des cartes de couleur pleine, toujours les mêmes. Mention en capitales en haut, texte aligné à gauche, aucun cadre."},
+  {n:"Avant, pendant, après", m:"Modèle Emily Henderson", img:"img/aa-03.jpg", list:R("aa",9), i:2, r:["aa"],
+   d:"Une étape par slide, une phrase parlée dans une bulle blanche, l’étape en bas à gauche. Le chantier se raconte dans l’ordre."},
+  {n:"Visite plein cadre", m:"Modèle House & Garden", img:"img/real-03.jpg", list:R("real",9), i:2, r:["real"],
+   d:"Titre en bas à gauche de la couverture, puis les pièces en photos plein cadre, sans texte. Une seule carte citation au milieu."},
+  {n:"La planche décortiquée", m:"Sa planche + cartes House & Garden", img:"img/mood-02.jpg", list:R("mood",8), i:1, r:["mood"],
+   d:"Sa planche en ouverture, la palette à part, puis chaque matière en gros plan avec son nom. On voit comment elle compose une pièce."},
+  {n:"Coulisses en blocs", m:"Modèle Dorothée Meilichzon", img:"img/cou-story-01.jpg", list:R("cou-story",6), i:0, r:["cou"],
+   d:"Stories plein écran, une étape par story. Des phrases courtes posées ligne par ligne dans des blocs foncés, le jour au-dessus."},
+  {n:"Fiche projet", m:"Modèle Studio McGee", img:"img/pro-02.jpg", list:R("pro",9), i:1, r:["pro"],
+   d:"Après la couverture, une carte résume le lieu : type, approche, mission. Puis la visite, du plan large au détail."},
+  {n:"La presse comme caution", m:"Gardé pour plus tard", r:[],
+   d:"La parution en première slide, avec le nom du titre. Seulement quand un article existe vraiment."}
+];
+PATS.forEach(p => $("#pats").append(h("article", {class:"pat"},
+  p.img ? h("button", {type:"button", "aria-label":"Voir un exemple : " + p.n, onclick:() => openLB(p.list, p.i, p.n)}, h("img", {src:p.img, alt:"", loading:"lazy"}))
+        : h("div", {class:"empty"}, "Pas encore de parution"),
+  h("p", {class:"eyebrow"}, p.m), h("h3", {}, p.n), h("p", {class:"d"}, p.d),
+  p.r.length ? h("div", {class:"tags"}, p.r.map(k => h("span", {class:"tag"}, h("i", {style:`background:${COL[k]}`}), NAME[k]))) : null)));
+
 // Charte : couleurs
-Object.keys(NAME).forEach(k => $("#dots").append(h("div", {class:"dot"}, h("i", {style:`background:${COL[k]}`}), NAME[k])));
+[["Encre","#1E1A17"],["Papier","#F3EDE3"]].forEach(([n, x]) => $("#dots").append(h("div", {class:"dot"}, h("i", {style:`background:${x}; box-shadow:inset 0 0 0 1px var(--line)`}), n, h("small", {}, x))));
+Object.keys(HEX).forEach(k => $("#dots").append(h("div", {class:"dot"}, h("i", {style:`background:${HEX[k]}`}), NAME[k], h("small", {}, HEX[k]))));
 
 // Calendrier
 const EVENTS = [
-  {d:"2026-11-24", k:"livre", t:"Le Livre · Chapitre I", img:"img/livre-1-01.jpg", list:R("livre-1",7)},
+  {d:"2026-11-17", k:"livre", t:"Le Livre · Chapitre I", img:"img/livre-1-01.jpg", list:R("livre-1",7)},
+  {d:"2026-11-18", k:"livre", t:"Stories · relais du chapitre I", img:"img/livre-1-06.jpg", list:R("livre-1",7)},
   {d:"2026-11-30", k:"cou", t:"Stories · La niche (semaine)", img:"img/cou-story-01.jpg", list:R("cou-story",6)},
   {d:"2026-12-03", k:"aa", t:"Avant / après · Cannes", img:"img/aa-01.jpg", list:R("aa",9)},
   {d:"2026-12-15", k:"mood", t:"Moodboard · Le salon vert", img:"img/mood-01.jpg", list:R("mood",8)},
@@ -271,7 +343,7 @@ EVENTS.forEach(e => e.date = pd(e.d));
 const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 function evButton(e, compact){
   if (!e.img) return h("div", {class:"ev plain" + (e.flag ? " flag" : ""), title:e.t}, h("span", {}, e.t));
-  return h("button", {type:"button", class:"ev" + (e.flag ? " flag" : ""), style:`background:${COL[e.k]}`, title:e.t, "aria-label":e.t, onclick:() => openLB(e.list, 0, e.t)}, h("img", {src:e.img, alt:""}), h("span", {}, e.t));
+  return h("button", {type:"button", class:"ev" + (e.flag ? " flag" : ""), style:`border-top-color:${COL[e.k]}`, title:e.t, "aria-label":e.t, onclick:() => openLB(e.list, 0, e.t)}, h("img", {src:e.img, alt:""}), h("span", {}, e.t));
 }
 function render(){
   const [y, m] = MONTHS[mi];
@@ -287,7 +359,7 @@ function render(){
   const list = EVENTS.filter(e => e.date.getFullYear() === y && e.date.getMonth() === m);
   $("#agenda").replaceChildren(...(list.length ? list.map(e => h("button", {type:"button", onclick:() => e.list && openLB(e.list, 0, e.t)},
     h("span", {class:"d"}, e.date.toLocaleDateString("fr-CH", {weekday:"short", day:"numeric"})),
-    e.img ? h("img", {src:e.img, alt:""}) : h("span", {style:`width:48px; aspect-ratio:4/5; border:1.5px dashed var(--warn); display:block`}),
+    e.img ? h("img", {src:e.img, alt:""}) : h("span", {style:`width:72px; aspect-ratio:4/5; border:1.5px dashed var(--warn); display:block`}),
     h("span", {}, e.t, h("br"), h("span", {class:"s"}, NAME[e.k])))) : [h("p", {style:"padding:16px", class:"s"}, "Aucune publication ce mois-ci.")]));
 }
 $("#cal-prev").addEventListener("click", () => { if (mi > 0) { mi--; render(); } });
