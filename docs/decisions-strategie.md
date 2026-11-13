@@ -172,3 +172,17 @@ Format : date · décision · raison · remplace · statut · source.
 - **Remplace** : l'entrée du 18 nov. ajoutée le même jour.
 - **Statut** : décidé.
 - **Source** : Diego, conversation du 13.11.2026.
+
+## 2026-11-13 · Site codé : reproduction à l'identique du site Wix
+- **Décision** : le site Wix actuel est reproduit à l'identique en code (Astro, dossier `site/`), mêmes adresses de pages, mêmes textes et images. Corrections intégrées : lien téléphone sur le numéro affiché (+41 76 615 09 43), bouton rendez-vous du menu mobile vers studio@casa-senso.ch, pages indexables à la bascule, tablette propre.
+- **Raison** : demande de Diego (« faire exactement le même site web »), suite de la bascule décidée le 12.11.
+- **Remplace** : —
+- **Statut** : construit et relu visuellement le 13.11 ; non déployé. Restent : licence PP Hatton, numéro et adresse à confirmer par Laetitia, clé Resend, mesure (GA4, Search Console, pixel Meta), accès GoDaddy.
+- **Source** : message de Diego du 13.11.2026 ; `site/PROJECT.md` ; relevé `sources/site-wix-2026-11-13/`.
+
+## 2026-11-13 · Retours de Diego sur les rubriques (Voyage, Moodboard, Coulisses, Idées déco)
+- **Décision** : Voyage slide 2 remplacée (boutique de céramiques, Laetitia au second plan : elle ne veut pas de portrait au premier plan) ; Moodboard refait en v2 haute qualité (éléments de sa planche recréés un par un, GPT Image 2.5) ; Coulisses : 3 variantes de mise en page à choisir ; Idées déco : bleu abandonné, 2 nouvelles directions alignées sur le site (noir et blanc, ou olive #404734).
+- **Raison** : retours de Diego du 13.11 (qualité de la planche, mise en page des coulisses, bleu hors charte du site).
+- **Remplace** : portrait slide 2 ; moodboard v1 ; couleur bleu majorelle des Idées déco.
+- **Statut** : propositions livrées, choix de Diego en attente (Coulisses A/B/C, Idées déco A/B, Avant/après 1 à 4).
+- **Source** : Diego, conversation du 13.11.2026.

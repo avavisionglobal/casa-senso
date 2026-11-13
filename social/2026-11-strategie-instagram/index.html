@@ -7,7 +7,7 @@
 /* Layout : page courte en une colonne ; les rubriques défilent comme dans Instagram, le calendrier se lit comme un agenda mensuel. */
 :root{
   --bg:#FBF8F3; --paper:#F3EDE3; --cell:#FFFFFF; --fg:#1E1A17; --muted:#6B625A; --line:#E4DBCE; --accent:#A69368; --today:#C8613F;
-  --r-livre:#A69368; --r-voyage:#9A5636; --r-aa:#C8613F; --r-mood:#7A3B4E; --r-real:#E2A79A; --r-cou:#4A4440; --r-pro:#6E7F73; --r-idees:#2F4FA2;
+  --r-livre:#A69368; --r-voyage:#9A5636; --r-aa:#C8613F; --r-mood:#7A3B4E; --r-real:#E2A79A; --r-cou:#4A4440; --r-pro:#6E7F73; --r-idees:#404734;
   --ok:#3F6B4E; --warn:#B4532F; --ph:#DCD2C4; --ph2:#C2B39F;
   --font:"League Spartan", "Helvetica Neue", Arial, sans-serif;
 }
@@ -238,7 +238,7 @@ function h(tag, props, ...kids){ const e = document.createElement(tag);
 const $ = s => document.querySelector(s);
 const R = (k, n) => Array.from({length:n}, (_, i) => `img/${k}-${String(i + 1).padStart(2, "0")}.jpg`);
 const COL = {livre:"var(--r-livre)", voyage:"var(--r-voyage)", aa:"var(--r-aa)", mood:"var(--r-mood)", real:"var(--r-real)", cou:"var(--r-cou)", pro:"var(--r-pro)", idees:"var(--r-idees)"};
-const HEX = {livre:"#A69368", aa:"#C8613F", mood:"#7A3B4E", real:"#E2A79A", cou:"#4A4440", pro:"#6E7F73", idees:"#2F4FA2"};
+const HEX = {livre:"#A69368", aa:"#C8613F", mood:"#7A3B4E", real:"#E2A79A", cou:"#4A4440", pro:"#6E7F73", idees:"#404734"};
 const PAT_OF = {livre:"Parcours + Trois cartes", voyage:"Raconter son parcours", aa:"Avant, pendant, après", mood:"Planche décortiquée", real:"Visite plein cadre", cou:"Coulisses en blocs", pro:"Fiche projet", idees:"Trois cartes, une couleur"};
 const NAME = {livre:"Le Livre", voyage:"Voyage", aa:"Avant / après", mood:"Moodboards", real:"Réalisations", cou:"Coulisses", pro:"Espaces pros", idees:"Idées déco"};
 
@@ -247,22 +247,22 @@ const RUBS = [
    tabs:[["Chapitre I", R("livre-1",7)],["II", R("livre-2",7)],["III", R("livre-3",8)],["IV", R("livre-4",8)]]},
   {id:"voyage", n:"02", name:"Inspiration et voyage", line:"Un carnet par lieu, photos plein cadre et un court texte.", chips:[["wait","Textes à valider"],["","Réserve"]],
    tabs:[["Marrakech", R("voyage",7)]]},
-  {id:"aa", n:"03", name:"Avant / après", line:"Une transformation en étapes, une phrase par photo.", chips:[["wait","Textes à valider"],["","3 déc."]],
-   tabs:[["Cannes", R("aa",9)],["Écran partagé", R("aa-var",12).slice(0,4)],["Récit sur photo", R("aa-var",12).slice(4,8)],["House & Garden", R("aa-var",12).slice(8,12)]]},
-  {id:"mood", n:"04", name:"Moodboards", line:"Sa planche, la palette, puis les pièces en gros plan.", chips:[["wait","Titres à valider"],["","15 déc."]],
-   tabs:[["Le salon vert", R("mood",8)]]},
+  {id:"aa", n:"03", name:"Avant / après", line:"Une transformation en étapes. 4 versions : une à choisir.", chips:[["wait","Textes à valider"],["","3 déc."]],
+   tabs:[["1 · Version complète", R("aa",9)],["2 · Écran partagé", R("aa-var",12).slice(0,4)],["3 · Récit sur photo", R("aa-var",12).slice(4,8)],["4 · House & Garden", R("aa-var",12).slice(8,12)]]},
+  {id:"mood", n:"04", name:"Moodboards", line:"Sa planche, la palette, puis les pièces en gros plan.", chips:[["wait","Proposition v2 à valider"],["","15 déc."]],
+   tabs:[["Le salon vert · v2 haute qualité", R("mood2",9)],["Version 1 (sa planche)", R("mood",8)]]},
   {id:"real", n:"05", name:"Réalisations", line:"La visite d’un projet terminé.", chips:[["ok","Prêt"],["","22 déc."]],
    tabs:[["Visite Cannes", R("real",9)],["3 couvertures", R("real-cov",3)]]},
-  {id:"cou", n:"06", name:"Coulisses et chantiers", line:"Laetitia au travail, étape par étape.", chips:[["wait","Textes à valider"],["","30 nov."]],
-   tabs:[["Post", R("cou-post",7)],["Version stories", R("cou-story",6), true]]},
+  {id:"cou", n:"06", name:"Coulisses et chantiers", line:"Laetitia au travail, étape par étape.", chips:[["wait","3 variantes à choisir"],["","30 nov."]],
+   tabs:[["A · Grand chiffre", R("couA",4)],["B · Légende blanche", R("couB",4)],["C · Demi-carte", R("couC",4)],["Version actuelle", R("cou-post",7)],["Stories", R("cou-story",6), true]]},
   {id:"pro", n:"07", name:"Espaces professionnels", line:"Un lieu pro et sa fiche projet.", chips:[["wait","Accord du restaurant"],["","26 janv."]],
    tabs:[["ICHI Ramen Shop", R("pro",9)]]},
-  {id:"idees", n:"08", name:"Idées déco", line:"Un conseil concret, à enregistrer.", chips:[["wait","Conseils à réécrire"],["","4 févr."]],
-   tabs:[["Version actuelle", R("idees",7)],["Bloc couleur", R("idees-alt",7)]]}
+  {id:"idees", n:"08", name:"Idées déco", line:"Un conseil concret, à enregistrer. Nouvelle DA alignée sur le site.", chips:[["wait","2 directions à choisir"],["","4 févr."]],
+   tabs:[["A · Page blanche", R("ideesA",6)],["B · Olive du site", R("ideesB",6)]]}
 ];
 
 // Couvertures
-["img/livre-1-01.jpg","img/real-cov-03.jpg","img/mood-01.jpg","img/aa-var-09.jpg","img/voyage-01.jpg","img/idees-01.jpg","img/pro-01.jpg","img/cou-post-01.jpg"].forEach((s, i) => $("#covers").append(h("img", {src:s, alt:""})));
+["img/livre-1-01.jpg","img/real-cov-03.jpg","img/mood2-01.jpg","img/aa-var-09.jpg","img/voyage-01.jpg","img/ideesB-01.jpg","img/pro-01.jpg","img/cou-post-01.jpg"].forEach((s, i) => $("#covers").append(h("img", {src:s, alt:""})));
 
 // Visionneuse
 let LB = {list:[], i:0, cap:""};
@@ -301,7 +301,7 @@ const PATS = [
    d:"Une étape par slide, une phrase parlée dans une bulle. On fait glisser pour voir la suite : la transformation se vit dans l'ordre."},
   {k:"visite", n:"Visite plein cadre", m:"Modèle House & Garden", r:["real"], list:R("real",9),
    d:"Le titre sur la couverture, puis les pièces sans aucun texte. Les photos font le travail ; une seule carte citation pour la voix du client."},
-  {k:"planche", n:"La planche décortiquée", m:"Modèle House & Garden", r:["mood"], list:R("mood",8),
+  {k:"planche", n:"La planche décortiquée", m:"Modèle House & Garden", r:["mood"], list:R("mood2",9),
    d:"On part de sa planche, on isole la palette, puis chaque matière en gros plan avec son nom. On comprend comment elle compose une pièce."},
   {k:"coulisses", n:"Coulisses en blocs", m:"Modèle Dorothée Meilichzon", r:["cou"], list:R("cou-story",6),
    d:"Une étape du chantier par écran, des phrases courtes dans des blocs foncés et le jour au-dessus. Se lit en trois secondes, en post ou en stories."},
@@ -326,12 +326,12 @@ const EVENTS = [
   {d:"2026-11-17", k:"livre", t:"Le Livre · Chapitre I", img:"img/livre-1-01.jpg", list:R("livre-1",7)},
   {d:"2026-11-30", k:"cou", t:"Coulisses · La niche", img:"img/cou-post-01.jpg", list:R("cou-post",7)},
   {d:"2026-12-03", k:"aa", t:"Avant / après · Cannes", img:"img/aa-01.jpg", list:R("aa",9)},
-  {d:"2026-12-15", k:"mood", t:"Moodboard · Le salon vert", img:"img/mood-01.jpg", list:R("mood",8)},
+  {d:"2026-12-15", k:"mood", t:"Moodboard · Le salon vert", img:"img/mood2-01.jpg", list:R("mood2",9)},
   {d:"2026-12-22", k:"real", t:"Réalisation · Cannes", img:"img/real-01.jpg", list:R("real",9)},
   {d:"2027-01-07", k:"cou", t:"Vidéo Casa Senso (à tourner)", flag:true},
   {d:"2027-01-19", k:"livre", t:"Le Livre · Chapitre II", img:"img/livre-2-01.jpg", list:R("livre-2",7)},
   {d:"2027-01-26", k:"pro", t:"Espace pro · ICHI", img:"img/pro-01.jpg", list:R("pro",9), flag:true},
-  {d:"2027-02-04", k:"idees", t:"Idées déco · 3 matières", img:"img/idees-01.jpg", list:R("idees",7)},
+  {d:"2027-02-04", k:"idees", t:"Idées déco · 3 matières", img:"img/ideesA-01.jpg", list:R("ideesA",6)},
   {d:"2027-02-11", k:"livre", t:"Le Livre · Chapitre III", img:"img/livre-3-01.jpg", list:R("livre-3",8)}
 ];
 const MONTHS = [[2026,10],[2026,11],[2027,0],[2027,1]];

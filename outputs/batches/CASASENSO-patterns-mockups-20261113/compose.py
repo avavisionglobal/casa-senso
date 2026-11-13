@@ -7,7 +7,7 @@ SETS = {
  "cartes":    ["livre-1-01","livre-1-06","livre-1-07"],
  "aa":        ["aa-02","aa-03","aa-05"],
  "visite":    ["real-01","real-03","real-04"],
- "planche":   ["mood-01","mood-02","mood-03"],
+ "planche":   ["mood2-01","mood2-03","mood2-04"],
  "coulisses": ["cou-story-02","cou-story-04","cou-story-06"],
  "fiche":     ["pro-01","pro-02","pro-03"],
  "presse":    [None],
