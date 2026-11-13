@@ -98,6 +98,7 @@ section{padding-block:80px 0}
 .pat-img img{display:block; width:100%; aspect-ratio:3/2; object-fit:cover}
 .pat-img:focus-visible{outline:3px solid var(--accent); outline-offset:3px}
 .pat.later .pat-img{cursor:default; opacity:.8}
+.pat-logo{display:block; width:120px; aspect-ratio:620/76; margin-top:6px; background:var(--fg); opacity:.85; -webkit-mask:url(img/logo.svg) left center/contain no-repeat; mask:url(img/logo.svg) left center/contain no-repeat}
 .pat h3{font-size:24px}
 .pat p.d{font-size:16px; color:var(--muted)}
 .tags{display:flex; gap:10px; flex-wrap:wrap}
@@ -374,11 +375,11 @@ const PATS = [
    d:"La parution en première slide, avec le nom du magazine. Pour le jour où un article sortira."}
 ];
 PATS.forEach(p => $("#pats").append(h("article", {class:"pat" + (p.later ? " later" : "")},
-  p.list ? h("button", {type:"button", class:"pat-img", "aria-label":"Voir le post réel : " + p.n, onclick:() => openLB(p.list, 0, p.n)}, h("img", {src:`img/pat-${p.k}.jpg`, alt:"", loading:"lazy"}))
+  p.list ? h("button", {type:"button", class:"pat-img", "aria-label":"Voir un exemple : " + p.n, onclick:() => openLB(p.list, 0, p.n)}, h("img", {src:`img/pat-${p.k}.jpg`, alt:"", loading:"lazy"}))
          : h("div", {class:"pat-img"}, h("img", {src:`img/pat-${p.k}.jpg`, alt:""})),
-  h("p", {class:"eyebrow"}, p.m), h("h3", {}, p.n), h("p", {class:"d"}, p.d),
+  h("h3", {}, p.n), h("p", {class:"d"}, p.d),
   p.r.length ? h("div", {class:"tags"}, p.r.map(k => h("span", {class:"tag"}, h("i", {style:`background:${COL[k]}`}), NAME[k]))) : null,
-  p.list ? h("button", {type:"button", class:"ex", onclick:() => openLB(p.list, 0, p.n)}, "Voir le post réel ›") : null)));
+  h("span", {class:"pat-logo", role:"img", "aria-label":"casa senso"}))));
 
 // Aperçu : Casa Senso et comptes de référence
 const APX = [
