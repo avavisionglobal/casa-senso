@@ -188,3 +188,8 @@ Retour de Diego : « les images dans l'onglet réalisation ne sont pas bien opti
 - Index Réalisations : avant / après et bande défilante au format d'origine, paires à hauteur égale ; grande carte en 16:9.
 - Contrôle mesuré (Playwright, 1440 / 820 / 390 / 360) : plus aucune photo coupée de plus de 6 % sur les pages projet ; seule la couverture de la maison (photo verticale dans une carte horizontale) reste recadrée, faute de photo horizontale d'ensemble.
 - Versions précédentes : proofs/slug-cadres-fixes-2026-11-14.astro, proofs/realisations-cadres-fixes-2026-11-14.astro
+
+## 14.11.2026 · Animation d'entrée v2 « la fenêtre »
+
+Demande de Diego : « crée-moi une animation d'entrée ». La v1 (logo, trait, rideau crème) est remplacée. Le logo se dévoile, une fenêtre s'ouvre sur trois pièces de Cannes (cuisine, chambre, salon), la dernière s'agrandit jusqu'au plein écran puis la page apparaît (≈ 3,5 s). Une fois par visite, clic pour passer, jamais si « réduire les animations ». Ajouter « ?intro » à l'adresse pour la rejouer. Contrôlé à 1440 et 390 (images clés), sans erreur console ni débordement.
+Version 1 : proofs/base-intro-v1-2026-11-14.astro et proofs/intro-v1-css-2026-11-14.css

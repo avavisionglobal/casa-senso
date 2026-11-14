@@ -1,0 +1,104 @@
+---
+import '@fontsource-variable/league-spartan/wght.css';
+import '@fontsource-variable/lora/wght.css';
+import '@fontsource-variable/lora/wght-italic.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+import logoSvg from '../assets/logo.svg?raw';
+
+interface Props { title: string; description?: string; ogTitle?: string }
+const { title, description, ogTitle } = Astro.props;
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/?index$/, '').replace(/\/$/, '');
+const canonical = site.url + path;
+// Tant que le domaine n'est pas basculé sur ce site, l'aperçu reste hors index.
+// Mettre PUBLIC_SITE_LIVE=1 dans l'environnement de production au moment de la bascule.
+const live = import.meta.env.PUBLIC_SITE_LIVE === '1';
+
+// Balisage repris du site Wix.
+const ld = [
+  {
+    '@context': 'https://schema.org/', '@type': 'LocalBusiness', name: site.name, url: site.url,
+    image: `${site.url}/og-image.jpg`,
+    address: { '@type': 'PostalAddress', addressCountry: 'CH', addressLocality: 'Neuchâtel', addressRegion: 'NE', postalCode: '2035', streetAddress: 'Rue de la Cure' },
+    telephone: '0041766150943',
+  },
+  { '@context': 'https://schema.org/', '@type': 'WebSite', name: site.name, url: site.url },
+];
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <meta name="robots" content={live ? 'index, follow' : 'noindex, nofollow'} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={ogTitle ?? title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:image" content={`${site.url}/og-image.jpg`} />
+    <meta property="og:image:width" content="1500" />
+    <meta property="og:image:height" content="1000" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Casa Senso" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // Animation d'entrée : une fois par visite (onglet), jamais si « réduire les animations ».
+      try {
+        if (!sessionStorage.getItem('cs-intro') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.documentElement.classList.add('intro');
+          sessionStorage.setItem('cs-intro', '1');
+        }
+      } catch (e) {}
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(ld[0])} />
+    <script type="application/ld+json" set:html={JSON.stringify(ld[1])} />
+  </head>
+  <body>
+    <div class="intro-voile" aria-hidden="true">
+      <div class="intro-logo"><Fragment set:html={logoSvg} /></div>
+      <span class="intro-trait"></span>
+      <p class="intro-mention">Aménagement & décoration · Neuchâtel</p>
+    </div>
+    <a class="skip-link" href="#contenu">Passer au contenu principal</a>
+    <Header />
+    <main id="contenu">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      // Fin de l'animation d'entrée (ou clic pour passer).
+      const root = document.documentElement;
+      if (root.classList.contains('intro')) {
+        const fin = () => root.classList.remove('intro');
+        const t = window.setTimeout(fin, 2600);
+        document.querySelector('.intro-voile')?.addEventListener('click', () => { clearTimeout(t); fin(); });
+      }
+      // Enfants d'un bloc data-stagger : apparition l'un après l'autre.
+      document.querySelectorAll<HTMLElement>('[data-stagger]').forEach((parent) => {
+        const step = Number(parent.dataset.stagger) || 110;
+        [...parent.children].forEach((child, n) => {
+          const el = child as HTMLElement;
+          if (!el.dataset.anim) el.dataset.anim = parent.dataset.staggerAnim || 'up';
+          el.style.setProperty('--anim-delay', `${n * step}ms`);
+        });
+      });
+      const els = document.querySelectorAll<HTMLElement>('[data-anim]');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        }, { rootMargin: '0px 0px -10% 0px' });
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('is-in'));
+      }
+    </script>
+  </body>
+</html>

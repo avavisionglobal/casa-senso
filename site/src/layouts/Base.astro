@@ -7,6 +7,10 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../data/site';
 import logoSvg from '../assets/logo.svg?raw';
+import { Image } from 'astro:assets';
+import introCuisine from '../assets/images/accueil/hero-cannes-cuisine.jpg';
+import introChambre from '../assets/images/accueil/hero-cannes-chambre.jpg';
+import introSalon from '../assets/images/accueil/hero-cannes-salon.jpg';
 
 interface Props { title: string; description?: string; ogTitle?: string }
 const { title, description, ogTitle } = Astro.props;
@@ -51,8 +55,9 @@ const ld = [
     <script is:inline>
       document.documentElement.classList.add('js');
       // Animation d'entrée : une fois par visite (onglet), jamais si « réduire les animations ».
+      // « ?intro » dans l'adresse la rejoue (aperçu).
       try {
-        if (!sessionStorage.getItem('cs-intro') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        if ((/[?&]intro\b/.test(location.search) || !sessionStorage.getItem('cs-intro')) && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
           document.documentElement.classList.add('intro');
           sessionStorage.setItem('cs-intro', '1');
         }
@@ -62,10 +67,20 @@ const ld = [
     <script type="application/ld+json" set:html={JSON.stringify(ld[1])} />
   </head>
   <body>
+    <!-- Animation d'entrée v2 « la fenêtre » (14.11.2026) : le logo se dévoile, une fenêtre s'ouvre sur trois pièces
+         de Cannes, la dernière s'agrandit jusqu'au plein écran puis le voile s'efface. Clic pour passer.
+         Version 1 (logo + rideau) : proofs/base-intro-v1-2026-11-14.astro -->
     <div class="intro-voile" aria-hidden="true">
-      <div class="intro-logo"><Fragment set:html={logoSvg} /></div>
-      <span class="intro-trait"></span>
-      <p class="intro-mention">Aménagement & décoration · Neuchâtel</p>
+      <div class="intro-fenetre">
+        <Image class="f1" src={introCuisine} alt="" widths={[480, 800]} sizes="(max-width: 999px) 56vw, 320px" loading="lazy" />
+        <Image class="f2" src={introChambre} alt="" widths={[480, 800]} sizes="(max-width: 999px) 56vw, 320px" loading="lazy" />
+        <Image class="f3" src={introSalon} alt="" widths={[640, 1024, 1600, 2400, 2880]} sizes="100vw" loading="lazy" />
+      </div>
+      <div class="intro-signature">
+        <div class="intro-logo"><Fragment set:html={logoSvg} /></div>
+        <span class="intro-trait"></span>
+        <p class="intro-mention">Aménagement & décoration · Neuchâtel</p>
+      </div>
     </div>
     <a class="skip-link" href="#contenu">Passer au contenu principal</a>
     <Header />
@@ -78,7 +93,7 @@ const ld = [
       const root = document.documentElement;
       if (root.classList.contains('intro')) {
         const fin = () => root.classList.remove('intro');
-        const t = window.setTimeout(fin, 2600);
+        const t = window.setTimeout(fin, 3700);
         document.querySelector('.intro-voile')?.addEventListener('click', () => { clearTimeout(t); fin(); });
       }
       // Enfants d'un bloc data-stagger : apparition l'un après l'autre.
