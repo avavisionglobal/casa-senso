@@ -180,3 +180,11 @@ Revue du 13.11 (local, http://localhost:4321) : accueil 1440 et 390 px relu visu
 - **Page Réalisations** : en-tête, grandes cartes projet (Cannes en large, maison et ICHI dessous), « D'autres transformations · *avant / après* » (les 3 paires du site actuel, origine non précisée), bande olive, bande de photos défilantes. Trio et grande photo de cuisine retirés (repris dans les pages projet).
 - **Liens** : « Voir le projet » de l'accueil, de Particuliers et de Professionnels mènent aux pages projet.
 - Revue : 4 pages × 1440 / 390 / 360 px, statut 200, aucun débordement ni image manquante, diaporama « avant » vérifié ; build OK (12 pages).
+
+## 14.11.2026 · Photos des réalisations à leur format d'origine
+
+Retour de Diego : « les images dans l'onglet réalisation ne sont pas bien optimisées ». Cause : les photos horizontales (Cannes, ICHI, 3:2) étaient forcées dans des cadres verticaux fixes (3:4, 4:5), jusqu'à 56 % de l'image coupée.
+- Pages projet : en-tête en mosaïque (une grande, deux superposées) quand les photos sont horizontales ; rangée et galerie en lignes justifiées (même hauteur par ligne, chaque photo garde son format) ; diaporama « avant » en cadre vertical quand les photos le sont. Mobile : photo horizontale pleine largeur, verticales deux par deux.
+- Index Réalisations : avant / après et bande défilante au format d'origine, paires à hauteur égale ; grande carte en 16:9.
+- Contrôle mesuré (Playwright, 1440 / 820 / 390 / 360) : plus aucune photo coupée de plus de 6 % sur les pages projet ; seule la couverture de la maison (photo verticale dans une carte horizontale) reste recadrée, faute de photo horizontale d'ensemble.
+- Versions précédentes : proofs/slug-cadres-fixes-2026-11-14.astro, proofs/realisations-cadres-fixes-2026-11-14.astro

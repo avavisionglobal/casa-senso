@@ -1,0 +1,194 @@
+---
+// Page projet (13.11.2026), sur la structure des pages projet de madah.fr (référence de Diego) :
+// titre + missions + 3 photos · accroche · 4 photos · récit en deux colonnes · avant (diaporama) · galerie · contact · projet suivant.
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import ArrowButton from '../../components/ArrowButton.astro';
+import { projets } from '../../data/projets';
+
+export function getStaticPaths() {
+  return projets.map((p, i) => ({ params: { slug: p.slug }, props: { i } }));
+}
+const { i } = Astro.props as { i: number };
+const p = projets[i];
+const prec = projets[(i - 1 + projets.length) % projets.length];
+const suiv = projets[(i + 1) % projets.length];
+const moitie = Math.ceil(p.recit.length / 2);
+---
+<Base title={`${p.titre} | Réalisation Casa Senso`} description={`${p.titre} : ${p.missions.join(', ').toLowerCase()}. Une réalisation Casa Senso, aménagement et décoration à Neuchâtel.`}>
+  <!-- 1. En-tête : titre, missions, 3 photos -->
+  <header class="tete conteneur">
+    <div class="tete-texte" data-stagger="100">
+      <a class="retour" href="/realisations"><span aria-hidden="true">←</span> Réalisations</a>
+      <h1 class="titre-serif" set:html={p.titreHtml} />
+      <ul class="missions">{p.missions.map((m) => <li>{m}</li>)}</ul>
+      <dl class="fiche"><div><dt>Lieu</dt><dd>{p.lieu}</dd></div><div><dt>Type</dt><dd>{p.type}</dd></div></dl>
+    </div>
+    <div class="tete-photos" data-stagger="130" data-stagger-anim="reveal">
+      {p.haut.map((src, k) => <figure><Image src={src} alt={`${p.titre}, photo ${k + 1}`} widths={[400, 700, 1000]} sizes="(max-width: 999px) 33vw, 20vw" loading={k === 0 ? 'eager' : 'lazy'} /></figure>)}
+    </div>
+  </header>
+
+  <!-- 2. Accroche -->
+  <section class="accroche"><p class="titre-serif conteneur" data-anim="up">{p.accroche}</p></section>
+
+  <!-- 3. Rangée de 4 photos -->
+  <section class="rangee conteneur" data-stagger="110" data-stagger-anim="reveal" aria-label="Photos du projet">
+    {p.rangee.map((src, k) => <figure><Image src={src} alt={`${p.titre}, détail ${k + 1}`} widths={[400, 700, 1000]} sizes="(max-width: 999px) 50vw, 25vw" /></figure>)}
+  </section>
+
+  <!-- 4. Récit en deux colonnes -->
+  <section class="recit conteneur" aria-label="Le projet">
+    <div data-stagger="100">{p.recit.slice(0, moitie).map((r) => <p class:list={{ citation: r.citation }}>{r.p}</p>)}</div>
+    <div data-stagger="100">{p.recit.slice(moitie).map((r) => <p class:list={{ citation: r.citation }}>{r.p}</p>)}</div>
+  </section>
+
+  <!-- 5. Avant (diaporama) -->
+  {p.avant && (
+    <section class="avant" aria-labelledby="avant-titre">
+      <div class="conteneur avant-in">
+        <div class="avant-tete" data-anim="up">
+          <p class="mention">Avant</p>
+          <h2 id="avant-titre" class="titre-serif">{p.avantTitre}</h2>
+          <div class="fleches">
+            <button type="button" class="fl prec" aria-label="Photo précédente">←</button>
+            <span class="compteur" aria-live="polite">1 / {p.avant.length}</span>
+            <button type="button" class="fl suiv" aria-label="Photo suivante">→</button>
+          </div>
+        </div>
+        <div class="diapo" data-anim="up">
+          {p.avant.map((src, k) => <figure class:list={['d', { actif: k === 0 }]}><Image src={src} alt={`${p.titre}, avant les travaux, photo ${k + 1}`} widths={[600, 1000, 1400]} sizes="(max-width: 999px) 100vw, 60vw" /></figure>)}
+        </div>
+        <div class="vignettes">
+          {p.avant.map((src, k) => <button type="button" class:list={['v', { actif: k === 0 }]} aria-label={`Afficher la photo ${k + 1}`}><Image src={src} alt="" widths={[200]} sizes="120px" /></button>)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 6. Galerie -->
+  <section class="galerie conteneur" data-stagger="80" data-stagger-anim="reveal" aria-label="Galerie">
+    {p.galerie.map((src, k) => <figure><Image src={src} alt={`${p.titre}, photo ${k + 5}`} widths={[400, 700, 1000]} sizes="(max-width: 999px) 50vw, 25vw" /></figure>)}
+  </section>
+
+  <!-- 7. Contact -->
+  <section class="conteneur cta">
+    <div class="carte" data-anim="up">
+      <div>
+        <h2 class="titre-serif">Vous avez un <em>projet</em> ?<br />Parlons-en ensemble.</h2>
+        <p>Une pièce à repenser, une maison à aménager ou des locaux à mettre en valeur : dites-moi en quelques lignes ce que vous imaginez, je vous recontacte rapidement.</p>
+      </div>
+      <ArrowButton href="/contact#formulaire" label="Prendre rendez-vous" />
+    </div>
+  </section>
+
+  <!-- 8. Projets précédent / suivant -->
+  <nav class="conteneur suite" aria-label="Autres réalisations">
+    <a href={`/realisations/${prec.slug}`} class="prec-l"><span aria-hidden="true">←</span> {prec.titre}</a>
+    <a href={`/realisations/${suiv.slug}`} class="suiv-l">{suiv.titre} <span aria-hidden="true">→</span></a>
+  </nav>
+</Base>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.avant').forEach((sec) => {
+    const slides = [...sec.querySelectorAll<HTMLElement>('.d')];
+    const thumbs = [...sec.querySelectorAll<HTMLElement>('.v')];
+    const cpt = sec.querySelector('.compteur');
+    let i = 0;
+    const go = (n: number) => {
+      slides[i].classList.remove('actif'); thumbs[i].classList.remove('actif');
+      i = (n + slides.length) % slides.length;
+      slides[i].classList.add('actif'); thumbs[i].classList.add('actif');
+      if (cpt) cpt.textContent = `${i + 1} / ${slides.length}`;
+    };
+    sec.querySelector('.prec')?.addEventListener('click', () => go(i - 1));
+    sec.querySelector('.suiv')?.addEventListener('click', () => go(i + 1));
+    thumbs.forEach((t, k) => t.addEventListener('click', () => go(k)));
+  });
+</script>
+
+<style>
+  .tete { padding-top: 56px; padding-bottom: 80px; display: grid; grid-template-columns: 4fr 8fr; gap: 56px; align-items: end; }
+  .tete > * { min-width: 0; }
+  .retour { display: inline-block; margin-bottom: 26px; font-weight: 500; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); transition: color .3s var(--ease); }
+  .retour:hover { color: var(--accent); }
+  h1 { font-size: 56px; line-height: 1.05; }
+  h1 :global(em), .cta h2 em { color: var(--accent); }
+  .missions { list-style: none; margin: 26px 0 0; padding: 0; border-top: 1px solid var(--ink); }
+  .missions li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 17px; }
+  .fiche { margin: 22px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .fiche dt { font-weight: 500; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  .fiche dd { margin: 4px 0 0; font-family: var(--serif); font-size: 19px; }
+  .tete-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  figure { margin: 0; overflow: hidden; border-radius: var(--radius); background: var(--grey); }
+  figure :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .tete-photos figure { aspect-ratio: 3 / 4.2; }
+  .tete-photos figure:hover :global(img), .rangee figure:hover :global(img), .galerie figure:hover :global(img) { transform: scale(1.05); }
+
+  .accroche { background: var(--card); padding: 90px 0; text-align: center; }
+  .accroche p { max-width: 900px; font-size: 36px; line-height: 1.3; }
+
+  .rangee { padding-top: 90px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .rangee figure { aspect-ratio: 3 / 4; }
+
+  .recit { padding-top: 80px; padding-bottom: 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+  .recit > div { display: grid; gap: 20px; align-content: start; }
+  .recit p { font-size: 18px; line-height: 1.75; }
+  .recit p.citation { font-family: var(--serif); font-size: 26px; line-height: 1.4; color: var(--accent); }
+
+  .avant { background: var(--card); padding: 90px 0; }
+  .avant-in { display: grid; grid-template-columns: 4fr 8fr; grid-template-rows: auto auto; gap: 24px 56px; }
+  .avant-in > * { min-width: 0; }
+  .avant-tete { grid-row: span 2; display: flex; flex-direction: column; gap: 14px; }
+  .avant h2 { font-size: 40px; }
+  .fleches { margin-top: 12px; display: flex; align-items: center; gap: 16px; }
+  .fl { width: 52px; height: 52px; border-radius: 999px; border: 1px solid var(--ink); background: transparent; font-size: 20px; cursor: pointer; transition: background-color .3s var(--ease), color .3s var(--ease); }
+  .fl:hover { background: var(--ink); color: var(--paper); }
+  .compteur { font-family: var(--serif); font-size: 18px; min-width: 52px; text-align: center; }
+  .diapo { position: relative; aspect-ratio: 3 / 2; border-radius: var(--radius); overflow: hidden; background: var(--grey); }
+  .d { position: absolute; inset: 0; opacity: 0; transition: opacity .8s var(--ease); border-radius: 0; }
+  .d.actif { opacity: 1; }
+  .vignettes { display: flex; gap: 10px; flex-wrap: wrap; }
+  .v { width: 84px; height: 64px; padding: 0; border: 2px solid transparent; border-radius: 10px; overflow: hidden; cursor: pointer; opacity: .55; background: none; transition: opacity .3s, border-color .3s; }
+  .v.actif { opacity: 1; border-color: var(--accent); }
+  .v :global(img) { width: 100%; height: 100%; object-fit: cover; }
+
+  .galerie { padding-top: 100px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .galerie figure { aspect-ratio: 4 / 5; }
+
+  .cta { padding-top: 110px; }
+  .carte { background: var(--card); border-radius: calc(var(--radius) + 8px); padding: 60px 64px; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+  .carte h2 { font-size: 40px; }
+  .carte p { margin-top: 16px; max-width: 560px; font-size: 17px; line-height: 1.7; }
+
+  .suite { padding-top: 56px; padding-bottom: 100px; display: flex; justify-content: space-between; gap: 20px; }
+  .suite a { font-family: var(--serif); font-size: 26px; transition: color .3s var(--ease); }
+  .suite a:hover { color: var(--accent); }
+  .suite span { display: inline-block; transition: transform .45s var(--ease); }
+  .prec-l:hover span { transform: translateX(-4px); }
+  .suiv-l:hover span { transform: translateX(4px); }
+
+  @media (max-width: 999px) {
+    .tete { grid-template-columns: 1fr; gap: 32px; padding-top: 36px; padding-bottom: 56px; }
+    h1 { font-size: 38px; }
+    .tete-photos { gap: 8px; }
+    .accroche { padding: 56px 0; }
+    .accroche p { font-size: 24px; }
+    .rangee { padding-top: 56px; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .recit { grid-template-columns: 1fr; gap: 20px; padding-top: 48px; padding-bottom: 64px; }
+    .recit p { font-size: 17px; }
+    .recit p.citation { font-size: 22px; }
+    .avant { padding: 56px 0; }
+    .avant-in { grid-template-columns: 1fr; }
+    .avant-tete { grid-row: auto; }
+    .avant h2 { font-size: 30px; }
+    .v { width: 64px; height: 48px; }
+    .galerie { padding-top: 56px; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .cta { padding-top: 64px; }
+    .carte { grid-template-columns: 1fr; padding: 36px 24px; gap: 26px; }
+    .carte h2 { font-size: 28px; }
+    .suite { padding-bottom: 64px; flex-direction: column; }
+    .suite a { font-size: 21px; }
+    .suiv-l { align-self: flex-end; }
+  }
+</style>

@@ -24,6 +24,8 @@ import b8 from '../../assets/images/accueil/maison-canape.jpg';
 import b9 from '../../assets/images/accueil/insta-cannes-miroirs.jpg';
 
 const bande = [b1, b2, b3, b4, b5, b6, b7, b8, b9];
+// 14.11.2026 : photos à leur format d'origine (bande défilante, avant / après) au lieu de cadres fixes qui les coupaient.
+const ratio = (m: ImageMetadata) => m.width / m.height;
 
 const paires = [
   { t: 'Dressing', av: avDressing, ap: apDressing, altAv: 'Rangement dressing Avant Casa Senso Neuchâtel', altAp: 'Rangement dressing Après Casa Senso Neuchâtel' },
@@ -58,9 +60,9 @@ const paires = [
         {paires.map((p, i) => (
           <article class="paire" data-anim="up">
             <div class="paire-tete"><span class="n">{String(i + 1).padStart(2, '0')}</span><h3 class="titre-serif">{p.t}</h3></div>
-            <div class="paire-photos" data-stagger="160" data-stagger-anim="reveal">
-              <figure><span class="etiquette">Avant</span><Image src={p.av} alt={p.altAv} widths={[400, 760]} sizes="(max-width: 999px) 50vw, 40vw" /></figure>
-              <figure><span class="etiquette apres">Après</span><Image src={p.ap} alt={p.altAp} widths={[400, 760]} sizes="(max-width: 999px) 50vw, 40vw" /></figure>
+            <div class="paire-photos" style={`--somme:${ratio(p.av) + ratio(p.ap)}`} data-stagger="160" data-stagger-anim="reveal">
+              <figure style={`--r:${ratio(p.av)}`}><span class="etiquette">Avant</span><Image src={p.av} alt={p.altAv} widths={[400, 760]} sizes="(max-width: 999px) 50vw, 480px" /></figure>
+              <figure style={`--r:${ratio(p.ap)}`}><span class="etiquette apres">Après</span><Image src={p.ap} alt={p.altAp} widths={[400, 760]} sizes="(max-width: 999px) 50vw, 480px" /></figure>
             </div>
           </article>
         ))}
@@ -74,7 +76,7 @@ const paires = [
   <section class="defile" aria-label="Photos de réalisations Casa Senso">
     <div class="piste">
       {[...bande, ...bande].map((src, i) => (
-        <figure aria-hidden={i >= bande.length ? 'true' : undefined}><Image src={src} alt="" widths={[400, 700]} sizes="(max-width: 999px) 60vw, 26vw" loading="lazy" /></figure>
+        <figure style={`--r:${ratio(src)}`} aria-hidden={i >= bande.length ? 'true' : undefined}><Image src={src} alt="" widths={[400, 700]} sizes="(max-width: 999px) 60vw, 26vw" loading="lazy" /></figure>
       ))}
     </div>
   </section>
@@ -83,7 +85,7 @@ const paires = [
 <style>
   .projets { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-bottom: 110px; }
   .projet { position: relative; display: block; aspect-ratio: 4 / 3.3; overflow: hidden; border-radius: var(--radius); background: var(--grey); isolation: isolate; }
-  .projet.large { grid-column: 1 / -1; aspect-ratio: 16 / 7; }
+  .projet.large { grid-column: 1 / -1; aspect-ratio: 16 / 9; max-height: 82svh; }
   .projet :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
   .projet:hover :global(img) { transform: scale(1.04); }
   .projet::after { content: ''; position: absolute; inset: 40% 0 0 0; background: linear-gradient(to top, rgba(20,16,12,.6), transparent); }
@@ -106,8 +108,8 @@ const paires = [
   .paire-tete { display: flex; align-items: baseline; gap: 22px; }
   .n { font-family: var(--serif); font-size: 20px; color: var(--accent); }
   .paire h3 { font-size: 30px; }
-  .paire-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .paire-photos figure { position: relative; margin: 0; overflow: hidden; border-radius: var(--radius); aspect-ratio: 3 / 2; background: var(--grey); }
+  .paire-photos { display: flex; gap: 14px; max-width: min(100%, calc(var(--somme) * 340px)); }
+  .paire-photos figure { position: relative; flex: var(--r) 1 0; min-width: 0; margin: 0; overflow: hidden; border-radius: var(--radius); aspect-ratio: var(--r); background: var(--grey); }
   .paire-photos :global(img) { width: 100%; height: 100%; object-fit: cover; }
   .etiquette { position: absolute; left: 14px; top: 14px; z-index: 1; height: 28px; padding: 0 12px; border-radius: 999px; display: inline-flex; align-items: center; background: rgba(250, 247, 240, .92); font-weight: 600; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; }
   .etiquette.apres { background: var(--accent); color: #fff; }
@@ -117,8 +119,8 @@ const paires = [
 
   .defile { overflow: clip; contain: paint; width: 100%; height: 380px; }
   .piste { display: flex; height: 100%; width: max-content; }
-  .piste figure { margin: 0; height: 100%; flex: none; aspect-ratio: 4 / 5; overflow: hidden; }
-  .piste figure:nth-child(3n) { aspect-ratio: 1; }
+  .piste { gap: 10px; padding-right: 10px; }
+  .piste figure { margin: 0; height: 100%; flex: none; aspect-ratio: var(--r); overflow: hidden; }
   .piste :global(img) { width: 100%; height: 100%; object-fit: cover; }
   @media (prefers-reduced-motion: no-preference) {
     .piste { animation: defile 70s linear infinite; }
@@ -128,7 +130,7 @@ const paires = [
 
   @media (max-width: 999px) {
     .projets { grid-template-columns: 1fr; gap: 10px; padding-bottom: 64px; }
-    .projet, .projet.large { aspect-ratio: 4 / 3.6; }
+    .projet, .projet.large { aspect-ratio: 4 / 3; }
     .projet-texte { left: 20px; right: 20px; bottom: 20px; }
     .projet-nom, .large .projet-nom { font-size: 30px; }
     .defile { height: 240px; }
@@ -138,7 +140,7 @@ const paires = [
     .avap h2 { font-size: 32px; padding-bottom: 22px; }
     .paire { grid-template-columns: 1fr; gap: 16px; padding: 26px 0; }
     .paire h3 { font-size: 24px; }
-    .paire-photos { gap: 8px; }
+    .paire-photos { gap: 8px; max-width: none; }
     .grande { padding-top: 64px; padding-bottom: 64px; }
     .grande :global(img) { aspect-ratio: 4 / 5; }
   }

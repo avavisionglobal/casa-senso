@@ -1,0 +1,145 @@
+---
+// Réalisations v4 (13.11.2026) : même mise en page que le site (trio de photos, avant / après, grande photo, rendez-vous),
+// dans la charte de l'accueil et des prestations. Textes et textes alternatifs du site actuel.
+// Ancienne version : proofs/realisations-reproduction-wix-2026-11-13.astro
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageTete from '../../components/PageTete.astro';
+import BandeOlive from '../../components/BandeOlive.astro';
+import { projets } from '../../data/projets';
+import avDressing from '../../assets/images/avant-dressing.jpg';
+import apDressing from '../../assets/images/apres-dressing.jpg';
+import avEnfant from '../../assets/images/avant-chambre-enfant.jpg';
+import apEnfant from '../../assets/images/apres-chambre-enfant.jpg';
+import avCheminee from '../../assets/images/avant-cheminee.jpg';
+import apCheminee from '../../assets/images/apres-cheminee.jpg';
+import b1 from '../../assets/images/accueil/hero-cannes-salon.jpg';
+import b2 from '../../assets/images/accueil/maison-salon.jpg';
+import b3 from '../../assets/images/accueil/cannes-salle-de-bain.jpg';
+import b4 from '../../assets/images/accueil/maison-salle-a-manger.jpg';
+import b5 from '../../assets/images/accueil/hero-cannes-chambre.jpg';
+import b6 from '../../assets/images/accueil/insta-maison-buffet.jpg';
+import b7 from '../../assets/images/accueil/cannes-console.jpg';
+import b8 from '../../assets/images/accueil/maison-canape.jpg';
+import b9 from '../../assets/images/accueil/insta-cannes-miroirs.jpg';
+
+const bande = [b1, b2, b3, b4, b5, b6, b7, b8, b9];
+
+const paires = [
+  { t: 'Dressing', av: avDressing, ap: apDressing, altAv: 'Rangement dressing Avant Casa Senso Neuchâtel', altAp: 'Rangement dressing Après Casa Senso Neuchâtel' },
+  { t: "Chambre d'enfant", av: avEnfant, ap: apEnfant, altAv: "Agencement, décoration chambre d'enfant Avant Casa Senso Neuchâtel", altAp: "Agencement, décoration chambre d'enfant Après Casa Senso Neuchâtel" },
+  { t: 'Coin cheminée', av: avCheminee, ap: apCheminee, altAv: 'Décoration et aménagement coin cheminée Avant Casa Senso Neuchâtel', altAp: 'Décoration et aménagement coin cheminée Après Casa Senso Neuchâtel' },
+];
+---
+<Base
+  title="Réalisations en aménagement intérieur | Casa Senso"
+  description="Découvrez les réalisations Casa Senso : des intérieurs transformés avec soin, où matières, mobilier et décoration associent esthétique et fonctionnalité."
+>
+  <PageTete titre="Réalisations" sous="Des intérieurs qui ont du <em>senso</em>." />
+
+  <!-- Projets : une carte par réalisation, chacune mène à sa page -->
+  <section class="projets conteneur" aria-label="Projets" data-stagger="150" data-stagger-anim="reveal">
+    {projets.map((pr, k) => (
+      <a class:list={['projet', { large: k === 0 }]} href={`/realisations/${pr.slug}`}>
+        <Image src={pr.couverture} alt={pr.titre} widths={[600, 1000, 1600]} sizes={k === 0 ? '100vw' : '(max-width: 999px) 100vw, 50vw'} />
+        <span class="projet-texte">
+          <span class="projet-type">{pr.type}</span>
+          <span class="projet-nom">{pr.titre}</span>
+          <span class="pill">Voir le projet</span>
+        </span>
+      </a>
+    ))}
+  </section>
+
+  <section class="avap" aria-labelledby="avap-titre">
+    <div class="conteneur">
+      <h2 id="avap-titre" class="titre-serif" data-anim="up">D'autres transformations · <em>avant / après</em></h2>
+      <div class="paires">
+        {paires.map((p, i) => (
+          <article class="paire" data-anim="up">
+            <div class="paire-tete"><span class="n">{String(i + 1).padStart(2, '0')}</span><h3 class="titre-serif">{p.t}</h3></div>
+            <div class="paire-photos" data-stagger="160" data-stagger-anim="reveal">
+              <figure><span class="etiquette">Avant</span><Image src={p.av} alt={p.altAv} widths={[400, 760]} sizes="(max-width: 999px) 50vw, 40vw" /></figure>
+              <figure><span class="etiquette apres">Après</span><Image src={p.ap} alt={p.altAp} widths={[400, 760]} sizes="(max-width: 999px) 50vw, 40vw" /></figure>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <BandeOlive phrase="Et si votre intérieur était le <em>prochain</em> ?" lien={{ href: '/prestations', label: 'Découvrez mes prestations' }} />
+
+  <!-- Bande de photos qui défile en continu, bord à bord, juste avant le pied de page -->
+  <section class="defile" aria-label="Photos de réalisations Casa Senso">
+    <div class="piste">
+      {[...bande, ...bande].map((src, i) => (
+        <figure aria-hidden={i >= bande.length ? 'true' : undefined}><Image src={src} alt="" widths={[400, 700]} sizes="(max-width: 999px) 60vw, 26vw" loading="lazy" /></figure>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .projets { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-bottom: 110px; }
+  .projet { position: relative; display: block; aspect-ratio: 4 / 3.3; overflow: hidden; border-radius: var(--radius); background: var(--grey); isolation: isolate; }
+  .projet.large { grid-column: 1 / -1; aspect-ratio: 16 / 7; }
+  .projet :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .projet:hover :global(img) { transform: scale(1.04); }
+  .projet::after { content: ''; position: absolute; inset: 40% 0 0 0; background: linear-gradient(to top, rgba(20,16,12,.6), transparent); }
+  .projet-texte { position: absolute; left: 32px; right: 32px; bottom: 30px; z-index: 1; color: #fff; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .projet-type { font-weight: 500; font-size: 13px; letter-spacing: .24em; text-transform: uppercase; opacity: .9; }
+  .projet-nom { font-family: var(--serif); font-size: 42px; line-height: 1.05; }
+  .large .projet-nom { font-size: 56px; }
+  .pill { margin-top: 4px; display: inline-flex; align-items: center; height: 40px; padding: 0 20px; border-radius: 999px; background: var(--accent); color: #fff; font-weight: 500; font-size: 15px; transition: background-color .35s var(--ease), transform .45s var(--ease); }
+  .projet:hover .pill { background: var(--accent-dark); transform: translateY(-2px); }
+  .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding-bottom: 110px; }
+  .trio figure { margin: 0; overflow: hidden; border-radius: var(--radius); aspect-ratio: 3 / 4; background: var(--grey); }
+  .trio :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .trio figure:hover :global(img) { transform: scale(1.04); }
+
+  .avap { background: var(--card); padding: 90px 0 100px; }
+  .avap h2 { font-size: 44px; padding-bottom: 32px; border-bottom: 1px solid var(--ink); }
+  .avap h2 em { color: var(--accent); }
+  .paires { display: grid; }
+  .paire { padding: 36px 0; border-bottom: 1px solid rgba(30, 26, 23, .25); display: grid; grid-template-columns: 3fr 9fr; gap: 40px; align-items: start; }
+  .paire-tete { display: flex; align-items: baseline; gap: 22px; }
+  .n { font-family: var(--serif); font-size: 20px; color: var(--accent); }
+  .paire h3 { font-size: 30px; }
+  .paire-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .paire-photos figure { position: relative; margin: 0; overflow: hidden; border-radius: var(--radius); aspect-ratio: 3 / 2; background: var(--grey); }
+  .paire-photos :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .etiquette { position: absolute; left: 14px; top: 14px; z-index: 1; height: 28px; padding: 0 12px; border-radius: 999px; display: inline-flex; align-items: center; background: rgba(250, 247, 240, .92); font-weight: 600; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; }
+  .etiquette.apres { background: var(--accent); color: #fff; }
+
+  .grande { padding-top: 110px; padding-bottom: 110px; }
+  .grande :global(img) { width: 100%; aspect-ratio: 16 / 8; height: auto; object-fit: cover; border-radius: calc(var(--radius) + 8px); }
+
+  .defile { overflow: clip; contain: paint; width: 100%; height: 380px; }
+  .piste { display: flex; height: 100%; width: max-content; }
+  .piste figure { margin: 0; height: 100%; flex: none; aspect-ratio: 4 / 5; overflow: hidden; }
+  .piste figure:nth-child(3n) { aspect-ratio: 1; }
+  .piste :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  @media (prefers-reduced-motion: no-preference) {
+    .piste { animation: defile 70s linear infinite; }
+    .defile:hover .piste { animation-play-state: paused; }
+  }
+  @keyframes defile { to { transform: translateX(-50%); } }
+
+  @media (max-width: 999px) {
+    .projets { grid-template-columns: 1fr; gap: 10px; padding-bottom: 64px; }
+    .projet, .projet.large { aspect-ratio: 4 / 3.6; }
+    .projet-texte { left: 20px; right: 20px; bottom: 20px; }
+    .projet-nom, .large .projet-nom { font-size: 30px; }
+    .defile { height: 240px; }
+    .trio { grid-template-columns: 1fr 1fr; gap: 10px; padding-bottom: 64px; }
+    .trio figure:first-child { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+    .avap { padding: 56px 0 60px; }
+    .avap h2 { font-size: 32px; padding-bottom: 22px; }
+    .paire { grid-template-columns: 1fr; gap: 16px; padding: 26px 0; }
+    .paire h3 { font-size: 24px; }
+    .paire-photos { gap: 8px; }
+    .grande { padding-top: 64px; padding-bottom: 64px; }
+    .grande :global(img) { aspect-ratio: 4 / 5; }
+  }
+</style>

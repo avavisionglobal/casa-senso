@@ -14,6 +14,34 @@ const p = projets[i];
 const prec = projets[(i - 1 + projets.length) % projets.length];
 const suiv = projets[(i + 1) % projets.length];
 const moitie = Math.ceil(p.recit.length / 2);
+
+// Les photos gardent leur format d'origine (14.11.2026) : plus de cadres verticaux fixes qui coupaient
+// la moitié des photos horizontales. Chaque bloc est rangé en lignes « justifiées » : dans une ligne,
+// toutes les photos ont la même hauteur et chacune garde son rapport largeur/hauteur.
+const LARGEUR = 1320;
+const ratio = (m: ImageMetadata) => m.width / m.height;
+function rangs(imgs: ImageMetadata[], hauteurVisee: number) {
+  const total = imgs.reduce((t, m) => t + ratio(m), 0);
+  const n = Math.max(1, Math.round(total / (LARGEUR / hauteurVisee)));
+  const cible = total / n;
+  const out: ImageMetadata[][] = [];
+  let cur: ImageMetadata[] = [], somme = 0;
+  for (const m of imgs) {
+    if (cur.length && somme + ratio(m) / 2 > cible && out.length < n - 1) { out.push(cur); cur = []; somme = 0; }
+    cur.push(m); somme += ratio(m);
+  }
+  if (cur.length) out.push(cur);
+  return out.map((rang) => ({ rang, somme: rang.reduce((t, m) => t + ratio(m), 0) }));
+}
+const tailles = (m: ImageMetadata, somme: number, largeur = LARGEUR) =>
+  `(max-width: 999px) ${ratio(m) >= 0.95 ? 100 : 50}vw, ${Math.round((ratio(m) / somme) * largeur)}px`;
+const hautPaysage = p.haut.every((m) => ratio(m) > 1.2);
+const hautSomme = p.haut.reduce((t, m) => t + ratio(m), 0);
+const rangee = rangs(p.rangee, 440);
+const galerie = rangs(p.galerie, 340);
+// Diaporama « avant » : cadre vertical si la plupart des photos le sont ; une photo d'un autre format y est montrée entière.
+const avantVertical = p.avant ? p.avant.filter((m) => ratio(m) < 1).length > p.avant.length / 2 : false;
+const cadreAvant = avantVertical ? 3 / 4 : 3 / 2;
 ---
 <Base title={`${p.titre} | Réalisation Casa Senso`} description={`${p.titre} : ${p.missions.join(', ').toLowerCase()}. Une réalisation Casa Senso, aménagement et décoration à Neuchâtel.`}>
   <!-- 1. En-tête : titre, missions, 3 photos -->
@@ -24,8 +52,14 @@ const moitie = Math.ceil(p.recit.length / 2);
       <ul class="missions">{p.missions.map((m) => <li>{m}</li>)}</ul>
       <dl class="fiche"><div><dt>Lieu</dt><dd>{p.lieu}</dd></div><div><dt>Type</dt><dd>{p.type}</dd></div></dl>
     </div>
-    <div class="tete-photos" data-stagger="130" data-stagger-anim="reveal">
-      {p.haut.map((src, k) => <figure><Image src={src} alt={`${p.titre}, photo ${k + 1}`} widths={[400, 700, 1000]} sizes="(max-width: 999px) 33vw, 20vw" loading={k === 0 ? 'eager' : 'lazy'} /></figure>)}
+    <div class:list={['tete-photos', hautPaysage ? 'mosaique' : 'rang']} data-stagger="130" data-stagger-anim="reveal">
+      {p.haut.map((src, k) => (
+        <figure style={hautPaysage ? undefined : `--r:${ratio(src)}`}>
+          <Image src={src} alt={`${p.titre}, photo ${k + 1}`} widths={[400, 700, 1000, 1400]}
+            sizes={hautPaysage ? (k === 0 ? '(max-width: 999px) 66vw, 580px' : '(max-width: 999px) 33vw, 290px') : `(max-width: 999px) 33vw, ${Math.round((ratio(src) / hautSomme) * 860)}px`}
+            loading={k === 0 ? 'eager' : 'lazy'} />
+        </figure>
+      ))}
     </div>
   </header>
 
@@ -33,8 +67,16 @@ const moitie = Math.ceil(p.recit.length / 2);
   <section class="accroche"><p class="titre-serif conteneur" data-anim="up">{p.accroche}</p></section>
 
   <!-- 3. Rangée de 4 photos -->
-  <section class="rangee conteneur" data-stagger="110" data-stagger-anim="reveal" aria-label="Photos du projet">
-    {p.rangee.map((src, k) => <figure><Image src={src} alt={`${p.titre}, détail ${k + 1}`} widths={[400, 700, 1000]} sizes="(max-width: 999px) 50vw, 25vw" /></figure>)}
+  <section class="rangee rangs conteneur" aria-label="Photos du projet">
+    {rangee.map(({ rang, somme }, l) => (
+      <div class="rang" data-stagger="110" data-stagger-anim="reveal">
+        {rang.map((src, k) => (
+          <figure class:list={[ratio(src) >= 0.95 ? 'pleine' : 'demie']} style={`--r:${ratio(src)}`}>
+            <Image src={src} alt={`${p.titre}, détail ${l * 10 + k + 1}`} widths={[400, 700, 1000, 1400]} sizes={tailles(src, somme)} />
+          </figure>
+        ))}
+      </div>
+    ))}
   </section>
 
   <!-- 4. Récit en deux colonnes -->
@@ -56,8 +98,8 @@ const moitie = Math.ceil(p.recit.length / 2);
             <button type="button" class="fl suiv" aria-label="Photo suivante">→</button>
           </div>
         </div>
-        <div class="diapo" data-anim="up">
-          {p.avant.map((src, k) => <figure class:list={['d', { actif: k === 0 }]}><Image src={src} alt={`${p.titre}, avant les travaux, photo ${k + 1}`} widths={[600, 1000, 1400]} sizes="(max-width: 999px) 100vw, 60vw" /></figure>)}
+        <div class:list={['diapo', { verticale: avantVertical }]} style={`--cadre:${cadreAvant}`} data-anim="up">
+          {p.avant.map((src, k) => <figure class:list={['d', { actif: k === 0, entiere: (ratio(src) < 1) !== avantVertical }]}><Image src={src} alt={`${p.titre}, avant les travaux, photo ${k + 1}`} widths={[600, 1000, 1400]} sizes={avantVertical ? '(max-width: 999px) 100vw, 560px' : '(max-width: 999px) 100vw, 60vw'} /></figure>)}
         </div>
         <div class="vignettes">
           {p.avant.map((src, k) => <button type="button" class:list={['v', { actif: k === 0 }]} aria-label={`Afficher la photo ${k + 1}`}><Image src={src} alt="" widths={[200]} sizes="120px" /></button>)}
@@ -67,8 +109,16 @@ const moitie = Math.ceil(p.recit.length / 2);
   )}
 
   <!-- 6. Galerie -->
-  <section class="galerie conteneur" data-stagger="80" data-stagger-anim="reveal" aria-label="Galerie">
-    {p.galerie.map((src, k) => <figure><Image src={src} alt={`${p.titre}, photo ${k + 5}`} widths={[400, 700, 1000]} sizes="(max-width: 999px) 50vw, 25vw" /></figure>)}
+  <section class="galerie rangs conteneur" aria-label="Galerie">
+    {galerie.map(({ rang, somme }, l) => (
+      <div class="rang" data-stagger="80" data-stagger-anim="reveal">
+        {rang.map((src, k) => (
+          <figure class:list={[ratio(src) >= 0.95 ? 'pleine' : 'demie']} style={`--r:${ratio(src)}`}>
+            <Image src={src} alt={`${p.titre}, photo ${l * 10 + k + 5}`} widths={[400, 700, 1000, 1400]} sizes={tailles(src, somme)} />
+          </figure>
+        ))}
+      </div>
+    ))}
   </section>
 
   <!-- 7. Contact -->
@@ -119,17 +169,24 @@ const moitie = Math.ceil(p.recit.length / 2);
   .fiche { margin: 22px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .fiche dt { font-weight: 500; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
   .fiche dd { margin: 4px 0 0; font-family: var(--serif); font-size: 19px; }
-  .tete-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  /* En-tête : photos horizontales en mosaïque (une grande, deux superposées), sinon une ligne justifiée. */
+  .tete-photos.mosaique { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; }
+  .mosaique figure:first-child { grid-row: span 2; aspect-ratio: 3 / 2; }
+  .mosaique figure { position: relative; min-height: 0; }
+  .mosaique figure :global(img) { position: absolute; inset: 0; }
+  .tete-photos.rang { display: flex; gap: 12px; }
   figure { margin: 0; overflow: hidden; border-radius: var(--radius); background: var(--grey); }
   figure :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
-  .tete-photos figure { aspect-ratio: 3 / 4.2; }
+  /* Ligne justifiée : chaque photo garde son format, la ligne entière a une seule hauteur. */
+  .rang > figure { flex: var(--r) 1 0; aspect-ratio: var(--r); min-width: 0; }
+  .rangs { display: grid; gap: 12px; }
+  .rangs .rang { display: flex; gap: 12px; }
   .tete-photos figure:hover :global(img), .rangee figure:hover :global(img), .galerie figure:hover :global(img) { transform: scale(1.05); }
 
   .accroche { background: var(--card); padding: 90px 0; text-align: center; }
   .accroche p { max-width: 900px; font-size: 36px; line-height: 1.3; }
 
-  .rangee { padding-top: 90px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .rangee figure { aspect-ratio: 3 / 4; }
+  .rangee { padding-top: 90px; }
 
   .recit { padding-top: 80px; padding-bottom: 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
   .recit > div { display: grid; gap: 20px; align-content: start; }
@@ -145,16 +202,19 @@ const moitie = Math.ceil(p.recit.length / 2);
   .fl { width: 52px; height: 52px; border-radius: 999px; border: 1px solid var(--ink); background: transparent; font-size: 20px; cursor: pointer; transition: background-color .3s var(--ease), color .3s var(--ease); }
   .fl:hover { background: var(--ink); color: var(--paper); }
   .compteur { font-family: var(--serif); font-size: 18px; min-width: 52px; text-align: center; }
-  .diapo { position: relative; aspect-ratio: 3 / 2; border-radius: var(--radius); overflow: hidden; background: var(--grey); }
+  .diapo { position: relative; aspect-ratio: var(--cadre, 1.5); border-radius: var(--radius); overflow: hidden; background: var(--grey); }
+  .diapo.verticale { width: min(100%, calc(78svh * 0.75), 600px); justify-self: center; }
+  .d.entiere :global(img) { object-fit: contain; }
+  .avant-in:has(.verticale) .vignettes { justify-content: center; }
   .d { position: absolute; inset: 0; opacity: 0; transition: opacity .8s var(--ease); border-radius: 0; }
   .d.actif { opacity: 1; }
   .vignettes { display: flex; gap: 10px; flex-wrap: wrap; }
   .v { width: 84px; height: 64px; padding: 0; border: 2px solid transparent; border-radius: 10px; overflow: hidden; cursor: pointer; opacity: .55; background: none; transition: opacity .3s, border-color .3s; }
+  .verticale ~ .vignettes .v { width: 54px; height: 72px; }
   .v.actif { opacity: 1; border-color: var(--accent); }
   .v :global(img) { width: 100%; height: 100%; object-fit: cover; }
 
-  .galerie { padding-top: 100px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .galerie figure { aspect-ratio: 4 / 5; }
+  .galerie { padding-top: 100px; }
 
   .cta { padding-top: 110px; }
   .carte { background: var(--card); border-radius: calc(var(--radius) + 8px); padding: 60px 64px; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
@@ -174,7 +234,14 @@ const moitie = Math.ceil(p.recit.length / 2);
     .tete-photos { gap: 8px; }
     .accroche { padding: 56px 0; }
     .accroche p { font-size: 24px; }
-    .rangee { padding-top: 56px; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .rangee { padding-top: 56px; }
+    /* Mobile : photo horizontale ou carrée sur toute la largeur, photos verticales deux par deux. */
+    .rangs { grid-template-columns: 1fr 1fr; grid-auto-flow: dense; gap: 8px; }
+    .rangs .rang { display: contents; }
+    .rangs figure.pleine { grid-column: 1 / -1; aspect-ratio: var(--r); }
+    .rangs figure.demie { aspect-ratio: 7 / 10; }
+    .tete-photos.mosaique, .tete-photos.rang { gap: 8px; }
+    .diapo.verticale { width: 100%; }
     .recit { grid-template-columns: 1fr; gap: 20px; padding-top: 48px; padding-bottom: 64px; }
     .recit p { font-size: 17px; }
     .recit p.citation { font-size: 22px; }
@@ -183,7 +250,7 @@ const moitie = Math.ceil(p.recit.length / 2);
     .avant-tete { grid-row: auto; }
     .avant h2 { font-size: 30px; }
     .v { width: 64px; height: 48px; }
-    .galerie { padding-top: 56px; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .galerie { padding-top: 56px; }
     .cta { padding-top: 64px; }
     .carte { grid-template-columns: 1fr; padding: 36px 24px; gap: 26px; }
     .carte h2 { font-size: 28px; }
