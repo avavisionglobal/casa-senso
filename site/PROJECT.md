@@ -193,3 +193,8 @@ Retour de Diego : « les images dans l'onglet réalisation ne sont pas bien opti
 
 Demande de Diego : « crée-moi une animation d'entrée ». La v1 (logo, trait, rideau crème) est remplacée. Le logo se dévoile, une fenêtre s'ouvre sur trois pièces de Cannes (cuisine, chambre, salon), la dernière s'agrandit jusqu'au plein écran puis la page apparaît (≈ 3,5 s). Une fois par visite, clic pour passer, jamais si « réduire les animations ». Ajouter « ?intro » à l'adresse pour la rejouer. Contrôlé à 1440 et 390 (images clés), sans erreur console ni débordement.
 Version 1 : proofs/base-intro-v1-2026-11-14.astro et proofs/intro-v1-css-2026-11-14.css
+
+## 15.11.2026 · Aperçu en ligne pour Laetitia
+- Adresse : https://casa-senso-apercu.vercel.app (projet Vercel `casa-senso`, équipe Contrast Workspace). Déployé depuis le dossier local avec `vercel deploy --prod`, pas depuis GitHub (dépôt encore public).
+- Pages non indexées (`noindex` tant que `PUBLIC_SITE_LIVE` n'est pas à 1). Le formulaire de contact n'envoie rien tant que la clé Resend n'est pas configurée.
+- Mettre à jour : `cd site && vercel deploy --prod`. À la mise en ligne : brancher casa-senso.ch, mettre `PUBLIC_SITE_LIVE=1`, retirer `/apercu-heros`.
