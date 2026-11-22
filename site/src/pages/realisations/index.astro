@@ -7,6 +7,7 @@ import Base from '../../layouts/Base.astro';
 import PageTete from '../../components/PageTete.astro';
 import BandeOlive from '../../components/BandeOlive.astro';
 import { projets } from '../../data/projets';
+import { ids, pageUrl } from '../../lib/schema';
 import avDressing from '../../assets/images/avant-dressing.jpg';
 import apDressing from '../../assets/images/apres-dressing.jpg';
 import avEnfant from '../../assets/images/avant-chambre-enfant.jpg';
@@ -36,8 +37,15 @@ const paires = [
 // toujours entières. Sur téléphone, une paire en paysage s'empile (avant au-dessus de après).
 const somme = (p: (typeof paires)[number]) => ratio(p.av) + ratio(p.ap);
 const smax = Math.max(...paires.map(somme));
+const schema = [{
+  '@type': 'ItemList', '@id': `${pageUrl('/realisations')}#liste`, name: 'Réalisations Casa Senso',
+  mainEntityOfPage: { '@id': ids.page('/realisations') },
+  itemListElement: projets.map((p, k) => ({ '@type': 'ListItem', position: k + 1, url: pageUrl(`/realisations/${p.slug}`), name: p.titre })),
+}];
 ---
 <Base
+  type="CollectionPage"
+  schema={schema}
   title="Réalisations en aménagement intérieur | Casa Senso"
   description="Découvrez les réalisations Casa Senso : des intérieurs transformés avec soin, où matières, mobilier et décoration associent esthétique et fonctionnalité."
 >

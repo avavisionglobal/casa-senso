@@ -1,7 +1,8 @@
 ---
 // Page projet (13.11.2026), sur la structure des pages projet de madah.fr (référence de Diego) :
 // titre + missions + 3 photos · accroche · 4 photos · récit en deux colonnes · avant (diaporama) · galerie · contact · projet suivant.
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
+import { ids, pageUrl, abs } from '../../lib/schema';
 import Base from '../../layouts/Base.astro';
 import ArrowButton from '../../components/ArrowButton.astro';
 import { projets } from '../../data/projets';
@@ -60,8 +61,21 @@ const seuleGalerie = seule(galerie);
 // Diaporama « avant » : cadre vertical si la plupart des photos le sont ; une photo d'un autre format y est montrée entière.
 const avantVertical = p.avant ? p.avant.filter((m) => ratio(m) < 1).length > p.avant.length / 2 : false;
 const cadreAvant = avantVertical ? 3 / 4 : 3 / 2;
+// Données structurées (22.11.2026) : la réalisation comme œuvre de Casa Senso, avec ses photos principales.
+// Aucun propriétaire ni adresse : seulement le lieu affiché sur la page.
+const chemin = `/realisations/${p.slug}`;
+const photos = await Promise.all([p.couverture, ...p.haut.filter((m) => m !== p.couverture)].map((src) => getImage({ src, width: 1400, format: 'jpg', quality: 80 })));
+const schema = [{
+  '@type': 'CreativeWork', '@id': `${pageUrl(chemin)}#realisation`,
+  name: p.titre, description: p.accroche, genre: p.type, keywords: p.missions.join(', '),
+  image: photos.map((ph) => abs(ph.src)),
+  creator: { '@id': ids.entreprise },
+  ...(p.lieu && { locationCreated: { '@type': 'Place', name: p.lieu } }),
+  inLanguage: 'fr-CH',
+  mainEntityOfPage: { '@id': ids.page(chemin) },
+}];
 ---
-<Base title={`${p.titre} | Réalisation Casa Senso`} description={`${p.titre} : ${p.missions.join(', ').toLowerCase()}. Une réalisation Casa Senso, aménagement et décoration à Neuchâtel.`}>
+<Base image={p.couverture} fil={p.titre} schema={schema} title={`${p.titre} | Réalisation Casa Senso`} description={`${p.titre} : ${p.missions.join(', ').toLowerCase()}. Une réalisation Casa Senso, aménagement et décoration à Neuchâtel.`}>
   <!-- 1. En-tête : titre, missions, 3 photos -->
   <header class="tete conteneur">
     <div class="tete-texte" data-stagger="100">

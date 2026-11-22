@@ -6,51 +6,97 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Cookies from '../components/Cookies.astro';
-import { site } from '../data/site';
 import logoSvg from '../assets/logo.svg?raw';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import introCuisine from '../assets/images/accueil/hero-cannes-cuisine.jpg';
 import introChambre from '../assets/images/accueil/hero-cannes-chambre.jpg';
 import introSalon from '../assets/images/accueil/hero-cannes-salon.jpg';
+import { entreprise, fondatrice, siteWeb, ids, nomsFil, pageUrl, abs } from '../lib/schema';
 
 // intro={false} : pas d'animation d'entrée (page d'arrivée directe, ex. calendrier de l'Avent depuis Instagram).
-interface Props { title: string; description?: string; ogTitle?: string; intro?: boolean }
-const { title, description, ogTitle, intro = true } = Astro.props;
+// SEO (22.11.2026) :
+//   image   photo de partage (réseaux sociaux, Google), recadrée en 1200 × 630 ; sinon /og-image.jpg
+//   type    type schema.org de la page (WebPage par défaut ; AboutPage, ContactPage, CollectionPage…)
+//   fil     nom du dernier maillon du fil d'Ariane, quand l'adresse ne suffit pas (réalisations)
+//   schema  nœuds schema.org propres à la page (prestation, liste, réalisation), ajoutés au graphe commun
+//   noindex page hors index (404)
+interface Props {
+  title: string; description?: string; ogTitle?: string; intro?: boolean;
+  image?: ImageMetadata; type?: string; fil?: string; schema?: Record<string, unknown>[]; noindex?: boolean;
+}
+const { title, description, ogTitle, intro = true, image, type = 'WebPage', fil, schema = [], noindex = false } = Astro.props;
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/?index$/, '').replace(/\/$/, '');
-const canonical = site.url + path;
+const canonical = pageUrl(path);
 // Tant que le domaine n'est pas basculé sur ce site, l'aperçu reste hors index.
 // Mettre PUBLIC_SITE_LIVE=1 dans l'environnement de production au moment de la bascule.
 const live = import.meta.env.PUBLIC_SITE_LIVE === '1';
+const indexable = live && !noindex;
 
-// Balisage repris du site Wix.
-const ld = [
-  {
-    '@context': 'https://schema.org/', '@type': 'LocalBusiness', name: site.name, url: site.url,
-    image: `${site.url}/og-image.jpg`,
-    address: { '@type': 'PostalAddress', addressCountry: 'CH', addressLocality: 'Neuchâtel', addressRegion: 'NE', postalCode: '2035', streetAddress: 'Rue de la Cure' },
-    telephone: '0041766150943',
-  },
-  { '@context': 'https://schema.org/', '@type': 'WebSite', name: site.name, url: site.url },
-];
+// Format de partage 1,91:1 ; une photo d'origine plus étroite que 1200 px n'est pas agrandie.
+const ogL = image ? Math.min(1200, image.width) : 0;
+const ogH = Math.round((ogL * 630) / 1200);
+const partage = image
+  ? await getImage({ src: image, width: ogL, height: ogH, fit: 'cover', format: 'jpg', quality: 82 })
+  : null;
+const og = partage
+  ? { url: abs(partage.src), width: ogL, height: ogH }
+  : { url: abs('/og-image.jpg'), width: 1500, height: 1000 };
+
+// Fil d'Ariane : Accueil > segments de l'adresse.
+const segments = path.split('/').filter(Boolean);
+const fileAriane = segments.length && !noindex ? {
+  '@type': 'BreadcrumbList',
+  '@id': ids.fil(path),
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: pageUrl('') },
+    ...segments.map((seg, k) => ({
+      '@type': 'ListItem', position: k + 2,
+      name: k === segments.length - 1 && fil ? fil : (nomsFil[seg] ?? seg),
+      item: pageUrl('/' + segments.slice(0, k + 1).join('/')),
+    })),
+  ],
+} : null;
+
+const page = {
+  '@type': type,
+  '@id': ids.page(path),
+  url: canonical,
+  name: title,
+  ...(description && { description }),
+  inLanguage: 'fr-CH',
+  isPartOf: { '@id': ids.site },
+  about: { '@id': ids.entreprise },
+  primaryImageOfPage: { '@type': 'ImageObject', url: og.url, width: og.width, height: og.height },
+  ...(fileAriane && { breadcrumb: { '@id': fileAriane['@id'] } }),
+};
+// Un nœud de page sans « @type » complète le nœud commun de même « @id » (ex. le portrait de la fondatrice).
+const communs = [entreprise, fondatrice, siteWeb].map((n) => ({ ...n, ...Object.assign({}, ...schema.filter((x) => !x['@type'] && x['@id'] === n['@id'])) }));
+const ld = {
+  '@context': 'https://schema.org',
+  '@graph': noindex ? communs : [...communs, page, ...(fileAriane ? [fileAriane] : []), ...schema.filter((x) => x['@type'])],
+};
 ---
 <!doctype html>
-<html lang="fr" data-intro={intro ? undefined : 'non'}>
+<html lang="fr-CH" data-intro={intro ? undefined : 'non'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
-    <meta name="robots" content={live ? 'index, follow' : 'noindex, nofollow'} />
-    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={indexable ? 'index, follow, max-image-preview:large' : 'noindex, nofollow'} />
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <meta property="og:locale" content="fr_CH" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Casa Senso" />
     <meta property="og:title" content={ogTitle ?? title} />
     {description && <meta property="og:description" content={description} />}
-    <meta property="og:image" content={`${site.url}/og-image.jpg`} />
-    <meta property="og:image:width" content="1500" />
-    <meta property="og:image:height" content="1000" />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:site_name" content="Casa Senso" />
-    <meta property="og:type" content="website" />
+    {!noindex && <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={og.url} />
+    <meta property="og:image:width" content={String(og.width)} />
+    <meta property="og:image:height" content={String(og.height)} />
+    <meta property="og:image:alt" content={ogTitle ?? title} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#FAF7F0" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -67,8 +113,7 @@ const ld = [
         }
       } catch (e) {}
     </script>
-    <script type="application/ld+json" set:html={JSON.stringify(ld[0])} />
-    <script type="application/ld+json" set:html={JSON.stringify(ld[1])} />
+    <script type="application/ld+json" set:html={JSON.stringify(ld).replace(/</g, '\\u003c')} />
   </head>
   <body>
     <!-- Animation d'entrée v2 « la fenêtre » (14.11.2026) : le logo se dévoile, une fenêtre s'ouvre sur trois pièces

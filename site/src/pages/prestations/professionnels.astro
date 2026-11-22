@@ -8,6 +8,7 @@
 // 22.11 : accompagnement des acquéreurs en showroom et moodboard d'ambiance, à la demande de Laetitia ; formulation Contrast.
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
+import { ids, pageUrl, zone } from '../../lib/schema';
 import PageTete from '../../components/PageTete.astro';
 import Lignes from '../../components/Lignes.astro';
 import BandeOlive from '../../components/BandeOlive.astro';
@@ -45,8 +46,16 @@ const offres = [
     items: ['Aménagement d\'un appartement témoin', 'Mise en scène de biens à vendre ou à louer', 'Ambiance, mobilier et installation, clé en main'],
   },
 ];
+const schema = [{
+  '@type': 'Service', '@id': `${pageUrl('/prestations/professionnels')}#prestation`,
+  name: "Aménagement d'espaces professionnels", serviceType: "Aménagement intérieur",
+  provider: { '@id': ids.entreprise }, areaServed: zone,
+  audience: { '@type': 'BusinessAudience', audienceType: 'Restaurants, cafés, commerces, bureaux et promoteurs immobiliers' },
+  mainEntityOfPage: { '@id': ids.page('/prestations/professionnels') },
+}];
 ---
 <Base
+  schema={schema}
   title="Aménagement d'espaces professionnels | Casa Senso, Neuchâtel"
   description="Restaurants, cafés, commerces, bureaux et promoteurs immobiliers : Casa Senso conçoit et coordonne l'aménagement de vos espaces, de la conception à l'installation."
 >

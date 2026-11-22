@@ -8,6 +8,7 @@
 // formulation proposée par Contrast.
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
+import { ids, pageUrl, zone } from '../../lib/schema';
 import PageTete from '../../components/PageTete.astro';
 import Lignes from '../../components/Lignes.astro';
 import BandeOlive from '../../components/BandeOlive.astro';
@@ -42,8 +43,16 @@ const etapes = [
   { quand: 'Pendant la construction', t: 'Choisir en showroom', d: "Je vous accompagne dans les showrooms pour choisir le carrelage, le parquet, la cuisine et la salle de bains, en accord avec l'ambiance." },
   { quand: 'À la remise des clés', t: 'Meubler et installer', d: "Mobilier, luminaires et textiles, commandes, livraison et installation : vous entrez dans un intérieur terminé." },
 ];
+const schema = [{
+  '@type': 'Service', '@id': `${pageUrl('/prestations/particuliers')}#prestation`,
+  name: "Aménagement et décoration d'intérieur pour particuliers", serviceType: "Décoration d'intérieur",
+  provider: { '@id': ids.entreprise }, areaServed: zone,
+  audience: { '@type': 'PeopleAudience', audienceType: 'Particuliers : rénovation, achat neuf ou sur plan' },
+  mainEntityOfPage: { '@id': ids.page('/prestations/particuliers') },
+}];
 ---
 <Base
+  schema={schema}
   title="Décoration et aménagement pour particuliers | Casa Senso, Neuchâtel"
   description="Rénovation d'un intérieur ou achat d'un bien neuf ou sur plan : Casa Senso imagine et aménage votre logement à Neuchâtel, de l'idée à l'installation."
 >

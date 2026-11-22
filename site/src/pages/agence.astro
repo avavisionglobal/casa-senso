@@ -3,7 +3,8 @@
 // pour les 3 temps séparés par des filets), charte de l'accueil v3. Tout est aligné sur la même marge
 // gauche et la même grille. Photo de Laetitia : séance pro « fairment-8 » (originale, nette).
 // Versions précédentes : proofs/agence-reproduction-wix-2026-11-13.astro
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
+import { ids, abs } from '../lib/schema';
 import Base from '../layouts/Base.astro';
 import ArrowButton from '../components/ArrowButton.astro';
 import { site } from '../data/site';
@@ -18,8 +19,12 @@ const temps = [
   { n: '02', t: 'Composer', d: 'Des espaces harmonieux où chaque matière, couleur et détail trouve sa place.', img: traitComposer },
   { n: '03', t: 'Déléguer', d: "Des commandes à l'installation, je prends tout en main. Vous profitez du résultat.", img: traitDeleguer },
 ];
+const portrait = await getImage({ src: laetitia, width: 800, format: 'jpg', quality: 82 });
+const schema = [{ '@id': ids.fondatrice, image: abs(portrait.src), description: "Fondatrice de Casa Senso, Laetitia Rein accompagne chaque projet d'aménagement et de décoration de A à Z, à Neuchâtel." }];
 ---
 <Base
+  type="AboutPage"
+  schema={schema}
   title="L’agence Casa Senso | Votre intérieur sur mesure"
   description="Découvrez Casa Senso à Neuchâtel : une approche personnalisée de l’aménagement intérieur, une seule interlocutrice et un projet accompagné de A à Z."
 >

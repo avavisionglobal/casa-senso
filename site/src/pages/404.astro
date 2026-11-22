@@ -1,0 +1,21 @@
+---
+// Page introuvable (22.11.2026) : servie par Vercel avec le code 404 pour toute adresse inconnue. Hors index.
+import Base from '../layouts/Base.astro';
+import PageTete from '../components/PageTete.astro';
+import ArrowButton from '../components/ArrowButton.astro';
+---
+<Base title="Page introuvable | Casa Senso" description="Cette page n'existe pas ou a été déplacée." intro={false} noindex>
+  <PageTete titre="Page introuvable" sous="Cette page n'existe pas, ou elle a <em>changé de place</em>."
+    texte="Vous trouverez sans doute ce que vous cherchez parmi les prestations ou les réalisations." />
+  <nav class="conteneur liens" aria-label="Pages principales">
+    <ArrowButton href="/" label="Retour à l'accueil" />
+    <p><a href="/prestations">Prestations</a> · <a href="/realisations">Réalisations</a> · <a href="/agence">L'agence</a> · <a href="/contact">Contact</a></p>
+  </nav>
+</Base>
+
+<style>
+  .liens { padding-bottom: 120px; display: grid; gap: 28px; justify-items: start; }
+  .liens p { font-size: 17px; }
+  .liens a:not(:global(.btn-outline)) { text-decoration: underline; text-underline-offset: 4px; }
+  .liens a:hover { color: var(--accent); }
+</style>

@@ -34,6 +34,11 @@
       "source": "/realisations/appartement-cannes",
       "destination": "/realisations/appartement-sud",
       "permanent": true
+    },
+    {
+      "source": "/pages-sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
     }
   ]
 }
