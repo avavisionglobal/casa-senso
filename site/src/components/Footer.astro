@@ -6,6 +6,7 @@ import Logo from './Logo.astro';
 import { site } from '../data/site';
 import traitMaison from '../assets/images/traits/batisse-encre.png';
 const instagram = 'https://www.instagram.com/casa_senso.ch/';
+const cookies = Boolean(import.meta.env.PUBLIC_GA4_ID || import.meta.env.PUBLIC_META_PIXEL_ID);
 ---
 <footer class="site-footer">
   <div class="conteneur pied">
@@ -45,7 +46,7 @@ const instagram = 'https://www.instagram.com/casa_senso.ch/';
   </div>
 
   <div class="conteneur bas">
-    <p>© 2026 Casa Senso. Tous droits réservés · <a href="/politique-de-confidentialite">Politique de confidentialité</a></p>
+    <p>© 2026 Casa Senso. Tous droits réservés · <a href="/mentions-legales">Mentions légales</a> · <a href="/politique-de-confidentialite">Politique de confidentialité</a>{cookies && <> · <button type="button" class="pied-cookies" data-cookies-ouvrir>Gérer les cookies</button></>}</p>
     <a class="insta" href={instagram} target="_blank" rel="noopener">
       <span>@casa_senso.ch</span>
       <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="5" width="38" height="38" rx="11" /><circle cx="24" cy="24" r="9" /><circle cx="35" cy="13" r="2.4" class="point" /></svg>
@@ -75,7 +76,8 @@ const instagram = 'https://www.instagram.com/casa_senso.ch/';
 
   .bas { margin-top: 56px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
   .bas p { font-size: 14px; color: var(--muted); }
-  .bas p a { text-decoration: underline; text-underline-offset: 3px; }
+  .bas p a, .pied-cookies { text-decoration: underline; text-underline-offset: 3px; }
+  .pied-cookies { padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; }
   .insta { display: inline-flex; align-items: center; gap: 18px; color: var(--olive); font-weight: 600; font-size: 17px; transition: color .3s var(--ease); }
   .insta svg { width: 56px; height: 56px; }
   .insta rect, .insta circle { fill: none; stroke: currentColor; stroke-width: 3.4; }

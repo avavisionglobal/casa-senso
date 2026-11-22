@@ -11,4 +11,10 @@ export const site = {
   cityFooter: '2000 Neuchatel',
   cityContact: '2000 Neuchâtel',
   country: 'Suisse',
+  // Mentions légales (22.11.2026). Entreprise individuelle, non inscrite au registre du commerce (Zefix, 22.11.2026).
+  // Adresse reprise de la facturation (Cure 18, 2035 Corcelles) sans le numéro, comme dans le balisage LocalBusiness :
+  // à confirmer par Laetitia (adresse publique ou adresse privée).
+  forme: 'Entreprise individuelle',
+  rue: 'Rue de la Cure',
+  localite: '2035 Corcelles (NE)',
 };

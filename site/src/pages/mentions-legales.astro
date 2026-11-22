@@ -1,0 +1,40 @@
+---
+// Mentions légales (22.11.2026), rédigées par Contrast à partir des informations connues ; à faire relire par Laetitia.
+import Base from '../layouts/Base.astro';
+import PageTete from '../components/PageTete.astro';
+import { site } from '../data/site';
+---
+<Base title="Mentions légales | Casa Senso" description="Mentions légales du site Casa Senso : éditeur, hébergement, propriété intellectuelle et responsabilité.">
+  <PageTete titre="Mentions légales" />
+  <article class="legal conteneur">
+    <h2>Éditeur du site</h2>
+    <p>
+      {site.name}, {site.person}<br />
+      {site.forme}<br />
+      {site.rue}, {site.localite}, {site.country}<br />
+      E-mail : <a href={`mailto:${site.email}`}>{site.email}</a><br />
+      Téléphone : <a href={site.phoneHref}>{site.phoneDisplay}</a>
+    </p>
+    <p>Responsable du contenu : {site.person}.</p>
+
+    <h2>Hébergement</h2>
+    <p>Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis · <a href="https://vercel.com" rel="noopener">vercel.com</a></p>
+
+    <h2>Conception et réalisation</h2>
+    <p>Contrast · <a href="https://contrast-marketing.ch" rel="noopener">contrast-marketing.ch</a></p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>Les textes, photographies, dessins, logos et la mise en page de ce site appartiennent à {site.name} ou à leurs auteurs. Toute reproduction, même partielle, demande un accord écrit préalable.</p>
+    <p>Les photographies des réalisations montrent des projets menés par {site.name}. Les lieux des clients ne sont pas précisés, par respect de leur vie privée.</p>
+
+    <h2>Responsabilité</h2>
+    <p>Les informations de ce site sont données à titre indicatif et peuvent évoluer sans préavis. Elles ne constituent pas une offre ferme : chaque projet fait l’objet d’une proposition personnalisée.</p>
+    <p>Ce site contient des liens vers d’autres sites, comme Instagram. {site.name} n’a pas la maîtrise de leur contenu et décline toute responsabilité à leur sujet.</p>
+
+    <h2>Données personnelles</h2>
+    <p>La façon dont vos données sont traitées est décrite dans la <a href="/politique-de-confidentialite">politique de confidentialité</a>.</p>
+
+    <h2>Droit applicable</h2>
+    <p>Ce site est soumis au droit suisse. Le for est à Neuchâtel.</p>
+  </article>
+</Base>

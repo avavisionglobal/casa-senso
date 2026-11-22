@@ -1,0 +1,191 @@
+---
+// Bandeau cookies (22.11.2026). Rien n'est chargé avant le choix du visiteur (consentement préalable,
+// conforme nLPD et RGPD) : Google Analytics et le pixel Meta ne se chargent qu'après accord.
+// Le bandeau n'existe que si un identifiant est défini (variables d'environnement Vercel) :
+//   PUBLIC_GA4_ID          ex. G-XXXXXXXXXX
+//   PUBLIC_META_PIXEL_ID   ex. 1234567890
+// Choix gardé 6 mois (clé « cs-consent »). Le lien « Gérer les cookies » du pied de page rouvre le bandeau.
+// Une demande envoyée par le formulaire (évènement « cs:lead ») devient generate_lead (GA4) et Lead (Meta).
+const GA4 = import.meta.env.PUBLIC_GA4_ID || '';
+const PIXEL = import.meta.env.PUBLIC_META_PIXEL_ID || '';
+const actif = Boolean(GA4 || PIXEL);
+---
+{actif && (
+  <div class="cookies" id="cookies" role="dialog" aria-labelledby="cookies-titre" hidden>
+    <p class="mention">Cookies</p>
+    <h2 id="cookies-titre" class="titre-serif">Votre visite, <em>vos choix</em></h2>
+    <p class="cookies-texte">
+      Avec votre accord, ce site mesure sa fréquentation{PIXEL && ' et l’efficacité de ses annonces'}.
+      Rien n’est déposé tant que vous n’avez pas choisi. <a href="/politique-de-confidentialite#cookies">En savoir plus</a>
+    </p>
+    <div class="cookies-detail" hidden>
+      {GA4 && (
+        <label class="cookies-choix">
+          <input type="checkbox" name="mesure" />
+          <span><strong>Mesure d’audience</strong>Google Analytics : pages vues, durée de visite, provenance.</span>
+        </label>
+      )}
+      {PIXEL && (
+        <label class="cookies-choix">
+          <input type="checkbox" name="pub" />
+          <span><strong>Publicité</strong>Meta (Facebook, Instagram) : mesurer nos annonces et les montrer aux bonnes personnes.</span>
+        </label>
+      )}
+    </div>
+    <div class="cookies-actions">
+      <button type="button" class="btn-small" data-c="refuser">Tout refuser</button>
+      <button type="button" class="cookies-lien" data-c="perso">Personnaliser</button>
+      <button type="button" class="btn-small plein" data-c="accepter">Tout accepter</button>
+    </div>
+  </div>
+)}
+
+{actif && (
+  <script is:inline define:vars={{ GA4, PIXEL }}>
+    (function () {
+      var KEY = 'cs-consent', DUREE = 182 * 24 * 3600 * 1000;
+      var box = document.getElementById('cookies');
+      if (!box) return;
+      var detail = box.querySelector('.cookies-detail');
+      var perso = box.querySelector('[data-c="perso"]');
+      var charge = {};
+
+      function lire() {
+        try {
+          var c = JSON.parse(localStorage.getItem(KEY) || 'null');
+          if (c && c.v === 1 && Date.now() - c.t < DUREE) return c;
+        } catch (e) {}
+        return null;
+      }
+      function ecrire(c) {
+        c.v = 1; c.t = Date.now();
+        try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) {}
+      }
+      function effacerTraceurs() {
+        var host = location.hostname, base = host.replace(/^www\./, '');
+        document.cookie.split(';').forEach(function (p) {
+          var nom = p.split('=')[0].trim();
+          if (!/^(_ga|_gid|_gat|_fbp|_fbc)/.test(nom)) return;
+          [host, '.' + host, base, '.' + base].forEach(function (d) {
+            document.cookie = nom + '=; Max-Age=0; path=/; domain=' + d;
+          });
+          document.cookie = nom + '=; Max-Age=0; path=/';
+        });
+      }
+      function appliquer(c) {
+        if (GA4 && c.mesure && !charge.ga) {
+          charge.ga = true;
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { window.dataLayer.push(arguments); };
+          window.gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'granted' });
+          window.gtag('js', new Date());
+          window.gtag('config', GA4, { cookie_expires: 13 * 30 * 24 * 3600 });
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA4);
+          document.head.appendChild(s);
+        }
+        if (PIXEL && c.pub && !charge.fb) {
+          charge.fb = true;
+          !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+          window.fbq('init', PIXEL);
+          window.fbq('track', 'PageView');
+        }
+      }
+      function cocher(c) {
+        box.querySelectorAll('input[type="checkbox"]').forEach(function (i) { i.checked = !!(c && c[i.name]); });
+      }
+      function ouvrir(avecDetail) {
+        cocher(lire());
+        detail.hidden = !avecDetail;
+        perso.textContent = avecDetail ? 'Enregistrer mes choix' : 'Personnaliser';
+        box.hidden = false;
+        requestAnimationFrame(function () { box.classList.add('ouvert'); });
+      }
+      function fermer() {
+        box.classList.remove('ouvert');
+        box.hidden = true;
+      }
+      function choisir(c) {
+        var avant = lire();
+        ecrire(c);
+        fermer();
+        // Accord retiré après coup : on efface les cookies et on recharge pour couper les scripts déjà chargés.
+        if (avant && ((avant.mesure && !c.mesure) || (avant.pub && !c.pub))) { effacerTraceurs(); location.reload(); return; }
+        appliquer(c);
+      }
+
+      box.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-c]');
+        if (!b) return;
+        var action = b.getAttribute('data-c');
+        if (action === 'accepter') choisir({ mesure: !!GA4, pub: !!PIXEL });
+        else if (action === 'refuser') choisir({ mesure: false, pub: false });
+        else if (detail.hidden) { detail.hidden = false; perso.textContent = 'Enregistrer mes choix'; }
+        else {
+          var c = { mesure: false, pub: false };
+          box.querySelectorAll('input[type="checkbox"]').forEach(function (i) { c[i.name] = i.checked; });
+          choisir(c);
+        }
+      });
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('[data-cookies-ouvrir]')) { e.preventDefault(); ouvrir(true); }
+      });
+
+      // Demande envoyée par le formulaire de contact.
+      window.addEventListener('cs:lead', function (e) {
+        var d = (e && e.detail) || {};
+        if (charge.ga) window.gtag('event', 'generate_lead', { form_name: d.form || 'contact', situation: d.profil || '' });
+        if (charge.fb) window.fbq('track', 'Lead');
+      });
+
+      var choix = lire();
+      if (choix) appliquer(choix);
+      else {
+        // Laisser finir l'animation d'entrée avant d'afficher le bandeau.
+        var attente = document.documentElement.classList.contains('intro') ? 3900 : 600;
+        setTimeout(function () { ouvrir(false); }, attente);
+      }
+    })();
+  </script>
+)}
+
+<style>
+  .cookies {
+    position: fixed; left: 24px; bottom: 24px; z-index: 55;
+    width: min(440px, calc(100vw - 32px));
+    padding: 24px 26px 22px;
+    background: var(--paper); color: var(--ink);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: 0 10px 34px rgba(30, 26, 23, .10);
+    opacity: 0; transform: translateY(12px);
+    transition: opacity .45s var(--ease), transform .45s var(--ease);
+  }
+  .cookies.ouvert { opacity: 1; transform: none; }
+  .cookies[hidden] { display: none; }
+  .cookies .mention { font-size: 11px; }
+  .cookies h2 { margin-top: 8px; font-size: 26px; }
+  .cookies-texte { margin-top: 10px; font-size: 15px; line-height: 1.55; color: var(--muted); }
+  .cookies-texte a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+  .cookies-detail { margin-top: 16px; display: grid; gap: 12px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .cookies-detail[hidden] { display: none; }
+  .cookies-choix { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; cursor: pointer; font-size: 14px; line-height: 1.5; color: var(--muted); }
+  .cookies-choix input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent); }
+  .cookies-choix strong { display: block; font-weight: 600; color: var(--ink); }
+  .cookies-actions { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .cookies-actions .btn-small { background: transparent; color: var(--ink); cursor: pointer; }
+  .cookies-actions .plein { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .cookies-actions .plein:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+  .cookies-lien { margin-right: auto; padding: 0; border: 0; background: none; font: inherit; font-size: 14px; font-weight: 500; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+  .cookies-lien:hover { color: var(--accent); }
+  .cookies-actions .btn-small:first-child { order: 2; }
+  .cookies-lien { order: 1; }
+  .cookies-actions .plein { order: 3; }
+  @media (max-width: 599px) {
+    .cookies { left: 16px; bottom: 16px; padding: 20px 20px 18px; }
+    .cookies h2 { font-size: 22px; }
+    .cookies-lien { flex-basis: 100%; }
+    .cookies-actions .btn-small { flex: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) { .cookies { transition: none; } }
+</style>

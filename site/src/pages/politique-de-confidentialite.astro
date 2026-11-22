@@ -1,75 +1,93 @@
 ---
+// Politique de confidentialité v2 (22.11.2026) : loi suisse sur la protection des données (nLPD) et RGPD pour les
+// visiteurs de l'Union européenne. Les passages Google Analytics et Meta n'apparaissent que si les identifiants
+// sont définis (mêmes variables que le bandeau cookies). Rédigée par Contrast, à faire relire par Laetitia.
+// Version précédente (reprise de Wix) : historique git.
 import Base from '../layouts/Base.astro';
 import PageTete from '../components/PageTete.astro';
 import { site } from '../data/site';
+const ga = Boolean(import.meta.env.PUBLIC_GA4_ID);
+const meta = Boolean(import.meta.env.PUBLIC_META_PIXEL_ID);
+const traceurs = ga || meta;
 ---
-<Base title="Politique de confidentialité | Casa Senso" description="Politique de confidentialité du site Casa Senso : données collectées par le formulaire de contact, utilisation, conservation et droits.">
+<Base title="Politique de confidentialité | Casa Senso" description="Politique de confidentialité du site Casa Senso : données collectées, finalités, prestataires, cookies, durée de conservation et droits.">
   <PageTete titre="Politique de confidentialité" />
-  <article class="privacy conteneur">
-    <p>Nous accordons une grande importance à la protection de vos données personnelles.</p>
-    <p>Cette politique de confidentialité explique quelles données nous collectons via notre site internet et comment elles sont utilisées.</p>
+  <article class="legal conteneur">
+    <p class="maj">Mise à jour : 22 novembre 2026</p>
+    <p>Cette politique explique quelles données personnelles {site.name} traite lorsque vous visitez ce site ou nous écrivez, pourquoi, avec quels prestataires et quels sont vos droits. Elle suit la loi fédérale sur la protection des données (nLPD) et, pour les visiteurs de l’Union européenne, le RGPD.</p>
 
-    <h2>1. Données collectées</h2>
-    <p>Lorsque vous utilisez notre formulaire de contact, nous collectons les informations que vous nous fournissez volontairement, telles que :</p>
+    <h2>1. Responsable</h2>
+    <p>
+      {site.name}, {site.person}<br />
+      {site.rue}, {site.localite}, {site.country}<br />
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+    </p>
+
+    <h2>2. Données traitées</h2>
+    <h3>Formulaire de contact et e-mails</h3>
+    <p>Prénom, nom, adresse e-mail, téléphone (facultatif), votre situation, le type de projet et votre message. Ces données servent uniquement à répondre à votre demande et à préparer une éventuelle collaboration.</p>
+    <h3>Données techniques</h3>
+    <p>Comme tout site, l’hébergeur enregistre brièvement des journaux techniques (adresse IP, navigateur, page demandée, date et heure) pour faire fonctionner le site et le protéger contre les abus.</p>
+    {ga && <>
+      <h3>Mesure d’audience, avec votre accord</h3>
+      <p>Si vous l’acceptez, Google Analytics mesure la fréquentation du site : pages vues, durée de visite, provenance (recherche, réseaux sociaux…), type d’appareil. Les données publicitaires de Google restent désactivées.</p>
+    </>}
+    {meta && <>
+      <h3>Publicité, avec votre accord</h3>
+      <p>Si vous l’acceptez, le pixel Meta permet de savoir si nos annonces sur Facebook et Instagram amènent des visites et des demandes, et de les montrer à des personnes susceptibles d’être intéressées.</p>
+    </>}
+
+    <h2>3. Bases du traitement</h2>
     <ul>
-      <li>Nom</li>
-      <li>Adresse e-mail</li>
-      <li>Numéro de téléphone (le cas échéant)</li>
-      <li>Contenu de votre message</li>
+      <li>Répondre à votre demande et préparer un devis : mesures précontractuelles et intérêt légitime.</li>
+      <li>Journaux techniques : intérêt légitime à la sécurité du site.</li>
+      {traceurs && <li>Mesure d’audience et publicité : votre consentement, que vous pouvez retirer à tout moment.</li>}
     </ul>
+    <p>Vos données ne sont jamais vendues.</p>
 
-    <h2>2. Utilisation des données</h2>
-    <p>Les données que vous nous transmettez sont utilisées uniquement dans le but de :</p>
+    <h2>4. Prestataires et transfert à l’étranger</h2>
+    <p>Nous faisons appel aux prestataires suivants, qui traitent les données pour notre compte :</p>
     <ul>
-      <li>Répondre à votre demande</li>
-      <li>Vous recontacter si nécessaire</li>
+      <li>Vercel Inc. (États-Unis) : hébergement du site.</li>
+      <li>Resend (États-Unis) : acheminement des messages du formulaire jusqu’à notre boîte e-mail.</li>
+      <li>Microsoft (messagerie Microsoft 365) : réception et conservation des e-mails.</li>
+      {ga && <li>Google (Irlande et États-Unis) : Google Analytics.</li>}
+      {meta && <li>Meta Platforms (Irlande et États-Unis) : pixel Meta.</li>}
     </ul>
-    <p>Nous n’utilisons pas vos données à des fins marketing et ne les vendons pas à des tiers.</p>
+    <p>Certaines données peuvent ainsi être traitées aux États-Unis. Ce transfert repose sur la certification des prestataires au Swiss-U.S. et EU-U.S. Data Privacy Framework ou sur des clauses contractuelles types reconnues.</p>
 
-    <h2>3. Conservation des données</h2>
-    <p>Vos données sont conservées uniquement le temps nécessaire pour traiter votre demande, sauf obligation légale contraire.</p>
+    <h2 id="cookies">5. Cookies et stockage dans le navigateur</h2>
+    {traceurs
+      ? <p>Les cookies de mesure et de publicité ne sont déposés qu’après votre accord, donné dans le bandeau qui s’affiche à votre première visite. Vous pouvez changer d’avis à tout moment avec le lien « Gérer les cookies » en bas de chaque page.</p>
+      : <p>Ce site ne dépose aucun cookie de mesure d’audience ni de publicité. Il garde seulement dans votre navigateur quelques informations de confort, listées ci-dessous.</p>}
+    <div class="tableau">
+      <table>
+        <thead><tr><th>Nom</th><th>Rôle</th><th>Durée</th></tr></thead>
+        <tbody>
+          {traceurs && <tr><td>cs-consent</td><td>Garde votre choix sur les cookies.</td><td>6 mois</td></tr>}
+          <tr><td>cs-intro</td><td>Évite de rejouer l’animation d’accueil à chaque page.</td><td>Le temps de la visite</td></tr>
+          <tr><td>casa-avent-*</td><td>Retient les cases du calendrier de l’Avent déjà ouvertes.</td><td>Jusqu’à effacement par le navigateur</td></tr>
+          {ga && <tr><td>_ga, _ga_*</td><td>Google Analytics : distinguer les visiteurs, de façon anonyme pour nous.</td><td>13 mois</td></tr>}
+          {meta && <tr><td>_fbp, _fbc</td><td>Pixel Meta : mesurer l’effet de nos annonces.</td><td>3 mois</td></tr>}
+        </tbody>
+      </table>
+    </div>
 
-    <h2>4. Partage des données</h2>
-    <p>Vos données ne sont pas transmises à des tiers, sauf si cela est nécessaire pour répondre à votre demande ou requis par la loi.</p>
-
-    <h2>5. Sécurité des données</h2>
-    <p>Nous mettons en œuvre des mesures techniques et organisationnelles appropriées afin de protéger vos données contre tout accès non autorisé, perte ou divulgation.</p>
-
-    <h2>6. Cookies</h2>
-    <p>Ce site peut utiliser des cookies afin de :</p>
+    <h2>6. Durée de conservation</h2>
     <ul>
-      <li>Mesurer l’audience</li>
-      <li>Améliorer votre navigation</li>
+      <li>Messages et échanges : le temps de traiter votre demande et de mener le projet, puis au plus 3 ans après le dernier échange. Les documents comptables sont gardés 10 ans, comme la loi l’exige.</li>
+      <li>Journaux techniques de l’hébergeur : quelques jours.</li>
+      {ga && <li>Statistiques Google Analytics : 14 mois.</li>}
     </ul>
-    <p>Vous pouvez configurer votre navigateur pour refuser les cookies si vous le souhaitez.</p>
 
     <h2>7. Vos droits</h2>
-    <p>Conformément à la législation applicable, vous disposez des droits suivants :</p>
-    <ul>
-      <li>Droit d’accès à vos données</li>
-      <li>Droit de rectification</li>
-      <li>Droit de suppression</li>
-      <li>Droit d’opposition au traitement</li>
-    </ul>
-    <p>Pour exercer ces droits, vous pouvez nous contacter à l’adresse mentionnée ci-dessus.</p>
+    <p>Vous pouvez demander à consulter vos données, à les corriger ou à les supprimer, vous opposer à leur traitement, retirer votre consentement et, selon la loi applicable, en obtenir une copie. Écrivez-nous à <a href={`mailto:${site.email}`}>{site.email}</a> : nous répondons dans un délai de 30 jours.</p>
+    <p>Vous pouvez aussi vous adresser au Préposé fédéral à la protection des données et à la transparence (<a href="https://www.edoeb.admin.ch" rel="noopener">edoeb.admin.ch</a>) ou, si vous résidez dans l’Union européenne, à l’autorité de protection des données de votre pays.</p>
 
-    <h2>8. Contact</h2>
-    <p>Pour toute question relative à cette politique de confidentialité, vous pouvez nous contacter à :</p>
-    <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+    <h2>8. Sécurité</h2>
+    <p>Le site est servi en connexion chiffrée (HTTPS) et l’accès aux données est limité aux personnes qui en ont besoin.</p>
+
+    <h2>9. Modifications</h2>
+    <p>Cette politique peut évoluer, par exemple si nous ajoutons un nouvel outil. La date de mise à jour figure en haut de la page.</p>
   </article>
 </Base>
-
-<style>
-  .privacy { padding-bottom: 110px; font-size: 17px; line-height: 1.7; }
-  .privacy > * { max-width: 66ch; }
-  .privacy h2 { margin: 44px 0 12px; padding-top: 20px; border-top: 1px solid var(--line); font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.2; }
-  .privacy p + p { margin-top: 10px; }
-  .privacy ul { margin: 10px 0; padding: 0; list-style: none; display: grid; gap: 6px; }
-  .privacy li { position: relative; padding-left: 20px; }
-  .privacy li::before { content: "–"; position: absolute; left: 0; top: 0; color: var(--accent); }
-  .privacy a { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
-  @media (max-width: 999px) {
-    .privacy { padding-bottom: 70px; font-size: 16px; }
-    .privacy h2 { font-size: 24px; margin-top: 34px; }
-  }
-</style>
