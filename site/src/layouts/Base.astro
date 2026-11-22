@@ -12,8 +12,9 @@ import introCuisine from '../assets/images/accueil/hero-cannes-cuisine.jpg';
 import introChambre from '../assets/images/accueil/hero-cannes-chambre.jpg';
 import introSalon from '../assets/images/accueil/hero-cannes-salon.jpg';
 
-interface Props { title: string; description?: string; ogTitle?: string }
-const { title, description, ogTitle } = Astro.props;
+// intro={false} : pas d'animation d'entrée (page d'arrivée directe, ex. calendrier de l'Avent depuis Instagram).
+interface Props { title: string; description?: string; ogTitle?: string; intro?: boolean }
+const { title, description, ogTitle, intro = true } = Astro.props;
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/?index$/, '').replace(/\/$/, '');
 const canonical = site.url + path;
 // Tant que le domaine n'est pas basculé sur ce site, l'aperçu reste hors index.
@@ -32,7 +33,7 @@ const ld = [
 ];
 ---
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-intro={intro ? undefined : 'non'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -57,7 +58,9 @@ const ld = [
       // Animation d'entrée : une fois par visite (onglet), jamais si « réduire les animations ».
       // « ?intro » dans l'adresse la rejoue (aperçu).
       try {
-        if ((/[?&]intro\b/.test(location.search) || !sessionStorage.getItem('cs-intro')) && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // Page sans intro : on la compte comme vue, pour ne pas la jouer à la page suivante.
+        if (document.documentElement.dataset.intro === 'non') sessionStorage.setItem('cs-intro', '1');
+        else if ((/[?&]intro\b/.test(location.search) || !sessionStorage.getItem('cs-intro')) && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
           document.documentElement.classList.add('intro');
           sessionStorage.setItem('cs-intro', '1');
         }
@@ -70,7 +73,7 @@ const ld = [
     <!-- Animation d'entrée v2 « la fenêtre » (14.11.2026) : le logo se dévoile, une fenêtre s'ouvre sur trois pièces
          de l'appartement dans le Sud, la dernière s'agrandit jusqu'au plein écran puis le voile s'efface. Clic pour passer.
          Version 1 (logo + rideau) : proofs/base-intro-v1-2026-11-14.astro -->
-    <div class="intro-voile" aria-hidden="true">
+    {intro && <div class="intro-voile" aria-hidden="true">
       <div class="intro-fenetre">
         <Image class="f1" src={introCuisine} alt="" widths={[480, 800]} sizes="(max-width: 999px) 56vw, 320px" loading="lazy" />
         <Image class="f2" src={introChambre} alt="" widths={[480, 800]} sizes="(max-width: 999px) 56vw, 320px" loading="lazy" />
@@ -81,7 +84,7 @@ const ld = [
         <span class="intro-trait"></span>
         <p class="intro-mention">Aménagement & décoration · Neuchâtel</p>
       </div>
-    </div>
+    </div>}
     <a class="skip-link" href="#contenu">Passer au contenu principal</a>
     <Header />
     <main id="contenu">

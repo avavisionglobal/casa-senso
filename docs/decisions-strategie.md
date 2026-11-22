@@ -314,3 +314,10 @@ Format : date · décision · raison · remplace · statut · source.
 - **Raison** : retour de Laetitia transmis par Diego le 22.11.2026.
 - **Statut** : en ligne sur https://casa-senso-apercu.vercel.app le 22.11.2026. Formulation des textes (2) proposée par Contrast, à faire relire par Laetitia.
 - **Source** : Diego, conversation du 22.11.2026. Le travail du 18.11 venait d'un dossier hors zone du MacBook (`~/casa-senso`), récupéré par la branche `macbook-2026-11-18` puis fusionné dans `main`.
+
+## 2026-11-22 · Calendrier de l'Avent : option A « La maison aux volets », intégrée au site
+- **Décision** : la page `/avent` du site reprend l'option A (maison de nuit, 24 fenêtres à volets, porte du 24), sans photos pour l'instant ; les 24 planches s'ajoutent dans `site/src/data/avent.ts` au fil de décembre, avec l'adresse de chaque post Instagram. Lien depuis la bio Instagram et l'autocollant « lien » des stories (`/avent#jour-N`).
+- **Raison** : choix de Laetitia, e-mail du 19.11.2026 (« on a une préférence pour la maison ») ; demande de Diego du 22.11.2026 de finaliser la page sans les images et de l'implémenter sur le site.
+- **Remplace** : les deux options A et C présentées le 18.11 (casa-senso-avent.vercel.app).
+- **Statut** : en ligne sur l'aperçu (https://casa-senso-apercu.vercel.app/avent) le 22.11.2026. À fournir par Laetitia : les 24 planches (image, titre, une phrase) et l'adresse de chaque post. À décider : remise en ligne quotidienne manuelle ou automatique. Le site définitif n'est pas encore sur casa-senso.ch : avant le 1er décembre, il faut soit basculer le domaine, soit mettre l'adresse de l'aperçu en bio.
+- **Source** : Gmail, fil « Casa Senso : nouvelle version du site + calendrier de l'Avent » ; Diego, conversation du 22.11.2026 ; `site/PROJECT.md`.
