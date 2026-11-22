@@ -1,15 +1,13 @@
 ---
-// Calendrier de l'Avent 2026 · option A « La maison aux volets », choisie par Laetitia le 19.11.2026.
-// 22.11.2026, v2 « dessin de façade » (retour de Diego : « encore trop IA ») : la nuit dorée, les étoiles,
-// la neige, la guirlande et les halos sont remplacés par le langage du site : papier crème, façade dessinée
-// au trait encre comme un relevé d'architecte (cotation sous la façade), volets ocre pour les planches
-// à découvrir, couleurs pleines de la charte dans les fenêtres ouvertes, textes alignés à gauche.
-// Contenu des 24 jours : src/data/avent.ts.
+// Calendrier de l'Avent 2026 · option A « La maison aux volets » (maquette du 18.11.2026 dans
+// proofs/avent-2026/a-maison.html), choisie par Laetitia le 19.11.2026. Mise au propre le 22.11.2026 :
+// intégrée au site (en-tête et pied de page), sans barre de démo ni photos d'exemple, textes à la
+// première personne. Contenu des 24 jours : src/data/avent.ts.
 // Aperçu d'une date : /avent?apercu=9 (simule le 9 décembre). Lien direct vers un jour : /avent#jour-9.
 import { getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { jours, ANNEE, INSTAGRAM } from '../data/avent';
-import batisseCreme from '../assets/images/traits/batisse-creme.png';
+import batisse from '../assets/images/traits/batisse-creme.png';
 
 // Jour jusqu'auquel le contenu est publié (heure de Zurich au moment du build).
 const ymd = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Zurich', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
@@ -23,7 +21,8 @@ const data = await Promise.all(jours.map(async (j) => {
   const petit = j.image ? (await getImage({ src: j.image, width: 360, format: 'webp' })).src : undefined;
   return { n: j.n, titre: j.titre, texte: j.texte, post: j.post, grand, petit };
 }));
-const config = { annee: ANNEE, insta: INSTAGRAM, jours: data };
+const batisseSrc = (await getImage({ src: batisse, width: 900, format: 'webp' })).src;
+const config = { annee: ANNEE, insta: INSTAGRAM, batisse: batisseSrc, jours: data };
 ---
 <Base
   title="Calendrier de l'Avent | Casa Senso, décoration d'intérieur à Neuchâtel"
@@ -31,78 +30,108 @@ const config = { annee: ANNEE, insta: INSTAGRAM, jours: data };
   intro={false}
 >
   <div class="avent">
-    <section class="tete conteneur">
-      <div class="intro-avent">
-        <p class="mention">Calendrier de l’Avent · {ANNEE}</p>
-        <h1 class="titre-serif">Vingt-quatre <em>fenêtres</em> sur les fêtes</h1>
-        <p>Chaque matin, du 1er au 24 décembre, j’ouvre une planche de décoration sur Instagram. Ici, les volets s’ouvrent au même rythme, et les fenêtres ouvertes le restent jusqu’à Noël.</p>
-        <div class="etat">
-          <p class="compte" data-compte></p>
-          <div class="jauge" data-progress aria-hidden="true"><span></span></div>
-          <div class="av-rattrapage" data-rattrapage></div>
-        </div>
-      </div>
+    <canvas id="ciel" aria-hidden="true"></canvas>
+    <div class="filet" aria-hidden="true"></div>
 
-      <div class="scene">
-        <div class="maison">
-          <div class="toit">
-            <svg id="toit" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
-              <defs>
-                <pattern id="tuiles" width="22" height="14" patternUnits="userSpaceOnUse">
-                  <path d="M0 13.5 H22 M11 0 V7" stroke="#1E1A17" stroke-width="1" opacity=".45" vector-effect="non-scaling-stroke"/>
-                </pattern>
-              </defs>
-              <g fill="#FAF7F0" stroke="#1E1A17" stroke-width="1.5" vector-effect="non-scaling-stroke">
-                <rect x="703" y="40" width="54" height="150" vector-effect="non-scaling-stroke"/>
-                <rect x="696" y="30" width="68" height="12" vector-effect="non-scaling-stroke"/>
-              </g>
-              <path d="M703 66 H757 M703 92 H757 M703 118 H757 M730 42 V66 M716 66 V92 M744 66 V92 M730 92 V118" stroke="#1E1A17" stroke-width="1" opacity=".5" fill="none" vector-effect="non-scaling-stroke"/>
-              <polygon points="0,300 500,18 1000,300" fill="url(#tuiles)" stroke="#1E1A17" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
-              <polygon points="0,300 500,18 1000,300" fill="#FAF7F0" opacity=".55"/>
-              <polygon points="44,300 500,46 956,300" fill="#FAF7F0" stroke="#1E1A17" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
-              <g id="consoles"></g>
-            </svg>
-            <div id="pignon"></div>
-          </div>
-          <div class="facade" id="facade" role="list" aria-label="Les 24 jours du calendrier">
-            <span class="gouttiere" aria-hidden="true"></span>
-          </div>
-        </div>
-        <div class="sol" aria-hidden="true"></div>
-        <p class="cote" aria-hidden="true"><span>24 fenêtres · du 1er au 24 décembre</span></p>
-        <p class="legende">
-          <span><i class="l1"></i>À venir</span>
-          <span><i class="l2"></i><span data-nouveaux></span></span>
-          <span><i class="l3"></i>Déjà vue</span>
-        </p>
+    <section class="intro-avent">
+      <p class="mention">Calendrier de l’Avent · {ANNEE}</p>
+      <h1>Vingt-quatre <em>fenêtres</em> sur les fêtes</h1>
+      <p>Chaque matin, du 1er au 24 décembre, j’ouvre une planche de décoration sur Instagram. Ici, la maison garde la lumière allumée aux fenêtres déjà ouvertes.</p>
+      <div class="etat">
+        <p class="compte" data-compte></p>
+        <div class="jauge" data-progress aria-hidden="true"><span></span></div>
+        <div class="av-rattrapage" data-rattrapage></div>
       </div>
     </section>
 
-    <section class="jour conteneur" id="planche-du-jour" aria-labelledby="jour-titre">
+    <div class="scene">
+      <div class="maison">
+        <div class="toit">
+          <svg id="toit" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <pattern id="tuiles" width="34" height="16" patternUnits="userSpaceOnUse">
+                <rect width="34" height="16" fill="#2B2724"/><path d="M0 15.5 H34 M17 0 V8 M0 8 H34" stroke="#1E1A17" stroke-width="1.2" opacity=".7"/>
+              </pattern>
+              <clipPath id="clip-toit"><polygon points="0,300 500,18 1000,300"/></clipPath>
+            </defs>
+            <rect x="703" y="34" width="56" height="130" fill="#3A332D" stroke="#1E1A17" stroke-width="3"/>
+            <path d="M703 58 H759 M703 82 H759 M703 106 H759 M703 130 H759 M731 34 V58 M717 58 V82 M745 58 V82 M731 82 V106 M717 106 V130 M745 106 V130" stroke="#1E1A17" stroke-width="1.2" opacity=".6"/>
+            <rect x="695" y="26" width="72" height="12" fill="#2B2724" stroke="#1E1A17" stroke-width="2.5"/>
+            <path d="M692 28 C700 12 760 12 770 28 C772 32 690 32 692 28Z" fill="#FBF8F2"/>
+            <polygon points="0,300 500,18 1000,300" fill="url(#tuiles)" stroke="#1E1A17" stroke-width="3"/>
+            <polygon points="44,300 500,46 956,300" fill="#ECE3D2" stroke="#1E1A17" stroke-width="2.5"/>
+            <g clip-path="url(#clip-toit)" opacity=".16" stroke="#1E1A17" stroke-width="1">
+              <path d="M130 300 L500 92 L870 300"/><path d="M500 92 V300" stroke-dasharray="3 7"/>
+            </g>
+            <g id="consoles"></g>
+            <path d="M-8,303 L500,8 L1008,303 L994,308 C984,296 976,300 966,304 L500,34 L34,304 C24,298 18,296 6,308 Z" fill="#FBF8F2"/>
+            <g id="glacons" fill="#FBF8F2" opacity=".92"></g>
+          </svg>
+          <svg class="etoile-faite" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 L24.5 15.5 L38 20 L24.5 24.5 L20 38 L15.5 24.5 L2 20 L15.5 15.5 Z" fill="#F4C97A"/></svg>
+          <div id="pignon"></div>
+          <div class="guirlande" aria-hidden="true"></div>
+        </div>
+        <div class="facade" id="facade" role="list" aria-label="Les 24 jours du calendrier">
+          <span class="gouttiere" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <div class="sol" aria-hidden="true">
+        <svg class="neige-sol" viewBox="0 0 1000 96" preserveAspectRatio="none">
+          <path d="M0 40 C120 14 300 8 500 10 C700 8 880 14 1000 40 V96 H0 Z" fill="#FBF8F2"/>
+          <path d="M0 52 C200 34 360 30 500 30 C680 30 820 40 1000 56" fill="none" stroke="#E4DDD0" stroke-width="2"/>
+          <g fill="#DCD3C4">
+            <ellipse cx="492" cy="34" rx="5" ry="2.4"/><ellipse cx="510" cy="42" rx="5" ry="2.4"/><ellipse cx="488" cy="50" rx="5.5" ry="2.6"/><ellipse cx="506" cy="59" rx="5.5" ry="2.6"/>
+            <ellipse cx="480" cy="68" rx="6" ry="2.8"/><ellipse cx="498" cy="78" rx="6" ry="2.8"/><ellipse cx="468" cy="87" rx="6.5" ry="3"/>
+          </g>
+        </svg>
+        <svg class="muret" viewBox="0 0 180 34" preserveAspectRatio="none">
+          <path d="M0 8 H180 V34 H0 Z" fill="#B9AA8F" stroke="#1E1A17" stroke-width="2"/>
+          <path d="M0 20 H180 M30 8 V20 M74 8 V20 M120 8 V20 M160 8 V20 M12 20 V34 M54 20 V34 M98 20 V34 M142 20 V34" stroke="#1E1A17" stroke-width="1.4" opacity=".7"/>
+          <path d="M-2 9 C20 0 60 2 90 3 C130 2 160 0 182 9 Z" fill="#FBF8F2"/>
+        </svg>
+        <svg class="sapin g" viewBox="0 0 90 120"><path d="M45 4 L80 60 H62 L86 100 H4 L28 60 H10 Z" fill="#3B4433" stroke="#1E1A17" stroke-width="2"/><path d="M45 4 L62 32 H28 Z M22 70 H68 L60 60 H30 Z" fill="#FBF8F2"/><rect x="39" y="100" width="12" height="18" fill="#2A2622"/>
+          <g fill="#F4C97A"><circle cx="36" cy="46" r="2.6"/><circle cx="56" cy="52" r="2.6"/><circle cx="30" cy="84" r="2.6"/><circle cx="48" cy="80" r="2.6"/><circle cx="66" cy="88" r="2.6"/></g></svg>
+        <svg class="sapin d" viewBox="0 0 90 120"><path d="M45 4 L80 60 H62 L86 100 H4 L28 60 H10 Z" fill="#4A5440" stroke="#1E1A17" stroke-width="2"/><path d="M45 4 L62 32 H28 Z" fill="#FBF8F2"/><rect x="39" y="100" width="12" height="18" fill="#2A2622"/>
+          <g fill="#F4C97A"><circle cx="40" cy="48" r="2.6"/><circle cx="58" cy="76" r="2.6"/><circle cx="26" cy="88" r="2.6"/></g></svg>
+      </div>
+    </div>
+
+    <div class="legende">
+      <span><i class="l1"></i>Volets fermés : à venir</span>
+      <span><i class="l2"></i><span>Lumière qui filtre : <b data-nouveaux></b></span></span>
+      <span><i class="l3"></i>Volets ouverts : déjà vue</span>
+    </div>
+
+    <section class="jour" id="planche-du-jour" aria-labelledby="jour-titre">
       <figure class="jour__img">
-        <img id="jour-img" alt="" width="1080" height="1350" />
+        <img id="jour-img" src={batisseSrc} alt="" width="900" height="1125" />
         <span class="jour__vide" aria-hidden="true"><span class="jour__vide-n"></span><span class="jour__vide-m">décembre</span></span>
-        <span class="jour__voile" aria-hidden="true"><i class="g"></i><i class="d"></i><b class="jour__voile-n"></b></span>
+        <span class="jour__voile" aria-hidden="true"><i class="g"></i><i class="d"></i></span>
       </figure>
       <div class="jour__texte">
         <p class="mention" id="jour-quand">Ouverture le 1er décembre</p>
-        <h2 class="titre-serif" id="jour-titre">La première fenêtre s’ouvre bientôt</h2>
+        <h2 id="jour-titre">La première fenêtre s’ouvre bientôt</h2>
         <p id="jour-desc">Chaque matin, une planche de décoration pour préparer la maison aux fêtes. Suivez-moi sur Instagram pour ne pas manquer la première.</p>
         <a class="av-btn av-btn--plein" id="jour-btn" href={INSTAGRAM} target="_blank" rel="noopener">Suivre @casa_senso.ch</a>
       </div>
     </section>
 
+    <section class="comment">
+      <h2>Comment ça <em>marche</em></h2>
+      <ol class="etapes">
+        <li><b>Chaque matin, une planche</b>Du 1er au 24 décembre, je dévoile sur Instagram une ambiance ou une idée de décoration pour les fêtes.</li>
+        <li><b>La fenêtre du jour s’allume</b>Le lien de mon profil mène ici. Les volets laissent filtrer la lumière tant que vous n’avez pas regardé.</li>
+        <li><b>Rien ne se perd</b>Les fenêtres déjà ouvertes le restent jusqu’à Noël : vous pouvez revoir chaque planche quand vous voulez.</li>
+      </ol>
+    </section>
+
     <section class="suite">
-      <div class="conteneur suite__in">
-        <div>
-          <h2 class="titre-serif">Une ambiance vous donne <em>envie</em> ?</h2>
-          <p>Chaque planche part d’une vraie façon d’habiter. Si vous voulez la même chez vous, parlons de votre projet.</p>
-          <div class="boutons">
-            <a class="av-btn av-btn--plein" href="/contact#formulaire">Prendre rendez-vous</a>
-            <a class="av-btn av-btn--ligne" href={INSTAGRAM} target="_blank" rel="noopener">Suivre @casa_senso.ch</a>
-          </div>
-        </div>
-        <img class="suite__dessin" src={batisseCreme.src} alt="" width="600" height="454" loading="lazy" />
+      <h2>Une ambiance vous donne <em>envie</em> ?</h2>
+      <p>Chaque planche part d’une vraie façon d’habiter. Si vous voulez la même chez vous, parlons de votre projet.</p>
+      <div class="boutons">
+        <a class="av-btn av-btn--plein" href="/contact#formulaire">Prendre rendez-vous</a>
+        <a class="av-btn av-btn--ligne" href={INSTAGRAM} target="_blank" rel="noopener">Suivre @casa_senso.ch</a>
       </div>
     </section>
   </div>
@@ -112,17 +141,12 @@ const config = { annee: ANNEE, insta: INSTAGRAM, jours: data };
 
 <script>
   /* Calendrier de l'Avent : une fenêtre s'ouvre chaque jour du 1er au 24 décembre (date du visiteur).
-     Les fenêtres déjà regardées sont mémorisées dans son navigateur (nouvelle / déjà vue). */
+     Les fenêtres déjà regardées sont mémorisées dans son navigateur (nouvelle / déjà vue).
+     Repris de proofs/avent-2026/shared.js et a-maison.html (18.11.2026), sans la barre de démo. */
   type Jour = { n: number; titre?: string; texte?: string; post?: string; grand?: string; petit?: string };
-  const CFG = JSON.parse(document.getElementById('avent-config')!.textContent!) as { annee: number; insta: string; jours: Jour[] };
+  const CFG = JSON.parse(document.getElementById('avent-config')!.textContent!) as { annee: number; insta: string; batisse: string; jours: Jour[] };
   const AN = CFG.annee, INSTA = CFG.insta;
-  const typo = (s: string) => s.replace(/ ([:;!?»])/g, ' $1').replace(/« /g, '« ');
-  // Couleurs pleines de la charte (rubriques Instagram), une par jour, en boucle. Le terracotta reste aux
-  // boutons, l'ocre aux volets « à découvrir ».
-  const TEINTES: [string, string][] = [
-    ['#7A3B4E', '#FAF7F0'], ['#6E7F73', '#FAF7F0'], ['#E2A79A', '#1E1A17'], ['#404734', '#FAF7F0'], ['#4A4440', '#FAF7F0'],
-  ];
-  const teinte = (n: number) => { const [c, t] = TEINTES[(n - 1) % TEINTES.length]; return '--c:' + c + ';--ct:' + t; };
+  const typo = (s: string) => s.replace(/ ([:;!?»])/g, ' $1').replace(/« /g, '« ');
   const DAYS = CFG.jours.map((j) => ({
     ...j,
     date: new Date(AN, 11, j.n),
@@ -205,7 +229,6 @@ const config = { annee: ANNEE, insta: INSTAGRAM, jours: data };
     const premiere = !seen.has(n);
     current = n;
     fig.classList.toggle('sans-image', !d.grand);
-    fig.setAttribute('style', teinte(n));
     if (d.grand) { el.img.src = d.grand; el.img.alt = 'Planche du ' + n + ' décembre : ' + d.nom; }
     else { el.img.removeAttribute('src'); el.img.alt = ''; }
     el.vide.replaceChildren(h('b', null, String(n)), h('span', null, 'décembre'));
@@ -302,26 +325,35 @@ const config = { annee: ANNEE, insta: INSTAGRAM, jours: data };
   /* ---------- la maison ---------- */
   const SVGNS = 'http://www.w3.org/2000/svg';
   const s = (tag: string, attrs: Record<string, any>) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, String(attrs[k])); return e; };
-  const consoles = document.getElementById('consoles')!;
+  const consoles = document.getElementById('consoles')!, glacons = document.getElementById('glacons')!;
   [[44, 300, 500, 46], [956, 300, 500, 46]].forEach(([x0, y0, x1, y1]) => {
     const ang = Math.atan2(y1 - y0, x1 - x0) * 180 / Math.PI;
     [.16, .38, .6, .8].forEach((t) => {
       const x = x0 + (x1 - x0) * t, y = y0 + (y1 - y0) * t;
-      consoles.append(s('rect', { x: x - 8, y: y - 1, width: 16, height: 20, fill: '#FAF7F0', stroke: '#1E1A17', 'stroke-width': 1.5, 'vector-effect': 'non-scaling-stroke', transform: `rotate(${x0 < 500 ? ang : ang - 180} ${x} ${y})` }));
+      consoles.append(s('rect', { x: x - 9, y: y - 2, width: 18, height: 22, fill: '#6B5A45', stroke: '#1E1A17', 'stroke-width': 2, transform: `rotate(${x0 < 500 ? ang : ang - 180} ${x} ${y})` }));
     });
+  });
+  [[6, 306, 500, 34], [994, 306, 500, 34]].forEach(([x0, y0, x1, y1]) => {
+    for (let t = .04; t < .9; t += .045) {
+      const x = x0 + (x1 - x0) * t, y = y0 + (y1 - y0) * t, l = 8 + ((t * 97) % 1) * 18;
+      glacons.append(s('path', { d: `M${x - 3.5} ${y - 1} L${x + 3.5} ${y - 1} L${x} ${y + l} Z` }));
+    }
   });
 
   const facade = document.getElementById('facade')!;
   const pignon = document.getElementById('pignon')!;
+  const guirlande = document.querySelector('.guirlande')!;
+  for (let i = 0; i < 16; i++) guirlande.append(h('span', { style: '--i:' + i }));
 
   const btns: Record<number, HTMLButtonElement> = {};
   function fenetre(d: (typeof DAYS)[number], cls?: string) {
-    const b = h('button', { class: 'fen ' + (cls || ''), 'data-n': d.n, role: 'listitem', type: 'button', style: teinte(d.n) },
+    const b = h('button', { class: 'fen ' + (cls || ''), 'data-n': d.n, role: 'listitem', type: 'button' },
       h('span', { class: 'fen__linteau' }),
       h('span', { class: 'fen__cadre' },
+        h('span', { class: 'fen__lueur' }),
         h('span', { class: 'fen__vitre' + (d.petit ? '' : ' vide'), style: d.petit ? 'background-image:url(' + d.petit + ')' : null }),
         h('span', { class: 'fen__croix' }),
-        h('span', { class: 'fen__chiffre' }, String(d.n))),
+        h('span', { class: 'fen__tag' }, String(d.n))),
       h('span', { class: 'fen__volet g' }), h('span', { class: 'fen__volet d' }),
       h('span', { class: 'fen__num' }, String(d.n)),
       h('span', { class: 'fen__appui' }),
@@ -334,14 +366,22 @@ const config = { annee: ANNEE, insta: INSTAGRAM, jours: data };
   DAYS.slice(1, 23).forEach((d) => facade.append(fenetre(d)));
   const porte = fenetre(DAYS[23], 'porte');
   porte.append(h('span', { class: 'porte__arc' }), h('span', { class: 'porte__cle' }),
-    h('span', { class: 'couronne' }), h('span', { class: 'poignee' }),
-    h('span', { class: 'lanterne' }));
+    h('span', { class: 'couronne' }, h('i'), h('i'), h('i')), h('span', { class: 'poignee' }),
+    h('span', { class: 'lanterne' }), h('span', { class: 'marches' }));
   facade.append(porte);
 
+  /* ouvrir une fenêtre : volets, poussière dorée, vague dans la guirlande, puis la planche */
+  function animerOuverture(n: number) {
+    const b = btns[n];
+    b.classList.remove('nouveau'); b.classList.add('vu');
+    const r = b.getBoundingClientRect();
+    eclats(r.left + r.width / 2, r.top + r.height / 2);
+    guirlande.classList.remove('vague'); void (guirlande as HTMLElement).offsetWidth; guirlande.classList.add('vague');
+  }
   function clic(n: number, opts?: { suite?: boolean }) {
     const st = state(n), b = btns[n];
     if (st === 'ferme') { b.classList.remove('secoue'); void b.offsetWidth; b.classList.add('secoue'); return open(n); }
-    if (st === 'nouveau') { b.classList.remove('nouveau'); b.classList.add('vu'); setTimeout(() => open(n, opts), reduced ? 0 : 800); return; }
+    if (st === 'nouveau') { animerOuverture(n); setTimeout(() => open(n, opts), reduced ? 0 : 900); return; }
     open(n, opts);
   }
   /* depuis un lien #jour-N ou « à la suite » : la fenêtre vient à l'écran avant de s'ouvrir */
@@ -363,15 +403,13 @@ const config = { annee: ANNEE, insta: INSTAGRAM, jours: data };
   function renderJour() {
     const t = today;
     J.sec.classList.toggle('avant', t === 0);
-    if (t === 0) { J.sec.querySelector('.jour__voile-n')!.textContent = '1'; return; } // texte « avant le 1er décembre » déjà dans la page
+    if (t === 0) return; // texte « avant le 1er décembre » déjà dans la page
     const d = DAYS[t - 1], st = state(t);
-    J.sec.setAttribute('style', teinte(t));
     J.btn.href = '#jour-' + t; J.btn.removeAttribute('target'); J.btn.removeAttribute('rel');
     J.sec.classList.toggle('sans-image', !d.grand);
     if (d.grand) { if (J.img.getAttribute('src') !== d.grand) J.img.src = d.grand; }
     J.img.alt = d.grand && st === 'vu' ? 'Planche du ' + t + ' décembre : ' + d.nom : '';
     J.videN.textContent = String(t);
-    J.sec.querySelector('.jour__voile-n')!.textContent = String(t);
     J.quand.textContent = 'Aujourd’hui · ' + fmtLong(d.date);
     J.sec.classList.toggle('ouvert', st === 'vu');
     if (st === 'nouveau') {
@@ -388,7 +426,7 @@ const config = { annee: ANNEE, insta: INSTAGRAM, jours: data };
     if (state(t) === 'nouveau') {
       J.sec.classList.add('ouvert');
       btns[t].classList.remove('nouveau'); btns[t].classList.add('vu');
-      setTimeout(() => open(t), reduced ? 0 : 1000);
+      setTimeout(() => open(t), reduced ? 0 : 1100);
     } else open(t);
   });
 
@@ -401,9 +439,11 @@ const config = { annee: ANNEE, insta: INSTAGRAM, jours: data };
         : today === 24 ? 'Vous avez tout vu. Joyeuses fêtes !' : 'Vous êtes à jour. La prochaine planche arrive demain matin.')));
       return;
     }
-    const b = h('button', { class: 'av-btn av-btn--plein av-rattrapage__btn', type: 'button' }, k.length === 1 ? 'L’ouvrir' : 'Les ouvrir à la suite');
+    const b = h('button', { class: 'av-rattrapage__btn', type: 'button' }, k.length === 1 ? 'L’ouvrir' : 'Les ouvrir à la suite');
     b.addEventListener('click', () => ouvrir(k[0], { suite: true }));
-    box.replaceChildren(h('span', {}, k.length === 1 ? 'Une planche vous attend' : k.length + ' planches vous attendent'), b);
+    box.replaceChildren(
+      h('span', { class: 'av-rattrapage__pt', 'aria-hidden': 'true' }),
+      h('span', {}, k.length === 1 ? 'Une planche vous attend' : k.length + ' planches vous attendent'), b);
   }
   function refresh() {
     document.querySelectorAll<HTMLElement>('[data-compte]').forEach((x) => {
@@ -414,7 +454,7 @@ const config = { annee: ANNEE, insta: INSTAGRAM, jours: data };
     });
     document.querySelectorAll<HTMLElement>('[data-nouveaux]').forEach((x) => {
       const k = nonVus().length;
-      x.textContent = today === 0 ? 'La planche du jour' : k ? (k === 1 ? '1 planche à découvrir' : k + ' planches à découvrir') : 'À découvrir';
+      x.textContent = today === 0 ? 'la planche du jour' : k ? (k === 1 ? '1 planche pas encore vue' : k + ' planches pas encore vues') : 'vous êtes à jour';
     });
     document.querySelectorAll<HTMLElement>('[data-rattrapage]').forEach(rattrapage);
     document.querySelectorAll<HTMLElement>('[data-progress]').forEach((x) => x.style.setProperty('--p', String(today / 24)));
@@ -426,30 +466,86 @@ const config = { annee: ANNEE, insta: INSTAGRAM, jours: data };
       b.classList.toggle('est-aujourdhui', d.n === today);
       b.setAttribute('aria-label', 'Jour ' + d.n + (st === 'ferme' ? ', s’ouvre le ' + d.n + ' décembre' : ' : ' + d.nom + (st === 'nouveau' ? ', pas encore vue' : '')));
     }
+    document.querySelector('.avent')!.classList.toggle('fete', today === 24 && !nonVus().length);
   }
 
   refresh();
-  const mh = location.hash.match(/^#jour-(\d+)$/);
-  if (mh) setTimeout(() => ouvrir(+mh[1]), 500);
+  const m = location.hash.match(/^#jour-(\d+)$/);
+  if (m) setTimeout(() => ouvrir(+m[1]), 500);
+
+  /* ---------- ciel : étoiles fixes, neige rare et lente, poussière dorée à l'ouverture ---------- */
+  const c = document.getElementById('ciel') as HTMLCanvasElement, x = c.getContext('2d')!;
+  let W = 0, H = 0, R = 1;
+  let flocons: { x: number; y: number; r: number; v: number; o: number; a: number }[] = [];
+  let etoiles: { x: number; y: number; r: number; a: number }[] = [];
+  let parts: { x: number; y: number; vx: number; vy: number; l: number; r: number }[] = [];
+  function taille() {
+    R = Math.min(2, devicePixelRatio || 1);
+    W = c.width = innerWidth * R; H = c.height = innerHeight * R;
+    const petit = innerWidth < 700;
+    flocons = Array.from({ length: petit ? 16 : 30 }, () => ({ x: Math.random() * W, y: Math.random() * H, r: (Math.random() * 1.2 + .5) * R, v: Math.random() * .22 + .16, o: Math.random() * 7, a: Math.random() * .3 + .25 }));
+    etoiles = Array.from({ length: petit ? 28 : 56 }, () => ({ x: Math.random() * W, y: Math.random() * H * .5, r: (Math.random() * .8 + .35) * R, a: Math.random() * .3 + .12 }));
+    if (reduced) dessinerEtoiles();
+  }
+  function dessinerEtoiles() { x.clearRect(0, 0, W, H); for (const e of etoiles) { x.fillStyle = `rgba(251,248,242,${e.a})`; x.fillRect(e.x, e.y, e.r, e.r); } }
+  taille(); addEventListener('resize', taille);
+  function eclats(cx: number, cy: number) {
+    if (reduced) return;
+    for (let i = 0; i < 18; i++) {
+      const a = Math.random() * Math.PI * 2, v = (Math.random() * 1.4 + .5) * R;
+      parts.push({ x: cx * R, y: cy * R, vx: Math.cos(a) * v, vy: Math.sin(a) * v - .5 * R, l: 1, r: (Math.random() * 1.1 + .5) * R });
+    }
+  }
+  function tick() {
+    dessinerEtoiles();
+    for (const f of flocons) {
+      f.o += .004; f.y += f.v * R; f.x += Math.sin(f.o) * .12 * R;
+      if (f.y > H) { f.y = -5; f.x = Math.random() * W; }
+      x.fillStyle = `rgba(251,248,242,${f.a})`; x.beginPath(); x.arc(f.x, f.y, f.r, 0, 7); x.fill();
+    }
+    parts = parts.filter((p) => p.l > 0);
+    for (const p of parts) {
+      p.x += p.vx; p.y += p.vy; p.vy += .025 * R; p.vx *= .985; p.l -= .011;
+      x.fillStyle = `rgba(233,205,140,${Math.max(0, p.l) * .9})`; x.beginPath(); x.arc(p.x, p.y, p.r, 0, 7); x.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+  if (!reduced) tick();
 </script>
 
 <style is:global>
-  /* ---------- calendrier de l'Avent : une façade dessinée au trait, sur le papier du site ---------- */
-  .avent { --trait: 1.5px solid var(--ink); --louvre: repeating-linear-gradient(180deg, transparent 0 6px, rgba(30, 26, 23, .5) 6px 7px); background: var(--paper); color: var(--ink); overflow-x: clip; }
-  .avent .tete { display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: clamp(40px, 6vw, 110px); align-items: start; padding-top: clamp(56px, 9vh, 96px); padding-bottom: 40px; }
-  .avent .intro-avent { position: sticky; top: calc(var(--header-h) + 40px); }
-  .avent .intro-avent h1 { font-size: clamp(42px, 4.6vw, 66px); line-height: 1.04; margin: 22px 0 24px; }
-  .avent .intro-avent > p:not(.mention) { color: #3b342e; font-size: 18px; line-height: 1.6; }
-  .avent .etat { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--line); }
-  .avent .compte { font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
-  .avent .jauge { position: relative; width: 100%; max-width: 360px; height: 9px; }
-  .avent .jauge::before, .avent .jauge::after { content: ""; position: absolute; left: 0; top: 4px; height: 1px; }
-  .avent .jauge::before { right: 0; background: var(--line); }
-  .avent .jauge::after { width: calc(var(--p, 0) * 100%); height: 2px; top: 3.5px; background: var(--ink); transition: width .8s var(--ease); }
-  .avent .jauge span { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgba(30, 26, 23, .35) 0 1px, transparent 1px calc(100% / 24)); -webkit-mask: linear-gradient(transparent 0 1px, #000 1px 8px, transparent 8px); mask: linear-gradient(transparent 0 1px, #000 1px 8px, transparent 8px); }
+  /* ---------- calendrier de l'Avent : la nuit, la maison, ses volets ---------- */
+  .avent {
+    --nuit: #13110E; --nuit-2: #1C1915; --laiton: #C9A45C; --facade: #ECE3D2; --facade-ombre: #D9CDB7; --pierre: #CFC2AA; --pierre-2: #B9AA8F;
+    --volet: #4A5440; --volet-2: #3B4433; --lumiere: #F4C97A; --lumiere-2: #E9A54B; --neige: #FBF8F2;
+    position: relative; isolation: isolate; clip-path: inset(0); overflow: hidden;
+    background: radial-gradient(ellipse 90% 40% at 50% 30%, #2A241D 0%, var(--nuit-2) 55%, var(--nuit) 100%), var(--nuit);
+    color: var(--paper);
+  }
+  .avent #ciel { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+  .avent > *:not(#ciel) { position: relative; z-index: 1; }
+  .avent .filet { height: 1px; background: linear-gradient(90deg, transparent, var(--laiton) 18%, #E9D6A8 50%, var(--laiton) 82%, transparent); opacity: .7; }
+  .avent .mention { font-weight: 500; text-transform: uppercase; }
 
-  .av-rattrapage { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 16px; color: var(--ink); margin-top: 6px; }
-  .av-rattrapage.a-jour { color: var(--muted); font-size: 15px; }
+  .intro-avent { text-align: center; max-width: 780px; margin: 0 auto; padding: clamp(56px, 9vh, 96px) 16px 0; }
+  .intro-avent .mention { color: var(--laiton); letter-spacing: .34em; font-size: 12px; }
+  .intro-avent h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 5.8vw, 74px); line-height: 1.04; letter-spacing: -.01em; margin: 22px 0; }
+  .intro-avent h1 em { color: var(--lumiere); }
+  .intro-avent > p:not(.mention) { color: #CFC6B8; font-size: 18px; max-width: 560px; margin: 0 auto; }
+  .avent .etat { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 34px; }
+  .avent .compte { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #CFC6B8; }
+  .avent .jauge { position: relative; width: min(360px, 80%); height: 9px; margin: 0 auto; }
+  .avent .jauge::before, .avent .jauge::after { content: ""; position: absolute; left: 0; top: 4px; height: 1px; }
+  .avent .jauge::before { right: 0; background: rgba(201, 164, 92, .28); }
+  .avent .jauge::after { width: calc(var(--p, 0) * 100%); background: var(--laiton); transition: width .8s var(--ease); }
+  .avent .jauge span { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgba(201, 164, 92, .45) 0 1px, transparent 1px calc(100% / 24)); -webkit-mask: linear-gradient(transparent 0 2px, #000 2px 7px, transparent 7px); mask: linear-gradient(transparent 0 2px, #000 2px 7px, transparent 7px); }
+
+  .av-rattrapage { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; font-size: 15px; color: var(--paper); }
+  .av-rattrapage__pt { width: 8px; height: 8px; border-radius: 50%; background: currentColor; color: var(--lumiere); box-shadow: 0 0 10px var(--lumiere); animation: av-pouls 2s ease-in-out infinite; }
+  .av-rattrapage__btn { border: 0; background: var(--accent); color: #fff; border-radius: 999px; padding: 9px 16px 8px; font-size: 14px; font-weight: 500; letter-spacing: .02em; cursor: pointer; transition: background-color .3s var(--ease); }
+  .av-rattrapage__btn:hover { background: var(--accent-dark); }
+  .av-rattrapage.a-jour { color: #CFC6B8; font-size: 14px; opacity: .85; }
+  @keyframes av-pouls { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.7); } }
 
   .av-btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--accent);
@@ -461,175 +557,208 @@ const config = { annee: ANNEE, insta: INSTAGRAM, jours: data };
   .av-btn--ligne { background: transparent; color: var(--accent); }
   .av-btn--ligne:hover { background: var(--accent); color: #fff; }
 
-  /* ---------- la façade ---------- */
-  .avent .scene { width: 100%; max-width: 820px; justify-self: end; padding-top: 10px; }
-  .avent .maison { position: relative; }
+  /* ---------- la scène ---------- */
+  .avent .scene { width: min(940px, calc(100% - 32px)); margin: clamp(80px, 13vh, 130px) auto 0; }
+  .avent .scene::before { content: ""; position: absolute; left: 50%; width: min(150%, 100vw); transform: translateX(-50%); top: -12%; bottom: -6%; z-index: 0; pointer-events: none; background: radial-gradient(closest-side, rgba(233, 196, 128, .13), rgba(233, 196, 128, .04) 60%, transparent); }
+  .avent .maison { position: relative; z-index: 1; }
+  .avent .maison::after { content: ""; position: absolute; inset: 10% -8% -4%; z-index: -1; border-radius: 50%; background: radial-gradient(closest-side, rgba(244, 201, 122, .22), transparent); opacity: 0; transition: opacity 1.2s; }
+  .avent.fete .maison::after { opacity: 1; }
+
   .avent .toit { position: relative; width: 108%; margin-left: -4%; aspect-ratio: 1000 / 300; }
   .avent #toit { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .avent .etoile-faite { position: absolute; left: 50%; top: -6%; width: 30px; height: 30px; margin-left: -15px; z-index: 2; filter: drop-shadow(0 0 8px rgba(201, 164, 92, .6)); }
+
+  .avent .guirlande { position: absolute; left: 0; right: 0; top: 100%; height: 26px; z-index: 3; display: flex; justify-content: space-around; padding: 0 3%; pointer-events: none; }
+  .avent .guirlande::before { content: ""; position: absolute; left: 2%; right: 2%; top: 0; height: 18px; border-bottom: 1.5px solid rgba(30, 26, 23, .6); border-radius: 0 0 50% 50% / 0 0 100% 100%; }
+  .avent .guirlande span { position: relative; top: 11px; width: 8px; height: 12px; border-radius: 50% 50% 45% 45%; background: var(--lumiere); box-shadow: 0 0 8px 1px rgba(244, 201, 122, .6); }
+  .avent .guirlande span:nth-child(3n) { background: #FBF3E2; box-shadow: 0 0 8px 1px rgba(251, 243, 226, .5); }
+  .avent .guirlande.vague span { animation: av-vague .9s ease-out both; animation-delay: calc(var(--i) * 45ms); }
+  @keyframes av-vague { 0% { transform: scale(1); } 40% { transform: scale(1.8); filter: brightness(1.6); } 100% { transform: scale(1); } }
 
   .avent .facade {
-    position: relative; border: var(--trait); border-top: 0; padding: 56px 48px 0;
-    display: grid; grid-template-columns: repeat(6, 1fr); gap: 46px 26px; grid-auto-flow: dense; background: var(--paper);
+    position: relative; border: 2px solid var(--ink); border-top: 0; padding: 62px 52px 0;
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 50px 28px; grid-auto-flow: dense;
+    background: radial-gradient(rgba(120, 100, 70, .07) 1px, transparent 1.4px) 0 0 / 6px 6px, linear-gradient(180deg, var(--facade-ombre), var(--facade) 26%, var(--facade));
+    box-shadow: inset 0 40px 60px -30px rgba(0, 0, 0, .35);
   }
-  /* chaînes d'angle : pierres dessinées au trait */
-  .avent .facade::before, .avent .facade::after { content: ""; position: absolute; top: 0; bottom: 0; width: 20px; pointer-events: none;
-    background: repeating-linear-gradient(180deg, transparent 0 26px, rgba(30, 26, 23, .55) 26px 27px), linear-gradient(rgba(30, 26, 23, .55), rgba(30, 26, 23, .55)) no-repeat; }
-  .avent .facade::before { left: 0; background-size: 100% 100%, 1px 100%; background-position: 0 0, right 0 top 0; }
-  .avent .facade::after { right: 0; background-size: 100% 100%, 1px 100%; background-position: 0 0, left 0 top 0; }
-  .avent .gouttiere { position: absolute; right: -12px; top: -4px; bottom: 0; width: 7px; border: var(--trait); border-radius: 2px; background: var(--paper); }
+  .avent .facade::before, .avent .facade::after { content: ""; position: absolute; top: 0; bottom: 0; width: 22px; pointer-events: none;
+    background: repeating-linear-gradient(180deg, var(--pierre) 0 30px, var(--ink) 30px 31.5px, var(--facade) 31.5px 34px, var(--pierre) 34px 52px, var(--ink) 52px 53.5px, var(--facade) 53.5px 56px); opacity: .9; }
+  .avent .facade::before { left: 0; border-right: 1px solid rgba(30, 26, 23, .25); }
+  .avent .facade::after { right: 0; border-left: 1px solid rgba(30, 26, 23, .25); }
+  .avent .gouttiere { position: absolute; right: -13px; top: -6px; bottom: 0; width: 9px; background: linear-gradient(90deg, #6f675d, #9b9285 50%, #6f675d); border: 1.5px solid var(--ink); border-radius: 3px; }
 
   /* ---------- une fenêtre ---------- */
-  .avent .fen { position: relative; align-self: start; aspect-ratio: 3 / 4; border: 0; padding: 0; background: none; perspective: 700px; container-type: inline-size; touch-action: manipulation; cursor: pointer; color: var(--ink); }
-  .avent .fen__linteau { position: absolute; left: -9%; right: -9%; top: -8cqw; height: 7cqw; background: var(--paper); border: var(--trait); z-index: 4; }
-  .avent .fen__cadre { position: absolute; inset: 0; border: var(--trait); background: var(--paper); overflow: hidden; }
-  .avent .fen__vitre { position: absolute; inset: 0; background: var(--c) center / cover; opacity: 0; transition: opacity .5s .3s var(--ease), transform .8s var(--ease); }
+  .avent .fen { position: relative; align-self: start; aspect-ratio: 3 / 4; border: 0; padding: 0; background: none; perspective: 700px; container-type: inline-size; touch-action: manipulation; cursor: pointer; }
+  .avent .fen__linteau { position: absolute; left: -9%; right: -9%; top: -9cqw; height: 7cqw; background: var(--pierre); border: 1.5px solid var(--ink); z-index: 4; }
+  .avent .fen__linteau::before { content: ""; position: absolute; left: -3px; right: -3px; top: -5cqw; height: 6cqw; background: var(--neige); border-radius: 6px 6px 2px 2px; }
+  .avent .fen__cadre { position: absolute; inset: 0; border: 2px solid var(--ink); background: #14161A; overflow: hidden; }
+  .avent .fen__vitre { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity .7s .25s var(--ease), transform .8s var(--ease); }
+  .avent .fen__vitre::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(244, 201, 122, .22), rgba(233, 165, 75, .12)); mix-blend-mode: multiply; }
+  .avent .fen__vitre.vide { background: radial-gradient(circle at 50% 70%, #FFF1D2 0%, var(--lumiere) 38%, var(--lumiere-2) 75%, #9a5a26 100%); }
+  .avent .fen__lueur { position: absolute; inset: 0; background: radial-gradient(circle at 50% 62%, var(--lumiere) 0%, var(--lumiere-2) 45%, #7a4a1f 100%); opacity: 0; transition: opacity .5s var(--ease); }
   .avent .fen__croix { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .4s .35s;
-    background: linear-gradient(var(--ink), var(--ink)) center / 1.5px 100% no-repeat, linear-gradient(var(--ink), var(--ink)) center 38% / 100% 1.5px no-repeat; }
-  .avent .fen__chiffre { position: absolute; left: 9%; bottom: 5%; font-family: var(--serif); font-size: 30cqw; line-height: 1; color: var(--ct); opacity: 0; transition: opacity .4s .5s; }
-  .avent .fen__vitre:not(.vide) ~ .fen__chiffre { display: none; }
-  .avent .fen__volet { position: absolute; top: 0; bottom: 0; width: 50%; z-index: 2; background: var(--louvre), var(--paper); border: var(--trait); transition: transform .9s cubic-bezier(.3, 1.25, .5, 1), background-color .4s; }
-  .avent .fen__volet.g { left: 0; transform-origin: left center; }
-  .avent .fen__volet.d { right: 0; transform-origin: right center; }
-  .avent .fen__num { position: absolute; left: 50%; top: 50%; z-index: 3; transform: translate(-50%, -50%); min-width: 34cqw; padding: 3cqw 4cqw 2cqw; text-align: center; background: var(--paper); border: 1px solid var(--ink);
-    font-family: var(--serif); font-size: max(13px, 20cqw); line-height: 1; color: var(--ink); pointer-events: none; transition: opacity .3s; }
-  .avent .fen__appui { position: absolute; left: -10%; right: -10%; bottom: -7cqw; height: 7cqw; background: var(--paper); border: var(--trait); z-index: 4; }
-  /* jardinière, au trait */
-  .avent .fen__jardin { position: absolute; left: 6%; right: 6%; bottom: 0; height: 9cqw; z-index: 5; pointer-events: none; background: var(--paper); border: var(--trait); }
+    background: linear-gradient(var(--ink), var(--ink)) center / 3px 100% no-repeat, linear-gradient(var(--ink), var(--ink)) center 40% / 100% 3px no-repeat; }
+  .avent .fen__volet { position: absolute; top: -2px; bottom: -2px; width: calc(50% + 2px); z-index: 2;
+    background: repeating-linear-gradient(180deg, var(--volet) 0 8px, var(--volet-2) 8px 9.5px); border: 2px solid var(--ink); transition: transform .9s cubic-bezier(.3, 1.35, .5, 1); }
+  .avent .fen__volet.g { left: -2px; transform-origin: left center; }
+  .avent .fen__volet.d { right: -2px; transform-origin: right center; }
+  .avent .fen__volet::after { content: "♥"; position: absolute; left: 50%; top: 18%; transform: translateX(-50%); font-size: max(10px, 12cqw); line-height: 1; color: #121418; transition: color .4s, text-shadow .4s; }
+  .avent .fen__num { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; font-family: var(--serif); font-size: 26cqw; color: var(--facade); pointer-events: none; transition: opacity .3s; text-shadow: 0 1px 0 rgba(0, 0, 0, .4); }
+  .avent .fen__appui { position: absolute; left: -10%; right: -10%; bottom: -8cqw; height: 8cqw; background: var(--pierre); border: 1.5px solid var(--ink); z-index: 4; }
+  .avent .fen__jardin { position: absolute; left: 4%; right: 4%; bottom: 0; height: 10cqw; z-index: 5; pointer-events: none; background: linear-gradient(180deg, #9C8565, #7A6449); border: 1.5px solid var(--ink); border-radius: 1px 1px 4px 4px; }
+  .avent .fen__jardin::before { content: ""; position: absolute; left: -6%; right: -6%; bottom: 70%; height: 24cqw;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 30'%3E%3Cg fill='none' stroke='%237D8C66' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M6 29 Q16 14 30 7'/%3E%3Cpath d='M17 21 L11 13 M22 17 L29 21 M24 12 L20 4'/%3E%3Cpath d='M36 29 Q48 11 58 3'/%3E%3Cpath d='M45 20 L38 12 M49 15 L57 18 M53 9 L48 3'/%3E%3Cpath d='M66 29 Q78 13 94 6'/%3E%3Cpath d='M75 22 L70 12 M81 17 L90 21 M86 11 L84 3'/%3E%3Cpath d='M98 29 Q106 17 116 12'/%3E%3Cpath d='M104 22 L100 15 M108 19 L115 22'/%3E%3C/g%3E%3Cg fill='%23A69368'%3E%3Ccircle cx='33' cy='23' r='3.2'/%3E%3Ccircle cx='38' cy='26' r='2.6'/%3E%3Ccircle cx='63' cy='22' r='3.2'/%3E%3Ccircle cx='96' cy='23' r='3'/%3E%3C/g%3E%3Cg fill='%23FBF8F2'%3E%3Cellipse cx='27' cy='9' rx='6' ry='2.2'/%3E%3Cellipse cx='55' cy='5' rx='6' ry='2.2'/%3E%3Cellipse cx='90' cy='7' rx='6' ry='2.2'/%3E%3C/g%3E%3C/svg%3E") center bottom / 100% 100% no-repeat; }
+  .avent .fen__tag { position: absolute; left: 7cqw; top: 7cqw; z-index: 1; font-size: 12px; letter-spacing: .08em; background: rgba(22, 24, 28, .72); color: var(--paper); padding: 2px 6px; border-radius: 4px; opacity: 0; transition: opacity .3s .7s; }
 
-  /* états : à venir (volets blancs) · à découvrir (volets ocre) · vue (volets ouverts, couleur ou planche) */
-  .avent .fen.ferme .fen__num { color: var(--muted); border-color: rgba(30, 26, 23, .35); }
-  .avent .fen.ferme:hover .fen__volet.g { transform: rotateY(-4deg); }
-  .avent .fen.ferme:hover .fen__volet.d { transform: rotateY(4deg); }
-  .avent .fen.nouveau .fen__volet { background-color: var(--ocre); background-image: repeating-linear-gradient(180deg, transparent 0 6px, rgba(30, 26, 23, .35) 6px 7px); }
-  .avent .fen.nouveau .fen__volet.g { transform: rotateY(-12deg); }
-  .avent .fen.nouveau .fen__volet.d { transform: rotateY(12deg); }
-  .avent .fen.nouveau:hover .fen__volet.g, .avent .fen.nouveau:focus-visible .fen__volet.g { transform: rotateY(-32deg); }
-  .avent .fen.nouveau:hover .fen__volet.d, .avent .fen.nouveau:focus-visible .fen__volet.d { transform: rotateY(32deg); }
-  .avent .fen.vu .fen__vitre, .avent .fen.vu .fen__croix, .avent .fen.vu .fen__chiffre { opacity: 1; }
-  .avent .fen.vu .fen__vitre:not(.vide) ~ .fen__croix { opacity: .8; }
-  .avent .fen.vu .fen__volet.g { transform: rotateY(-118deg); }
-  .avent .fen.vu .fen__volet.d { transform: rotateY(118deg); }
+  /* états */
+  .avent .fen.ferme .fen__num { color: rgba(236, 227, 210, .5); }
+  .avent .fen.ferme:hover .fen__volet.g { transform: rotateY(-3deg); }
+  .avent .fen.ferme:hover .fen__volet.d { transform: rotateY(3deg); }
+  .avent .fen.nouveau .fen__lueur { opacity: 1; }
+  .avent .fen.nouveau .fen__volet::after { color: var(--lumiere); text-shadow: 0 0 8px var(--lumiere); }
+  .avent .fen.nouveau .fen__cadre { box-shadow: 0 0 30px 6px rgba(244, 201, 122, .45); }
+  .avent .fen.nouveau .fen__volet.g { transform: rotateY(-10deg); }
+  .avent .fen.nouveau .fen__volet.d { transform: rotateY(10deg); }
+  .avent .fen.nouveau:hover .fen__volet.g, .avent .fen.nouveau:focus-visible .fen__volet.g { transform: rotateY(-30deg); }
+  .avent .fen.nouveau:hover .fen__volet.d, .avent .fen.nouveau:focus-visible .fen__volet.d { transform: rotateY(30deg); }
+  .avent .fen.est-aujourdhui::before { content: "Aujourd’hui"; position: absolute; left: 50%; top: -15cqw; transform: translate(-50%, -100%); z-index: 6; white-space: nowrap;
+    font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--lumiere); background: rgba(19, 17, 14, .88); border: 1px solid rgba(201, 164, 92, .6); padding: 4px 9px 3px; border-radius: 999px; }
+  .avent .fen.vu .fen__vitre, .avent .fen.vu .fen__croix, .avent .fen.vu .fen__tag { opacity: 1; }
+  .avent .fen.vu .fen__lueur { opacity: .55; }
+  .avent .fen.vu .fen__volet.g { transform: rotateY(-114deg); }
+  .avent .fen.vu .fen__volet.d { transform: rotateY(114deg); }
   .avent .fen.vu .fen__num { opacity: 0; }
-  .avent .fen.vu:hover .fen__vitre:not(.vide) { transform: scale(1.06); }
+  .avent .fen.vu .fen__cadre { box-shadow: 0 0 24px 3px rgba(244, 201, 122, .32); }
+  .avent .fen.vu:hover .fen__vitre:not(.vide) { transform: scale(1.07); }
   .avent .fen.secoue .fen__volet { animation: av-secoue .45s; }
   @keyframes av-secoue { 20%, 60% { translate: -3px 0; } 40%, 80% { translate: 3px 0; } }
-  /* « aujourd'hui » : annotation manuscrite et flèche dessinée, comme sur un plan */
-  .avent .fen.est-aujourdhui::before { content: "aujourd’hui"; position: absolute; left: 50%; bottom: calc(100% + 9cqw); z-index: 6; white-space: nowrap; transform: translateX(-62%);
-    font-family: var(--serif); font-style: italic; font-size: 15px; line-height: 1; color: var(--ink); padding-right: 22px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 22'%3E%3Cg fill='none' stroke='%231E1A17' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 4 C11 3 15 8 14 19'/%3E%3Cpath d='M10 15 L14 20 L17.5 15'/%3E%3C/g%3E%3C/svg%3E") right 0 top 2px / 18px 20px no-repeat; padding-bottom: 12px; }
 
   /* œil-de-bœuf (jour 1) dans le pignon */
-  .avent .fen.rond { position: absolute; left: 50%; top: 42%; width: 11%; aspect-ratio: 1; transform: translateX(-50%); z-index: 2; }
-  .avent .fen.rond .fen__cadre { border-radius: 50%; box-shadow: 0 0 0 6px var(--paper), 0 0 0 7.5px var(--ink); }
+  .avent .fen.rond { position: absolute; left: 50%; top: 44%; width: 11.5%; aspect-ratio: 1; transform: translateX(-50%); z-index: 2; }
+  .avent .fen.rond .fen__cadre { border-radius: 50%; border-width: 3px; box-shadow: 0 0 0 7px var(--pierre), 0 0 0 9px var(--ink); }
+  .avent .fen.rond.nouveau .fen__cadre { box-shadow: 0 0 0 7px var(--pierre), 0 0 0 9px var(--ink), 0 0 34px 12px rgba(244, 201, 122, .45); }
   .avent .fen.rond .fen__volet.g { border-radius: 999px 0 0 999px; } .avent .fen.rond .fen__volet.d { border-radius: 0 999px 999px 0; }
-  .avent .fen.rond .fen__appui, .avent .fen.rond .fen__linteau, .avent .fen.rond .fen__jardin { display: none; }
-  .avent .fen.rond .fen__croix { background: linear-gradient(var(--ink), var(--ink)) center / 1.5px 100% no-repeat, linear-gradient(var(--ink), var(--ink)) center / 100% 1.5px no-repeat; }
-  .avent .fen.rond .fen__chiffre { left: 0; right: 0; bottom: 26%; text-align: center; font-size: 34cqw; }
-  .avent .fen.rond.vu .fen__volet { opacity: 0; transition: transform .9s cubic-bezier(.3, 1.25, .5, 1), opacity .3s .5s; }
-  .avent .fen.rond.vu .fen__croix { opacity: 0; }
-  .avent .fen.rond.est-aujourdhui::before { bottom: calc(100% + 14px); }
+  .avent .fen.rond .fen__appui, .avent .fen.rond .fen__volet::after, .avent .fen.rond .fen__linteau, .avent .fen.rond .fen__jardin, .avent .fen.rond .fen__tag { display: none; }
+  .avent .fen.rond .fen__croix { background: linear-gradient(var(--ink), var(--ink)) center / 3px 100% no-repeat, linear-gradient(var(--ink), var(--ink)) center / 100% 3px no-repeat; }
+  .avent .fen.rond.est-aujourdhui::before { top: -14px; }
 
   /* porte (jour 24) */
-  .avent .porte { grid-column: 3 / span 2; grid-row: 4; aspect-ratio: auto; height: auto; min-height: 220px; align-self: stretch; perspective: 900px; margin: 0 14%; container-type: normal; }
+  .avent .porte { grid-column: 3 / span 2; grid-row: 4; aspect-ratio: auto; height: auto; min-height: 230px; align-self: stretch; perspective: 900px; margin: 0 14%; container-type: normal; }
   .avent .porte .fen__cadre, .avent .porte .fen__volet { border-radius: 999px 999px 0 0; }
-  .avent .porte .fen__volet { width: 100%; left: 0; transform-origin: left center; background: repeating-linear-gradient(90deg, transparent 0 18px, rgba(30, 26, 23, .5) 18px 19px), var(--paper); }
-  .avent .porte .fen__volet.d, .avent .porte .fen__appui, .avent .porte .fen__croix, .avent .porte .fen__linteau, .avent .porte .fen__jardin { display: none; }
-  .avent .porte.nouveau .fen__volet { background: repeating-linear-gradient(90deg, transparent 0 18px, rgba(30, 26, 23, .35) 18px 19px), var(--ocre); }
-  .avent .porte.nouveau .fen__volet.g { transform: rotateY(-8deg); }
-  .avent .porte.vu .fen__volet.g { transform: rotateY(-104deg); }
-  .avent .porte__arc { position: absolute; inset: -14px -14px 0; border: var(--trait); border-bottom: 0; border-radius: 999px 999px 0 0; pointer-events: none; z-index: 3; }
-  .avent .porte__arc::before { content: ""; position: absolute; inset: 10px 10px 0; border: var(--trait); border-bottom: 0; border-radius: 999px 999px 0 0; }
-  .avent .porte__cle { position: absolute; left: 50%; top: -18px; width: 18px; height: 22px; margin-left: -9px; background: var(--paper); border: var(--trait); clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%); z-index: 4; }
-  .avent .couronne { position: absolute; left: 50%; top: 22%; z-index: 4; width: 54px; height: 54px; transform: translateX(-50%); border-radius: 50%; pointer-events: none; border: 7px solid #6E7F73; outline: 1.5px solid var(--ink); outline-offset: 0; box-shadow: inset 0 0 0 1.5px var(--ink); transition: opacity .3s; }
-  .avent .couronne::after { content: ""; position: absolute; left: 50%; bottom: -15px; width: 22px; height: 14px; transform: translateX(-50%); background: var(--accent); clip-path: polygon(0 0, 50% 35%, 100% 0, 100% 70%, 50% 40%, 30% 100%, 0 70%); }
-  .avent .poignee { position: absolute; right: 16%; top: 58%; width: 8px; height: 8px; border-radius: 50%; border: var(--trait); background: var(--paper); z-index: 4; pointer-events: none; transition: opacity .3s; }
-  .avent .porte .fen__num { top: auto; bottom: 12%; transform: translateX(-50%); min-width: 0; font-size: clamp(18px, 2vw, 26px); padding: 4px 10px 2px; }
-  .avent .porte .fen__chiffre { left: 0; right: 0; text-align: center; bottom: 12%; font-size: clamp(40px, 5vw, 64px); }
-  .avent .porte.vu .couronne, .avent .porte.vu .poignee { opacity: 0; }
-  .avent .porte.est-aujourdhui::before { bottom: auto; top: 50%; transform: translate(-50%, -50%); z-index: 6; padding: 5px 10px 4px; background: var(--paper); border: 1px solid var(--ink); }
-  .avent .lanterne { position: absolute; left: -46px; top: 18%; width: 14px; height: 24px; z-index: 4; pointer-events: none; border: var(--trait); border-radius: 2px 2px 5px 5px; background: var(--paper); }
-  .avent .lanterne::before { content: ""; position: absolute; left: 50%; top: -11px; width: 1.5px; height: 10px; background: var(--ink); }
+  .avent .porte .fen__volet { width: calc(100% + 4px); left: -2px; transform-origin: left center; background: repeating-linear-gradient(90deg, var(--volet) 0 20px, var(--volet-2) 20px 22px); }
+  .avent .porte .fen__volet.d, .avent .porte .fen__appui, .avent .porte .fen__volet::after, .avent .porte .fen__croix, .avent .porte .fen__linteau, .avent .porte .fen__jardin { display: none; }
+  .avent .porte__arc { position: absolute; inset: -16px -16px 0; border: 14px solid var(--pierre); border-bottom: 0; border-radius: 999px 999px 0 0; pointer-events: none; z-index: 3; box-shadow: 0 0 0 2px var(--ink), inset 0 0 0 2px var(--ink); }
+  .avent .porte__cle { position: absolute; left: 50%; top: -22px; width: 22px; height: 26px; margin-left: -11px; background: var(--pierre-2); border: 2px solid var(--ink); clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%); z-index: 4; }
+  .avent .porte__cle::before { content: ""; position: absolute; left: -4px; right: -4px; top: -2px; height: 7px; background: var(--neige); border-radius: 4px; }
+  .avent .couronne { position: absolute; left: 50%; top: 24%; z-index: 4; width: 62px; height: 62px; transform: translateX(-50%); border-radius: 50%; pointer-events: none; transition: opacity .3s, transform .9s cubic-bezier(.3, 1.35, .5, 1);
+    background: radial-gradient(circle, transparent 46%, #3B4433 47%, #4A5440 60%, #3B4433 72%, transparent 73%); }
+  .avent .couronne::before { content: ""; position: absolute; inset: 4px; border-radius: 50%; border: 6px dotted #6E7F5A; }
+  .avent .couronne i { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--ocre); }
+  .avent .couronne i:nth-child(1) { left: 6px; top: 22px; } .avent .couronne i:nth-child(2) { right: 8px; top: 14px; } .avent .couronne i:nth-child(3) { left: 26px; bottom: 3px; }
+  .avent .couronne::after { content: ""; position: absolute; left: 50%; bottom: -14px; width: 22px; height: 16px; transform: translateX(-50%); background: var(--ocre); clip-path: polygon(0 0, 50% 35%, 100% 0, 100% 70%, 50% 40%, 30% 100%, 0 70%); }
+  .avent .poignee { position: absolute; right: 16%; top: 58%; width: 9px; height: 9px; border-radius: 50%; background: var(--ocre); border: 1.5px solid var(--ink); z-index: 4; pointer-events: none; transition: opacity .3s; }
+  .avent .porte .fen__num { top: auto; bottom: 14%; height: auto; font-size: clamp(22px, 2.6vw, 34px); }
+  .avent .porte .fen__tag { top: auto; bottom: 10px; left: 50%; transform: translateX(-50%); }
+  .avent .porte.vu .fen__volet.g { transform: rotateY(-102deg); }
+  .avent .porte.vu .couronne { transform: translateX(-50%) rotateY(-102deg); transform-origin: -60px 50%; opacity: 0; }
+  .avent .porte.vu .poignee { opacity: 0; }
+  .avent .porte.est-aujourdhui::before { top: -30px; }
+  .avent .lanterne { position: absolute; left: -54px; top: 16%; width: 18px; height: 30px; z-index: 4; pointer-events: none; }
+  .avent .lanterne::before { content: ""; position: absolute; left: 7px; top: -12px; width: 4px; height: 12px; background: var(--ink); }
+  .avent .lanterne::after { content: ""; position: absolute; inset: 0; border: 2px solid var(--ink); border-radius: 3px 3px 6px 6px; background: radial-gradient(circle at 50% 55%, #FFF3D6, var(--lumiere) 45%, var(--lumiere-2)); box-shadow: 0 0 22px 6px rgba(244, 201, 122, .35); }
+  .avent .marches { position: absolute; left: -22%; right: -22%; bottom: -26px; height: 26px; z-index: 5; pointer-events: none;
+    background: linear-gradient(var(--neige) 0 5px, var(--pierre) 5px 12px, var(--ink) 12px 13.5px, var(--neige) 13.5px 17px, var(--pierre) 17px 24px, var(--ink) 24px 26px);
+    border-left: 2px solid var(--ink); border-right: 2px solid var(--ink); }
 
-  /* sol, cotation et légende */
-  .avent .sol { height: 1.5px; margin: 0 -7%; background: var(--ink); position: relative; z-index: 2; }
-  .avent .cote { position: relative; margin: 26px 0 0; display: flex; justify-content: center; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
-  .avent .cote::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 9px; transform: translateY(-50%);
-    background: linear-gradient(var(--muted), var(--muted)) 0 50% / 100% 1px no-repeat, linear-gradient(var(--muted), var(--muted)) 0 0 / 1px 100% no-repeat, linear-gradient(var(--muted), var(--muted)) 100% 0 / 1px 100% no-repeat; }
-  .avent .cote span { position: relative; background: var(--paper); padding: 0 14px; }
-  .avent .legende { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 22px; font-size: 14px; color: var(--muted); }
-  .avent .legende > span { display: inline-flex; align-items: center; gap: 9px; }
-  .avent .legende i { width: 14px; height: 18px; border: 1px solid var(--ink); }
-  .avent .legende .l1 { background: var(--louvre), var(--paper); }
-  .avent .legende .l2 { background: repeating-linear-gradient(180deg, transparent 0 4px, rgba(30, 26, 23, .35) 4px 5px), var(--ocre); }
-  .avent .legende .l3 { background: linear-gradient(var(--ink), var(--ink)) center / 1px 100% no-repeat, linear-gradient(var(--ink), var(--ink)) center 38% / 100% 1px no-repeat, #7A3B4E; }
+  .avent .sol { position: relative; z-index: 2; height: 96px; margin: 0 -9%; }
+  .avent .neige-sol { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .avent .sapin { position: absolute; bottom: 52px; width: 92px; }
+  .avent .sapin.g { left: 2%; } .avent .sapin.d { right: 1%; width: 74px; }
+  .avent .muret { position: absolute; left: -4%; bottom: 46px; width: 18%; height: 34px; }
+
+  .avent .legende { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px 34px; padding: 34px 16px 0; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #A79E90; }
+  .avent .legende > span { display: inline-flex; align-items: center; gap: 10px; }
+  .avent .legende b { font-weight: 500; }
+  .avent .legende i { width: 12px; height: 16px; border: 1px solid #A79E90; }
+  .avent .legende .l1 { background: repeating-linear-gradient(180deg, var(--volet) 0 4px, var(--volet-2) 4px 5px); }
+  .avent .legende .l2 { background: radial-gradient(var(--lumiere), var(--lumiere-2)); box-shadow: 0 0 10px var(--lumiere); }
+  .avent .legende .l3 { background: linear-gradient(var(--ink), var(--ink)) center / 1px 100% no-repeat, linear-gradient(var(--ink), var(--ink)) center 40% / 100% 1px no-repeat, radial-gradient(circle at 50% 70%, #FFF1D2, var(--lumiere) 45%, var(--lumiere-2)); }
 
   /* ---------- la planche du jour ---------- */
-  .avent .jour { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 110px); align-items: center; padding-top: clamp(90px, 12vw, 150px); padding-bottom: clamp(90px, 12vw, 150px); }
-  .avent .jour__img { margin: 0; position: relative; aspect-ratio: 4 / 5; background: var(--card); perspective: 1400px; overflow: hidden; }
+  .avent .jour { max-width: 1080px; margin: 0 auto; padding: 120px 16px 0; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 84px); align-items: center; }
+  .avent .jour__img { margin: 0; position: relative; aspect-ratio: 4 / 5; background: #0F0D0B; perspective: 1400px; box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .7); }
   .avent .jour__img img { width: 100%; height: 100%; object-fit: cover; }
-  .avent .jour__vide { display: none; position: absolute; inset: 0; flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 6px; padding: 8%; background: var(--c); color: var(--ct); }
-  .avent .jour__vide-n { font-family: var(--serif); font-size: clamp(110px, 16vw, 220px); line-height: .85; }
-  .avent .jour__vide-m { font-size: 13px; letter-spacing: .3em; text-transform: uppercase; }
+  .avent .jour__vide { display: none; position: absolute; inset: 0; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    background: radial-gradient(circle at 50% 60%, rgba(244, 201, 122, .28), transparent 65%), #1A1712; border: 1px solid rgba(201, 164, 92, .35); }
+  .avent .jour__vide-n { font-family: var(--serif); font-size: clamp(96px, 14vw, 170px); line-height: 1; color: var(--lumiere); }
+  .avent .jour__vide-m { font-size: 12px; letter-spacing: .34em; text-transform: uppercase; color: var(--laiton); }
   .avent .jour.sans-image .jour__vide { display: flex; }
   .avent .jour.sans-image .jour__img img { display: none; }
-  .avent .jour__voile i { position: absolute; top: 0; bottom: 0; width: 50%; z-index: 2; transition: transform 1.2s cubic-bezier(.6, 0, .25, 1), opacity .3s .95s;
-    background: repeating-linear-gradient(180deg, transparent 0 16px, rgba(30, 26, 23, .35) 16px 17px), var(--ocre); border: var(--trait); }
+  .avent .jour__voile i { position: absolute; top: 0; bottom: 0; width: 50%; transition: transform 1.3s cubic-bezier(.6, 0, .25, 1), opacity .4s 1s;
+    background: repeating-linear-gradient(180deg, var(--volet) 0 18px, var(--volet-2) 18px 20px); border: 1px solid rgba(0, 0, 0, .5); }
   .avent .jour__voile i.g { left: 0; transform-origin: left center; } .avent .jour__voile i.d { right: 0; transform-origin: right center; }
-  .avent .jour__voile-n { position: absolute; left: 50%; top: 50%; z-index: 3; transform: translate(-50%, -50%); padding: 14px 22px 10px; background: var(--paper); border: 1px solid var(--ink);
-    font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 5vw, 64px); line-height: 1; transition: opacity .3s; }
-  .avent .jour.ouvert .jour__voile-n { opacity: 0; }
+  .avent .jour__voile i::after { content: "♥"; position: absolute; left: 50%; top: 14%; transform: translateX(-50%); font-size: 30px; color: var(--lumiere); text-shadow: 0 0 14px var(--lumiere); }
+  .avent .jour__voile i.g::before { content: ""; position: absolute; right: -1px; top: 0; bottom: 0; width: 2px; background: linear-gradient(transparent, rgba(244, 201, 122, .9), transparent); box-shadow: 0 0 18px 4px rgba(244, 201, 122, .45); }
   .avent .jour.ouvert .jour__voile i.g { transform: rotateY(-100deg); opacity: 0; }
   .avent .jour.ouvert .jour__voile i.d { transform: rotateY(100deg); opacity: 0; }
-  /* avant le 1er décembre : les volets du jour 1, encore blancs */
-  .avent .jour.avant .jour__img img, .avent .jour.avant .jour__vide { display: none; }
-  .avent .jour.avant .jour__voile i { background: repeating-linear-gradient(180deg, transparent 0 16px, rgba(30, 26, 23, .45) 16px 17px), var(--paper); }
-  .avent .jour__texte h2 { font-size: clamp(34px, 3.8vw, 52px); margin: 18px 0 20px; }
-  .avent .jour__texte p:not(.mention) { color: #3b342e; font-size: 18px; line-height: 1.6; max-width: 460px; }
+  .avent .jour.avant .jour__img { background: none; box-shadow: none; }
+  .avent .jour.avant .jour__img img { object-fit: contain; opacity: .85; }
+  .avent .jour.avant .jour__voile, .avent .jour.avant .jour__vide { display: none; }
+  .avent .jour__texte .mention { color: var(--laiton); letter-spacing: .3em; font-size: 12px; }
+  .avent .jour__texte h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(32px, 3.8vw, 50px); line-height: 1.08; margin: 18px 0; }
+  .avent .jour__texte p:not(.mention) { color: #CFC6B8; font-size: 17px; max-width: 440px; }
   .avent .jour__texte .av-btn { margin-top: 30px; }
 
-  /* ---------- appel final : bande olive et bâtisse au trait crème ---------- */
-  .avent .suite { background: var(--olive); color: var(--paper); }
-  .avent .suite__in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 460px); gap: 60px; align-items: center; padding-top: 100px; padding-bottom: 100px; }
-  .avent .suite h2 { font-size: clamp(32px, 4vw, 52px); }
-  .avent .suite h2 em { color: #E2A79A; }
-  .avent .suite p { color: rgba(250, 247, 240, .82); font-size: 18px; max-width: 480px; margin: 18px 0 30px; }
-  .avent .suite .boutons { display: flex; flex-wrap: wrap; gap: 12px; }
-  .avent .suite .av-btn--ligne { color: var(--paper); border-color: rgba(250, 247, 240, .6); }
+  /* ---------- comment ça marche ---------- */
+  .avent .comment { max-width: 1080px; margin: 0 auto; padding: 140px 16px 0; }
+  .avent .comment h2, .avent .suite h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 4vw, 44px); line-height: 1.1; text-align: center; }
+  .avent .comment h2 em, .avent .suite h2 em { color: var(--lumiere); }
+  .avent .etapes { list-style: none; margin: 48px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; counter-reset: e; }
+  .avent .etapes li { padding: 24px 0 0; border-top: 1px solid rgba(201, 164, 92, .4); color: #B9B0A2; font-size: 16px; }
+  .avent .etapes li::before { counter-increment: e; content: counter(e, decimal-leading-zero); display: block; font-size: 12px; letter-spacing: .3em; color: var(--laiton); margin-bottom: 16px; }
+  .avent .etapes b { display: block; color: var(--paper); font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1.2; margin-bottom: 10px; }
+
+  .avent .suite { text-align: center; padding: 140px 16px 130px; }
+  .avent .suite p { color: #CFC6B8; max-width: 520px; margin: 14px auto 26px; }
+  .avent .suite .boutons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+  .avent .suite .av-btn--ligne { color: var(--paper); border-color: rgba(250, 247, 240, .5); }
   .avent .suite .av-btn--ligne:hover { background: var(--paper); color: var(--ink); }
-  .avent .suite__dessin { width: 100%; height: auto; }
 
   /* ---------- fenêtre de lecture (ajoutée au body) ---------- */
   html.av-lock { overflow: hidden; }
-  .av-modal { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 24px; }
+  .av-modal { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 24px; --volet: #4A5440; --volet-2: #3B4433; --lumiere: #F4C97A; --lumiere-2: #E9A54B; --laiton: #C9A45C; }
   .av-modal[hidden] { display: none; }
-  .av-modal__voile { position: absolute; inset: 0; background: rgba(30, 26, 23, .6); opacity: 0; transition: opacity .35s var(--ease); }
+  .av-modal__voile { position: absolute; inset: 0; background: rgba(20, 17, 15, .72); backdrop-filter: blur(6px); opacity: 0; transition: opacity .35s var(--ease); }
   .av-modal__carte { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); width: min(980px, 100%); max-height: calc(100dvh - 48px);
-    background: var(--paper); color: var(--ink); border-radius: 0; overflow: hidden; opacity: 0; transform: translateY(24px);
-    transition: opacity .4s var(--ease), transform .5s var(--ease); }
+    background: var(--paper); color: var(--ink); border-radius: 22px; overflow: hidden; opacity: 0; transform: translateY(24px) scale(.97);
+    transition: opacity .4s var(--ease), transform .5s var(--ease); box-shadow: 0 30px 80px rgba(0, 0, 0, .35); }
   .av-modal.is-open .av-modal__voile { opacity: 1; }
   .av-modal.is-open .av-modal__carte { opacity: 1; transform: none; }
   .av-modal__img { position: relative; overflow: hidden; margin: 0; background: var(--card); aspect-ratio: 4 / 5; perspective: 1200px; }
   .av-modal__img img { width: 100%; height: 100%; object-fit: cover; }
-  .av-modal__vide { display: none; position: absolute; inset: 0; flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 4px; padding: 9%; background: var(--c); color: var(--ct); }
-  .av-modal__vide b { font-family: var(--serif); font-weight: 400; font-size: clamp(110px, 13vw, 180px); line-height: .85; }
-  .av-modal__vide span { font-size: 13px; letter-spacing: .3em; text-transform: uppercase; }
+  .av-modal__vide { display: none; position: absolute; inset: 0; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    background: radial-gradient(circle at 50% 60%, rgba(244, 201, 122, .3), transparent 65%), #1A1712; }
+  .av-modal__vide b { font-family: var(--serif); font-weight: 400; font-size: clamp(96px, 12vw, 150px); line-height: 1; color: var(--lumiere); }
+  .av-modal__vide span { font-size: 12px; letter-spacing: .34em; text-transform: uppercase; color: var(--laiton); }
   .av-modal__img.sans-image .av-modal__vide { display: flex; }
   .av-modal__img.sans-image img, .av-modal__img.sans-image .av-modal__num { display: none; }
-  .av-modal__num { position: absolute; left: 18px; bottom: 14px; z-index: 3; font-family: var(--serif); font-size: 15px; color: var(--ink); background: var(--paper); padding: 4px 10px 3px; }
+  .av-modal__num { position: absolute; left: 18px; bottom: 14px; z-index: 3; font-family: var(--serif); font-size: 15px; letter-spacing: .08em; color: #fff; background: rgba(30, 26, 23, .55); padding: 4px 10px; border-radius: 999px; }
+  .av-modal__num::before { content: "Fenêtre "; font-family: var(--sans); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
   .av-modal__deco { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-  .av-modal__deco i { position: absolute; top: 0; bottom: 0; width: 50%; opacity: 0; background: repeating-linear-gradient(180deg, transparent 0 14px, rgba(30, 26, 23, .35) 14px 15px), var(--ocre); border: 1.5px solid var(--ink); }
+  .av-modal__deco i { position: absolute; top: 0; bottom: 0; width: 50%; opacity: 0; background: repeating-linear-gradient(180deg, var(--volet) 0 14px, var(--volet-2) 14px 16px); border: 2px solid var(--ink); }
   .av-modal__deco i.g { left: 0; transform-origin: left center; }
   .av-modal__deco i.d { right: 0; transform-origin: right center; }
+  .av-modal__deco i::after { content: "♥"; position: absolute; left: 50%; top: 16%; transform: translateX(-50%); font-size: 26px; color: var(--lumiere); text-shadow: 0 0 12px var(--lumiere); }
   .av-modal[data-premiere] .av-modal__deco i { animation: av-volet-g 1.1s .25s cubic-bezier(.5, 0, .3, 1) both; }
   .av-modal[data-premiere] .av-modal__deco i.d { animation-name: av-volet-d; }
   @keyframes av-volet-g { 0% { opacity: 1; transform: rotateY(0); } 85% { opacity: 1; } 100% { opacity: 0; transform: rotateY(-110deg); } }
   @keyframes av-volet-d { 0% { opacity: 1; transform: rotateY(0); } 85% { opacity: 1; } 100% { opacity: 0; transform: rotateY(110deg); } }
-  .av-modal__texte { display: flex; flex-direction: column; gap: 14px; padding: 48px 40px 28px; overflow: auto; }
+  .av-modal__texte { display: flex; flex-direction: column; gap: 14px; padding: 44px 40px 28px; overflow: auto; }
   .av-modal__jour { font-weight: 500; font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
   .av-modal__titre { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 3.4vw, 42px); line-height: 1.08; letter-spacing: -.01em; text-wrap: balance; }
   .av-modal__desc { font-size: 17px; color: #3b342e; }
   .av-modal__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-  .av-modal__rdv { font-size: 15px; color: var(--accent); border-bottom: 1px solid rgba(154, 86, 54, .35); align-self: flex-start; padding-bottom: 2px; text-decoration: none; }
+  .av-modal__rdv { font-size: 15px; color: var(--accent); border-bottom: 1px solid rgba(154, 86, 54, .35); align-self: flex-start; padding-bottom: 2px; }
   .av-modal__rdv:hover { border-color: var(--accent); }
   .av-modal__nav { display: flex; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 18px; border-top: 1px solid var(--line); }
   .av-modal__nav button { background: none; border: 0; padding: 6px 0; font-size: 14px; letter-spacing: .04em; color: var(--ink); cursor: pointer; }
@@ -639,39 +768,45 @@ const config = { annee: ANNEE, insta: INSTAGRAM, jours: data };
   .av-pastille { aspect-ratio: 1; min-width: 0; border-radius: 50%; border: 1px solid var(--line); background: transparent; font-size: 12px; padding: 0; color: var(--ink); position: relative; cursor: pointer; transition: background-color .2s, color .2s; }
   .av-pastille.ferme { color: #b9ad9c; border-style: dashed; cursor: default; }
   .av-pastille.vu { background: var(--card); border-color: var(--card); }
-  .av-pastille.nouveau { background: var(--ocre); border-color: var(--ocre); color: var(--paper); }
+  .av-pastille.nouveau::after { content: ""; position: absolute; right: -1px; top: -1px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
   .av-pastille.courant { background: var(--ink); border-color: var(--ink); color: var(--paper); }
   .av-pastille:not(:disabled):not(.courant):hover { border-color: var(--ink); }
-  .av-modal__fermer { position: absolute; top: 14px; right: 14px; z-index: 4; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); font-size: 24px; line-height: 1; cursor: pointer; color: var(--ink); }
+  .av-modal__fermer { position: absolute; top: 14px; right: 14px; z-index: 4; width: 42px; height: 42px; border-radius: 50%; border: 0; background: rgba(250, 247, 240, .92); font-size: 24px; line-height: 1; cursor: pointer; }
 
   .av-toast { position: fixed; left: 50%; bottom: 28px; z-index: 90; transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
     background: var(--ink); color: var(--paper); padding: 12px 20px; border-radius: 999px; font-size: 15px; max-width: calc(100% - 32px); text-align: center;
     transition: opacity .3s var(--ease), transform .4s var(--ease); }
   .av-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
 
-  @media (max-width: 1080px) {
-    .avent .tete { grid-template-columns: 1fr; gap: 64px; }
-    .avent .intro-avent { position: static; max-width: 620px; }
-    .avent .scene { justify-self: center; }
-  }
   @media (max-width: 760px) {
-    .avent .tete { padding-top: 48px; gap: 72px; }
-    .avent .facade { grid-template-columns: repeat(4, 1fr); gap: 42px 14px; padding: 44px 22px 0; }
-    .avent .facade::before, .avent .facade::after { width: 11px; }
+    .avent .scene { margin-top: 90px; }
+    .avent .facade { grid-template-columns: repeat(4, 1fr); gap: 40px 14px; padding: 46px 22px 0; }
+    .avent .facade::before, .avent .facade::after { width: 12px; }
     .avent .porte { grid-column: 2 / span 2; grid-row: 6; min-height: 150px; margin: 0 6%; }
-    .avent .porte__arc { inset: -10px -10px 0; }
-    .avent .porte__arc::before { inset: 7px 7px 0; }
-    .avent .couronne { width: 40px; height: 40px; top: 14%; border-width: 5px; }
-    .avent .lanterne { left: -28px; width: 11px; height: 19px; }
-    .avent .fen.rond { width: 16%; top: 40%; }
-    .avent .fen.rond .fen__cadre { box-shadow: 0 0 0 4px var(--paper), 0 0 0 5.5px var(--ink); }
-    .avent .fen.est-aujourdhui::before { font-size: 14px; }
-    .avent .cote { font-size: 11px; letter-spacing: .1em; }
-    .avent .jour { grid-template-columns: 1fr; gap: 32px; }
-    .avent .suite__in { grid-template-columns: 1fr; gap: 40px; padding-top: 80px; padding-bottom: 72px; }
-    .avent .suite__dessin { max-width: 320px; }
+    .avent .porte__arc { inset: -10px -10px 0; border-width: 9px; }
+    .avent .couronne { width: 44px; height: 44px; top: 20%; }
+    .avent .couronne::before { border-width: 4px; inset: 3px; }
+    .avent .couronne i:nth-child(1) { left: 3px; top: 15px; } .avent .couronne i:nth-child(2) { right: 5px; top: 9px; } .avent .couronne i:nth-child(3) { left: 18px; bottom: 1px; }
+    .avent .lanterne { left: -30px; width: 13px; height: 22px; }
+    .avent .lanterne::before { left: 4.5px; }
+    .avent .fen.rond { width: 17%; top: 40%; }
+    .avent .fen.rond .fen__cadre { box-shadow: 0 0 0 5px var(--pierre), 0 0 0 7px var(--ink); }
+    .avent .sol { height: 70px; }
+    .avent .sapin { width: 54px; bottom: 38px; } .avent .sapin.d { width: 44px; }
+    .avent .muret { display: none; }
+    .avent .guirlande span:nth-child(n+10) { display: none; }
+    .avent .fen.est-aujourdhui::before { font-size: 9px; letter-spacing: .08em; padding: 3px 6px 2px; }
+    .avent .legende { flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+    .avent .porte.est-aujourdhui::before { top: 58%; transform: translate(-50%, -50%); }
+    .avent .porte.est-aujourdhui .couronne { top: 13%; }
+    .avent .porte.est-aujourdhui .fen__num { bottom: 4%; }
+    .avent .etapes { grid-template-columns: 1fr; gap: 28px; }
+    .avent .comment { padding-top: 96px; }
+    .avent .suite { padding: 110px 16px 100px; }
+    .avent .jour { grid-template-columns: 1fr; padding-top: 80px; gap: 28px; }
+    .avent .jour__voile i::after { font-size: 22px; }
     .av-modal { padding: 0; place-items: end center; }
-    .av-modal__carte { grid-template-columns: 1fr; max-height: 94dvh; overflow: auto; }
+    .av-modal__carte { grid-template-columns: 1fr; max-height: 94dvh; border-radius: 22px 22px 0 0; overflow: auto; }
     .av-modal__img { aspect-ratio: 4 / 4.2; }
     .av-modal__texte { padding: 24px 20px 28px; overflow: visible; }
     .av-modal__actions .av-btn { flex: 1 1 100%; }
