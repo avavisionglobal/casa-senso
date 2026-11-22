@@ -77,12 +77,14 @@ export const projets: Projet[] = [
     avant: [cannes_avant_img_9104, cannes_avant_img_9100, cannes_avant_img_9111, cannes_avant_img_3629, cannes_avant_img_3630], avantTitre: 'Avant et pendant les travaux',
     accroche: "Des pièces cloisonnées, de la moquette, peu de lumière… puis un appartement entièrement repensé.",
     recit: [
-      { p: "« Notre appartement dans le Sud, que j'ai fait entièrement. »", citation: true },
+      { p: "Un appartement repensé de bout en bout, des murs jusqu'au dernier objet.", citation: true },
       { p: "Au départ, des pièces cloisonnées, de la moquette, peu de lumière. Alors on a tout ouvert, jusqu'aux plafonds, et la lumière est revenue, pièce après pièce." },
       { p: "Une cuisine ouverte, chêne et marbre, au cœur de l'appartement. Des chambres apaisées, un mur vert forêt, des salles d'eau en bois et laiton." },
     ],
     // 22.11.2026 : nom « Un appartement dans le Sud » à la demande de Laetitia (Cannes n'apparaît plus).
-    a_valider: "Citation : son e-mail du 08.11. Récit : textes proposés par Contrast (repris du post Avant / après), à valider. Adresse non publiée.",
+    // 22.11.2026 : la citation « Notre appartement dans le Sud… » est retirée : rien ne doit laisser comprendre
+    // que c'est l'appartement de Laetitia (demande de Diego). Aucun propriétaire n'est mentionné.
+    a_valider: "Phrase d'ouverture et récit : textes proposés par Contrast (repris du post Avant / après), à valider. Ne pas indiquer à qui appartient l'appartement. Adresse non publiée.",
   },
   {
     slug: 'maison-de-famille', titre: 'La maison de famille', titreHtml: 'La maison <em>de famille</em>',
