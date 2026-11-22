@@ -23,7 +23,7 @@ const { titre, sous, mention, texte } = Astro.props;
   .filet { margin: 36px 0 0; border: 0; border-top: 1px solid var(--ink); opacity: .85; transform-origin: left; }
   @media (prefers-reduced-motion: no-preference) { :global(.js) .filet { animation: filet 1.4s var(--ease) .2s both; } }
   @keyframes filet { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  .tete-texte { margin-top: 32px; max-width: 760px; font-size: 18px; line-height: 1.7; }
+  .tete-texte { margin-top: 32px; max-width: 62ch; font-size: 18px; line-height: 1.7; }
   @media (max-width: 999px) {
     .tete { padding-top: 44px; padding-bottom: 44px; }
     h1 { font-size: 40px; }

@@ -295,3 +295,16 @@ Format : date · décision · raison · remplace · statut · source.
 - **Raison** : donner au visiteur de vraies preuves par projet ; projets transmis par Laetitia absents du site actuel.
 - **Statut** : construit en local. À valider par Laetitia : textes proposés (Cannes), mention du lieu de la maison, accord ICHI.
 - **Source** : Diego, conversation du 13.11.2026 ; `site/PROJECT.md`.
+
+## 2026-11-18 · Site : quatre situations dans deux pages, Particuliers et Professionnels
+- **Décision** : deux pages, chacune avec un aiguillage « Votre situation » et deux sections liables. Particuliers : `#renovation` (je repense mon intérieur) et `#achat` (j'achète un bien neuf ou sur plan). Professionnels : `#etablissement` (restaurant, café, commerce, cabinet, bureaux) et `#promoteurs` (pour leurs acquéreurs ou pour leurs biens). Le menu affiche directement Particuliers et Professionnels à la place de Prestations ; `/prestations` reste en ligne comme page d'orientation (ancienne adresse Wix). Le formulaire de contact demande la situation parmi les quatre, présélectionnée depuis les boutons des sections (`/contact?situation=…`).
+- **Raison** : le visiteur se reconnaît d'abord particulier ou professionnel ; recherches trop rares pour quatre pages ; aucune preuve encore pour les acquéreurs et les promoteurs. La section promoteurs renvoie vers `/prestations/particuliers#achat`, page que le promoteur peut transmettre à ses acquéreurs. Une section deviendra une page si une campagne Meta la vise, si un premier projet existe ou si les demandes de ce public augmentent.
+- **Complète** : « Site : Prestations en une page d'orientation + Particuliers + Professionnels » (13.11).
+- **Statut** : en ligne sur l'aperçu le 18.11.2026 (demande de Diego). Textes des sections `#achat` et `#promoteurs` proposés par Contrast, à valider par Laetitia : moment d'intervention et choix des finitions, appartement témoin, forme du partenariat avec les promoteurs, promoteur déjà partenaire et citable.
+- **Source** : Diego, conversation du 18.11.2026 ; `site/PROJECT.md`.
+
+## 2026-11-18 · Site : typographie française et passe responsive complète
+- **Décision** : la ponctuation française ne peut plus commencer une ligne (espace fine insécable avant « : ; ! ? » et après « « », posée au build par `site/src/middleware.ts`) ; titres en `text-wrap: balance`, paragraphes en `pretty`, pas de césure automatique dans les titres. Passe responsive sur les 11 pages : tablette (600–999 px) en vraies grilles à 2 colonnes au lieu du mobile étiré, voiles plus sombres sous les textes posés sur photo, en-tête et accueil alignés sur la colonne de 1320 px, galeries sans bandes étroites, avant / après à hauteur égale (photos toujours entières, décision du 14.11 conservée). Page ICHI : le champ Lieu est masqué tant que la ville n'est pas connue.
+- **Raison** : Diego, « deux petits points en début de phrase après la ligne… un gros travail de responsive ».
+- **Statut** : en ligne sur https://casa-senso-apercu.vercel.app le 18.11.2026. Audit automatique (11 pages × 12 largeurs, 320 à 1920 px) sans défaut ; relecture visuelle à 360, 768, 1024 et 1920 px.
+- **Source** : Diego, conversation du 18.11.2026 ; `site/PROJECT.md`.

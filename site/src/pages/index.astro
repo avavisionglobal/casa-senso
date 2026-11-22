@@ -197,6 +197,8 @@ const insta = [
   .lien:hover span { transform: translateX(4px); }
 
   /* ---------- 3. Réalisations ---------- */
+  /* 18.11.2026 : toutes les sections sur la même colonne que les pages intérieures et l'en-tête. */
+  .projets, .citation, .projet-cta, .insta { max-width: calc(1320px + 2 * var(--gutter)); margin-inline: auto; }
   .projets { padding: 0 var(--gutter) 140px; }
   .rangee { display: grid; gap: 14px; height: 460px; }
   .rangee + .rangee { margin-top: 14px; }
@@ -206,7 +208,7 @@ const insta = [
   .tuile { position: relative; display: block; overflow: hidden; border-radius: var(--radius); background: var(--grey); isolation: isolate; }
   .tuile :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
   .tuile:hover :global(img) { transform: scale(1.05); }
-  .tuile.titre::after { content: ''; position: absolute; inset: 40% 0 0 0; background: linear-gradient(to top, rgba(20, 16, 12, .55), transparent); z-index: 0; pointer-events: none; }
+  .tuile.titre::after { content: ''; position: absolute; inset: 25% 0 0 0; background: linear-gradient(to top, rgba(20, 16, 12, .72), rgba(20, 16, 12, .25) 55%, transparent); z-index: 0; pointer-events: none; }
   .tuile-texte { position: absolute; left: 28px; bottom: 26px; right: 28px; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; color: #fff; }
   .tuile-nom { font-family: var(--serif); font-size: 38px; line-height: 1.08; }
   .pill {
@@ -218,7 +220,7 @@ const insta = [
   .etiquette {
     position: absolute; left: 14px; top: 14px; z-index: 1; height: 28px; padding: 0 12px; border-radius: 999px;
     display: inline-flex; align-items: center; background: rgba(250, 247, 240, .92);
-    font-family: var(--sans); font-weight: 600; font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    font-family: var(--sans); font-weight: 600; font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
   }
   .r-avap .tuile-nom { font-size: 28px; }
   .r-avap .tuile-texte { left: 18px; right: 18px; bottom: 18px; gap: 10px; }
@@ -234,12 +236,12 @@ const insta = [
 
   /* ---------- 5. Carte projet ---------- */
   .projet-cta { padding: 140px var(--gutter); }
-  .carte { max-width: 1180px; margin: 0 auto; background: var(--card); border-radius: calc(var(--radius) + 8px); padding: 72px 80px; display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; }
+  .carte { background: var(--card); border-radius: calc(var(--radius) + 8px); padding: 72px 80px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 60px; align-items: center; }
   .carte h2 { margin-top: 14px; font-size: 46px; }
   .carte p:not(.mention) { margin-top: 20px; max-width: 560px; font-size: 17px; line-height: 1.7; }
   .carte p.devis { margin-top: 10px; font-weight: 600; }
   .carte-actions { margin-top: 34px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
-  .carte :global(.carte-trait) { width: 240px; height: auto; opacity: .9; }
+  .carte :global(.carte-trait) { justify-self: center; width: 280px; height: auto; opacity: .9; }
 
   /* ---------- 6. Instagram ---------- */
   .insta { padding: 0 var(--gutter) 130px; }
@@ -253,6 +255,7 @@ const insta = [
     .rangee { height: 380px; }
     .r-avap { height: 260px; }
     .tuile-nom { font-size: 32px; }
+    .sec-tete h2 { font-size: 44px; }
     .carte { padding: 56px 48px; gap: 40px; }
     .carte :global(.carte-trait) { width: 180px; }
   }
@@ -284,7 +287,7 @@ const insta = [
 
     .citation-bloc { padding: 60px 24px; }
     .citation p { font-size: 22px; }
-    .citation footer { margin-top: 24px; font-size: 11px; }
+    .citation footer { margin-top: 24px; font-size: 12px; }
 
     .projet-cta { padding: 80px var(--gutter); }
     .carte { grid-template-columns: 1fr; padding: 40px 26px; gap: 10px; }
@@ -295,6 +298,13 @@ const insta = [
     .insta { padding-bottom: 80px; }
     .insta-grille { grid-template-columns: 1fr 1fr; gap: 10px; }
     .insta-tuile:nth-child(5) { display: none; }
+  }
+  /* Tablette : la carte projet garde son dessin à droite, Instagram sur une rangée de 4. */
+  @media (min-width: 600px) and (max-width: 999px) {
+    .carte { grid-template-columns: 1.5fr 1fr; gap: 28px; padding: 48px 40px; }
+    .carte :global(.carte-trait) { order: 0; width: 180px; }
+    .insta-grille { grid-template-columns: repeat(4, 1fr); }
+    .intro-texte, .intro h3, .phrase { max-width: 560px; }
   }
   @media (max-width: 599px) {
     .rangee, .r-avap { height: auto; grid-template-columns: 1fr 1fr; }

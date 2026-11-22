@@ -27,7 +27,8 @@ const instagram = 'https://www.instagram.com/casa_senso.ch/';
         <nav class="col" aria-label="Pages du site">
           <h2 class="titre-serif">le site</h2>
           <p><a href="/agence">L'agence</a></p>
-          <p><a href="/prestations">Prestations</a></p>
+          <p><a href="/prestations/particuliers">Particuliers</a></p>
+          <p><a href="/prestations/professionnels">Professionnels</a></p>
           <p><a href="/realisations">Réalisations</a></p>
           <p><a href="/contact">Contact</a></p>
         </nav>
@@ -57,7 +58,7 @@ const instagram = 'https://www.instagram.com/casa_senso.ch/';
   .pied { display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: start; }
   .pied :global(.footer-logo) { width: 300px; }
   .cols { margin-top: 52px; display: grid; grid-template-columns: repeat(3, minmax(0, 260px)); gap: 48px; }
-  .col h2 { font-size: 30px; margin-bottom: 14px; }
+  .col h2 { font-size: 30px; margin-bottom: 14px; white-space: nowrap; }
   .col p { font-size: 17px; line-height: 1.6; }
   .col a { transition: color .3s var(--ease); }
   .col a:hover { color: var(--accent); }
@@ -75,12 +76,19 @@ const instagram = 'https://www.instagram.com/casa_senso.ch/';
   .bas { margin-top: 56px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
   .bas p { font-size: 14px; color: var(--muted); }
   .bas p a { text-decoration: underline; text-underline-offset: 3px; }
-  .insta { display: inline-flex; align-items: center; gap: 18px; color: var(--ocre); font-weight: 600; font-size: 17px; transition: color .3s var(--ease); }
+  .insta { display: inline-flex; align-items: center; gap: 18px; color: var(--olive); font-weight: 600; font-size: 17px; transition: color .3s var(--ease); }
   .insta svg { width: 56px; height: 56px; }
   .insta rect, .insta circle { fill: none; stroke: currentColor; stroke-width: 3.4; }
   .insta .point { fill: currentColor; stroke: none; }
   .insta:hover { color: var(--accent); }
 
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    .pied { gap: 40px; }
+    .cols { gap: 32px; }
+    .col h2 { font-size: 25px; }
+    .badge { width: 170px; height: 170px; }
+    .badge :global(.badge-trait) { width: 72px; }
+  }
   @media (max-width: 999px) {
     .site-footer { padding: 48px 0 28px; }
     .pied { grid-template-columns: 1fr; gap: 36px; }
@@ -93,5 +101,16 @@ const instagram = 'https://www.instagram.com/casa_senso.ch/';
     .badge :global(.badge-trait) { width: 62px; }
     .bas { margin-top: 32px; flex-direction: column-reverse; align-items: flex-start; }
     .insta svg { width: 44px; height: 44px; }
+  }
+  /* Tablette : logo et colonnes à gauche, médaillon à droite ; contacter | trouver, puis le site. */
+  @media (min-width: 600px) and (max-width: 999px) {
+    .pied { grid-template-columns: 1fr auto; align-items: start; }
+    .cols { grid-template-columns: 1fr 1fr; }
+    .col:first-child { grid-column: auto; }
+    .badge { margin: 0; }
+    .bas { flex-direction: row; align-items: center; }
+  }
+  @media (max-width: 599px) {
+    .col h2 { font-size: 22px; white-space: normal; }
   }
 </style>

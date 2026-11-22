@@ -96,7 +96,7 @@ const temps = [
   .js .filet { transform-origin: left; }
   @media (prefers-reduced-motion: no-preference) { .js .filet { animation: filet 1.4s var(--ease) .2s both; } }
   @keyframes filet { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  .tete-texte { margin-top: 32px; max-width: 760px; font-size: 18px; line-height: 1.7; }
+  .tete-texte { margin-top: 32px; max-width: 62ch; font-size: 18px; line-height: 1.7; }
 
   /* ---------- 2. 3 temps ---------- */
   .temps { background: var(--card); padding: 84px 0 76px; }
@@ -168,5 +168,10 @@ const temps = [
     .bande { padding-bottom: 80px; }
     .bande-bloc { padding: 56px 24px; gap: 22px; }
     .bande-bloc p { font-size: 24px; }
+  }
+  /* Tablette : portrait et texte côte à côte, comme sur ordinateur. */
+  @media (min-width: 700px) and (max-width: 999px) {
+    .portrait { grid-template-columns: 5fr 7fr; gap: 36px; }
+    .ligne h3 { font-size: 30px; }
   }
 </style>

@@ -13,16 +13,27 @@ const { i } = Astro.props as { i: number };
 const p = projets[i];
 const prec = projets[(i - 1 + projets.length) % projets.length];
 const suiv = projets[(i + 1) % projets.length];
-const moitie = Math.ceil(p.recit.length / 2);
 
 // Les photos gardent leur format d'origine (14.11.2026) : plus de cadres verticaux fixes qui coupaient
 // la moitié des photos horizontales. Chaque bloc est rangé en lignes « justifiées » : dans une ligne,
 // toutes les photos ont la même hauteur et chacune garde son rapport largeur/hauteur.
 const LARGEUR = 1320;
 const ratio = (m: ImageMetadata) => m.width / m.height;
+// 18.11.2026 : au plus 4 photos par ligne, et aucune photo plus étroite que 200 px sur 1320
+// (sinon des bandes illisibles à 1024 px) ; la ligne la plus courte ouvre le bloc plutôt que de le fermer.
 function rangs(imgs: ImageMetadata[], hauteurVisee: number) {
   const total = imgs.reduce((t, m) => t + ratio(m), 0);
-  const n = Math.max(1, Math.round(total / (LARGEUR / hauteurVisee)));
+  let n = Math.max(1, Math.round(total / (LARGEUR / hauteurVisee)));
+  let out = decoupe(imgs, n, total);
+  const ok = (rs: ImageMetadata[][]) => rs.every((r) => {
+    const s = r.reduce((t, m) => t + ratio(m), 0);
+    return r.length <= 4 && r.every((m) => (ratio(m) / s) * LARGEUR >= 200);
+  });
+  while (!ok(out) && n < Math.ceil(imgs.length / 2)) { n++; out = decoupe(imgs, n, total); }
+  if (out.length > 1 && out[out.length - 1].length < out[0].length) out.unshift(out.pop()!);
+  return out.map((rang) => ({ rang, somme: rang.reduce((t, m) => t + ratio(m), 0) }));
+}
+function decoupe(imgs: ImageMetadata[], n: number, total: number) {
   const cible = total / n;
   const out: ImageMetadata[][] = [];
   let cur: ImageMetadata[] = [], somme = 0;
@@ -31,14 +42,21 @@ function rangs(imgs: ImageMetadata[], hauteurVisee: number) {
     cur.push(m); somme += ratio(m);
   }
   if (cur.length) out.push(cur);
-  return out.map((rang) => ({ rang, somme: rang.reduce((t, m) => t + ratio(m), 0) }));
+  return out;
 }
+// Téléphone : photos verticales deux par deux ; s'il en reste une seule, elle prend toute la largeur.
+const seule = (blocs: { rang: ImageMetadata[] }[]) => {
+  const demies = blocs.flatMap((b) => b.rang).filter((m) => ratio(m) < 0.95);
+  return demies.length % 2 ? demies[demies.length - 1] : null;
+};
 const tailles = (m: ImageMetadata, somme: number, largeur = LARGEUR) =>
   `(max-width: 999px) ${ratio(m) >= 0.95 ? 100 : 50}vw, ${Math.round((ratio(m) / somme) * largeur)}px`;
 const hautPaysage = p.haut.every((m) => ratio(m) > 1.2);
 const hautSomme = p.haut.reduce((t, m) => t + ratio(m), 0);
 const rangee = rangs(p.rangee, 440);
 const galerie = rangs(p.galerie, 340);
+const seuleRangee = seule(rangee);
+const seuleGalerie = seule(galerie);
 // Diaporama « avant » : cadre vertical si la plupart des photos le sont ; une photo d'un autre format y est montrée entière.
 const avantVertical = p.avant ? p.avant.filter((m) => ratio(m) < 1).length > p.avant.length / 2 : false;
 const cadreAvant = avantVertical ? 3 / 4 : 3 / 2;
@@ -50,7 +68,7 @@ const cadreAvant = avantVertical ? 3 / 4 : 3 / 2;
       <a class="retour" href="/realisations"><span aria-hidden="true">←</span> Réalisations</a>
       <h1 class="titre-serif" set:html={p.titreHtml} />
       <ul class="missions">{p.missions.map((m) => <li>{m}</li>)}</ul>
-      <dl class="fiche"><div><dt>Lieu</dt><dd>{p.lieu}</dd></div><div><dt>Type</dt><dd>{p.type}</dd></div></dl>
+      <dl class="fiche">{p.lieu && <div><dt>Lieu</dt><dd>{p.lieu}</dd></div>}<div><dt>Type</dt><dd>{p.type}</dd></div></dl>
     </div>
     <div class:list={['tete-photos', hautPaysage ? 'mosaique' : 'rang']} data-stagger="130" data-stagger-anim="reveal">
       {p.haut.map((src, k) => (
@@ -71,7 +89,7 @@ const cadreAvant = avantVertical ? 3 / 4 : 3 / 2;
     {rangee.map(({ rang, somme }, l) => (
       <div class="rang" data-stagger="110" data-stagger-anim="reveal">
         {rang.map((src, k) => (
-          <figure class:list={[ratio(src) >= 0.95 ? 'pleine' : 'demie']} style={`--r:${ratio(src)}`}>
+          <figure class:list={[ratio(src) >= 0.95 ? 'pleine' : 'demie', { seule: src === seuleRangee }]} style={`--r:${ratio(src)}`}>
             <Image src={src} alt={`${p.titre}, détail ${l * 10 + k + 1}`} widths={[400, 700, 1000, 1400]} sizes={tailles(src, somme)} />
           </figure>
         ))}
@@ -80,9 +98,11 @@ const cadreAvant = avantVertical ? 3 / 4 : 3 / 2;
   </section>
 
   <!-- 4. Récit en deux colonnes -->
-  <section class="recit conteneur" aria-label="Le projet">
-    <div data-stagger="100">{p.recit.slice(0, moitie).map((r) => <p class:list={{ citation: r.citation }}>{r.p}</p>)}</div>
-    <div data-stagger="100">{p.recit.slice(moitie).map((r) => <p class:list={{ citation: r.citation }}>{r.p}</p>)}</div>
+  <!-- 18.11.2026 : une seule colonne de lecture (62 caractères), dans l'ordre du récit ; les deux colonnes
+       d'avant se déséquilibraient selon la longueur des textes. -->
+  <section class="recit conteneur" aria-labelledby="recit-titre">
+    <p class="mention" id="recit-titre" data-anim="up">Le projet</p>
+    <div class="recit-texte" data-stagger="100">{p.recit.map((r) => <p class:list={{ citation: r.citation }}>{r.p}</p>)}</div>
   </section>
 
   <!-- 5. Avant (diaporama) -->
@@ -113,7 +133,7 @@ const cadreAvant = avantVertical ? 3 / 4 : 3 / 2;
     {galerie.map(({ rang, somme }, l) => (
       <div class="rang" data-stagger="80" data-stagger-anim="reveal">
         {rang.map((src, k) => (
-          <figure class:list={[ratio(src) >= 0.95 ? 'pleine' : 'demie']} style={`--r:${ratio(src)}`}>
+          <figure class:list={[ratio(src) >= 0.95 ? 'pleine' : 'demie', { seule: src === seuleGalerie }]} style={`--r:${ratio(src)}`}>
             <Image src={src} alt={`${p.titre}, photo ${l * 10 + k + 5}`} widths={[400, 700, 1000, 1400]} sizes={tailles(src, somme)} />
           </figure>
         ))}
@@ -125,7 +145,7 @@ const cadreAvant = avantVertical ? 3 / 4 : 3 / 2;
   <section class="conteneur cta">
     <div class="carte" data-anim="up">
       <div>
-        <h2 class="titre-serif">Vous avez un <em>projet</em> ?<br />Parlons-en ensemble.</h2>
+        <h2 class="titre-serif">Vous avez un <em>projet</em>&nbsp;?<br />Parlons-en&nbsp;ensemble.</h2>
         <p>Une pièce à repenser, une maison à aménager ou des locaux à mettre en valeur : dites-moi en quelques lignes ce que vous imaginez, je vous recontacte rapidement.</p>
       </div>
       <ArrowButton href="/contact#formulaire" label="Prendre rendez-vous" />
@@ -166,9 +186,10 @@ const cadreAvant = avantVertical ? 3 / 4 : 3 / 2;
   h1 :global(em), .cta h2 em { color: var(--accent); }
   .missions { list-style: none; margin: 26px 0 0; padding: 0; border-top: 1px solid var(--ink); }
   .missions li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 17px; }
-  .fiche { margin: 22px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .fiche { margin: 22px 0 0; display: grid; gap: 10px; }
+  .fiche div { display: grid; grid-template-columns: 64px 1fr; align-items: baseline; gap: 12px; }
   .fiche dt { font-weight: 500; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
-  .fiche dd { margin: 4px 0 0; font-family: var(--serif); font-size: 19px; }
+  .fiche dd { margin: 0; font-family: var(--serif); font-size: 19px; text-wrap: balance; }
   /* En-tête : photos horizontales en mosaïque (une grande, deux superposées), sinon une ligne justifiée. */
   .tete-photos.mosaique { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; }
   .mosaique figure:first-child { grid-row: span 2; aspect-ratio: 3 / 2; }
@@ -188,24 +209,25 @@ const cadreAvant = avantVertical ? 3 / 4 : 3 / 2;
 
   .rangee { padding-top: 90px; }
 
-  .recit { padding-top: 80px; padding-bottom: 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
-  .recit > div { display: grid; gap: 20px; align-content: start; }
+  .recit { padding-top: 80px; padding-bottom: 100px; display: grid; grid-template-columns: 4fr 8fr; gap: 56px; }
+  .recit .mention { padding-top: 10px; }
+  .recit-texte { display: grid; gap: 22px; max-width: 62ch; }
   .recit p { font-size: 18px; line-height: 1.75; }
   .recit p.citation { font-family: var(--serif); font-size: 26px; line-height: 1.4; color: var(--accent); }
 
   .avant { background: var(--card); padding: 90px 0; }
   .avant-in { display: grid; grid-template-columns: 4fr 8fr; grid-template-rows: auto auto; gap: 24px 56px; }
   .avant-in > * { min-width: 0; }
-  .avant-tete { grid-row: span 2; display: flex; flex-direction: column; gap: 14px; }
+  .avant-tete { grid-row: span 2; display: flex; flex-direction: column; gap: 14px; align-self: start; position: sticky; top: calc(var(--header-h) + 32px); }
   .avant h2 { font-size: 40px; }
   .fleches { margin-top: 12px; display: flex; align-items: center; gap: 16px; }
   .fl { width: 52px; height: 52px; border-radius: 999px; border: 1px solid var(--ink); background: transparent; font-size: 20px; cursor: pointer; transition: background-color .3s var(--ease), color .3s var(--ease); }
   .fl:hover { background: var(--ink); color: var(--paper); }
   .compteur { font-family: var(--serif); font-size: 18px; min-width: 52px; text-align: center; }
   .diapo { position: relative; aspect-ratio: var(--cadre, 1.5); border-radius: var(--radius); overflow: hidden; background: var(--grey); }
-  .diapo.verticale { width: min(100%, calc(78svh * 0.75), 600px); justify-self: center; }
+  .diapo.verticale { width: min(100%, calc(78svh * 0.75), 600px); justify-self: end; }
   .d.entiere :global(img) { object-fit: contain; }
-  .avant-in:has(.verticale) .vignettes { justify-content: center; }
+  .avant-in:has(.verticale) .vignettes { justify-content: flex-end; }
   .d { position: absolute; inset: 0; opacity: 0; transition: opacity .8s var(--ease); border-radius: 0; }
   .d.actif { opacity: 1; }
   .vignettes { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -215,9 +237,11 @@ const cadreAvant = avantVertical ? 3 / 4 : 3 / 2;
   .v :global(img) { width: 100%; height: 100%; object-fit: cover; }
 
   .galerie { padding-top: 100px; }
+  .recit + .galerie { padding-top: 0; }
 
   .cta { padding-top: 110px; }
   .carte { background: var(--card); border-radius: calc(var(--radius) + 8px); padding: 60px 64px; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+  .carte :global(.btn-outline) { justify-self: start; }
   .carte h2 { font-size: 40px; }
   .carte p { margin-top: 16px; max-width: 560px; font-size: 17px; line-height: 1.7; }
 
@@ -228,6 +252,11 @@ const cadreAvant = avantVertical ? 3 / 4 : 3 / 2;
   .prec-l:hover span { transform: translateX(-4px); }
   .suiv-l:hover span { transform: translateX(4px); }
 
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    h1 { font-size: 46px; }
+    .avant-in { grid-template-columns: 5fr 7fr; gap: 24px 40px; }
+    .avant h2 { font-size: 32px; }
+  }
   @media (max-width: 999px) {
     .tete { grid-template-columns: 1fr; gap: 32px; padding-top: 36px; padding-bottom: 56px; }
     h1 { font-size: 38px; }
@@ -235,27 +264,41 @@ const cadreAvant = avantVertical ? 3 / 4 : 3 / 2;
     .accroche { padding: 56px 0; }
     .accroche p { font-size: 24px; }
     .rangee { padding-top: 56px; }
-    /* Mobile : photo horizontale ou carrée sur toute la largeur, photos verticales deux par deux. */
-    .rangs { grid-template-columns: 1fr 1fr; grid-auto-flow: dense; gap: 8px; }
-    .rangs .rang { display: contents; }
-    .rangs figure.pleine { grid-column: 1 / -1; aspect-ratio: var(--r); }
-    .rangs figure.demie { aspect-ratio: 7 / 10; }
+    .rangs, .rangs .rang { gap: 8px; }
     .tete-photos.mosaique, .tete-photos.rang { gap: 8px; }
-    .diapo.verticale { width: 100%; }
-    .recit { grid-template-columns: 1fr; gap: 20px; padding-top: 48px; padding-bottom: 64px; }
+    /* Tablette : photo « avant » verticale plafonnée pour voir flèches et vignettes avec elle. */
+    .diapo.verticale { width: min(100%, calc(62svh * 0.75), 480px); justify-self: center; }
+    .avant-in:has(.verticale) .vignettes { justify-content: center; }
+    .avant-tete { position: static; }
+    .recit { grid-template-columns: 1fr; gap: 16px; padding-top: 48px; padding-bottom: 64px; }
+    .recit .mention { padding-top: 0; }
     .recit p { font-size: 17px; }
     .recit p.citation { font-size: 22px; }
     .avant { padding: 56px 0; }
     .avant-in { grid-template-columns: 1fr; }
     .avant-tete { grid-row: auto; }
     .avant h2 { font-size: 30px; }
-    .v { width: 64px; height: 48px; }
+    .vignettes { flex-wrap: nowrap; overflow-x: auto; gap: 6px; scrollbar-width: none; }
+    .v, .verticale ~ .vignettes .v { flex: none; width: min(52px, calc((100% - 30px) / 6)); height: auto; aspect-ratio: 1; }
     .galerie { padding-top: 56px; }
     .cta { padding-top: 64px; }
     .carte { grid-template-columns: 1fr; padding: 36px 24px; gap: 26px; }
-    .carte h2 { font-size: 28px; }
-    .suite { padding-bottom: 64px; flex-direction: column; }
+    .carte h2 { font-size: clamp(24px, 7vw, 30px); }
+    .suite { padding-bottom: 64px; }
     .suite a { font-size: 21px; }
+  }
+  /* Téléphone : photo horizontale ou carrée sur toute la largeur, photos verticales deux par deux. */
+  @media (max-width: 599px) {
+    .rangs { grid-template-columns: 1fr 1fr; grid-auto-flow: dense; }
+    .rangs .rang { display: contents; }
+    .rangs figure.pleine, .rangs figure.seule { grid-column: 1 / -1; aspect-ratio: var(--r); }
+    .rangs figure.demie:not(.seule) { aspect-ratio: 7 / 10; }
+    .diapo.verticale { width: 100%; }
+    /* En-tête : grande photo sur toute la largeur, les deux autres côte à côte dessous. */
+    .tete-photos.mosaique { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .mosaique figure:first-child { grid-column: 1 / -1; grid-row: auto; }
+    .mosaique figure:not(:first-child) { aspect-ratio: 4 / 3; }
+    .suite { flex-direction: column; }
     .suiv-l { align-self: flex-end; }
   }
 </style>

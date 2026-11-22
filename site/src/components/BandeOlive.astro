@@ -2,9 +2,10 @@
 // Bande olive arrondie de fin de page : dessin, phrase, boutons.
 import { Image } from 'astro:assets';
 import traitMaison from '../assets/images/traits/batisse-creme.png';
-interface Props { phrase: string; lien?: { href: string; label: string }; profil?: 'particulier' | 'professionnel' }
-const { phrase, lien, profil } = Astro.props;
-const rdv = profil ? `/contact?profil=${profil}#formulaire` : '/contact#formulaire';
+// situation : présélection dans le formulaire de contact (renovation, achat, etablissement, promoteur).
+interface Props { phrase: string; lien?: { href: string; label: string }; situation?: 'renovation' | 'achat' | 'etablissement' | 'promoteur' }
+const { phrase, lien, situation } = Astro.props;
+const rdv = situation ? `/contact?situation=${situation}#formulaire` : '/contact#formulaire';
 ---
 <section class="bande-o conteneur" aria-label="Prendre rendez-vous">
   <div class="bloc" data-anim="up">

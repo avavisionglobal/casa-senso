@@ -61,6 +61,15 @@ em { font-style: italic; }
 /* ---------- Titres : Lora, un mot en italique dans la couleur d'accent ---------- */
 .titre-serif { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; line-height: 1.12; }
 .titre-serif em { color: var(--accent); }
+
+/* Retour à la ligne (18.11.2026) : titres équilibrés (lignes de longueur proche, pas de mot seul sur
+   la dernière ligne) ; paragraphes « pretty » (pas de veuve, coupures plus régulières).
+   La ponctuation française est protégée par src/middleware.ts (espace fine insécable). */
+h1, h2, h3, h4, .titre-serif, figcaption, blockquote, .mention, legend, label { text-wrap: balance; }
+p, li, dd, td, .tete-texte { text-wrap: pretty; }
+a[href^="tel:"], a[href^="mailto:"], .nowrap { white-space: nowrap; }
+/* Pas de césure automatique dans les titres (« Aménage-ment ») : un mot trop long passe entier à la ligne. */
+h1, h2, h3, h4, .titre-serif { hyphens: manual; overflow-wrap: break-word; }
 .mention { font-family: var(--sans); font-weight: 500; font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
 
 /* ---------- Boutons : pilule terracotta pleine, flèche dans un cercle ---------- */

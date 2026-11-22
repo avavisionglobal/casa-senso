@@ -3,9 +3,12 @@ import Logo from './Logo.astro';
 import ArrowButton from './ArrowButton.astro';
 import { site } from '../data/site';
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/?index$/, '').replace(/\/$/, '') || '/';
+// 18.11.2026 : les deux publics remplacent « Prestations » dans le menu (un clic de moins).
+// /prestations reste en ligne (ancienne adresse Wix) comme page d'orientation.
 const nav = [
   { href: '/agence', label: "L'agence", menu: "L'Agence" },
-  { href: '/prestations', label: 'Prestations', menu: 'Prestations' },
+  { href: '/prestations/particuliers', label: 'Particuliers', menu: 'Particuliers' },
+  { href: '/prestations/professionnels', label: 'Professionnels', menu: 'Professionnels' },
   { href: '/realisations', label: 'Réalisations', menu: 'Réalisations' },
   { href: '/contact', label: 'Contact', menu: 'Contact' },
 ];
@@ -70,10 +73,11 @@ const nav = [
     transition: box-shadow .4s var(--ease), border-color .4s var(--ease);
   }
   :global(html.scrolled) .site-header { box-shadow: 0 8px 30px -18px rgba(30, 26, 23, .35); border-color: transparent; }
+  /* 18.11.2026 : la barre suit la même colonne que le contenu (.conteneur), logo aligné sur les titres. */
   .bar {
     height: var(--header-h);
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 65px 0 69px;
+    max-width: calc(1320px + 2 * var(--gutter)); margin-inline: auto; padding: 0 var(--gutter);
   }
   .bar :global(.header-logo) { width: 247px; }
   .nav { display: flex; align-items: center; gap: 35px; }
@@ -107,12 +111,22 @@ const nav = [
   .menu ul a { font-family: var(--serif); font-size: 34px; line-height: 1.3; }
   .menu :global(.menu-rdv) { margin-top: 228px; }
 
-  @media (max-width: 1199px) and (min-width: 1000px) {
-    .bar { padding: 0 32px; }
-    .bar :global(.header-logo) { width: 210px; }
-    .nav { gap: 24px; }
+  .rdv { white-space: nowrap; }
+  /* 18.11.2026 : cinq entrées de menu. Entre 1000 et 1339 px, logo, menu et bouton se resserrent. */
+  @media (max-width: 1339px) and (min-width: 1000px) {
+    .bar { gap: 28px; }
+    .bar :global(.header-logo) { width: 200px; flex-shrink: 0; }
+    .nav { gap: 22px; }
     .nav ul { gap: 20px; }
-    .nav ul a { font-size: 14px; letter-spacing: 1.2px; }
+    .nav ul a { font-size: 13px; letter-spacing: .1em; }
+    .rdv { padding: 0 16px; font-size: 12px; letter-spacing: .1em; }
+  }
+  @media (max-width: 1139px) and (min-width: 1000px) {
+    .bar { padding: 0 32px; gap: 20px; }
+    .bar :global(.header-logo) { width: 170px; }
+    .nav { gap: 16px; }
+    .nav ul { gap: 14px; }
+    .nav ul a { font-size: 12px; letter-spacing: .06em; }
   }
   @media (max-width: 999px) {
     .bar { padding: 0 18px 0 20px; }

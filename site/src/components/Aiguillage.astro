@@ -1,0 +1,61 @@
+---
+// Aiguillage (18.11.2026) : sous l'en-tête d'une page public, deux situations cliquables qui mènent
+// à leur section (#ancre). Le visiteur se reconnaît dans une phrase à la première personne.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Choix { href: string; t: string; d: string; img: ImageMetadata }
+interface Props { question: string; choix: Choix[] }
+const { question, choix } = Astro.props;
+---
+<nav class="aiguillage conteneur" aria-label={question}>
+  <p class="mention" data-anim="up">{question}</p>
+  <ul data-stagger="120">
+    {choix.map((c, i) => (
+      <li>
+        <a href={c.href}>
+          <span class="n">{String(i + 1).padStart(2, '0')}</span>
+          <Image class="trait" src={c.img} alt="" width={160} />
+          <span class="t titre-serif" set:html={c.t} />
+          <span class="d">{c.d}</span>
+          <span class="fleche" aria-hidden="true">↓</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .aiguillage { padding-bottom: 96px; }
+  .aiguillage .mention { margin-bottom: 18px; }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  a {
+    position: relative; height: 100%;
+    display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto 1fr auto; column-gap: 20px; row-gap: 10px;
+    padding: 28px 30px 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card);
+    transition: border-color .4s var(--ease), background-color .4s var(--ease), transform .5s var(--ease);
+  }
+  a:hover { border-color: var(--ink); background: #EDE4D7; transform: translateY(-3px); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  a > * { min-width: 0; }
+  .n { grid-column: 1; font-family: var(--serif); font-size: 18px; color: var(--accent); }
+  a :global(.trait) { grid-column: 2; grid-row: 1 / span 2; width: 96px; height: auto; align-self: start; opacity: .9; }
+  .t { grid-column: 1; font-size: 30px; line-height: 1.2; }
+  .t :global(em) { color: var(--accent); }
+  .d { grid-column: 1; font-size: 16px; line-height: 1.6; color: var(--muted); max-width: 440px; }
+  .fleche {
+    grid-column: 2; grid-row: 3; align-self: end; justify-self: end;
+    display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 999px;
+    background: var(--accent); color: #fff; font-size: 18px; transition: transform .45s var(--ease), background-color .35s var(--ease);
+  }
+  a:hover .fleche { transform: translateY(3px); background: var(--accent-dark); }
+  @media (max-width: 999px) {
+    .aiguillage { padding-bottom: 60px; }
+    ul { grid-template-columns: 1fr; gap: 10px; }
+    @media (min-width: 700px) { ul { grid-template-columns: 1fr 1fr; } }
+    a { padding: 20px 20px 18px; column-gap: 14px; }
+    a :global(.trait) { width: 64px; }
+    .t { font-size: clamp(20px, 6vw, 23px); }
+    .d { font-size: 15px; }
+    .fleche { width: 34px; height: 34px; font-size: 16px; }
+  }
+</style>

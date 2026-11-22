@@ -4,6 +4,19 @@ import Base from '../layouts/Base.astro';
 import PageTete from '../components/PageTete.astro';
 import fauteuil from '../assets/images/contact-fauteuil.png';
 import { site } from '../data/site';
+
+// 18.11.2026 : quatre situations au lieu de Particulier / Professionnel. La valeur envoyée garde le
+// public en tête (« Particulier · … ») pour que Laetitia trie ses demandes d'un coup d'œil.
+const situations = [
+  { groupe: 'Particulier', items: [
+    { key: 'renovation', value: 'Particulier · rénovation', label: 'Je repense mon intérieur', aide: 'La pièce, ce que vous aimeriez changer, vos envies…' },
+    { key: 'achat', value: 'Particulier · achat neuf', label: "J'achète un bien neuf ou sur plan", aide: 'Le lieu, la date de remise des clés prévue, les pièces à aménager…' },
+  ] },
+  { groupe: 'Professionnel', items: [
+    { key: 'etablissement', value: 'Professionnel · établissement', label: "J'aménage mon établissement", aide: "Votre activité, le lieu, la date d'ouverture ou de réouverture…" },
+    { key: 'promoteur', value: 'Professionnel · promoteur', label: 'Je suis promoteur immobilier', aide: 'Le programme, le nombre de logements, ce que vous imaginez pour vos acquéreurs ou vos biens…' },
+  ] },
+];
 ---
 <Base
   title="Contact Casa Senso | Votre projet à Neuchâtel"
@@ -27,11 +40,19 @@ import { site } from '../data/site';
       <h2 id="form-titre" class="titre-serif">Prendre <em>rendez-vous</em></h2>
       <p class="form-sub">Remplissez le formulaire ci-dessous, je vous recontacte rapidement.</p>
       <form class="form" method="post" action="/api/contact" novalidate>
-        <fieldset class="choix">
-          <legend>Vous êtes *</legend>
-          <div class="pastilles">
-            <label class="pastille"><input type="radio" name="profil" value="Particulier" required /><span>Particulier</span></label>
-            <label class="pastille"><input type="radio" name="profil" value="Professionnel" required /><span>Professionnel</span></label>
+        <fieldset class="choix situations">
+          <legend>Votre situation *</legend>
+          <div class="groupes">
+            {situations.map((g) => (
+              <div class="groupe">
+                <p class="groupe-t">{g.groupe}</p>
+                <div class="pastilles">
+                  {g.items.map((i) => (
+                    <label class="pastille"><input type="radio" name="profil" value={i.value} data-situation={i.key} data-aide={i.aide} required /><span>{i.label}</span></label>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </fieldset>
         <fieldset class="choix">
@@ -84,13 +105,16 @@ import { site } from '../data/site';
   const params = new URLSearchParams(location.search);
   if (params.get('envoye') === '1') say('Merci, votre message a bien été envoyé.', 'ok');
   if (params.get('envoye') === '0') say('Le message n’a pas pu être envoyé. Écrivez-moi à studio@casa-senso.ch.', 'err');
-  // Lien depuis une page (?profil=professionnel ou particulier) : présélection.
-  const profil = params.get('profil');
-  if (profil && form) {
-    const val = profil.toLowerCase().startsWith('pro') ? 'Professionnel' : 'Particulier';
-    const r = form.querySelector<HTMLInputElement>(`input[name="profil"][value="${val}"]`);
-    if (r) r.checked = true;
+  // Lien depuis une page (?situation=renovation|achat|etablissement|promoteur) : présélection.
+  // Ancien paramètre ?profil=particulier|professionnel : on ne devine pas la situation, rien n'est coché.
+  const message = form?.querySelector<HTMLTextAreaElement>('#message');
+  const aide = (r: HTMLInputElement | null) => { if (r?.dataset.aide && message) message.placeholder = r.dataset.aide; };
+  const situation = params.get('situation');
+  if (situation && form) {
+    const r = form.querySelector<HTMLInputElement>(`input[name="profil"][data-situation="${CSS.escape(situation)}"]`);
+    if (r) { r.checked = true; aide(r); }
   }
+  form?.querySelectorAll<HTMLInputElement>('input[name="profil"]').forEach((r) => r.addEventListener('change', () => aide(r)));
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -147,6 +171,7 @@ import { site } from '../data/site';
   .form { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; row-gap: 26px; }
   .choix { grid-column: 1 / -1; margin: 0; padding: 0; border: 0; }
   legend, label { font-weight: 500; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  legend { padding: 0; margin: 0; }
   .facultatif { text-transform: none; letter-spacing: 0; }
   .pastilles { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px; }
   .pastille { position: relative; cursor: pointer; letter-spacing: 0; text-transform: none; color: var(--ink); font-size: 16px; }
@@ -156,6 +181,9 @@ import { site } from '../data/site';
   .pastille input:checked + span { background: var(--accent); border-color: var(--accent); color: #fff; }
   .pastille input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
   .choix[data-invalid] .pastille span { border-color: #b3261e; }
+  .groupes { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .groupe-t { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink); }
+  .groupe .pastilles { margin-top: 8px; flex-direction: column; align-items: flex-start; }
 
   .field { grid-column: 1 / -1; display: flex; flex-direction: column; }
   .field.half { grid-column: auto; }
@@ -184,6 +212,10 @@ import { site } from '../data/site';
   .status[data-kind='ok'] { color: var(--olive); }
   .status[data-kind='err'] { color: #b3261e; }
 
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    .contact-grid { grid-template-columns: 5fr 8fr; gap: 48px; }
+    .strong { font-size: 19px; }
+  }
   @media (max-width: 999px) {
     .contact-grid { grid-template-columns: 1fr; gap: 40px; padding-bottom: 70px; }
     .coord { position: static; order: 2; padding: 26px 22px 20px; }
@@ -194,6 +226,17 @@ import { site } from '../data/site';
     .form { margin-top: 26px; grid-template-columns: 1fr; }
     .field.half { grid-column: 1 / -1; }
     .pastille span { height: 42px; padding: 0 16px; font-size: 15px; }
+    .groupes { grid-template-columns: 1fr; gap: 16px; }
     .send { width: 100%; }
+  }
+  /* Tablette : champs par deux, bouton à sa taille, carte coordonnées avec le fauteuil à droite. */
+  @media (min-width: 600px) and (max-width: 999px) {
+    .form { grid-template-columns: 1fr 1fr; }
+    .field.half { grid-column: auto; }
+    .groupes { grid-template-columns: 1fr 1fr; }
+    .send { width: auto; }
+    .coord { display: grid; grid-template-columns: 1fr auto; column-gap: 24px; align-items: center; }
+    .coord > :not(.fauteuil) { grid-column: 1; }
+    .coord :global(.fauteuil) { grid-column: 2; grid-row: 1 / span 3; width: 200px; margin: 0; }
   }
 </style>

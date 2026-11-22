@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Calendrier de l’Avent · deux options</title>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  body { background: var(--paper); color: var(--ink); }
+  main { max-width: 1180px; margin: 0 auto; padding: 48px 16px 100px; }
+  .entete { display: flex; justify-content: space-between; align-items: center; }
+  .entete img { height: 18px; }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(36px, 5.4vw, 64px); line-height: 1.04; margin: 56px 0 18px; letter-spacing: -.01em; }
+  h1 em { color: var(--olive); }
+  .chapo { max-width: 680px; color: #4a423b; font-size: 18px; }
+
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 52px; }
+  .option { display: flex; flex-direction: column; background: var(--card); border-radius: 22px; overflow: hidden; }
+  .apercus { position: relative; padding: 22px 22px 0; }
+  .apercus .ecran { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: 12px; box-shadow: 0 14px 30px -14px rgba(0,0,0,.4); }
+  .apercus .tel { position: absolute; right: 34px; bottom: -34px; width: 23%; aspect-ratio: 9 / 18; object-fit: cover; object-position: top; border-radius: 16px; border: 4px solid #1E1A17; box-shadow: 0 14px 30px -10px rgba(0,0,0,.5); }
+  .option .corps { padding: 30px 26px 28px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .option .lettre { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+  .option h2 { font-family: var(--serif); font-weight: 400; font-size: 32px; line-height: 1.08; }
+  .option p { font-size: 16px; color: #4a423b; }
+  .option ul { margin: 0; padding-left: 18px; font-size: 15px; color: #4a423b; display: grid; gap: 6px; }
+  .option .percu { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink); border-left: 2px solid var(--ocre); padding-left: 12px; }
+  .option .av-btn { align-self: flex-start; margin-top: auto; }
+
+  section.bloc { margin-top: 80px; display: grid; grid-template-columns: 300px 1fr; gap: 40px; padding-top: 34px; border-top: 1px solid var(--line); }
+  section.bloc h3 { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.12; }
+  section.bloc ul { margin: 0; padding-left: 18px; display: grid; gap: 10px; color: #4a423b; }
+  section.bloc p { color: #4a423b; }
+  section.bloc p + p, section.bloc p + ul, section.bloc ul + p { margin-top: 12px; }
+  .note { margin-top: 60px; font-size: 14px; color: var(--muted); max-width: 760px; }
+
+  @media (max-width: 900px) {
+    .options { grid-template-columns: 1fr; }
+    section.bloc { grid-template-columns: 1fr; gap: 16px; margin-top: 60px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="entete">
+    <img src="assets/logo.svg" alt="Casa Senso">
+    <span class="mention" style="color:var(--muted)">Maquette · 18.11.2026</span>
+  </div>
+
+  <h1>Calendrier de l’Avent : <em>deux options</em> pour le site</h1>
+  <p class="chapo">Chaque matin du 1er au 24 décembre, vous dévoilez une planche sur Instagram. Une page du site les rassemble : la case du jour s’éclaire, celles déjà ouvertes restent consultables, et chaque jour a son propre lien. Le fonctionnement est le même dans les deux options ; seul l’univers change.</p>
+
+  <div class="options">
+    <article class="option">
+      <div class="apercus">
+        <img class="ecran" src="captures/a-desktop-ecran.png" alt="Option A sur ordinateur">
+        <img class="tel" src="captures/a-mobile.png" alt="Option A sur téléphone">
+      </div>
+      <div class="corps">
+        <p class="lettre">Option A</p>
+        <h2>La maison aux volets</h2>
+        <p>La bâtisse dessinée du site, une nuit d’hiver. Chaque jour est une fenêtre aux volets verts ; le 24, c’est la porte, avec sa couronne.</p>
+        <ul>
+          <li>Les volets de la planche du jour laissent filtrer la lumière par leur cœur découpé.</li>
+          <li>Au clic, ils s’ouvrent sur la planche dans une fine poussière dorée.</li>
+          <li>Une nuit calme : quelques étoiles, une neige rare et lente, la maison posée dans un halo de lumière.</li>
+          <li>Sous la maison, la planche du jour en grand, derrière ses volets, avec son titre et son texte.</li>
+          <li>Le 24, quand tout est ouvert, la maison entière est éclairée.</li>
+        </ul>
+        <p class="percu">Feutrée et précieuse, sans effets.</p>
+        <a class="av-btn av-btn--plein" href="a-maison.html">Voir l’option A</a>
+      </div>
+    </article>
+
+    <article class="option">
+      <div class="apercus">
+        <img class="ecran" src="captures/c-desktop-ecran.png" alt="Option C sur ordinateur">
+        <img class="tel" src="captures/c-mobile.png" alt="Option C sur téléphone">
+      </div>
+      <div class="corps">
+        <p class="lettre">Option C</p>
+        <h2>La guirlande d’atelier</h2>
+        <p>Le mur d’inspiration de la décoratrice : les planches sont pendues à des fils lumineux par des pinces à linge, entre un échantillon de velours, un nuancier et un brin de sapin.</p>
+        <ul>
+          <li>Chaque jour est une étiquette kraft numérotée, marquée du tampon « cs ».</li>
+          <li>Au clic, elle se retourne et la photo apparaît comme un instantané qui se révèle.</li>
+          <li>On peut attraper une planche et la faire balancer ; elles bougent aussi en faisant défiler.</li>
+          <li>Sous le mur, la planche du jour en grande étiquette, qu’on retourne d’un bouton.</li>
+          <li>Le 24 est une grande étiquette seule sur son fil, avec une étoile.</li>
+        </ul>
+        <p class="percu">Vivante et artisanale sans être brouillonne.</p>
+        <a class="av-btn av-btn--plein" href="c-guirlande.html">Voir l’option C</a>
+      </div>
+    </article>
+  </div>
+
+  <section class="bloc">
+    <h3>Ce qui est commun aux deux</h3>
+    <ul>
+      <li>Avant le 1er décembre, la page annonce l’ouverture et compte les jours.</li>
+      <li>Une case s’ouvre chaque matin. Celles du passé restent consultables ; celles pas encore regardées ressortent, et un bouton permet de les voir à la suite.</li>
+      <li>Une fenêtre de lecture montre la planche, son titre et une phrase, avec un lien vers le post Instagram, un bouton de partage et l’accès aux autres jours.</li>
+      <li>Sous chaque planche, une invitation discrète à prendre rendez-vous ; en bas de page, rendez-vous et Instagram.</li>
+      <li>Chaque jour a son adresse directe (par exemple <code>/avent#jour-9</code>) : la page s’ouvre sur la bonne case.</li>
+    </ul>
+  </section>
+
+  <section class="bloc">
+    <h3>Le lien depuis Instagram</h3>
+    <div>
+      <p>Instagram ne rend pas cliquables les liens écrits dans la légende d’un post. Le parcours qui fonctionne :</p>
+      <ul>
+        <li>le lien de la bio pointe vers la page du calendrier pendant tout le mois ;</li>
+        <li>chaque jour, une story avec l’autocollant « lien » pointe directement sur la case du jour ;</li>
+        <li>la légende du post peut dire « la planche reste sur le site, lien en bio ».</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="bloc">
+    <h3>Ce qu’il nous faudra de votre part</h3>
+    <div>
+      <p>Pour chacun des 24 jours :</p>
+      <ul>
+        <li>l’image de la planche (le même visuel que sur Instagram) ;</li>
+        <li>un titre court et une phrase ;</li>
+        <li>le lien du post une fois publié (sinon, le bouton mène à votre profil).</li>
+      </ul>
+      <p>Les planches peuvent être ajoutées la veille ; la page n’affiche chaque case qu’à sa date.</p>
+    </div>
+  </section>
+
+  <section class="bloc">
+    <h3>Pour tester la maquette</h3>
+    <p>En bas à gauche de chaque option, la barre « Démo » permet de changer la date (30 novembre, 9 décembre, 24 décembre) et de remettre les cases à neuf. Elle n’existera pas sur le site.</p>
+  </section>
+
+  <p class="note">Les titres, textes et images des 24 jours sont des exemples tirés des photos du site, en attendant vos planches.</p>
+</main>
+</body>
+</html>

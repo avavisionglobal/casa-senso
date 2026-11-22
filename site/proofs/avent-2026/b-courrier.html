@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Piste B · Le courrier de l’Avent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* Piste B · idée-source : la planche envoyée comme une lettre, chaque matin.
+     Signes : cachet de cire « cs » (objet-signature, réutilisable sur les posts) · ficelle nouée · cachet postal. */
+  :root { --papier: #F4EEE3; --cire: #3F4A33; --cire-2: #2C3424; --or: #C9AE72; --ficelle: #B08A57; }
+  body { background: var(--papier); color: var(--ink);
+    background-image: radial-gradient(rgba(30,26,23,.035) 1px, transparent 1px); background-size: 4px 4px; }
+  .top { display: flex; justify-content: space-between; align-items: center; padding: 22px clamp(16px, 4vw, 56px); }
+  .top img { height: 18px; }
+  .top a { font-size: 13px; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; color: var(--muted); }
+
+  .une { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; max-width: 1240px; margin: 0 auto; padding: clamp(20px, 6vh, 70px) clamp(16px, 4vw, 56px) 40px; }
+  .une .mention { color: var(--muted); }
+  .une h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(42px, 6vw, 84px); line-height: 1; letter-spacing: -.02em; margin: 18px 0 22px; }
+  .une h1 em { color: var(--cire); }
+  .une p.chapo { font-size: 18px; color: #4a423b; max-width: 470px; }
+  .compte { margin-top: 26px; font-size: 14px; letter-spacing: .04em; color: var(--muted); }
+  .barre { margin-top: 10px; width: min(360px, 100%); height: 4px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .barre::after { content: ""; display: block; height: 100%; width: calc(var(--p, 0) * 100%); background: var(--cire); transition: width .6s var(--ease); }
+  .jourdu { justify-self: center; width: min(520px, 100%); text-align: center; }
+  .jourdu .mention { display: block; margin-bottom: 26px; color: var(--cire); }
+  .jourdu .env { width: 100%; }
+  .jourdu .aide { margin-top: 26px; font-size: 14px; color: var(--muted); }
+
+  /* ---------- une enveloppe (vue de dos) ---------- */
+  .env { --c: #FBF7EE; --c2: #EFE6D6; position: relative; display: block; width: 100%; aspect-ratio: 7 / 5; border: 0; padding: 0; background: none;
+         perspective: 900px; transform-style: preserve-3d; }
+  .env:nth-child(4n+2) { --c: #E9DCC4; --c2: #DCCBAF; }
+  .env:nth-child(4n+3) { --c: #E3E5DA; --c2: #D3D7C7; }
+  .env:nth-child(4n+4) { --c: #F2DFD6; --c2: #E5CBBE; }
+  .env__corps { position: absolute; inset: 0; transition: transform .5s var(--ease); }
+  .env__fond { position: absolute; inset: 0; background: var(--c2); border-radius: 6px; box-shadow: 0 14px 30px -12px rgba(60, 40, 20, .35), 0 2px 4px rgba(60, 40, 20, .12); }
+  .env__carte { position: absolute; left: 7%; right: 7%; top: 8%; height: 86%; background: #fff; padding: 5px; border-radius: 3px; box-shadow: 0 4px 12px rgba(0,0,0,.15);
+                transition: transform .9s .35s var(--ease); z-index: 1; }
+  .env__carte img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+  .env__poche { position: absolute; inset: 0; z-index: 2; background: var(--c); border-radius: 6px;
+                clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%); }
+  .env__poche::before { content: ""; position: absolute; inset: 0; background: linear-gradient(to top right, transparent 49.6%, rgba(60,40,20,.09) 50%, transparent 50.6%), linear-gradient(to top left, transparent 49.6%, rgba(60,40,20,.09) 50%, transparent 50.6%); }
+  .env__rabat { position: absolute; left: 0; right: 0; top: 0; height: 60%; z-index: 3; transform: perspective(700px) rotateX(0deg); transform-origin: top center; transition: transform .7s .15s var(--ease), z-index 0s .5s;
+                background: var(--c); clip-path: polygon(0 0, 100% 0, 50% 100%); filter: drop-shadow(0 2px 2px rgba(60,40,20,.2)); }
+  .env__rabat::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,.35), rgba(60,40,20,.08)); }
+  .env__num { position: absolute; left: 8%; bottom: 9%; z-index: 4; font-family: var(--serif); font-size: clamp(26px, 3.4vw, 46px); line-height: 1; color: var(--ink); text-align: left; }
+  .env__num small { display: block; margin-top: 6px; font-family: var(--sans); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .env__postal { position: absolute; right: 7%; bottom: 10%; z-index: 4; width: 26%; aspect-ratio: 1; border: 1.5px solid rgba(30,26,23,.35); border-radius: 50%;
+                 display: grid; place-items: center; text-align: center; font-size: 8px; letter-spacing: .14em; line-height: 1.4; text-transform: uppercase; color: rgba(30,26,23,.5); transform: rotate(-12deg); }
+  .env__postal::before { content: ""; position: absolute; left: -70%; right: 110%; top: 30%; height: 40%;
+    background: repeating-linear-gradient(180deg, transparent 0 5px, rgba(30,26,23,.25) 5px 6.5px); border-radius: 40%; }
+
+  /* cachet de cire */
+  .cachet { position: absolute; left: 50%; top: 60%; z-index: 5; width: 22%; aspect-ratio: 1; transform: translate(-50%, -50%); pointer-events: none; }
+  .cachet i { position: absolute; inset: 0; background: radial-gradient(circle at 35% 30%, #6c7a58, var(--cire) 45%, var(--cire-2) 100%);
+              border-radius: 47% 53% 50% 50% / 52% 48% 52% 48%; box-shadow: 0 3px 6px rgba(0,0,0,.3), inset 0 -3px 6px rgba(0,0,0,.3);
+              transition: transform .6s var(--ease), opacity .5s .2s; }
+  .cachet i:nth-child(1) { clip-path: polygon(0 0, 55% 0, 42% 50%, 58% 100%, 0 100%); }
+  .cachet i:nth-child(2) { clip-path: polygon(55% 0, 100% 0, 100% 100%, 58% 100%, 42% 50%); }
+  .cachet b { position: absolute; inset: 18%; display: grid; place-items: center; border: 1.5px solid rgba(201,174,114,.7); border-radius: 50%;
+              font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(12px, 1.5vw, 20px); color: var(--or); transition: opacity .3s; }
+  .cachet::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.45) 50%, transparent 65%); background-size: 250% 100%; opacity: 0; }
+
+  /* ficelle (jours à venir) */
+  .ficelle { position: absolute; inset: 0; z-index: 6; pointer-events: none; transition: opacity .4s; }
+  .ficelle::before, .ficelle::after { content: ""; position: absolute; background: var(--ficelle); box-shadow: 0 1px 1px rgba(0,0,0,.15); }
+  .ficelle::before { left: 0; right: 0; top: 60%; height: 2px; }
+  .ficelle::after { top: 0; bottom: 0; left: 50%; width: 2px; }
+  .ficelle span { position: absolute; left: 50%; top: 60%; width: 30px; height: 16px; transform: translate(-50%, -50%);
+                  border: 2px solid var(--ficelle); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; }
+
+  /* états */
+  .env.ferme .cachet { display: none; }
+  .env.ferme .env__poche, .env.ferme .env__rabat { filter: saturate(.6) brightness(.98); }
+  .env:not(.ferme) .ficelle { opacity: 0; }
+  .env.nouveau .env__corps { animation: flotte 3.2s ease-in-out infinite; }
+  .env.nouveau .cachet::after { opacity: 1; animation: reflet 2.8s ease-in-out infinite; }
+  .env.nouveau .env__num::after { content: "Nouveau"; display: inline-block; margin-left: 10px; vertical-align: middle; font-family: var(--sans); font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+                                  background: var(--cire); color: var(--papier); padding: 4px 8px 3px; border-radius: 999px; }
+  .env.vu .env__rabat { transform: perspective(700px) rotateX(180deg); z-index: 0; }
+  .env.vu .env__carte { transform: translateY(-58%); }
+  .env.vu .cachet i:nth-child(1) { transform: translate(-30%, 40%) rotate(-25deg); opacity: 0; }
+  .env.vu .cachet i:nth-child(2) { transform: translate(30%, 50%) rotate(20deg); opacity: 0; }
+  .env.vu .cachet b { opacity: 0; }
+  .env.vu .env__postal { opacity: .7; }
+  .env.vu:hover .env__carte { transform: translateY(-66%); transition-delay: 0s; }
+  .env.secoue .env__corps { animation: secoue .45s; }
+  @keyframes flotte { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px) rotate(-.6deg); } }
+  @keyframes reflet { 0% { background-position: 120% 0; } 60%, 100% { background-position: -120% 0; } }
+  @keyframes secoue { 20%, 60% { transform: rotate(-2deg); } 40%, 80% { transform: rotate(2deg); } }
+
+  /* ---------- le classeur ---------- */
+  .classeur { max-width: 1240px; margin: 0 auto; padding: 60px clamp(16px, 4vw, 56px) 40px; }
+  .classeur__tete { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; border-top: 1px solid var(--ink); padding-top: 22px; margin-bottom: 150px; }
+  .classeur h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 3.4vw, 40px); }
+  .filtres { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filtres button { border: 1px solid var(--ink); background: transparent; border-radius: 999px; padding: 9px 16px; font-size: 14px; }
+  .filtres button[aria-pressed="true"] { background: var(--ink); color: var(--papier); }
+  .grille { display: grid; grid-template-columns: repeat(4, 1fr); gap: 150px 40px; }
+  .grille .env { transition: opacity .4s, transform .4s var(--ease); }
+  .grille .env.cache { display: none; }
+
+  .suite { max-width: 1240px; margin: 40px auto 0; padding: 60px clamp(16px, 4vw, 56px) 110px; display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: center; border-top: 1px solid var(--line); }
+  .suite img { width: 90px; }
+  .suite h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(24px, 2.8vw, 34px); line-height: 1.15; }
+  .suite h2 em { color: var(--accent); }
+  .suite .boutons { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .une { grid-template-columns: 1fr; gap: 50px; }
+    .grille { grid-template-columns: repeat(2, 1fr); gap: 110px 18px; }
+    .classeur__tete { margin-bottom: 110px; }
+    .suite { grid-template-columns: 1fr; text-align: left; }
+  }
+  @media (max-width: 520px) {
+    .env__postal { display: none; }
+    .env__num small { font-size: 9px; letter-spacing: .1em; }
+    .env.nouveau .env__num::after { display: block; margin: 6px 0 0; width: max-content; }
+    .grille .env__num { font-size: 26px; }
+  }
+</style>
+</head>
+<body data-piste="b">
+<header class="top">
+  <a href="/" aria-label="Casa Senso, retour au site"><img src="assets/logo.svg" alt="Casa Senso"></a>
+  <a href="/">Retour au site</a>
+</header>
+<main>
+  <section class="une">
+    <div>
+      <p class="mention">Calendrier de l’Avent · 2026</p>
+      <h1>Le courrier de <em>l’Avent</em></h1>
+      <p class="chapo">Chaque matin du 1er au 24 décembre, une enveloppe arrive. À l’intérieur, une planche de décoration composée par Laetitia, à retrouver aussi sur Instagram.</p>
+      <p class="compte" data-compte></p>
+      <div class="barre" data-progress></div>
+    </div>
+    <div class="jourdu">
+      <span class="mention">Le courrier du jour</span>
+      <div id="jourdu"></div>
+      <p class="aide">Brisez le cachet pour ouvrir l’enveloppe.</p>
+    </div>
+  </section>
+
+  <section class="classeur">
+    <div class="classeur__tete">
+      <h2>Toutes les enveloppes</h2>
+      <div class="filtres" role="group" aria-label="Filtrer">
+        <button aria-pressed="true" data-f="tout">Toutes</button>
+        <button aria-pressed="false" data-f="nouveau">Pas encore vues</button>
+        <button aria-pressed="false" data-f="vu">Déjà ouvertes</button>
+      </div>
+    </div>
+    <div class="grille" id="grille"></div>
+  </section>
+
+  <section class="suite">
+    <img src="assets/fauteuil-encre.png" alt="" aria-hidden="true">
+    <h2>Une ambiance vous parle ? <em>Parlons</em> de votre intérieur.</h2>
+    <div class="boutons">
+      <a class="av-btn av-btn--plein" href="/contact">Prendre rendez-vous</a>
+      <a class="av-btn av-btn--ligne" href="https://www.instagram.com/casa_senso.ch/" target="_blank" rel="noopener">@casa_senso.ch</a>
+    </div>
+  </section>
+</main>
+
+<script src="shared.js"></script>
+<script>
+(function () {
+  const { DAYS, h } = Avent;
+  const envs = {}; // n -> [éléments]
+  function enveloppe(d) {
+    const b = h('button', { class: 'env', 'data-n': d.n },
+      h('span', { class: 'env__corps' },
+        h('span', { class: 'env__fond' }),
+        h('span', { class: 'env__carte' }, h('img', { src: d.img, alt: '', loading: 'lazy' })),
+        h('span', { class: 'env__poche' }),
+        h('span', { class: 'env__rabat' }),
+        h('span', { class: 'env__num' }, String(d.n).padStart(2, '0'), h('small', {}, Avent.fmtShort(d.date))),
+        h('span', { class: 'env__postal' }, 'Corcelles', h('br'), d.n + '.12.26'),
+        h('span', { class: 'cachet' }, h('i'), h('i'), h('b', {}, 'cs')),
+        h('span', { class: 'ficelle' }, h('span'))));
+    b.addEventListener('click', () => clic(d.n, b));
+    tilt(b);
+    (envs[d.n] = envs[d.n] || []).push(b);
+    return b;
+  }
+  function tilt(b) { // l'enveloppe suit légèrement la souris
+    if (Avent.reduced) return;
+    const c = b.querySelector('.env__corps');
+    b.addEventListener('pointermove', e => {
+      const r = b.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      c.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 12}deg) translateZ(10px)`;
+    });
+    b.addEventListener('pointerleave', () => { c.style.transform = ''; });
+  }
+  function clic(n, b) {
+    const st = Avent.state(n);
+    if (st === 'ferme') { b.classList.remove('secoue'); void b.offsetWidth; b.classList.add('secoue'); return Avent.open(n); }
+    if (st === 'nouveau') { envs[n].forEach(e => { e.classList.remove('nouveau'); e.classList.add('vu'); }); setTimeout(() => Avent.open(n), Avent.reduced ? 0 : 1100); return; }
+    Avent.open(n);
+  }
+
+  const grille = document.getElementById('grille');
+  DAYS.forEach(d => grille.append(enveloppe(d)));
+  const jourdu = document.getElementById('jourdu');
+  let jdN = 0;
+
+  let filtre = 'tout';
+  document.querySelector('.filtres').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    filtre = b.dataset.f;
+    document.querySelectorAll('.filtres button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    Avent.render();
+  });
+
+  Avent.init({
+    render() {
+      const t = Math.max(1, Avent.today);
+      if (jdN !== t) { jourdu.replaceChildren(); envs[t] = (envs[t] || []).filter(e => e.parentNode === grille); jourdu.append(enveloppe(DAYS[t - 1])); jdN = t; }
+      for (const d of DAYS) for (const b of envs[d.n]) {
+        const st = Avent.state(d.n);
+        b.classList.remove('ferme', 'nouveau', 'vu'); b.classList.add(st);
+        b.setAttribute('aria-label', 'Jour ' + d.n + (st === 'ferme' ? ', s’ouvre le ' + d.n + ' décembre' : ' : ' + d.titre + (st === 'nouveau' ? ', pas encore ouverte' : '')));
+        if (b.parentNode === grille) b.classList.toggle('cache', filtre !== 'tout' && st !== filtre);
+      }
+    },
+  });
+})();
+</script>
+</body>
+</html>

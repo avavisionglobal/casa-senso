@@ -1,32 +1,65 @@
 ---
 // Prestations · Professionnels (13.11.2026). Textes du site actuel (carte « Professionnels ») ;
-// cas ICHI : ses mots (document « projet restaurant », 12.11) ; accord du restaurant à obtenir avant mise en ligne.
+// cas ICHI : ses mots (document « projet restaurant », 12.11) ; accord du restaurant confirmé par Laetitia le 18.11.2026.
+// 18.11 : deux situations sur la même page. #etablissement = contenu existant (+ « cafés », demande de Diego) ;
+// #promoteurs = promoteurs immobiliers, pour leurs acquéreurs ou pour leurs biens. Textes de #promoteurs
+// PROPOSÉS par Contrast, à valider par Laetitia (appartement témoin, forme du partenariat) : aucune source
+// client ne décrit encore cette offre ni ne cite de promoteur.
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import PageTete from '../../components/PageTete.astro';
 import Lignes from '../../components/Lignes.astro';
 import BandeOlive from '../../components/BandeOlive.astro';
+import ArrowButton from '../../components/ArrowButton.astro';
+import Aiguillage from '../../components/Aiguillage.astro';
 import { services } from '../../data/prestations';
 import traitPro from '../../assets/images/traits/pro-encre.png';
+import traitPromoteur from '../../assets/images/traits/batisse-encre.png';
+import traitPorte from '../../assets/images/traits/transformation-encre.png';
+import traitMiseEnValeur from '../../assets/images/traits/miseenvaleur-encre.png';
 import ichiArches from '../../assets/images/pro/ichi-07-salle-arches.jpg';
 import ichiBar from '../../assets/images/pro/ichi-03-bar.jpg';
 import ichiTablee from '../../assets/images/pro/ichi-08-tablee.jpg';
 
 const lieux = [
   { t: 'Bureaux et espaces de travail' }, { t: 'Commerces et showrooms' }, { t: "Cabinets et espaces d'accueil" },
-  { t: 'Restaurants' }, { t: 'Biens destinés à la location' },
+  { t: 'Restaurants et cafés' }, { t: 'Biens destinés à la location' },
 ].map((l) => ({ ...l, d: '' }));
+
+const choix = [
+  { href: '#etablissement', t: "J'aménage <em>mon&nbsp;établissement</em>", d: 'Restaurant, café, commerce, cabinet ou bureaux : un lieu qui porte votre identité et reçoit vos clients.', img: traitPro },
+  { href: '#promoteurs', t: 'Je suis <em>promoteur</em> immobilier', d: 'Pour vos acquéreurs ou pour vos biens : une décoratrice à qui confier l\'intérieur de vos projets.', img: traitPromoteur },
+];
+
+// Promoteurs : deux façons de travailler ensemble (proposition, à valider par Laetitia).
+const offres = [
+  {
+    pour: 'Pour vos acquéreurs', img: traitPorte,
+    t: 'Un accompagnement à leur proposer',
+    items: ['Lecture des plans et choix des finitions', 'Mobilier, décoration et commandes', "Installation à la remise des clés"],
+  },
+  {
+    pour: 'Pour vos biens', img: traitMiseEnValeur,
+    t: 'Des intérieurs qui donnent envie',
+    items: ['Aménagement d\'un appartement témoin', 'Mise en scène de biens à vendre ou à louer', 'Ambiance, mobilier et installation, clé en main'],
+  },
+];
 ---
 <Base
   title="Aménagement d'espaces professionnels | Casa Senso, Neuchâtel"
-  description="Bureaux, commerces, cabinets, restaurants et biens à louer : Casa Senso conçoit et coordonne l'aménagement de vos locaux professionnels, de la conception à l'installation."
+  description="Restaurants, cafés, commerces, bureaux et promoteurs immobiliers : Casa Senso conçoit et coordonne l'aménagement de vos espaces, de la conception à l'installation."
 >
   <PageTete mention="Prestations · Professionnels" titre="Professionnels" sous="Des espaces qui valorisent votre <em>activité</em> et votre identité."
     texte="De la conception à l'installation, je coordonne chaque étape pour créer des espaces esthétiques et fonctionnels." />
 
-  <section class="lieux conteneur" aria-labelledby="lieux-titre">
+  <Aiguillage question="Votre situation" choix={choix} />
+
+  <section class="lieux conteneur" id="etablissement" aria-labelledby="lieux-titre">
     <div class="lieux-tete" data-anim="up">
-      <h2 id="lieux-titre" class="titre-serif">Les lieux que <em>j'aménage</em></h2>
+      <div>
+        <p class="mention situation"><span>01</span> J'aménage mon établissement</p>
+        <h2 id="lieux-titre" class="titre-serif">Les lieux que <em>j'aménage</em></h2>
+      </div>
       <Image class="lieux-trait" src={traitPro} alt="" width={200} />
     </div>
     <ul data-stagger="90">
@@ -43,7 +76,7 @@ const lieux = [
       </div>
       <div class="cas-texte" data-stagger="110">
         <p class="mention">Projet · Restaurant</p>
-        <h2 id="cas-titre" class="titre-serif">ICHI <em>Ramen</em> Shop</h2>
+        <h2 id="cas-titre" class="titre-serif">ICHI <em>Ramen</em>&nbsp;Shop</h2>
         <p class="approche">Écouter ses envies, comprendre sa culture, respecter son histoire, imaginer des ambiances.</p>
         <blockquote>« Et surtout trouver cette petite touche qui fait toute la différence. »<footer>Laetitia Rein</footer></blockquote>
         <a class="voir" href="/realisations/ichi-ramen-shop">Voir le projet <span aria-hidden="true">→</span></a>
@@ -51,12 +84,37 @@ const lieux = [
     </div>
   </section>
 
+  <section class="promo conteneur" id="promoteurs" aria-labelledby="promo-titre">
+    <div class="promo-tete" data-stagger="110">
+      <p class="mention situation"><span>02</span> Je suis promoteur immobilier</p>
+      <h2 id="promo-titre" class="titre-serif">Vos projets, <em>habités</em> avant d'être livrés</h2>
+      <p class="promo-texte">Un logement neuf se vend mieux quand on peut s'y projeter. Je travaille avec vous sur l'intérieur de vos programmes, pour vos acquéreurs comme pour vos biens, avec une seule interlocutrice du premier rendez-vous à l'installation.</p>
+    </div>
+    <div class="promo-grille" data-stagger="140" data-stagger-anim="reveal">
+      {offres.map((o) => (
+        <article class="offre">
+          <Image class="offre-trait" src={o.img} alt="" width={160} />
+          <p class="quand">{o.pour}</p>
+          <h3 class="titre-serif">{o.t}</h3>
+          <ul>{o.items.map((x) => <li>{x}</li>)}</ul>
+          {o.lien && <a class="offre-lien" href={o.lien.href}>{o.lien.label} <span aria-hidden="true">→</span></a>}
+        </article>
+      ))}
+    </div>
+    <div class="promo-actions" data-anim="up">
+      <ArrowButton href="/contact?situation=promoteur#formulaire" label="Discuter d'un projet immobilier" />
+    </div>
+  </section>
+
   <Lignes titre="Comment je vous <em>accompagne</em>" texte="Une seule interlocutrice qui coordonne chaque étape, de la conception à l'installation." lignes={services} fond="creme" />
 
-  <BandeOlive phrase="Une seule interlocutrice, un projet <em>clé en main</em>." lien={{ href: '/prestations/particuliers', label: 'Vous êtes un particulier ?' }} profil="professionnel" />
+  <BandeOlive phrase="Une seule interlocutrice, un projet <em>clé en main</em>." lien={{ href: '/prestations/particuliers', label: 'Vous êtes un particulier ?' }} />
 </Base>
 
 <style>
+  .situation { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .situation span { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 999px; background: var(--accent); color: #fff; letter-spacing: 0; font-size: 12px; }
+  #etablissement, #promoteurs { scroll-margin-top: calc(var(--header-h) + 24px); }
   .lieux { padding-bottom: 100px; }
   .lieux-tete { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; padding-bottom: 28px; }
   .lieux h2 { font-size: 44px; }
@@ -83,7 +141,38 @@ const lieux = [
   .voir:hover { background: var(--accent-dark); }
   blockquote footer { margin-top: 12px; font-family: var(--sans); font-style: normal; font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
 
+  .promo { padding-top: 110px; padding-bottom: 24px; }
+  .promo h2 { font-size: 44px; max-width: 780px; }
+  .promo h2 em { color: var(--accent); }
+  .promo-texte { margin-top: 20px; max-width: 700px; font-size: 18px; line-height: 1.7; }
+  .promo-grille { margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .offre { display: flex; flex-direction: column; gap: 12px; padding: 34px 34px 32px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+  .offre :global(.offre-trait) { height: 130px; width: auto; align-self: flex-start; margin-bottom: 10px; }
+  .quand { font-weight: 500; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+  .offre h3 { font-size: 30px; line-height: 1.2; }
+  .offre ul { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid var(--line); }
+  .offre li { padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+  .offre-lien { margin-top: 10px; align-self: flex-start; position: relative; font-weight: 500; font-size: 15px; color: var(--accent); padding-bottom: 3px; }
+  .offre-lien::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor; transform-origin: left; transition: transform .45s var(--ease); }
+  .offre-lien:hover::after { transform: scaleX(.4); }
+  .promo-actions { margin-top: 40px; }
+
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    .cas-in { grid-template-columns: 1fr 1fr; gap: 48px; }
+    .cas h2 { font-size: 40px; }
+    blockquote { font-size: 21px; }
+  }
+  @media (min-width: 700px) and (max-width: 999px) {
+    .promo-grille { grid-template-columns: 1fr 1fr; }
+  }
   @media (max-width: 999px) {
+    .promo { padding-top: 70px; padding-bottom: 8px; }
+    .promo h2 { font-size: 32px; }
+    .promo-texte { font-size: 17px; }
+    .promo-grille { margin-top: 32px; grid-template-columns: 1fr; gap: 10px; }
+    .offre { padding: 24px 22px; }
+    .offre :global(.offre-trait) { height: 90px; }
+    .offre h3 { font-size: 24px; }
     .lieux { padding-bottom: 64px; }
     .lieux h2 { font-size: 32px; }
     .lieux :global(.lieux-trait) { width: 96px; }

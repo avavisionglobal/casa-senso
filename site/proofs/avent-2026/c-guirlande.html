@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Option C · La guirlande d’atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* Option C · idée-source : le mur d'atelier de la décoratrice, ses planches suspendues comme une guirlande.
+     Signes : fil et pince à linge en bois · étiquette kraft numérotée au tampon « cs » · photo tirée en instantané. */
+  :root { --sapin: #2C3627; --sapin-2: #36422F; --kraft: #C8A57A; --kraft-2: #B48F63; --encre-kraft: #3A2C1C; --bois: #D8B98C; --bois-2: #B8956A;
+          --fil: #CDB894; --ampoule: #F6D493; --laiton: #C9A45C; }
+  body { background: radial-gradient(ellipse 100% 60% at 50% 0%, #34402E, var(--sapin) 60%, #232C1F 100%) fixed, var(--sapin); color: var(--paper); }
+  .filet { height: 1px; background: linear-gradient(90deg, transparent, var(--kraft-2) 18%, #E6D3B0 50%, var(--kraft-2) 82%, transparent); opacity: .6; }
+  .top { display: flex; justify-content: space-between; align-items: center; padding: 22px clamp(16px, 4vw, 56px); }
+  .top img { height: 18px; filter: invert(1) sepia(.25) brightness(1.02); }
+  .top a { font-size: 13px; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; opacity: .8; }
+  .top a:hover { opacity: 1; }
+
+  .intro { max-width: 1200px; margin: 0 auto; padding: clamp(24px, 6vh, 60px) clamp(16px, 4vw, 56px) 10px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: end; }
+  .intro .mention { color: var(--kraft); letter-spacing: .34em; font-size: 12px; }
+  .intro h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(42px, 6.2vw, 86px); line-height: .98; letter-spacing: -.02em; margin-top: 16px; }
+  .intro h1 em { color: var(--ampoule); }
+  .intro p { color: #D6D0C2; font-size: 18px; }
+  .intro .compte { margin-top: 22px; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #D6D0C2; }
+  .jauge { position: relative; width: min(340px, 100%); height: 9px; margin-top: 12px; }
+  .jauge::before, .jauge::after { content: ""; position: absolute; left: 0; top: 4px; height: 1px; }
+  .jauge::before { right: 0; background: rgba(200, 165, 122, .3); }
+  .jauge::after { width: calc(var(--p, 0) * 100%); background: var(--kraft); transition: width .8s var(--ease); }
+  .jauge span { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgba(200, 165, 122, .5) 0 1px, transparent 1px calc(100% / 24)); -webkit-mask: linear-gradient(transparent 0 2px, #000 2px 7px, transparent 7px); mask: linear-gradient(transparent 0 2px, #000 2px 7px, transparent 7px); }
+  .av-rattrapage { margin-top: 20px; justify-content: flex-start; color: var(--paper); }
+  .av-rattrapage .av-rattrapage__pt { color: var(--ampoule); box-shadow: 0 0 10px var(--ampoule); }
+  .av-rattrapage.a-jour { color: #A9A493; font-size: 14px; }
+  .astuce { margin-top: 14px; font-size: 13px; color: #A9A493; display: flex; align-items: center; gap: 8px; }
+  .astuce::before { content: ""; width: 18px; height: 1px; background: currentColor; }
+  .astuce .doigt { display: none; } @media (hover: none) { .astuce .souris { display: none; } .astuce .doigt { display: inline; } }
+
+  .mur { max-width: 1240px; margin: 34px auto 0; padding: 0 clamp(8px, 2vw, 20px); }
+  .fil { position: relative; }
+  .fil svg.corde { position: absolute; left: 0; top: 0; width: 100%; height: var(--hs); overflow: visible; pointer-events: none; }
+  .fil svg path { fill: none; stroke: var(--fil); stroke-width: 1.6; vector-effect: non-scaling-stroke; }
+  .fil svg path.ombre { stroke: rgba(0, 0, 0, .25); stroke-width: 2; transform: translateY(5px); filter: blur(1.5px); }
+  .ampoule { position: absolute; width: 9px; height: 13px; margin-left: -4.5px; border-radius: 50% 50% 45% 45%; background: var(--ampoule); box-shadow: 0 0 12px 3px rgba(246, 212, 147, .45); pointer-events: none; }
+  .ampoule::before { content: ""; position: absolute; left: 2px; top: -4px; width: 5px; height: 5px; background: #8a7a5c; border-radius: 1px; }
+  .ampoule:nth-of-type(3n) { background: #FBF1DC; box-shadow: 0 0 10px 2px rgba(251, 241, 220, .35); }
+  .fil.vague .ampoule { animation: vague .9s ease-out both; animation-delay: calc(var(--i) * 70ms); }
+  @keyframes luit { 0%, 100% { opacity: 1; } 50% { opacity: .4; box-shadow: 0 0 6px 1px rgba(246, 212, 147, .3); } }
+  @keyframes vague { 0% { transform: scale(1); } 35% { transform: scale(1.9); box-shadow: 0 0 26px 10px rgba(246, 212, 147, .8); } 100% { transform: scale(1); } }
+
+  /* ---------- une planche suspendue ---------- */
+  .etiq { position: absolute; width: var(--w); margin-left: calc(var(--w) / -2); transform-origin: 50% 0; border: 0; padding: 0; background: none; color: inherit; will-change: transform; touch-action: pan-y; cursor: grab; -webkit-tap-highlight-color: transparent; }
+  .etiq:active { cursor: grabbing; }
+  .pince { position: absolute; left: 50%; top: -14px; z-index: 3; width: 12px; height: 34px; margin-left: -6px; border-radius: 2px;
+           background: linear-gradient(90deg, var(--bois) 0 45%, var(--bois-2) 45% 55%, var(--bois) 55%); box-shadow: 0 2px 3px rgba(0,0,0,.35); }
+  .pince::after { content: ""; position: absolute; left: -2px; right: -2px; top: 12px; height: 3px; background: #8d8d8d; border-radius: 2px; }
+  .etiq__flip { position: relative; display: block; width: 100%; aspect-ratio: 3 / 4; perspective: 900px; margin-top: 8px; }
+  .etiq__in { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 1s var(--ease); }
+  .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; container-type: inline-size; }
+  .face--kraft { border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--encre-kraft); text-align: center; filter: drop-shadow(0 14px 14px rgba(0,0,0,.42)); }
+  .face--kraft .papier { position: absolute; inset: 0; z-index: -1; background: var(--kraft); clip-path: polygon(15% 0, 85% 0, 100% 10%, 100% 100%, 0 100%, 0 10%);
+                 background-image: radial-gradient(rgba(80,50,20,.07) .8px, transparent 1.2px), linear-gradient(160deg, rgba(255,255,255,.16), transparent 42%, rgba(0,0,0,.07)); background-size: 4px 4px, 100% 100%; }
+  .trou { position: absolute; left: 50%; top: 8%; width: 11cqw; height: 11cqw; margin-left: -5.5cqw; border-radius: 50%; background: var(--sapin); box-shadow: 0 0 0 2.5cqw rgba(255,255,255,.35); }
+  .ficelle { position: absolute; left: 50%; top: -6cqw; width: 9cqw; height: 22cqw; margin-left: -1cqw; border: 1.6px solid #E8DBC0; border-radius: 50%; border-left-color: transparent; transform: rotate(14deg); }
+  .face--kraft b { font-family: var(--serif); font-weight: 400; font-size: 42cqw; line-height: 1; margin-top: 12cqw; letter-spacing: -.02em; }
+  .face--kraft small { font-size: 8cqw; letter-spacing: .18em; text-transform: uppercase; margin-top: 2cqw; opacity: .75; }
+  .tampon { position: absolute; right: 8cqw; bottom: 8cqw; width: 22cqw; height: 22cqw; border-radius: 50%; border: 1.4px solid rgba(58, 44, 28, .45); display: grid; place-items: center;
+            font-family: var(--serif); font-style: italic; font-size: 10cqw; line-height: 1; color: rgba(58, 44, 28, .55); transform: rotate(-16deg); }
+  .tampon::before { content: ""; position: absolute; inset: 2cqw; border-radius: 50%; border: 1px dashed rgba(58, 44, 28, .35); }
+  .ruban { position: absolute; left: 0; right: 0; bottom: 34cqw; height: 12cqw; background: var(--olive); color: var(--paper); font-size: 6.4cqw; line-height: 12.6cqw; letter-spacing: .2em; text-transform: uppercase; opacity: 0; transform: scaleX(0); transition: opacity .3s, transform .5s var(--ease); }
+  .brin { position: absolute; left: -6cqw; top: 14cqw; width: 42cqw; height: 26cqw; opacity: 0; transform: rotate(-24deg) scale(.6); transform-origin: 10% 50%; transition: opacity .4s, transform .6s var(--ease);
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 50'%3E%3Cg fill='none' stroke='%234A5440' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M4 30 Q36 22 76 18'/%3E%3Cpath d='M14 28 L8 18 M14 28 L10 38 M26 26 L20 14 M26 26 L22 38 M38 24 L34 12 M38 24 L36 36 M50 22 L48 10 M50 22 L50 34 M62 20 L62 9 M62 20 L64 31'/%3E%3C/g%3E%3Cg fill='%23A69368'%3E%3Ccircle cx='70' cy='26' r='4'/%3E%3Ccircle cx='62' cy='31' r='3.4'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat; }
+  .face--photo { transform: rotateY(180deg); background: #FBF8F2; padding: 6% 6% 0; border-radius: 3px; color: var(--ink); display: flex; flex-direction: column; box-shadow: 0 16px 28px -12px rgba(0,0,0,.6); }
+  .face--photo img { width: 100%; aspect-ratio: 4 / 4.3; object-fit: cover; background: #E9E3D6; }
+  .face--photo span { font-family: var(--serif); font-style: italic; font-size: 8.4cqw; line-height: 1.15; padding: 4cqw 1cqw 0; text-align: left; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .face--photo i { position: absolute; right: 5cqw; bottom: 4cqw; font-style: normal; font-size: 7cqw; letter-spacing: .1em; color: var(--muted); }
+  .etiq.developpe .face--photo img { animation: developpe 2.8s .5s ease-out both; }
+  @keyframes developpe { 0% { filter: brightness(1.9) contrast(.35) saturate(0) sepia(.4) blur(1.5px); } 60% { filter: brightness(1.15) contrast(.85) saturate(.6) sepia(.15) blur(0); } 100% { filter: none; } }
+
+  .etiq.ferme .face--kraft { filter: brightness(.84) saturate(.8) drop-shadow(0 14px 14px rgba(0,0,0,.4)); }
+  .etiq.nouveau .face--kraft { filter: drop-shadow(0 0 22px rgba(246, 212, 147, .45)) drop-shadow(0 14px 14px rgba(0,0,0,.42)); }
+  .etiq.nouveau .ruban { opacity: 1; transform: none; }
+  .etiq.nouveau .brin { opacity: 1; transform: rotate(-24deg); }
+  .etiq.vu .etiq__in { transform: rotateY(180deg); }
+  .etiq.aujourdhui .etiq__flip::after { content: "Aujourd’hui"; position: absolute; left: 50%; bottom: -30px; transform: translateX(-50%); white-space: nowrap;
+     font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--ampoule); background: rgba(35, 44, 31, .9); border: 1px solid rgba(246, 212, 147, .55); padding: 4px 9px 3px; border-radius: 999px; }
+  .etiq:focus-visible { outline: none; } .etiq:focus-visible .face { outline: 2px solid var(--ampoule); outline-offset: 3px; }
+
+  /* le 24 : la dernière, plus grande, avec son étoile */
+  .etiq.derniere .pince { height: 40px; top: -18px; }
+  .etiq.derniere .pince::before { content: ""; position: absolute; left: 50%; top: -22px; width: 30px; height: 30px; margin-left: -15px; filter: drop-shadow(0 0 8px rgba(246, 212, 147, .7));
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 2 L24.5 15.5 L38 20 L24.5 24.5 L20 38 L15.5 24.5 L2 20 L15.5 15.5 Z' fill='%23C9A45C'/%3E%3C/svg%3E") center / contain no-repeat; }
+  .etiq.derniere .face--kraft small { font-size: 6.4cqw; }
+
+  /* objets d'atelier pendus entre les planches */
+  .objet { position: absolute; transform-origin: 50% 0; pointer-events: none; will-change: transform; }
+  .objet i { position: absolute; left: 50%; top: 0; width: 1px; height: var(--l); background: var(--fil); opacity: .8; }
+  .objet b { position: absolute; left: 50%; top: var(--l); transform: translateX(-50%); display: block; filter: drop-shadow(0 6px 6px rgba(0,0,0,.35)); }
+  .objet--tissu b { width: 46px; height: 54px; background: linear-gradient(135deg, #5D6A4E, #3F4935 55%, #56634A);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 94% 94%, 88% 100%, 82% 94%, 76% 100%, 70% 94%, 64% 100%, 58% 94%, 52% 100%, 46% 94%, 40% 100%, 34% 94%, 28% 100%, 22% 94%, 16% 100%, 10% 94%, 4% 100%, 0 94%); }
+  .objet--tissu b::after { content: ""; position: absolute; left: 5px; right: 5px; top: 5px; height: 9px; background: #FBF8F2; opacity: .85; }
+  .objet--nuancier b { width: 24px; height: 78px; border-radius: 3px; border: 1px solid rgba(0,0,0,.2);
+    background: linear-gradient(180deg, #FBF8F2 0 22%, #E2D3B8 22% 42%, #A69368 42% 62%, #6E7F5A 62% 82%, #404734 82%); }
+  .objet--nuancier b::before { content: ""; position: absolute; left: 50%; top: 4px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: var(--sapin); }
+  .objet--brin b { width: 66px; height: 50px; transform: translateX(-50%) rotate(76deg);
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 50'%3E%3Cg fill='none' stroke='%236E7F5A' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M4 25 Q36 22 76 24'/%3E%3Cpath d='M14 25 L8 15 M14 25 L9 35 M26 24 L20 12 M26 24 L21 36 M38 23 L34 11 M38 23 L34 36 M50 23 L48 11 M50 23 L48 35 M62 24 L62 13 M62 24 L62 35'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat; }
+  .objet--etoile b { width: 36px; height: 36px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 2 L24.5 15.5 L38 20 L24.5 24.5 L20 38 L15.5 24.5 L2 20 L15.5 15.5 Z' fill='%23C9A45C' stroke='%238A6D34' stroke-width='1'/%3E%3C/svg%3E") center / contain no-repeat; }
+
+  /* ---------- la planche du jour : une grande étiquette pincée ---------- */
+  .jour { max-width: 1100px; margin: 0 auto; padding: 120px clamp(16px, 4vw, 56px) 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(36px, 6vw, 90px); align-items: center; }
+  .jour__carte { position: relative; display: flex; justify-content: center; padding-top: 34px; }
+  .jour__carte::before { content: ""; position: absolute; left: -8%; right: -8%; top: 12px; height: 1.6px; background: var(--fil); opacity: .8; border-radius: 2px; transform: rotate(-1.5deg); }
+  .etiq.grand { position: relative; --w: min(340px, 100%); width: var(--w); margin: 0; transform: rotate(-2.5deg); cursor: default; }
+  .etiq.grand .pince { width: 16px; height: 46px; top: -22px; margin-left: -8px; }
+  .etiq.grand .pince::after { top: 16px; height: 4px; }
+  .jour.avant .ruban, .jour.avant .brin { display: none; }
+  .jour__texte .mention { color: var(--kraft); letter-spacing: .3em; font-size: 12px; }
+  .jour__texte h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(32px, 3.8vw, 50px); line-height: 1.08; margin: 18px 0 18px; }
+  .jour__texte p:not(.mention) { color: #D6D0C2; font-size: 17px; max-width: 440px; }
+  .jour__texte .av-btn { margin-top: 30px; }
+
+  /* ---------- comment ça marche : trois étiquettes ---------- */
+  .comment { max-width: 1100px; margin: 0 auto; padding: 140px clamp(16px, 4vw, 56px) 0; }
+  .comment h2, .suite h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 4vw, 46px); line-height: 1.1; text-align: center; }
+  .comment h2 em, .suite h2 em { color: var(--ampoule); }
+  .etapes { list-style: none; margin: 46px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; counter-reset: e; }
+  .etapes li { position: relative; padding: 54px 26px 28px; color: var(--encre-kraft); font-size: 16px; filter: drop-shadow(0 14px 16px rgba(0,0,0,.35)); }
+  .etapes li:nth-child(1) { rotate: -1.5deg; } .etapes li:nth-child(2) { rotate: 1deg; margin-top: 14px; } .etapes li:nth-child(3) { rotate: -.6deg; }
+  .etapes li::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--kraft); border-radius: 6px; clip-path: polygon(8% 0, 92% 0, 100% 14%, 100% 100%, 0 100%, 0 14%);
+    background-image: radial-gradient(rgba(80,50,20,.13) 1px, transparent 1.4px); background-size: 5px 5px; }
+  .etapes li::after { counter-increment: e; content: counter(e, decimal-leading-zero); position: absolute; left: 26px; top: 18px; font-family: var(--serif); font-size: 26px; }
+  .etapes b { display: block; font-weight: 600; font-size: 18px; margin-bottom: 6px; }
+  .etapes .trou-e { position: absolute; left: 50%; top: 14px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: var(--sapin); box-shadow: 0 0 0 3px rgba(255,255,255,.35); }
+
+  .suite { max-width: 1200px; margin: 0 auto; padding: 100px clamp(16px, 4vw, 56px) 120px; text-align: center; }
+  .suite p { color: #D6D0C2; max-width: 520px; margin: 14px auto 26px; }
+  .suite .boutons { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+  .suite .av-btn--ligne { color: var(--paper); border-color: rgba(250,247,240,.5); }
+  .suite .av-btn--ligne:hover { background: var(--paper); color: var(--ink); }
+  footer { text-align: center; padding: 0 16px 100px; font-size: 13px; color: #8f8a78; }
+
+  /* ---------- fenêtre de lecture : la planche en instantané, pincée ---------- */
+  [data-piste="c"] .av-modal__img { background: #FBF8F2; padding: 22px 22px 64px; aspect-ratio: auto; display: flex; overflow: visible; }
+  [data-piste="c"] .av-modal__img img { aspect-ratio: 4 / 4.6; height: auto; box-shadow: inset 0 0 0 1px rgba(0,0,0,.05); }
+  [data-piste="c"] .av-modal__deco { display: block; position: absolute; left: 50%; top: -6px; width: 16px; height: 46px; margin-left: -8px; z-index: 4; border-radius: 3px;
+    background: linear-gradient(90deg, var(--bois) 0 45%, var(--bois-2) 45% 55%, var(--bois) 55%); box-shadow: 0 3px 4px rgba(0,0,0,.3); }
+  [data-piste="c"] .av-modal__deco::after { content: ""; position: absolute; left: -3px; right: -3px; top: 16px; height: 4px; background: #8d8d8d; border-radius: 2px; }
+  [data-piste="c"] .av-modal__deco i { display: none; }
+  [data-piste="c"] .av-modal__num { left: auto; right: 24px; bottom: 20px; background: none; color: var(--muted); font-style: italic; font-size: 18px; padding: 0; }
+  [data-piste="c"] .av-modal__num::before { content: "n° "; }
+  [data-piste="c"] .av-modal[data-premiere] .av-modal__img img { animation: developpe 2.8s .35s ease-out both; }
+  [data-piste="c"] .av-modal__carte { overflow: visible; }
+  [data-piste="c"] .av-modal__img { border-radius: 22px 0 0 22px; }
+
+  @media (max-width: 760px) {
+    .intro { grid-template-columns: 1fr; gap: 18px; }
+    .jour { grid-template-columns: 1fr; padding-top: 80px; gap: 30px; }
+    .etiq.grand { --w: min(300px, 78vw); }
+    .etiq.aujourdhui .etiq__flip::after { font-size: 9px; letter-spacing: .08em; bottom: -24px; }
+    .etapes { grid-template-columns: 1fr; gap: 18px; }
+    .etapes li:nth-child(2) { margin-top: 0; }
+    [data-piste="c"] .av-modal__carte { overflow: auto; }
+    [data-piste="c"] .av-modal__img { padding: 16px 16px 46px; border-radius: 22px 22px 0 0; overflow: hidden; }
+    [data-piste="c"] .av-modal__img img { aspect-ratio: 4 / 3.6; }
+    [data-piste="c"] .av-modal__deco { top: 0; }
+    [data-piste="c"] .av-modal__num { bottom: 12px; }
+  }
+</style>
+</head>
+<body data-piste="c">
+<header class="top">
+  <a href="/" aria-label="Casa Senso, retour au site"><img src="assets/logo.svg" alt="Casa Senso"></a>
+  <a href="/">Retour au site</a>
+</header>
+<div class="filet" aria-hidden="true"></div>
+<main>
+  <section class="intro">
+    <div>
+      <p class="mention">Calendrier de l’Avent · 2026</p>
+      <h1>Une planche <em>par matin</em>, jusqu’à Noël</h1>
+    </div>
+    <div>
+      <p>Du 1er au 24 décembre, Laetitia suspend chaque jour une nouvelle planche de décoration sur Instagram. Toutes celles déjà dévoilées restent accrochées ici.</p>
+      <p class="compte" data-compte></p>
+      <div class="jauge" data-progress aria-hidden="true"><span></span></div>
+      <div class="av-rattrapage" data-rattrapage></div>
+      <p class="astuce"><span class="souris">Attrapez une planche et faites-la balancer.</span><span class="doigt">Faites défiler ou glissez une planche : elles se balancent.</span></p>
+    </div>
+  </section>
+  <div class="mur" id="mur" role="list" aria-label="Les 24 jours du calendrier"></div>
+
+  <section class="jour" id="jour" aria-labelledby="jour-titre">
+    <div class="jour__carte" id="jour-carte"></div>
+    <div class="jour__texte">
+      <p class="mention" id="jour-quand"></p>
+      <h2 id="jour-titre"></h2>
+      <p id="jour-desc"></p>
+      <a class="av-btn av-btn--plein" id="jour-btn" href="#"></a>
+    </div>
+  </section>
+
+  <section class="comment">
+    <h2>Comment ça <em>marche</em></h2>
+    <ol class="etapes">
+      <li><span class="trou-e" aria-hidden="true"></span><b>Chaque matin, une planche</b>Du 1er au 24 décembre, Laetitia dévoile sur Instagram une ambiance ou une idée de décoration pour les fêtes.</li>
+      <li><span class="trou-e" aria-hidden="true"></span><b>L’étiquette du jour vous attend</b>Le lien de son profil mène ici. Retournez l’étiquette marquée « à ouvrir » : la photo apparaît.</li>
+      <li><span class="trou-e" aria-hidden="true"></span><b>Tout reste accroché</b>Les planches déjà dévoilées restent sur le fil jusqu’à Noël : revoyez-les quand vous voulez.</li>
+    </ol>
+  </section>
+
+  <section class="suite">
+    <h2>Une ambiance vous donne <em>envie</em> ?</h2>
+    <p>Chaque planche part d’une vraie façon d’habiter. Si vous voulez la même chez vous, parlons de votre projet.</p>
+    <div class="boutons">
+      <a class="av-btn av-btn--plein" href="/contact">Prendre rendez-vous</a>
+      <a class="av-btn av-btn--ligne" href="https://www.instagram.com/casa_senso.ch/" target="_blank" rel="noopener">Suivre @casa_senso.ch</a>
+    </div>
+  </section>
+</main>
+<footer>Casa Senso · Laetitia Rein · décoration d’intérieur, Neuchâtel</footer>
+
+<script src="shared.js"></script>
+<script>
+(function () {
+  const { DAYS, h } = Avent;
+  const mur = document.getElementById('mur');
+  const SVGNS = 'http://www.w3.org/2000/svg';
+
+  // chaque planche : élément + pendule (angle a, vitesse v)
+  const cartes = DAYS.map(d => {
+    const der = d.n === 24;
+    const el = h('button', { class: 'etiq' + (der ? ' derniere' : ''), 'data-n': d.n, role: 'listitem' },
+      h('span', { class: 'pince' }),
+      h('span', { class: 'etiq__flip' },
+        h('span', { class: 'etiq__in' },
+          h('span', { class: 'face face--kraft' },
+            h('span', { class: 'papier' }), h('span', { class: 'trou' }), h('span', { class: 'ficelle' }), h('span', { class: 'brin' }),
+            h('b', {}, String(d.n)), h('small', {}, der ? '24 déc. · la dernière' : Avent.fmtShort(d.date)),
+            h('span', { class: 'ruban' }, 'à ouvrir'), h('span', { class: 'tampon' }, 'cs')),
+          h('span', { class: 'face face--photo' }, h('img', { src: d.img, alt: '' }), h('span', {}, d.titre), h('i', {}, String(d.n).padStart(2, '0'))))));
+    const c = { d, el, a: (Math.random() - .5) * 6, v: 0, phase: Math.random() * 6, st: null, rang: null };
+    el.addEventListener('click', () => { if (c.retenu) { c.retenu = false; return; } clic(c); });
+    el.addEventListener('pointerdown', e => { prise = { c, x0: e.clientX, a0: c.a, bouge: false }; });
+    return c;
+  });
+  let objets = [];
+  const TYPES = ['tissu', 'nuancier', 'brin', 'etoile'];
+
+  function corde(row, hs, y0, yc, y1) {
+    const svg = document.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('class', 'corde'); svg.setAttribute('viewBox', '0 0 1000 100'); svg.setAttribute('preserveAspectRatio', 'none');
+    for (const cl of ['ombre', '']) { const p = document.createElementNS(SVGNS, 'path'); p.setAttribute('d', `M-20,${y0} Q500,${yc} 1020,${y1}`); if (cl) p.setAttribute('class', cl); svg.append(p); }
+    row.append(svg);
+    return t => { const u = (t * 1000 + 20) / 1040; return ((1 - u) * (1 - u) * y0 + 2 * u * (1 - u) * yc + u * u * y1) / 100 * hs; }; // même courbe que le tracé
+  }
+  function layout() {
+    const W = mur.clientWidth;
+    const n = W < 560 ? 3 : W < 960 ? 4 : 6;
+    const slot = W / n;
+    const w = Math.min(172, slot * .76);
+    const hs = n === 6 ? 72 : 46;
+    mur.replaceChildren(); objets = [];
+    const rangs = [];
+    for (let i = 0; i < 23; i += n) rangs.push(cartes.slice(i, Math.min(i + n, 23)));
+    rangs.forEach((liste, r) => {
+      const rowH = hs + w * 4 / 3 + (n === 3 ? 62 : 96);
+      const row = h('div', { class: 'fil', style: `height:${rowH}px;--hs:${hs}px` });
+      const y0 = r % 2 ? 14 : 4, y1 = r % 2 ? 4 : 14;
+      const y = corde(row, hs, y0, 186, y1);
+      const m = liste.length, bulbes = [];
+      const gapObjet = n >= 4 ? (r * 2 + 1) % (m - 1 || 1) : -1;
+      liste.forEach((c, i) => {
+        const t = (i + .5) / m;
+        c.el.style.cssText = `left:${t * 100}%;top:${y(t)}px;--w:${w}px`;
+        c.rang = row;
+        row.append(c.el);
+        if (i < m - 1) {
+          const t2 = (i + 1) / m;
+          if (i === gapObjet) {
+            const o = h('span', { class: 'objet objet--' + TYPES[r % TYPES.length], style: `left:${t2 * 100}%;top:${y(t2)}px;--l:${14 + (r % 3) * 8}px`, 'aria-hidden': 'true' }, h('i'), h('b'));
+            row.append(o); objets.push({ el: o, a: 0, v: 0, phase: Math.random() * 6, leger: true });
+          } else {
+            const b = h('span', { class: 'ampoule', style: `left:${t2 * 100}%;top:${y(t2) + 1}px;--i:${i}` }); row.append(b); bulbes.push(b);
+          }
+        }
+      });
+      [.012, .988].forEach((t, k) => row.append(h('span', { class: 'ampoule', style: `left:${t * 100}%;top:${y(t) + 1}px;--i:${k ? m : 0}` })));
+      mur.append(row);
+    });
+    // le 24, seul sur son fil, plus grand
+    const w24 = Math.min(250, w * 1.5), hs24 = Math.round(hs * .8);
+    const row = h('div', { class: 'fil', style: `height:${hs24 + w24 * 4 / 3 + 110}px;--hs:${hs24}px` });
+    const y = corde(row, hs24, 8, 160, 8);
+    const c24 = cartes[23];
+    c24.el.style.cssText = `left:50%;top:${y(.5) + 6}px;--w:${w24}px`;
+    c24.rang = row; row.append(c24.el);
+    [.08, .2, .32, .41, .59, .68, .8, .92].forEach((t, k) => row.append(h('span', { class: 'ampoule', style: `left:${t * 100}%;top:${y(t) + 1}px;--i:${k}` })));
+    mur.append(row);
+  }
+  layout();
+  let rt, lw = innerWidth; addEventListener('resize', () => { if (innerWidth === lw) return; lw = innerWidth; clearTimeout(rt); rt = setTimeout(layout, 120); });
+
+  function vague(row) { row.classList.remove('vague'); void row.offsetWidth; row.classList.add('vague'); }
+  function animerOuverture(c) {
+    c.el.classList.remove('nouveau'); c.el.classList.add('vu', 'developpe');
+    c.st = 'vu';
+    c.v += (Math.random() > .5 ? 1 : -1) * 4;
+    vague(c.rang);
+    setTimeout(() => c.el.classList.remove('developpe'), 4000);
+  }
+  function clic(c, opts) {
+    c.v += (Math.random() > .5 ? 1 : -1) * 2.2;
+    const st = Avent.state(c.d.n);
+    if (st === 'ferme') return Avent.open(c.d.n);
+    if (st === 'nouveau') { animerOuverture(c); setTimeout(() => Avent.open(c.d.n, opts), Avent.reduced ? 0 : 1250); return; }
+    Avent.open(c.d.n, opts);
+  }
+  function ouvrir(n, opts) {
+    const c = cartes[n - 1]; if (!c) return;
+    if (Avent.state(n) !== 'nouveau') return Avent.open(n, opts);
+    const r = c.el.getBoundingClientRect();
+    const visible = r.top > 60 && r.bottom < innerHeight - 60;
+    if (!visible) c.el.scrollIntoView({ behavior: Avent.reduced ? 'auto' : 'smooth', block: 'center' });
+    setTimeout(() => clic(c, opts), visible || Avent.reduced ? 0 : 750);
+  }
+
+  /* pendules : on attrape une planche, la souris et le défilement les font bouger */
+  let prise = null, mx = null;
+  addEventListener('pointermove', e => {
+    if (prise) {
+      const dx = e.clientX - prise.x0;
+      if (Math.abs(dx) > 6) prise.bouge = true;
+      if (prise.bouge) { const na = Math.max(-40, Math.min(40, prise.a0 - dx * .24)); prise.c.v = na - prise.c.a; prise.c.a = na; }
+    }
+    if (mx !== null && e.pointerType === 'mouse') {
+      const dx = e.clientX - mx;
+      for (const c of cartes.concat(objets)) {
+        if (prise && c === prise.c) continue;
+        const r = c.el.getBoundingClientRect();
+        if (e.clientY > r.top - 40 && e.clientY < r.bottom + 10 && e.clientX > r.left - 50 && e.clientX < r.right + 50) c.v += dx * (c.leger ? .09 : .045);
+      }
+    }
+    mx = e.clientX;
+  });
+  const lacher = annule => () => { if (prise) { prise.c.retenu = !annule && prise.bouge; prise = null; } };
+  addEventListener('pointerup', lacher(false));
+  addEventListener('pointercancel', lacher(true));
+  let sy = scrollY;
+  addEventListener('scroll', () => { const d = scrollY - sy; sy = scrollY; for (const c of cartes.concat(objets)) c.v += d * (c.leger ? .012 : .006) * ((c.d ? c.d.n : 1) % 2 ? 1 : -1); }, { passive: true });
+  let t0 = performance.now(), tp = 0;
+  function tick(t) {
+    const time = (t - t0) / 1000;
+    for (const c of cartes.concat(objets)) {
+      if (prise && prise.bouge && c === prise.c) { c.el.style.transform = `rotate(${c.a.toFixed(2)}deg)`; continue; }
+      // la planche du jour s'agite de temps en temps pour attirer l'œil
+      if (c.st === 'nouveau' && Math.floor((time + c.phase) / 7) !== Math.floor((tp + c.phase) / 7)) c.v += .9;
+      c.v += -(c.leger ? .03 : .018) * c.a - .035 * c.v + Math.sin(time * .7 + c.phase) * .004;
+      c.v = Math.max(-6, Math.min(6, c.v));
+      c.a += c.v;
+      c.el.style.transform = `rotate(${c.a.toFixed(2)}deg)`;
+    }
+    tp = time;
+    requestAnimationFrame(tick);
+  }
+  if (!Avent.reduced) requestAnimationFrame(tick);
+
+  /* la planche du jour, en grand */
+  const INSTA = 'https://www.instagram.com/casa_senso.ch/';
+  const G = { num: h('b'), date: h('small'), img: h('img', { alt: '' }), titre: h('span'), no: h('i') };
+  const grand = h('div', { class: 'etiq grand nouveau', 'aria-hidden': 'true' },
+    h('span', { class: 'pince' }),
+    h('span', { class: 'etiq__flip' },
+      h('span', { class: 'etiq__in' },
+        h('span', { class: 'face face--kraft' }, h('span', { class: 'papier' }), h('span', { class: 'trou' }), h('span', { class: 'ficelle' }), h('span', { class: 'brin' }),
+          G.num, G.date, h('span', { class: 'ruban' }, 'à ouvrir'), h('span', { class: 'tampon' }, 'cs')),
+        h('span', { class: 'face face--photo' }, G.img, G.titre, G.no))));
+  document.getElementById('jour-carte').append(grand);
+  const J = { sec: document.getElementById('jour'), quand: document.getElementById('jour-quand'), titre: document.getElementById('jour-titre'),
+              desc: document.getElementById('jour-desc'), btn: document.getElementById('jour-btn') };
+  function renderJour() {
+    const t = Avent.today;
+    J.sec.classList.toggle('avant', t === 0);
+    const d = DAYS[Math.max(0, t - 1)];
+    G.num.textContent = String(d.n); G.date.textContent = Avent.fmtShort(d.date); G.no.textContent = String(d.n).padStart(2, '0'); G.titre.textContent = d.titre;
+    if (!G.img.src.endsWith(d.img)) G.img.src = d.img;
+    if (t === 0) {
+      grand.classList.remove('vu'); grand.classList.add('ferme');
+      J.quand.textContent = 'Ouverture le 1er décembre';
+      J.titre.textContent = 'La première étiquette arrive bientôt';
+      J.desc.textContent = 'Chaque matin, une planche de décoration pour préparer la maison aux fêtes. Suivez Laetitia sur Instagram pour ne pas manquer la première.';
+      J.btn.textContent = 'Suivre @casa_senso.ch'; J.btn.href = INSTA; J.btn.target = '_blank'; J.btn.rel = 'noopener';
+      return;
+    }
+    const st = Avent.state(t);
+    grand.classList.remove('ferme', 'nouveau', 'vu'); grand.classList.add(st);
+    J.btn.href = '#jour-' + t; J.btn.removeAttribute('target');
+    J.quand.textContent = 'Aujourd’hui · ' + Avent.fmtLong(d.date);
+    if (st === 'nouveau') {
+      J.titre.textContent = 'La planche du jour vous attend';
+      J.desc.textContent = 'L’étiquette du ' + t + ' décembre est encore fermée. Retournez-la pour voir apparaître la photo.';
+      J.btn.textContent = 'Retourner l’étiquette';
+    } else { J.titre.textContent = d.titre; J.desc.textContent = d.texte; J.btn.textContent = 'Revoir la planche'; }
+  }
+  J.btn.addEventListener('click', e => {
+    const t = Avent.today; if (t === 0) return;
+    e.preventDefault();
+    if (Avent.state(t) === 'nouveau') {
+      grand.classList.remove('nouveau'); grand.classList.add('vu', 'developpe');
+      const c = cartes[t - 1]; animerOuverture(c);
+      setTimeout(() => grand.classList.remove('developpe'), 4000);
+      setTimeout(() => Avent.open(t), Avent.reduced ? 0 : 1500);
+    } else Avent.open(t);
+  });
+
+  Avent.init({
+    ouvrir,
+    render() {
+      renderJour();
+      for (const c of cartes) {
+        const st = Avent.state(c.d.n);
+        if (c.st === 'nouveau' && st === 'vu') { c.el.classList.add('developpe'); setTimeout(() => c.el.classList.remove('developpe'), 4000); }
+        c.st = st;
+        c.el.classList.remove('ferme', 'nouveau', 'vu'); c.el.classList.add(st);
+        c.el.classList.toggle('aujourdhui', c.d.n === Avent.today);
+        c.el.setAttribute('aria-label', 'Jour ' + c.d.n + (st === 'ferme' ? ', s’ouvre le ' + c.d.n + ' décembre' : ' : ' + c.d.titre + (st === 'nouveau' ? ', pas encore vue' : '')));
+      }
+    },
+    onLocked(n) { const c = cartes[n - 1]; c.v += 3; },
+  });
+})();
+</script>
+</body>
+</html>

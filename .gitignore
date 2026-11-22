@@ -5,3 +5,6 @@ veille/**/*.png
 # Sources lourdes du client (gardées sur Drive et sur le disque)
 sources/**/*.pptx
 sources/**/extrait/
+
+# Captures et journaux de contrôle Playwright (locaux)
+.playwright-mcp/

@@ -103,8 +103,9 @@ export const projets: Projet[] = [
     a_valider: "Textes : ses mots, document « mon histoire » (12.11), raccourcis. Lieu volontairement limité au canton (maison familiale).",
   },
   {
-    slug: 'ichi-ramen-shop', titre: 'ICHI Ramen Shop', titreHtml: 'ICHI <em>Ramen</em> Shop',
-    type: 'Restaurant', lieu: 'À confirmer',
+    slug: 'ichi-ramen-shop', titre: 'ICHI Ramen Shop', titreHtml: 'ICHI <em>Ramen</em>&nbsp;Shop',
+    // Ville et accord de publication confirmés par Laetitia le 18.11.2026.
+    type: 'Restaurant', lieu: 'Neuchâtel',
     missions: ['Décoration & mise en valeur', 'Création d’ambiances'],
     couverture: ichi_ichi_17,
     haut: [ichi_ichi_23, ichi_ichi_17, ichi_ichi_1],

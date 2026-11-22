@@ -11,8 +11,8 @@ import photoParticuliers from '../../assets/images/accueil/hero-cannes-salon.jpg
 import photoPros from '../../assets/images/pro/ichi-07-salle-arches.jpg';
 
 const portes = [
-  { href: '/prestations/particuliers', t: 'Particuliers', d: 'Des intérieurs imaginés pour vous, jusque dans les détails.', img: photoParticuliers, alt: "Salon de l'appartement de Cannes aménagé par Casa Senso", pos: '50% 50%' },
-  { href: '/prestations/professionnels', t: 'Professionnels', d: 'Des espaces qui valorisent votre activité et votre identité.', img: photoPros, alt: 'Salle voûtée du restaurant ICHI Ramen Shop', pos: '50% 50%' },
+  { href: '/prestations/particuliers', t: 'Particuliers', d: 'Vous repensez votre intérieur, ou vous achetez un bien neuf ou sur plan.', img: photoParticuliers, alt: "Salon de l'appartement de Cannes aménagé par Casa Senso", pos: '50% 50%' },
+  { href: '/prestations/professionnels', t: 'Professionnels', d: 'Restaurants, cafés, commerces et bureaux, ou promoteurs immobiliers.', img: photoPros, alt: 'Salle voûtée du restaurant ICHI Ramen Shop', pos: '50% 50%' },
 ];
 ---
 <Base
@@ -57,7 +57,7 @@ const portes = [
   .porte { position: relative; display: block; aspect-ratio: 5 / 4; overflow: hidden; border-radius: var(--radius); background: var(--grey); isolation: isolate; }
   .porte :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
   .porte:hover :global(img) { transform: scale(1.05); }
-  .porte::after { content: ''; position: absolute; inset: 35% 0 0 0; background: linear-gradient(to top, rgba(20,16,12,.62), transparent); }
+  .porte::after { content: ''; position: absolute; inset: 20% 0 0 0; background: linear-gradient(to top, rgba(20,16,12,.78), rgba(20,16,12,.3) 55%, transparent); }
   .porte-texte { position: absolute; left: 32px; right: 32px; bottom: 30px; z-index: 1; color: #fff; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
   .porte-titre { font-family: var(--serif); font-size: 44px; line-height: 1.05; }
   .porte-d { font-size: 18px; max-width: 420px; }
@@ -67,7 +67,7 @@ const portes = [
   .envies { padding-top: 100px; padding-bottom: 100px; }
   .envies h2 { font-size: 40px; max-width: 760px; }
   .envies h2 em { color: var(--accent); }
-  .envies ul { list-style: none; padding: 0; margin: 32px 0 0; display: flex; flex-wrap: wrap; gap: 12px; }
+  .envies ul { list-style: none; padding: 0; margin: 32px 0 0; display: flex; flex-wrap: wrap; gap: 12px; max-width: 900px; }
   .envies li { padding: 12px 20px; border: 1px solid var(--line); border-radius: 999px; font-size: 16px; background: #fff; }
 
   @media (max-width: 999px) {
@@ -81,5 +81,10 @@ const portes = [
     .envies { padding-top: 64px; padding-bottom: 64px; }
     .envies h2 { font-size: 30px; }
     .envies li { font-size: 15px; padding: 10px 16px; }
+  }
+  @media (min-width: 640px) and (max-width: 999px) {
+    .portes-grille { grid-template-columns: 1fr 1fr; }
+    .porte { aspect-ratio: 4 / 5; }
+    .porte-titre { font-size: 30px; }
   }
 </style>

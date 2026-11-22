@@ -1,17 +1,23 @@
 ---
-// Prestations · Particuliers (13.11.2026). Textes du site actuel (carte « Particuliers ») ;
+// Prestations · Particuliers (13.11.2026, refonte du 18.11.2026). Textes du site actuel (carte « Particuliers ») ;
 // ajouts : intitulés de section, légendes des photos, liens vers les réalisations.
+// 18.11 : deux situations sur la même page. #renovation = contenu existant ; #achat = acquéreurs d'un bien
+// neuf ou sur plan. Textes de #achat PROPOSÉS par Contrast, à valider par Laetitia (moment d'intervention,
+// choix des finitions) : aucune source client ne décrit encore cette offre.
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import PageTete from '../../components/PageTete.astro';
 import Lignes from '../../components/Lignes.astro';
 import BandeOlive from '../../components/BandeOlive.astro';
 import ArrowButton from '../../components/ArrowButton.astro';
+import Aiguillage from '../../components/Aiguillage.astro';
 import { services } from '../../data/prestations';
 import salon from '../../assets/images/accueil/hero-cannes-salon.jpg';
 import chambre from '../../assets/images/accueil/hero-cannes-chambre.jpg';
 import cuisine from '../../assets/images/accueil/cannes-cuisine.jpg';
-import traitMaison from '../../assets/images/traits/batisse-encre.png';
+import traitMaisonCreme from '../../assets/images/traits/batisse-creme.png';
+import traitRenovation from '../../assets/images/traits/miseenvaleur-encre.png';
+import traitAchat from '../../assets/images/traits/transformation-encre.png';
 import maison from '../../assets/images/accueil/maison-salon.jpg';
 import cannesSejour from '../../assets/images/accueil/hero-cannes-sejour.jpg';
 import maisonSalle from '../../assets/images/accueil/maison-salle-a-manger.jpg';
@@ -22,15 +28,30 @@ const espaces = [
   { t: 'Cuisines et salles de bains', img: cuisine, alt: "Cuisine de l'appartement de Cannes" },
   { t: 'Appartements et maisons', img: maison, alt: 'Salon de la maison de famille' },
 ];
+
+const choix = [
+  { href: '#renovation', t: 'Je repense <em>mon&nbsp;intérieur</em>', d: 'Une pièce, un étage ou toute la maison : vous y vivez déjà et vous voulez le transformer.', img: traitRenovation },
+  { href: '#achat', t: "J'achète un bien <em>neuf ou sur&nbsp;plan</em>", d: "Vous allez recevoir les clés d'un logement vide et vous voulez qu'il soit prêt à vivre.", img: traitAchat },
+];
+
+// Acquéreurs : ce que je fais à chaque étape du projet immobilier (proposition, à valider par Laetitia).
+const etapes = [
+  { quand: 'Sur plan', t: 'Lire les plans', d: "Agencement des pièces, rangements, éclairage, et vos choix de finitions : sols, faïences, couleurs." },
+  { quand: 'Pendant la construction', t: 'Choisir et commander', d: 'Sélection du mobilier, des luminaires et des textiles, gestion des commandes pour que tout arrive à temps.' },
+  { quand: 'À la remise des clés', t: 'Installer', d: "Livraison, installation et mise en place finale : vous entrez dans un intérieur terminé." },
+];
 ---
 <Base
   title="Décoration et aménagement pour particuliers | Casa Senso, Neuchâtel"
-  description="Salons, chambres, cuisines, salles de bains, appartements et maisons : Casa Senso imagine et aménage votre intérieur à Neuchâtel, de l'idée à l'installation."
+  description="Rénovation d'un intérieur ou achat d'un bien neuf ou sur plan : Casa Senso imagine et aménage votre logement à Neuchâtel, de l'idée à l'installation."
 >
   <PageTete mention="Prestations · Particuliers" titre="Particuliers" sous="Des intérieurs imaginés pour vous, <em>jusque dans les détails</em>."
     texte="De l'aménagement à la décoration, je prends en charge votre projet pour un intérieur harmonieux et personnalisé." />
 
-  <section class="espaces conteneur" aria-labelledby="espaces-titre">
+  <Aiguillage question="Votre situation" choix={choix} />
+
+  <section class="espaces conteneur" id="renovation" aria-labelledby="espaces-titre">
+    <p class="mention situation" data-anim="up"><span>01</span> Je repense mon intérieur</p>
     <h2 id="espaces-titre" class="titre-serif" data-anim="up">Les espaces que je <em>repense</em></h2>
     <div class="espaces-grille" data-stagger="110" data-stagger-anim="reveal">
       {espaces.map((e) => (
@@ -39,11 +60,37 @@ const espaces = [
           <figcaption>{e.t}</figcaption>
         </figure>
       ))}
-      <div class="espace texte"><Image class="t" src={traitMaison} alt="" width={180} /><p class="titre-serif">Valorisation de biens après succession</p></div>
+      <div class="espace texte"><Image class="t" src={traitMaisonCreme} alt="" width={220} /><p class="titre-serif">Valorisation de biens <em>après succession</em></p></div>
     </div>
   </section>
 
-  <Lignes titre="Comment je vous <em>accompagne</em>" texte="Un seul accompagnement, de la première idée à la mise en place finale." lignes={services} />
+  <section class="achat" id="achat" aria-labelledby="achat-titre">
+    <div class="conteneur">
+      <div class="achat-tete">
+        <div data-stagger="110">
+          <p class="mention situation"><span>02</span> J'achète un bien neuf ou sur plan</p>
+          <h2 id="achat-titre" class="titre-serif">Un logement neuf, <em>prêt&nbsp;à&nbsp;vivre</em> le jour des clés</h2>
+          <p class="achat-texte">Un appartement neuf se livre vide. Plus on s'y prend tôt, plus les choix se tiennent : je vous accompagne dès les plans, pour que les finitions, le mobilier et la décoration forment un tout.</p>
+        </div>
+        <Image class="achat-trait" src={traitAchat} alt="" width={260} />
+      </div>
+      <ol class="frise" data-stagger="140">
+        {etapes.map((e, i) => (
+          <li>
+            <span class="point" aria-hidden="true"></span>
+            <p class="quand">{String(i + 1).padStart(2, '0')} · {e.quand}</p>
+            <h3 class="titre-serif">{e.t}</h3>
+            <p>{e.d}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="achat-actions" data-anim="up">
+        <ArrowButton href="/contact?situation=achat#formulaire" label="Parler de mon futur logement" />
+      </div>
+    </div>
+  </section>
+
+  <Lignes titre="Comment je vous <em>accompagne</em>" texte="Un seul accompagnement, de la première idée à la mise en place finale." lignes={services} fond="creme" />
 
   <section class="projets conteneur" aria-labelledby="projets-titre">
     <div class="projets-tete" data-anim="up">
@@ -56,10 +103,13 @@ const espaces = [
     </div>
   </section>
 
-  <BandeOlive phrase="Un projet sur mesure, <em>sans contraintes</em>." lien={{ href: '/prestations/professionnels', label: 'Vous êtes un professionnel ?' }} profil="particulier" />
+  <BandeOlive phrase="Un projet sur mesure, <em>sans contraintes</em>." lien={{ href: '/prestations/professionnels', label: 'Vous êtes un professionnel ou un promoteur ?' }} />
 </Base>
 
 <style>
+  .situation { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .situation span { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 999px; background: var(--accent); color: #fff; letter-spacing: 0; font-size: 12px; }
+  #renovation, #achat { scroll-margin-top: calc(var(--header-h) + 24px); }
   .espaces { padding-bottom: 100px; }
   .espaces h2, .projets h2 { font-size: 44px; }
   .espaces h2 em, .projets h2 em { color: var(--accent); }
@@ -69,21 +119,39 @@ const espaces = [
   .espace.grand { grid-row: span 2; }
   .espace :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
   .espace:hover :global(img) { transform: scale(1.05); }
-  .espace::after { content: ''; position: absolute; inset: 50% 0 0 0; background: linear-gradient(to top, rgba(20,16,12,.55), transparent); }
-  .espace.texte { background: var(--card); display: flex; flex-direction: column; justify-content: flex-end; gap: 16px; padding: 22px; }
+  .espace::after { content: ''; position: absolute; inset: 30% 0 0 0; background: linear-gradient(to top, rgba(20,16,12,.75), rgba(20,16,12,.25) 55%, transparent); }
+  /* Tuile sans photo : assumée, en olive, dessin au trait crème (18.11.2026). */
+  .espace.texte { background: var(--olive); color: #F3EDE3; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; padding: 26px; }
+  .espace.texte p :global(em) { color: #E9D9B4; }
   .espace.texte::after { display: none; }
-  .espace.texte :global(.t) { width: 110px; height: auto; }
+  .espace.texte :global(.t) { width: 150px; height: auto; opacity: .9; }
   .espace.texte p { font-size: 24px; line-height: 1.2; }
   figcaption { position: absolute; left: 22px; right: 22px; bottom: 18px; z-index: 1; color: #fff; font-family: var(--serif); font-size: 24px; line-height: 1.2; }
   .grand figcaption { font-size: 32px; }
 
-  .projets { padding-top: 100px; padding-bottom: 100px; }
+  .achat { background: var(--card); padding: 100px 0; }
+  .achat-tete { display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: end; }
+  .achat h2 { font-size: 44px; max-width: 760px; }
+  .achat h2 em { color: var(--accent); }
+  .achat-texte { margin-top: 20px; max-width: 680px; font-size: 18px; line-height: 1.7; }
+  .achat :global(.achat-trait) { width: 200px; height: auto; }
+  .frise { list-style: none; margin: 56px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; position: relative; }
+  .frise::before { content: ''; position: absolute; left: 0; right: 0; top: 7px; border-top: 1px solid var(--ink); opacity: .8; }
+  .frise li { position: relative; padding-top: 34px; }
+  .point { position: absolute; top: 0; left: 0; width: 15px; height: 15px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 0 5px var(--card); }
+  .quand { font-weight: 500; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+  .frise h3 { margin-top: 10px; font-size: 27px; line-height: 1.2; }
+  .frise li > p:last-child { margin-top: 10px; font-size: 16px; line-height: 1.65; color: var(--muted); max-width: 360px; }
+  .achat-actions { margin-top: 52px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .achat-actions p { font-size: 15px; color: var(--muted); }
+
+  .projets { padding-top: 30px; padding-bottom: 100px; }
   .projets-tete { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 32px; flex-wrap: wrap; }
   .projets-grille { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .projet { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius); }
   .projet :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
   .projet:hover :global(img) { transform: scale(1.05); }
-  .projet::after { content: ''; position: absolute; inset: 50% 0 0 0; background: linear-gradient(to top, rgba(20,16,12,.55), transparent); }
+  .projet::after { content: ''; position: absolute; inset: 30% 0 0 0; background: linear-gradient(to top, rgba(20,16,12,.72), rgba(20,16,12,.2) 55%, transparent); }
   .projet span { position: absolute; left: 26px; bottom: 22px; z-index: 1; color: #fff; font-family: var(--serif); font-size: 32px; }
 
   @media (max-width: 999px) {
@@ -96,8 +164,24 @@ const espaces = [
     .espace.texte p { font-size: 18px; }
     figcaption { left: 14px; right: 14px; bottom: 12px; font-size: 18px; }
     .grand figcaption { font-size: 24px; }
-    .projets { padding-top: 64px; padding-bottom: 64px; }
+    .achat { padding: 64px 0; }
+    .achat-tete { grid-template-columns: 1fr; gap: 0; }
+    .achat h2 { font-size: 32px; }
+    .achat-texte { font-size: 17px; }
+    .achat :global(.achat-trait) { display: none; }
+    .frise { margin-top: 40px; grid-template-columns: 1fr; gap: 30px; padding-left: 30px; }
+    .frise::before { left: 7px; right: auto; top: 6px; bottom: 6px; border-top: 0; border-left: 1px solid var(--ink); }
+    .frise li { padding-top: 0; }
+    .point { left: -30px; top: 2px; }
+    .frise h3 { font-size: 23px; }
+    .achat-actions { margin-top: 40px; }
+    .projets { padding-top: 16px; padding-bottom: 64px; }
     .projets-grille { grid-template-columns: 1fr; gap: 10px; }
-    .projet span { font-size: 26px; left: 18px; bottom: 16px; }
+    .projet span { font-size: 24px; left: 18px; right: 18px; bottom: 16px; text-wrap: balance; }
+  }
+  @media (min-width: 600px) and (max-width: 999px) {
+    .espaces-grille { grid-auto-rows: 260px; }
+    .espace.texte :global(.t) { width: 110px; }
+    .projets-grille { grid-template-columns: 1fr 1fr; }
   }
 </style>
