@@ -4,6 +4,8 @@
 // 18.11 : deux situations sur la même page. #renovation = contenu existant ; #achat = acquéreurs d'un bien
 // neuf ou sur plan. Textes de #achat PROPOSÉS par Contrast, à valider par Laetitia (moment d'intervention,
 // choix des finitions) : aucune source client ne décrit encore cette offre.
+// 22.11 : accompagnement en showroom (carrelage, cuisine, parquet) et moodboard d'ambiance, à la demande de Laetitia ;
+// formulation proposée par Contrast.
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import PageTete from '../../components/PageTete.astro';
@@ -23,9 +25,9 @@ import cannesSejour from '../../assets/images/accueil/hero-cannes-sejour.jpg';
 import maisonSalle from '../../assets/images/accueil/maison-salle-a-manger.jpg';
 
 const espaces = [
-  { t: 'Salons et espaces de vie', img: salon, alt: "Salon de l'appartement de Cannes", cls: 'grand' },
-  { t: 'Chambres et dressings', img: chambre, alt: "Chambre de l'appartement de Cannes, mur vert" },
-  { t: 'Cuisines et salles de bains', img: cuisine, alt: "Cuisine de l'appartement de Cannes" },
+  { t: 'Salons et espaces de vie', img: salon, alt: "Salon de l'appartement dans le Sud", cls: 'grand' },
+  { t: 'Chambres et dressings', img: chambre, alt: "Chambre de l'appartement dans le Sud, mur vert" },
+  { t: 'Cuisines et salles de bains', img: cuisine, alt: "Cuisine de l'appartement dans le Sud" },
   { t: 'Appartements et maisons', img: maison, alt: 'Salon de la maison de famille' },
 ];
 
@@ -36,9 +38,9 @@ const choix = [
 
 // Acquéreurs : ce que je fais à chaque étape du projet immobilier (proposition, à valider par Laetitia).
 const etapes = [
-  { quand: 'Sur plan', t: 'Lire les plans', d: "Agencement des pièces, rangements, éclairage, et vos choix de finitions : sols, faïences, couleurs." },
-  { quand: 'Pendant la construction', t: 'Choisir et commander', d: 'Sélection du mobilier, des luminaires et des textiles, gestion des commandes pour que tout arrive à temps.' },
-  { quand: 'À la remise des clés', t: 'Installer', d: "Livraison, installation et mise en place finale : vous entrez dans un intérieur terminé." },
+  { quand: 'Sur plan', t: "Poser l'ambiance", d: "Je lis les plans avec vous et je vous remets un moodboard d'ambiance : il guide chacun des choix qui suivent." },
+  { quand: 'Pendant la construction', t: 'Choisir en showroom', d: "Je vous accompagne dans les showrooms pour choisir le carrelage, le parquet, la cuisine et la salle de bains, en accord avec l'ambiance." },
+  { quand: 'À la remise des clés', t: 'Meubler et installer', d: "Mobilier, luminaires et textiles, commandes, livraison et installation : vous entrez dans un intérieur terminé." },
 ];
 ---
 <Base
@@ -70,7 +72,7 @@ const etapes = [
         <div data-stagger="110">
           <p class="mention situation"><span>02</span> J'achète un bien neuf ou sur plan</p>
           <h2 id="achat-titre" class="titre-serif">Un logement neuf, <em>prêt&nbsp;à&nbsp;vivre</em> le jour des clés</h2>
-          <p class="achat-texte">Un appartement neuf se livre vide. Plus on s'y prend tôt, plus les choix se tiennent : je vous accompagne dès les plans, pour que les finitions, le mobilier et la décoration forment un tout.</p>
+          <p class="achat-texte">Un appartement neuf se livre vide. Plus on s'y prend tôt, plus les choix se tiennent : je vous accompagne dès les plans et jusque dans les showrooms, pour que les finitions, le mobilier et la décoration forment un tout.</p>
         </div>
         <Image class="achat-trait" src={traitAchat} alt="" width={260} />
       </div>
@@ -98,7 +100,7 @@ const etapes = [
       <ArrowButton href="/realisations" label="Toutes les réalisations" />
     </div>
     <div class="projets-grille" data-stagger="140" data-stagger-anim="reveal">
-      <a class="projet" href="/realisations/appartement-cannes"><Image src={cannesSejour} alt="Séjour de l'appartement de Cannes" widths={[600, 1000, 1400]} sizes="(max-width: 999px) 100vw, 50vw" /><span>L'appartement de Cannes</span></a>
+      <a class="projet" href="/realisations/appartement-sud"><Image src={cannesSejour} alt="Séjour de l'appartement dans le Sud" widths={[600, 1000, 1400]} sizes="(max-width: 999px) 100vw, 50vw" /><span>Un appartement dans le Sud</span></a>
       <a class="projet" href="/realisations/maison-de-famille"><Image src={maisonSalle} alt="Salle à manger de la maison de famille" widths={[600, 1000, 1400]} sizes="(max-width: 999px) 100vw, 50vw" /><span>La maison de famille</span></a>
     </div>
   </section>

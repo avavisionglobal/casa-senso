@@ -22,7 +22,6 @@ import cannes_hd_34 from '../assets/images/projets/cannes/hd-34.jpg';
 import cannes_hd_5 from '../assets/images/projets/cannes/hd-5.jpg';
 import cannes_hd_6 from '../assets/images/projets/cannes/hd-6.jpg';
 import cannes_hd_7 from '../assets/images/projets/cannes/hd-7.jpg';
-import maison_avant_image1 from '../assets/images/projets/maison/avant-image1.jpg';
 import maison_avant_image12 from '../assets/images/projets/maison/avant-image12.jpg';
 import maison_avant_image15 from '../assets/images/projets/maison/avant-image15.jpg';
 import maison_avant_image16 from '../assets/images/projets/maison/avant-image16.jpg';
@@ -68,8 +67,8 @@ export interface Projet {
 
 export const projets: Projet[] = [
   {
-    slug: 'appartement-cannes', titre: "L'appartement de Cannes", titreHtml: "L'appartement <em>de Cannes</em>",
-    type: 'Appartement', lieu: 'Cannes, France',
+    slug: 'appartement-sud', titre: "Un appartement dans le Sud", titreHtml: "Un appartement <em>dans le Sud</em>",
+    type: 'Appartement', lieu: 'Sud de la France',
     missions: ['Aménagement intérieur', 'Décoration & mise en valeur', 'Accompagnement clé en main'],
     couverture: cannes_hd_28,
     haut: [cannes_hd_28, cannes_hd_23, cannes_hd_15],
@@ -82,6 +81,7 @@ export const projets: Projet[] = [
       { p: "Au départ, des pièces cloisonnées, de la moquette, peu de lumière. Alors on a tout ouvert, jusqu'aux plafonds, et la lumière est revenue, pièce après pièce." },
       { p: "Une cuisine ouverte, chêne et marbre, au cœur de l'appartement. Des chambres apaisées, un mur vert forêt, des salles d'eau en bois et laiton." },
     ],
+    // 22.11.2026 : nom « Un appartement dans le Sud » à la demande de Laetitia (Cannes n'apparaît plus).
     a_valider: "Citation : son e-mail du 08.11. Récit : textes proposés par Contrast (repris du post Avant / après), à valider. Adresse non publiée.",
   },
   {
@@ -92,7 +92,7 @@ export const projets: Projet[] = [
     haut: [maison_dsc02422, maison_dsc02450, maison_dsc02414],
     rangee: [maison_dsc02427, maison_dsc02504_hdr, maison_dsc02580, maison_dsc02536],
     galerie: [maison_dsc02430, maison_dsc02433, maison_dsc02454, maison_dsc02456, maison_dsc02465, maison_dsc02593, maison_dsc02559, maison_dsc02597],
-    avant: [maison_avant_image12, maison_avant_image15, maison_avant_image16, maison_avant_image20, maison_avant_image28, maison_avant_image1], avantTitre: 'Le chantier',
+    avant: [maison_avant_image12, maison_avant_image15, maison_avant_image16, maison_avant_image20, maison_avant_image28], avantTitre: 'Le chantier',
     accroche: "Une vieille bâtisse, fatiguée, abîmée, mais tellement pleine d'histoire et de charme.",
     recit: [
       { p: "« Là où certains voyaient des murs à refaire, moi, je voyais déjà mille possibilités. »", citation: true },

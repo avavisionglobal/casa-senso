@@ -308,3 +308,9 @@ Format : date · décision · raison · remplace · statut · source.
 - **Raison** : Diego, « deux petits points en début de phrase après la ligne… un gros travail de responsive ».
 - **Statut** : en ligne sur https://casa-senso-apercu.vercel.app le 18.11.2026. Audit automatique (11 pages × 12 largeurs, 320 à 1920 px) sans défaut ; relecture visuelle à 360, 768, 1024 et 1920 px.
 - **Source** : Diego, conversation du 18.11.2026 ; `site/PROJECT.md`.
+
+## 2026-11-22 · Site : retours de Laetitia sur l'aperçu
+- **Décision** : (1) le projet de Cannes devient « Un appartement dans le Sud » (titre, tuiles, lieu « Sud de la France », textes des photos, adresse `/realisations/appartement-sud` avec redirection de l'ancienne) ; (2) sections `#achat` (Particuliers) et `#promoteurs` (Professionnels) : moodboard d'ambiance dès les plans et accompagnement en showroom (carrelage, parquet, cuisine, salle de bains), pour les particuliers comme pour les acquéreurs des promoteurs ; (3) maison de famille : photo de l'escalier retirée du chantier (5 photos).
+- **Raison** : retour de Laetitia transmis par Diego le 22.11.2026.
+- **Statut** : en ligne sur https://casa-senso-apercu.vercel.app le 22.11.2026. Formulation des textes (2) proposée par Contrast, à faire relire par Laetitia.
+- **Source** : Diego, conversation du 22.11.2026. Le travail du 18.11 venait d'un dossier hors zone du MacBook (`~/casa-senso`), récupéré par la branche `macbook-2026-11-18` puis fusionné dans `main`.

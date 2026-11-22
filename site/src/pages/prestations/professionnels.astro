@@ -5,6 +5,7 @@
 // #promoteurs = promoteurs immobiliers, pour leurs acquéreurs ou pour leurs biens. Textes de #promoteurs
 // PROPOSÉS par Contrast, à valider par Laetitia (appartement témoin, forme du partenariat) : aucune source
 // client ne décrit encore cette offre ni ne cite de promoteur.
+// 22.11 : accompagnement des acquéreurs en showroom et moodboard d'ambiance, à la demande de Laetitia ; formulation Contrast.
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import PageTete from '../../components/PageTete.astro';
@@ -36,7 +37,7 @@ const offres = [
   {
     pour: 'Pour vos acquéreurs', img: traitPorte,
     t: 'Un accompagnement à leur proposer',
-    items: ['Lecture des plans et choix des finitions', 'Mobilier, décoration et commandes', "Installation à la remise des clés"],
+    items: ["Un moodboard d'ambiance dès les plans", 'Accompagnement en showroom : carrelage, parquet, cuisine', 'Mobilier, décoration et installation à la remise des clés'],
   },
   {
     pour: 'Pour vos biens', img: traitMiseEnValeur,
@@ -88,7 +89,7 @@ const offres = [
     <div class="promo-tete" data-stagger="110">
       <p class="mention situation"><span>02</span> Je suis promoteur immobilier</p>
       <h2 id="promo-titre" class="titre-serif">Vos projets, <em>habités</em> avant d'être livrés</h2>
-      <p class="promo-texte">Un logement neuf se vend mieux quand on peut s'y projeter. Je travaille avec vous sur l'intérieur de vos programmes, pour vos acquéreurs comme pour vos biens, avec une seule interlocutrice du premier rendez-vous à l'installation.</p>
+      <p class="promo-texte">Un logement neuf se vend mieux quand on peut s'y projeter. Je travaille avec vous sur l'intérieur de vos programmes et j'accompagne vos acquéreurs jusque dans les showrooms, avec une seule interlocutrice du premier rendez-vous à l'installation.</p>
     </div>
     <div class="promo-grille" data-stagger="140" data-stagger-anim="reveal">
       {offres.map((o) => (
